@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <Header />
     <Footer />
   </div>
@@ -8,14 +8,14 @@
 <script lang="ts">
 import Header from "@/components/layout/Header.vue";
 import Footer from "@/components/layout/Footer.vue";
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "App",
+
+export default {
+  name: "app",
   components: {
     Header,
     Footer,
   },
-});
+};
 </script>
 
 <style>
