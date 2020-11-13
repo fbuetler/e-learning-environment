@@ -2,26 +2,6 @@
 
 ## 1 - 6 Texte editieren
 
-### Texte mit einem Symbol kürzen
-
-### Texte mit links kürzen
-
-- Oh, du goldigs Sünneli
-- Alli mini Äntli
-- Hasli i dr Gruebe
-- Es Buurebüebli
-- Det äne am Bärgli
-- Roti Rösli im Garte
-- S Ramseiers wei go grase
-- Backe, backe Kuchen
-- Bim-bam
-- Bruder Jakob, Bruder Jakob
-- Chämifäger schwarze Ma
-- Summ, summ, summ
-- Rite, rite, Rumpelsack
-
-https://www.swissmom.ch/chinder-musig-waelt/liedertexte/
-
 ### Buchstaben in Wörter austauschen
 
 ### Buchstaben weglassen
