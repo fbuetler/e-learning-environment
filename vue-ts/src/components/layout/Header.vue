@@ -3,9 +3,11 @@
     <h1>einfach INFORMATIK</h1>
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/treerow3">Reihe aus 3 Bäumen</router-link> |
+      <router-link to="/treesudoku3">3x3 Baumsudoku</router-link> |
+      <router-link to="/treerow4">Reihe aus 4 Bäumen</router-link> |
+      <router-link to="/treesudoku4">4x4 Baumsudoku</router-link>
     </div>
-    <router-view />
   </header>
 </template>
 

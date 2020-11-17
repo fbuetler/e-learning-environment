@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="logo-abz">
+    <!-- <div class="logo-abz">
       <a href="http://abz.inf.ethz.ch/" target="blank">
         <img src="@/assets/abz-logo.png" />
       </a>
@@ -9,7 +9,7 @@
       <a href="https://ethz.ch" target="blank">
         <img _ngcontent-c1="" src="@/assets/ethz-logo.svg" />
       </a>
-    </div>
+    </div> -->
   </div>
 </template>
 

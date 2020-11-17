@@ -11,9 +11,24 @@ const routes: Array<RouteConfig> = [
     component: Home,
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("@/views/About.vue"),
+    path: "/treerow3",
+    name: "Reihe aus 3 Bäumen",
+    component: () => import("@/views/TreeRowOfThree.vue"),
+  },
+  {
+    path: "/treesudoku3",
+    name: "3x3 Baumsudoku",
+    component: () => import("@/views/TreeSudokuOfThree.vue"),
+  },
+  {
+    path: "/treerow4",
+    name: "Reihe aus 4 Bäumen",
+    component: () => import("@/views/TreeRowOfFour.vue"),
+  },
+  {
+    path: "/treesudoku4",
+    name: "4x4 Baumsudoku",
+    component: () => import("@/views/TreeSudokuOfFour.vue"),
   },
 ];
 
