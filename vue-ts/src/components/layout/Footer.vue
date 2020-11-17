@@ -1,6 +1,5 @@
 <template>
   <div class="footer">
-    <b-button variant="outline-primary">Button</b-button>
     <div class="logo-abz">
       <a href="http://abz.inf.ethz.ch/" target="blank">
         <img src="@/assets/abz-logo.png" />
