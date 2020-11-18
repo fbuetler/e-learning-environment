@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <footer>
     <!-- <div class="logo-abz">
       <a href="http://abz.inf.ethz.ch/" target="blank">
         <img src="@/assets/abz-logo.png" />
@@ -10,12 +10,12 @@
         <img _ngcontent-c1="" src="@/assets/ethz-logo.svg" />
       </a>
     </div> -->
-  </div>
+  </footer>
 </template>
 
 <script lang="ts">
 export default {
-  name: "footer",
+  name: "Footer",
 };
 </script>
 

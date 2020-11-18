@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header>
     <h1>einfach INFORMATIK</h1>
     <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 export default {
-  name: "header",
+  name: "Header",
 };
 </script>
 
