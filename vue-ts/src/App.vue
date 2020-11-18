@@ -24,7 +24,7 @@ body {
   background-color: #ff5252;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   text-align: center;
 }
 </style>
