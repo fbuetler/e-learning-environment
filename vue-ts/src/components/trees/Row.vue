@@ -1,26 +1,47 @@
 <template>
-  <div class="row">
+  <div class="game">
     <h2>Reihe aus {{ size }} Bäumen</h2>
     <div class="buttons-container">
-      <button class="button" v-on:click="initializeGame()">
+      <button class="button" @click="initializeGame()">
         {{ initializeGameText }}
       </button>
-      <button class="button" v-on:click="evaluateGame()" v-if="isGameStarted">
+      <button class="button" @click="evaluateGame()" v-if="isGameStarted">
         {{ evaluateGameText }}
       </button>
     </div>
-    <div class="grid" v-if="isGameStarted && !showResult">
-      <div class="grid-cell">{{ leftView }}</div>
-      <div v-for="cell in answer" v-bind:key="cell.id" class="grid-cell">
-        <input
-          v-model.number="cell.value"
-          type="text"
-          class="grid-cell-content"
-        />
+    <div class="content" v-if="isGameStarted && !showResult">
+      <div class="grid">
+        <div class="grid-cell">{{ leftView }}</div>
+        <div
+          class="tree"
+          v-for="cell in answer"
+          :key="cell.id"
+          @click="putTree(cell.id)"
+        >
+          <img
+            v-if="cell.value === 0"
+            :src="require('@/assets/trees/tree_empty.png')"
+          />
+          <img
+            v-else
+            :src="require('@/assets/trees/tree_' + cell.value + '.png')"
+          />
+        </div>
+        <div class="grid-cell">{{ rightView }}</div>
       </div>
-      <div class="grid-cell">{{ rightView }}</div>
+      <div class="trees">
+        <div
+          class="tree"
+          v-for="index in size"
+          :key="index"
+          :class="{ selected: index === pickedTree }"
+          @click="pickTree(index)"
+        >
+          <img :src="require('@/assets/trees/tree_' + index + '.png')" />
+        </div>
+      </div>
     </div>
-    <div v-if="showResult" class="solution">
+    <div v-if="showResult">
       <h3>{{ resultMessage }}</h3>
     </div>
   </div>
@@ -36,20 +57,21 @@ type Answer = {
 
 @Component
 export default class Row extends Vue {
-  @Prop({ required: true })
-  private size: number;
-
+  @Prop({ type: Number, required: true })
+  private size!: number;
+  @Prop()
   private answer: Answer;
   @Prop()
-  private leftView!: number;
+  private leftView: number;
   @Prop()
-  private rightView!: number;
+  private rightView: number;
 
   private initializeGameText = "Start!";
   private evaluateGameText = "Überprüfen!";
   private isGameStarted = false;
   private showResult = false;
-  private resultMessage: string;
+  private resultMessage = "";
+  private pickedTree = 0;
 
   public initializeGame(): void {
     [this.leftView, this.rightView, this.answer] = this.generateTreeRow();
@@ -77,6 +99,18 @@ export default class Row extends Vue {
       this.showResult = false;
       this.isGameStarted = true;
     }, 2000);
+  }
+
+  public pickTree(id: number): void {
+    console.log("tree id " + id);
+    this.pickedTree = id;
+  }
+
+  public putTree(cellID: number): void {
+    console.log("cell id " + cellID);
+    this.answer.find((el) => el.id === cellID).value = this.pickedTree;
+    this.pickedTree = 0;
+    console.log(this.answer.map((el) => el.value));
   }
 
   private generateTreeRow(): [number, number, Answer] {
@@ -135,8 +169,7 @@ button:focus {
   outline: none;
 }
 
-.row {
-  place-self: center;
+.game {
   display: grid;
   grid-template-rows: auto 1fr;
   justify-items: center;
@@ -155,16 +188,19 @@ button:focus {
   font-size: 16px;
   padding: 10px;
   width: 230px;
-  transition: all 0.5s;
   cursor: pointer;
   margin: 0px 0px 25px 0px;
-  font-family: "Dosis", sans-serif;
   font-weight: bold;
+}
+
+.content {
+  display: grid;
 }
 
 .grid {
   display: table;
   background: white;
+  margin: 0px 0px 25px 0px;
   border: 3px solid black;
 }
 
@@ -181,5 +217,28 @@ button:focus {
   font-weight: bold;
   text-align: center;
   font-size: 18px;
+}
+
+.trees {
+  display: table;
+  background: white;
+  margin: 0px 0px 25px 0px;
+  border: 3px solid black;
+  justify-items: center;
+}
+
+.tree {
+  display: table-cell;
+  padding: 10px;
+  border: 1px solid gray;
+}
+
+.tree.selected {
+  background: #eeee4e;
+}
+
+.tree img {
+  width: 50px;
+  height: 50px;
 }
 </style>
