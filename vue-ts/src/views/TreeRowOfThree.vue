@@ -1,16 +1,16 @@
 <template>
   <div class="treerow">
-    <RowOfThree size="3" />
+    <Row size="3" />
   </div>
 </template>
 
 <script lang="ts">
-import RowOfThree from "@/components/trees/RowOfThree.vue";
+import Row from "@/components/trees/Row.vue";
 
 export default {
-  name: "treerowofthree",
+  name: "TreeRowOfThree",
   components: {
-    RowOfThree,
+    Row,
   },
 };
 </script>
