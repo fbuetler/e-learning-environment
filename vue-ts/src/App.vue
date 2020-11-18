@@ -26,5 +26,7 @@ body {
 #app {
   font-family: Helvetica, Arial, sans-serif;
   text-align: center;
+  width: 80%;
+  margin: 0 auto;
 }
 </style>

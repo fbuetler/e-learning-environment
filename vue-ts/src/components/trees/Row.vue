@@ -1,23 +1,18 @@
 <template>
-  <div class="game">
+  <div>
     <h2>Reihe aus {{ size }} Bäumen</h2>
     <div class="buttons-container">
-      <button class="button" @click="initializeGame()">
+      <button @click="initializeGame()">
         {{ initializeGameText }}
       </button>
-      <button class="button" @click="evaluateGame()" v-if="isGameStarted">
+      <button @click="evaluateGame()" v-if="isGameStarted">
         {{ evaluateGameText }}
       </button>
     </div>
-    <div class="content" v-if="isGameStarted && !showResult">
-      <div class="grid">
-        <div class="grid-cell">{{ leftView }}</div>
-        <div
-          class="tree"
-          v-for="cell in answer"
-          :key="cell.id"
-          @click="putTree(cell.id)"
-        >
+    <div v-if="isGameStarted && !showResult">
+      <div class="grid" :style="cellsPerRowWithViews">
+        <div>{{ leftView }}</div>
+        <div v-for="cell in answer" :key="cell.id" @click="putTree(cell.id)">
           <img
             v-if="cell.value === 0"
             :src="require('@/assets/trees/tree_empty.png')"
@@ -27,11 +22,11 @@
             :src="require('@/assets/trees/tree_' + cell.value + '.png')"
           />
         </div>
-        <div class="grid-cell">{{ rightView }}</div>
+        <div>{{ rightView }}</div>
       </div>
-      <div class="trees">
+      <div class="grid" :style="cellsPerRowWithViews">
+        <div></div>
         <div
-          class="tree"
           v-for="index in size"
           :key="index"
           :class="{ selected: index === pickedTree }"
@@ -39,10 +34,11 @@
         >
           <img :src="require('@/assets/trees/tree_' + index + '.png')" />
         </div>
+        <div></div>
       </div>
     </div>
     <div v-if="showResult">
-      <h3>{{ resultMessage }}</h3>
+      <h3>{{ resultText }}</h3>
     </div>
   </div>
 </template>
@@ -65,29 +61,29 @@ export default class Row extends Vue {
 
   private initializeGameText = "Start!";
   private evaluateGameText = "Überprüfen!";
+  private resultText = "";
   private isGameStarted = false;
   private showResult = false;
-  private resultMessage = "";
   private pickedTree = 0;
 
   public initializeGame(): void {
     [this.leftView, this.rightView, this.answer] = this.generateTreeRow();
     this.initializeGameText = "Neu starten";
     this.isGameStarted = true;
-    this.resultMessage = "";
+    this.resultText = "";
   }
 
   public evaluateGame(): void {
     if (this.answer.length != this.size) {
-      this.resultMessage = "Ungültige Antwort!";
+      this.resultText = "Ungültige Antwort!";
     } else {
       const trArr = this.answer.map((tree) => tree.value);
       const visibleLeft = this.visibleTreesFromLeft(trArr);
       const visibleRight = this.visibleTreesFromLeft(trArr.slice().reverse());
       if (visibleLeft !== this.leftView || visibleRight !== this.rightView) {
-        this.resultMessage = "Falsch!";
+        this.resultText = "Falsch!";
       } else {
-        this.resultMessage = "Richtig!";
+        this.resultText = "Richtig!";
       }
     }
     this.showResult = true;
@@ -152,6 +148,13 @@ export default class Row extends Vue {
     }
     return visible;
   }
+
+  get cellsPerRowWithViews(): string {
+    return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
+  }
+  get cellsPerRow(): string {
+    return "grid-template-columns: repeat(" + this.size + ",auto)";
+  }
 }
 </script>
 
@@ -163,22 +166,16 @@ button:focus {
   outline: none;
 }
 
-.game {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  justify-items: center;
-}
 .buttons-container {
   display: grid;
   grid-template-rows: auto auto;
+  justify-content: center;
 }
-.button {
-  display: inline-block;
+button {
   border-radius: 6px;
   background-color: whitesmoke;
   border: none;
   color: black;
-  text-align: center;
   font-size: 16px;
   padding: 10px;
   width: 230px;
@@ -187,52 +184,30 @@ button:focus {
   font-weight: bold;
 }
 
-.content {
-  display: grid;
-}
-
 .grid {
-  display: table;
+  display: grid;
   background: white;
-  margin: 0px 0px 25px 0px;
   border: 3px solid black;
+  margin: 0px 0px 25px 0px;
 }
-
-.grid-cell {
-  display: table-cell;
-  padding: 10px;
+.grid > div {
+  padding: 1rem;
+  position: relative;
   border: 1px solid gray;
 }
-
-.grid-cell-content {
-  border: none;
-  width: 20px;
-  height: 20px;
-  font-weight: bold;
-  text-align: center;
-  font-size: 18px;
+.grid > div::before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
 }
-
-.trees {
-  display: table;
-  background: white;
-  margin: 0px 0px 25px 0px;
-  border: 3px solid black;
-  justify-items: center;
+.grid > div img {
+  position: absolute;
+  max-width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-
-.tree {
-  display: table-cell;
-  padding: 10px;
-  border: 1px solid gray;
-}
-
-.tree.selected {
+.grid > .selected {
   background: #eeee4e;
-}
-
-.tree img {
-  width: 50px;
-  height: 50px;
 }
 </style>
