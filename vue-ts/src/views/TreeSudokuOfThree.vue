@@ -1,16 +1,16 @@
 <template>
   <div class="treesudoku">
-    <SudokuOfFourfrom />
+    <Sudoku size="3" />
   </div>
 </template>
 
 <script lang="ts">
-import SudokuOfFourfrom from "@/components/trees/SudokuOfFour.vue";
+import Sudoku from "@/components/trees/Sudoku.vue";
 
 export default {
-  name: "treesudokuoffour",
+  name: "TreeSudokuOfFour",
   components: {
-    SudokuOfFourfrom,
+    Sudoku,
   },
 };
 </script>
