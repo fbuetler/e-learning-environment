@@ -24,7 +24,7 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #bbbbbb;
+  color: #ffffff;
   text-decoration: none;
 }
 
