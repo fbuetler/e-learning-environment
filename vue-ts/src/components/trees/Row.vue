@@ -1,6 +1,6 @@
 <template>
-  <div class="treerow">
-    <h1>Reihe aus {{ size }} Bäumen</h1>
+  <div class="row">
+    <h2>Reihe aus {{ size }} Bäumen</h2>
     <div class="buttons-container">
       <button class="button" v-on:click="initializeGame()">
         {{ initializeGameText }}
@@ -21,7 +21,7 @@
       <div class="grid-cell">{{ rightView }}</div>
     </div>
     <div v-if="showResult" class="solution">
-      <h2>{{ resultMessage }}</h2>
+      <h3>{{ resultMessage }}</h3>
     </div>
   </div>
 </template>
@@ -38,21 +38,24 @@ type Answer = {
 export default class Row extends Vue {
   @Prop({ required: true })
   private size: number;
+
   private answer: Answer;
   @Prop()
   private leftView!: number;
   @Prop()
   private rightView!: number;
+
   private initializeGameText = "Start!";
-  private evaluateGameText = "Verify!";
+  private evaluateGameText = "Überprüfen!";
   private isGameStarted = false;
   private showResult = false;
   private resultMessage: string;
 
   public initializeGame(): void {
     [this.leftView, this.rightView, this.answer] = this.generateTreeRow();
-    this.initializeGameText = "Restart";
+    this.initializeGameText = "Neu starten";
     this.isGameStarted = true;
+    this.resultMessage = "";
   }
 
   public evaluateGame(): void {
@@ -132,7 +135,7 @@ button:focus {
   outline: none;
 }
 
-.treerow {
+.row {
   place-self: center;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -171,14 +174,12 @@ button:focus {
   border: 1px solid gray;
 }
 
-.grid-cell-editor {
+.grid-cell-content {
   border: none;
   width: 20px;
   height: 20px;
-  font-family: "Dosis", sans-serif;
   font-weight: bold;
   text-align: center;
   font-size: 18px;
-  transition: all ease 1s;
 }
 </style>
