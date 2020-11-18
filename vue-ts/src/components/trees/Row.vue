@@ -102,15 +102,12 @@ export default class Row extends Vue {
   }
 
   public pickTree(id: number): void {
-    console.log("tree id " + id);
     this.pickedTree = id;
   }
 
   public putTree(cellID: number): void {
-    console.log("cell id " + cellID);
     this.answer.find((el) => el.id === cellID).value = this.pickedTree;
     this.pickedTree = 0;
-    console.log(this.answer.map((el) => el.value));
   }
 
   private generateTreeRow(): [number, number, Answer] {
