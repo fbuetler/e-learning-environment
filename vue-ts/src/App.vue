@@ -20,9 +20,11 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #ff5252;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  background-color: #ff5252;
 }
 </style>
