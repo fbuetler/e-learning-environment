@@ -1,6 +1,6 @@
 <template>
   <div class="treerow">
-    <Row size="3" />
+    <Row :size="3" />
   </div>
 </template>
 
