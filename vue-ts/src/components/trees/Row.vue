@@ -59,12 +59,9 @@ type Answer = {
 export default class Row extends Vue {
   @Prop({ type: Number, required: true })
   private size!: number;
-  @Prop()
-  private answer: Answer;
-  @Prop()
-  private leftView: number;
-  @Prop()
-  private rightView: number;
+  private answer: Answer = null;
+  private leftView: number = null;
+  private rightView: number = null;
 
   private initializeGameText = "Start!";
   private evaluateGameText = "Überprüfen!";
