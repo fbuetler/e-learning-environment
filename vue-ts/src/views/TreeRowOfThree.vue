@@ -1,6 +1,6 @@
 <template>
   <div class="treerow">
-    <RowOfThree />
+    <RowOfThree size="3" />
   </div>
 </template>
 

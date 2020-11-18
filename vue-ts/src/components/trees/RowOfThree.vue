@@ -1,6 +1,6 @@
 <template>
   <div class="treerow">
-    <h1>Reihe aus 3 Bäumen</h1>
+    <h1>Reihe aus {{ size }} Bäumen</h1>
     <div class="buttons-container">
       <button class="button" v-on:click="initializeGame()">
         {{ initializeGameText }}
@@ -9,227 +9,117 @@
         {{ evaluateGameText }}
       </button>
     </div>
-    <div class="grid" v-if="isGameStarted">
-      <div class="grid-cell">{{ treeRow.question.leftView }}</div>
-      <div
-        v-for="cell in treeRow.answer"
-        v-bind:key="cell.value"
-        class="grid-cell"
-      >
-        <input v-model="cell.value" type="text" class="grid-cell-content" />
-        {{ cell.value }}
+    <div class="grid" v-if="isGameStarted && !showResult">
+      <div class="grid-cell">{{ leftView }}</div>
+      <div v-for="cell in answer" v-bind:key="cell.id" class="grid-cell">
+        <input
+          v-model.number="cell.value"
+          type="text"
+          class="grid-cell-content"
+        />
       </div>
-      <div class="grid-cell">{{ treeRow.question.rightView }}</div>
+      <div class="grid-cell">{{ rightView }}</div>
+    </div>
+    <div v-if="showResult" class="solution">
+      <h2>{{ resultMessage }}</h2>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+type Answer = {
+  id: number;
+  value: number;
+}[];
+
 @Component
 export default class RowOfTree extends Vue {
-  private treeRow: {
-    id: number;
-    question: {
-      leftView: number;
-      rightView: number;
-    };
-    answer: {
-      value: number;
-    }[];
-    solution: {
-      value: number;
-    }[];
-  };
-  private possibleTreeRows = [
-    {
-      id: 1,
-      question: {
-        leftView: 3,
-        rightView: 1,
-      },
-      answer: [
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-      ],
-      solution: [
-        {
-          value: 1,
-        },
-        {
-          value: 2,
-        },
-        {
-          value: 3,
-        },
-      ],
-    },
-    {
-      id: 2,
-      question: {
-        leftView: 1,
-        rightView: 3,
-      },
-      answer: [
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-      ],
-      solution: [
-        {
-          value: 3,
-        },
-        {
-          value: 2,
-        },
-        {
-          value: 1,
-        },
-      ],
-    },
-    {
-      id: 3,
-      question: {
-        leftView: 2,
-        rightView: 2,
-      },
-      answer: [
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-      ],
-      solution: [
-        {
-          value: 1,
-        },
-        {
-          value: 3,
-        },
-        {
-          value: 2,
-        },
-      ],
-    },
-    {
-      id: 4,
-      question: {
-        leftView: 2,
-        rightView: 2,
-      },
-      answer: [
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-      ],
-      solution: [
-        {
-          value: 2,
-        },
-        {
-          value: 3,
-        },
-        {
-          value: 1,
-        },
-      ],
-    },
-    {
-      id: 5,
-      question: {
-        leftView: 2,
-        rightView: 1,
-      },
-      answer: [
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-      ],
-      solution: [
-        {
-          value: 2,
-        },
-        {
-          value: 1,
-        },
-        {
-          value: 3,
-        },
-      ],
-    },
-    {
-      id: 6,
-      question: {
-        leftView: 1,
-        rightView: 2,
-      },
-      answer: [
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-        {
-          value: 0,
-        },
-      ],
-      solution: [
-        {
-          value: 3,
-        },
-        {
-          value: 1,
-        },
-        {
-          value: 2,
-        },
-      ],
-    },
-  ];
+  @Prop({ required: true })
+  private size: number;
+  private answer: Answer;
+  @Prop()
+  private leftView!: number;
+  @Prop()
+  private rightView!: number;
   private initializeGameText = "Start!";
   private evaluateGameText = "Verify!";
   private isGameStarted = false;
+  private showResult = false;
+  private resultMessage: string;
+
   public initializeGame(): void {
-    this.treeRow = this.possibleTreeRows[
-      Math.floor(Math.random() * this.possibleTreeRows.length)
-    ];
+    [this.leftView, this.rightView, this.answer] = this.generateTreeRow();
     this.initializeGameText = "Restart";
     this.isGameStarted = true;
   }
+
   public evaluateGame(): void {
-    console.log(this.treeRow);
-    return;
+    if (this.answer.length != this.size) {
+      this.resultMessage = "Ungültige Antwort!";
+    } else {
+      const trArr = this.answer.map((tree) => tree.value);
+      const visibleLeft = this.visibleTreesFromLeft(trArr);
+      const visibleRight = this.visibleTreesFromLeft(trArr.slice().reverse());
+      if (visibleLeft !== this.leftView || visibleRight !== this.rightView) {
+        this.resultMessage = "Falsch!";
+      } else {
+        this.resultMessage = "Richtig!";
+      }
+    }
+    this.showResult = true;
+    this.isGameStarted = false;
+    setTimeout(() => {
+      this.showResult = false;
+      this.isGameStarted = true;
+    }, 2000);
+  }
+
+  private generateTreeRow(): [number, number, Answer] {
+    const numbers: number[] = [];
+    for (let i = 0; i < this.size; i++) {
+      numbers[i] = i + 1;
+    }
+    this.shuffle(numbers);
+    const answer: Answer = [];
+    for (let i = 0; i < this.size; i++) {
+      answer[i] = {
+        id: i + 1,
+        value: 0,
+      };
+    }
+    return [
+      this.visibleTreesFromLeft(numbers),
+      this.visibleTreesFromLeft(numbers.slice().reverse()),
+      answer,
+    ];
+  }
+
+  private shuffle(arr: number[]): void {
+    let currentIndex = arr.length;
+    let tempValue: number;
+    let randomIndex: number;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      tempValue = arr[currentIndex];
+      arr[currentIndex] = arr[randomIndex];
+      arr[randomIndex] = tempValue;
+    }
+  }
+
+  private visibleTreesFromLeft(trees: number[]): number {
+    let min = 0;
+    let visible = 0;
+    for (const tree of trees) {
+      if (tree > min) {
+        visible++;
+        min = tree;
+      }
+    }
+    return visible;
   }
 }
 </script>
