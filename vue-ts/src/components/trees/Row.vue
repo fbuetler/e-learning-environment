@@ -35,7 +35,7 @@ type Answer = {
 }[];
 
 @Component
-export default class RowOfTree extends Vue {
+export default class Row extends Vue {
   @Prop({ required: true })
   private size: number;
   private answer: Answer;
