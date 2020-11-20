@@ -24,19 +24,12 @@
         </div>
         <div>{{ rightView }}</div>
       </div>
-      <div class="grid" :style="cellsPerRowWithViews">
-        <div></div>
-        <div
-          v-for="index in size"
-          :key="index"
-          :class="{ selected: index === pickedTree }"
-          @click="pickTree(index)"
-        >
-          <img :src="require('@/assets/trees/tree_' + index + '.png')" />
+      <Selection
+        :size="size"
+        :selected="pickedTree"
+        @changeSelection="pickedTree = $event"
+      />
         </div>
-        <div></div>
-      </div>
-    </div>
     <div v-if="showResult">
       <h3>{{ resultText }}</h3>
     </div>
@@ -45,13 +38,18 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import Selection from "@/components/trees/Selection.vue";
 
 type Answer = {
   id: number;
   value: number;
 }[];
 
-@Component
+@Component({
+  components: {
+    Selection,
+  },
+})
 export default class Row extends Vue {
   @Prop({ type: Number, required: true })
   private size!: number;
@@ -92,10 +90,6 @@ export default class Row extends Vue {
       this.showResult = false;
       this.isGameStarted = true;
     }, 2000);
-  }
-
-  public pickTree(id: number): void {
-    this.pickedTree = id;
   }
 
   public putTree(cellID: number): void {
@@ -206,8 +200,5 @@ button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-.grid > .selected {
-  background: #eeee4e;
 }
 </style>
