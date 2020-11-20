@@ -36,7 +36,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
 import Buttonmenu from "@/components/Buttonmenu.vue";
 
