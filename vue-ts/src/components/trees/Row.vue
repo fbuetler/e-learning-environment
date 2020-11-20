@@ -1,14 +1,13 @@
 <template>
   <div>
     <h2>Reihe aus {{ size }} Bäumen</h2>
-    <div class="buttons-container">
-      <button @click="initializeGame()">
-        {{ initializeGameText }}
-      </button>
-      <button @click="evaluateGame()" v-if="isGameStarted">
-        {{ evaluateGameText }}
-      </button>
-    </div>
+    <Buttonmenu
+      :initializeGameText="initializeGameText"
+      :evaluateGameText="evaluateGameText"
+      :isGameStarted="isGameStarted"
+      @initialize-game="initializeGame()"
+      @evalute-game="evaluateGame()"
+    />
     <div v-if="isGameStarted && !showResult">
       <div class="grid" :style="cellsPerRowWithViews">
         <div>{{ leftView }}</div>
@@ -39,6 +38,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
+import Buttonmenu from "@/components/trees/Buttonmenu.vue";
 
 type Answer = {
   id: number;
@@ -48,6 +48,7 @@ type Answer = {
 @Component({
   components: {
     Selection,
+    Buttonmenu,
   },
 })
 export default class Row extends Vue {
@@ -153,31 +154,6 @@ export default class Row extends Vue {
 </script>
 
 <style scoped>
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-  outline: none;
-}
-
-.buttons-container {
-  display: grid;
-  grid-template-rows: auto auto;
-  justify-content: center;
-}
-button {
-  border-radius: 6px;
-  background-color: whitesmoke;
-  border: none;
-  color: black;
-  font-size: 16px;
-  padding: 10px;
-  width: 230px;
-  cursor: pointer;
-  margin: 0px 0px 25px 0px;
-  font-weight: bold;
-}
-
 .grid {
   display: grid;
   background: white;
