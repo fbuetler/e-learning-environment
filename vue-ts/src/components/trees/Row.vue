@@ -38,7 +38,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
-import Buttonmenu from "@/components/trees/Buttonmenu.vue";
+import Buttonmenu from "@/components/Buttonmenu.vue";
 
 type Answer = {
   id: number;
