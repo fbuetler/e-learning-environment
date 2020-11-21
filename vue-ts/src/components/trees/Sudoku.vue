@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="wrapper">
+    <div class="wrapper" :style="gridSize()">
       <!-- placeholder -->
       <div :style="gridPosition(1, 1)"></div>
       <!-- top view -->
@@ -17,7 +17,12 @@
         v-for="(row, rowIndex) in values"
         :key="`row-${rowIndex}`"
         class="row"
-        :style="gridPosition(`${rowIndex + 2} / ${rowIndex + 2}`, `1 / 6`)"
+        :style="
+          gridRowSizeAndPosition(
+            `${rowIndex + 2} / ${rowIndex + 2}`,
+            `1 / ${size + 3}`
+          )
+        "
       >
         <!-- left view -->
         <div :style="gridPosition(1, 0)">{{ views[1][rowIndex] }}</div>
@@ -28,7 +33,11 @@
           :style="gridPosition(1, 0)"
           @click="putTree(rowIndex, colIndex)"
         >
-          {{ value }}
+          <img
+            v-if="value === 0"
+            :src="require('@/assets/trees/tree_empty.png')"
+          />
+          <img v-else :src="require('@/assets/trees/tree_' + value + '.png')" />
         </div>
         <!-- right view -->
         <div :style="gridPosition(1, 0)">
@@ -113,7 +122,7 @@ export default class Sudoku extends Vue {
   }
 
   public evaluateGame(): boolean {
-    return true;
+    return this.isValid(this.values, this.views, true);
   }
 
   private putTree(rowIndex: number, colIndex: number) {
@@ -145,7 +154,7 @@ export default class Sudoku extends Vue {
       } else {
         views[emptyViewSlotRow][emptyViewSlotCol] = numbers[i];
       }
-      if (this.isValid(values, views)) {
+      if (this.isValid(values, views, false)) {
         const solutions = this.solve(values, views, 0);
         if (solutions === 0) {
           continue;
@@ -178,7 +187,7 @@ export default class Sudoku extends Vue {
     this.shuffle(numbers);
     for (let i = 0; i < numbers.length; i++) {
       values[emptyValueSlotRow][emptyValueSlotCol] = numbers[i];
-      if (this.isValid(values, views)) {
+      if (this.isValid(values, views, false)) {
         solutions = this.solve(values, views, solutions);
         if (solutions > 1) {
           break;
@@ -220,7 +229,11 @@ export default class Sudoku extends Vue {
     }
   }
 
-  private isValid(values: number[][], views: number[][]): boolean {
+  private isValid(
+    values: number[][],
+    views: number[][],
+    complete: boolean
+  ): boolean {
     for (let i = 0; i < values.length; i++) {
       const rowSeen = new Set<number>();
       const colSeen = new Set<number>();
@@ -234,6 +247,9 @@ export default class Sudoku extends Vue {
           if (seen.has(el)) {
             return false;
           } else if (el === 0) {
+            if (complete) {
+              return false;
+            }
             continue;
           } else {
             seen.add(el);
@@ -281,8 +297,16 @@ export default class Sudoku extends Vue {
     return visible;
   }
 
+  private gridSize(): string {
+    return `grid-template-columns: 0.5fr repeat(${this.size}, 1fr) 0.5fr; grid-auto-rows: 0.5fr repeat(${this.size}, 1fr) 0.5fr;`;
+  }
+
+  private gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
+    return `grid-template-columns: 0.5fr repeat(${this.size}, 1fr) 0.5fr; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
+  }
+
   private gridPosition(rowIndex: string, colIndex: string): string {
-    return "grid-row: " + rowIndex + "; grid-column: " + colIndex + ";";
+    return `grid-row: ${rowIndex}; grid-column: ${colIndex};`;
   }
 }
 </script>
@@ -290,11 +314,14 @@ export default class Sudoku extends Vue {
 <style scoped>
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: repeat(5, 1fr);
+  background: white;
+  border: 3px solid black;
+  margin: 0px 0px 25px 0px;
 }
 .row {
   display: grid;
+}
+.wrapper * {
+  border: 1px solid gray;
 }
 </style>
