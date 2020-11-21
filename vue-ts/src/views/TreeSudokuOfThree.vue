@@ -13,7 +13,7 @@ import Game, { GameType } from "@/components/Game.vue";
   },
 })
 export default class TreeSudokuOfThree extends Vue {
-  private type: GameType = GameType.SUDOKU;
+  private type: GameType = GameType.TREESUDOKU;
   private size = 3;
   private title = this.size + "x" + this.size + " Baumsudoku";
   private args = { size: this.size };
