@@ -1,119 +1,300 @@
 <template>
-  <div class="sudoku">
-    <h2>{{ size }}x{{ size }} Baumsudoku</h2>
-    <div class="buttons-container">
-      <button class="button" v-on:click="initializeGame()">
-        {{ initializeGameText }}
-      </button>
-      <button class="button" v-on:click="evaluateGame()" v-if="isGameStarted">
-        {{ evaluateGameText }}
-      </button>
-    </div>
-    <div class="grid" v-if="isGameStarted && !showResult">
-      <div class="grid-row" v-for="row in sudoku" v-bind:key="row.id">
-        <div class="grid-cell" v-for="cell in row" v-bind:key="cell.id">
-          <input
-            v-model.number="cell.value"
-            type="text"
-            class="grid-cell-content"
-          />
+  <div>
+    <div class="wrapper">
+      <!-- placeholder -->
+      <div :style="gridPosition(1, 1)"></div>
+      <!-- top view -->
+      <div
+        v-for="(visible, topIndex) in views[0]"
+        :key="`top-${topIndex}`"
+        :style="gridPosition(1, topIndex + 2)"
+      >
+        {{ visible }}
+      </div>
+      <!-- placeholder -->
+      <div :style="gridPosition(1, size + 2)"></div>
+      <div
+        v-for="(row, rowIndex) in values"
+        :key="`row-${rowIndex}`"
+        class="row"
+        :style="gridPosition(`${rowIndex + 2} / ${rowIndex + 2}`, `1 / 6`)"
+      >
+        <!-- left view -->
+        <div :style="gridPosition(1, 0)">{{ views[1][rowIndex] }}</div>
+        <!-- values -->
+        <div
+          v-for="(value, colIndex) in row"
+          :key="`col-${colIndex}`"
+          :style="gridPosition(1, 0)"
+          @click="putTree(rowIndex, colIndex)"
+        >
+          {{ value }}
+        </div>
+        <!-- right view -->
+        <div :style="gridPosition(1, 0)">
+          {{ views[2][rowIndex] }}
         </div>
       </div>
+      <!-- placeholder -->
+      <div :style="gridPosition(size + 2, 1)"></div>
+      <!-- bottom view -->
+      <div
+        v-for="(visible, bottomIndex) in views[3]"
+        :key="`bottom-${bottomIndex}`"
+        :style="gridPosition(size + 2, bottomIndex + 2)"
+      >
+        {{ visible }}
+      </div>
+      <!-- placeholder -->
+      <div :style="gridPosition(size + 2, size + 2)"></div>
     </div>
-    <div class="solution" v-if="showResult">
-      <h3>{{ resultMessage }}</h3>
-    </div>
+    <Selection
+      :size="size"
+      :selected="pickedTree"
+      @changeSelection="pickedTree = $event"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop} from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
+import Selection from "@/components/trees/Selection.vue";
 
-@Component
+@Component<Sudoku>({
+  components: {
+    Selection,
+  },
+  watch: {
+    initialize(initialize: boolean) {
+      if (initialize) {
+        this.initializeGame();
+        this.$emit("initialized-game");
+      }
+    },
+    evaluate(evaluate: boolean) {
+      if (evaluate) {
+        const correct = this.evaluateGame();
+        this.$emit("evaluated-game", correct);
+      }
+    },
+  },
+})
 export default class Sudoku extends Vue {
+  @Prop({ default: false })
+  private initialize: boolean;
+  @Prop({ default: false })
+  private evaluate: boolean;
   @Prop({ required: true })
+  private args!: { size: number };
+
   private size: number;
 
-  private initializeGameText = "Start!";
-  private evaluateGameText = "Überprüfen!";
-  private isGameStarted = false;
-  private showResult = false;
-  private resultMessage: string;
+  private values: number[][] = null;
+  private views: number[][] = null;
 
-  public initializeGame(): void {
-    this.initializeGameText = "Neu starten";
-    this.isGameStarted = true;
-    this.resultMessage = "";
+  private pickedTree = 0;
+
+  created() {
+    this.size = this.args.size;
+    this.initializeGame();
+    this.$emit("initialized-game");
   }
 
-  public evaluateGame(): void {
-    this.resultMessage = "TODO";
+  public initializeGame(): void {
+    [this.values, this.views] = this.generateSudoku(
+      new Array<number>(this.size)
+        .fill(0)
+        .map(() => new Array<number>(this.size).fill(0)),
+      new Array<number>(4)
+        .fill(0)
+        .map(() => new Array<number>(this.size).fill(0))
+    );
+  }
 
-    this.showResult = true;
-    this.isGameStarted = false;
-    setTimeout(() => {
-      this.showResult = false;
-      this.isGameStarted = true;
-    }, 2000);
+  public evaluateGame(): boolean {
+    return true;
+  }
+
+  private putTree(rowIndex: number, colIndex: number) {
+    this.values[rowIndex][colIndex] = this.pickedTree;
+    this.pickedTree = 0;
+  }
+
+  private generateSudoku(
+    values: number[][],
+    views: number[][]
+  ): [number[][], number[][]] {
+    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(values);
+    if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
+      return [values, views];
+    }
+    const [emptyViewSlotRow, emptyViewSlotCol] = this.findEmptySlot(views);
+    if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
+      return [values, views];
+    }
+
+    const numbers: number[] = [];
+    for (let i = 0; i < this.size; i++) {
+      numbers[i] = i + 1;
+    }
+    this.shuffle(numbers);
+    for (let i = 0; i < numbers.length; i++) {
+      if (Math.random() <= 0.5) {
+        values[emptyValueSlotRow][emptyValueSlotCol] = numbers[i];
+      } else {
+        views[emptyViewSlotRow][emptyViewSlotCol] = numbers[i];
+      }
+      if (this.isValid(values, views)) {
+        const solutions = this.solve(values, views, 0);
+        if (solutions === 0) {
+          continue;
+        } else if (solutions === 1) {
+          return [values, views];
+        } else {
+          return this.generateSudoku(values, views);
+        }
+      } else {
+        values[emptyValueSlotRow][emptyValueSlotCol] = 0;
+        views[emptyViewSlotRow][emptyViewSlotCol] = 0;
+      }
+    }
+  }
+
+  private solve(
+    values: number[][],
+    views: number[][],
+    solutions: number
+  ): number {
+    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(values);
+    if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
+      return solutions + 1;
+    }
+
+    const numbers: number[] = [];
+    for (let i = 0; i < this.size; i++) {
+      numbers[i] = i + 1;
+    }
+    this.shuffle(numbers);
+    for (let i = 0; i < numbers.length; i++) {
+      values[emptyValueSlotRow][emptyValueSlotCol] = numbers[i];
+      if (this.isValid(values, views)) {
+        solutions = this.solve(values, views, solutions);
+        if (solutions > 1) {
+          break;
+        }
+      }
+    }
+    values[emptyValueSlotRow][emptyValueSlotCol] = 0;
+    return solutions;
+  }
+
+  private findEmptySlot(slots: number[][]): [number, number] {
+    const indexes: [number, number][] = [];
+    for (let i = 0; i < slots.length; i++) {
+      for (let j = 0; j < slots[i].length; j++) {
+        indexes.push([i, j]);
+      }
+    }
+    this.shuffle(indexes);
+    for (let i = 0; i < indexes.length; i++) {
+      const [row, col] = indexes[i];
+      if (slots[row][col] === 0) {
+        return [row, col];
+      }
+    }
+    return [null, null];
+  }
+
+  private shuffle(arr: any[]): void {
+    let currentIndex = arr.length;
+    let tempValue: number;
+    let randomIndex: number;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      tempValue = arr[currentIndex];
+      arr[currentIndex] = arr[randomIndex];
+      arr[randomIndex] = tempValue;
+    }
+  }
+
+  private isValid(values: number[][], views: number[][]): boolean {
+    for (let i = 0; i < values.length; i++) {
+      const rowSeen = new Set<number>();
+      const colSeen = new Set<number>();
+      for (let j = 0; j < values[i].length; j++) {
+        const traversal: [number, Set<number>][] = [
+          [values[i][j], rowSeen],
+          [values[j][i], colSeen],
+        ];
+        for (let k = 0; k < traversal.length; k++) {
+          const [el, seen] = traversal[k];
+          if (seen.has(el)) {
+            return false;
+          } else if (el === 0) {
+            continue;
+          } else {
+            seen.add(el);
+          }
+        }
+      }
+
+      if (rowSeen.size === this.size) {
+        const visible = this.getVisibleTrees(values[i]);
+        const visibleRev = this.getVisibleTrees(values[i].slice().reverse());
+        if (
+          (views[1][i] !== 0 && views[1][i] !== visible) ||
+          (views[2][i] !== 0 && views[2][i] !== visibleRev)
+        ) {
+          return false;
+        }
+      }
+      if (colSeen.size === this.size) {
+        const col: number[] = [];
+        for (let k = 0; k < values.length; k++) {
+          col[k] = values[k][i];
+        }
+        const visible = this.getVisibleTrees(col);
+        const visibleRev = this.getVisibleTrees(col.slice().reverse());
+        if (
+          (views[0][i] !== 0 && views[0][i] !== visible) ||
+          (views[3][i] !== 0 && views[3][i] !== visibleRev)
+        ) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  private getVisibleTrees(values: number[]): number {
+    let min = 0;
+    let visible = 0;
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] > min) {
+        visible++;
+        min = values[i];
+      }
+    }
+    return visible;
+  }
+
+  private gridPosition(rowIndex: string, colIndex: string): string {
+    return "grid-row: " + rowIndex + "; grid-column: " + colIndex + ";";
   }
 }
 </script>
+
 <style scoped>
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-  outline: none;
-}
-
-.sudoku {
-  place-self: center;
+.wrapper {
   display: grid;
-  grid-template-rows: auto 1fr;
-  justify-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: repeat(5, 1fr);
 }
-.buttons-container {
+.row {
   display: grid;
-  grid-template-rows: auto auto;
-}
-.button {
-  display: inline-block;
-  border-radius: 6px;
-  background-color: whitesmoke;
-  border: none;
-  color: black;
-  text-align: center;
-  font-size: 16px;
-  padding: 10px;
-  width: 230px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 0px 0px 25px 0px;
-  font-family: "Dosis", sans-serif;
-  font-weight: bold;
-}
-
-.grid {
-  display: table;
-  background: white;
-  border: 3px solid black;
-}
-
-/* .grid-row { } */
-
-.grid-cell {
-  display: table-cell;
-  padding: 10px;
-  border: 1px solid gray;
-}
-
-.grid-cell-editor {
-  border: none;
-  width: 20px;
-  height: 20px;
-  font-weight: bold;
-  text-align: center;
-  font-size: 18px;
 }
 </style>
