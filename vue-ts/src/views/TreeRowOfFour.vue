@@ -12,7 +12,7 @@ import Game, { GameType } from "@/components/Game.vue";
     Game,
   },
 })
-export default class TreeRowOfThree extends Vue {
+export default class TreeRowOfFour extends Vue {
   private type: GameType = GameType.TREEROW;
   private size = 4;
   private title = "Reihe aus " + this.size + " Bäumen";
