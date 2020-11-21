@@ -1,18 +1,21 @@
 <template>
-  <div class="treesudoku">
-    <Sudoku size="3" />
-  </div>
+  <Game :type="type" :title="title" :args="args" />
 </template>
 
 <script lang="ts">
-import Sudoku from "@/components/trees/Sudoku.vue";
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import Game, { GameType } from "@/components/Game.vue";
 
-export default {
-  name: "TreeSudokuOfFour",
+@Component({
   components: {
-    Sudoku,
+    Game,
   },
-};
+})
+export default class TreeSudokuOfThree extends Vue {
+  private type: GameType = GameType.SUDOKU;
+  private size = 3;
+  private title = this.size + "x" + this.size + " Baumsudoku";
+  private args = { size: this.size };
+}
 </script>
-
-<style scoped></style>
