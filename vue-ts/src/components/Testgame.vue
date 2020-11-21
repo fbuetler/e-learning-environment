@@ -8,14 +8,14 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component<Testgame>({
   watch: {
-    initialize(initialize: boolean) {
-      if (initialize) {
+    initialize(newValue: boolean) {
+      if (newValue) {
         this.initializeGame();
         this.$emit("initialized-game");
       }
     },
-    evaluate(evaluate: boolean) {
-      if (evaluate) {
+    evaluate(newValue: boolean) {
+      if (newValue) {
         const correct = this.evaluateGame();
         this.$emit("evaluated-game", correct);
       }

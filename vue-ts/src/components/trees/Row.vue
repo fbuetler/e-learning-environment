@@ -33,14 +33,14 @@ import Selection from "@/components/trees/Selection.vue";
     Selection,
   },
   watch: {
-    initialize(initialize: boolean) {
-      if (initialize) {
+    initialize(newValue: boolean) {
+      if (newValue) {
         this.initializeGame();
         this.$emit("initialized-game");
       }
     },
-    evaluate(evaluate: boolean) {
-      if (evaluate) {
+    evaluate(newValue: boolean) {
+      if (newValue) {
         const correct = this.evaluateGame();
         this.$emit("evaluated-game", correct);
       }
@@ -70,7 +70,7 @@ export default class Row extends Vue {
   }
 
   private initializeGame(): void {
-    [this.leftView, this.rightView, this.values] = this.generateRow();
+    [this.leftView, this.rightView, this.values] = this.generate();
   }
 
   private evaluateGame(): boolean {
@@ -90,7 +90,7 @@ export default class Row extends Vue {
     this.pickedTree = 0;
   }
 
-  private generateRow(): [number, number, number[]] {
+  private generate(): [number, number, number[]] {
     const values: number[] = [];
     for (let i = 0; i < this.size; i++) {
       values[i] = i + 1;

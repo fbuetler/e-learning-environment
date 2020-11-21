@@ -75,14 +75,14 @@ import Selection from "@/components/trees/Selection.vue";
     Selection,
   },
   watch: {
-    initialize(initialize: boolean) {
-      if (initialize) {
+    initialize(newValue: boolean) {
+      if (newValue) {
         this.initializeGame();
         this.$emit("initialized-game");
       }
     },
-    evaluate(evaluate: boolean) {
-      if (evaluate) {
+    evaluate(newValue: boolean) {
+      if (newValue) {
         const correct = this.evaluateGame();
         this.$emit("evaluated-game", correct);
       }
@@ -111,7 +111,7 @@ export default class Sudoku extends Vue {
   }
 
   public initializeGame(): void {
-    [this.values, this.views] = this.generateSudoku(
+    [this.values, this.views] = this.generate(
       new Array<number>(this.size)
         .fill(0)
         .map(() => new Array<number>(this.size).fill(0)),
@@ -130,7 +130,7 @@ export default class Sudoku extends Vue {
     this.pickedTree = 0;
   }
 
-  private generateSudoku(
+  private generate(
     values: number[][],
     views: number[][]
   ): [number[][], number[][]] {
@@ -161,7 +161,7 @@ export default class Sudoku extends Vue {
         } else if (solutions === 1) {
           return [values, views];
         } else {
-          return this.generateSudoku(values, views);
+          return this.generate(values, views);
         }
       } else {
         values[emptyValueSlotRow][emptyValueSlotCol] = 0;
