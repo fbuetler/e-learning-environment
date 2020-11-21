@@ -52,7 +52,7 @@ export default class Game extends Vue {
   @Prop()
   private title: string;
   @Prop({ default: {} })
-  private args: any;
+  private args: {};
 
   private initializeGameText = "Start!";
   private evaluateGameText = "Überprüfen!";

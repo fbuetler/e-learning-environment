@@ -1,37 +1,25 @@
 <template>
   <div>
-    <h2>Reihe aus {{ size }} Bäumen</h2>
-    <Buttonmenu
-      :initializeGameText="initializeGameText"
-      :evaluateGameText="evaluateGameText"
-      :isGameStarted="isGameStarted"
-      @initialize-game="initializeGame()"
-      @evalute-game="evaluateGame()"
-    />
-    <div v-if="isGameStarted && !showResult">
-      <div class="grid" :style="cellsPerRowWithViews">
-        <div>{{ leftView }}</div>
-        <div v-for="cell in answer" :key="cell.id" @click="putTree(cell.id)">
-          <img
-            v-if="cell.value === 0"
-            :src="require('@/assets/trees/tree_empty.png')"
-          />
-          <img
-            v-else
-            :src="require('@/assets/trees/tree_' + cell.value + '.png')"
-          />
-        </div>
-        <div>{{ rightView }}</div>
+    <div class="grid" :style="cellsPerRowWithViews">
+      <div>{{ leftView }}</div>
+      <div
+        v-for="(value, index) in values"
+        :key="index"
+        @click="putTree(index)"
+      >
+        <img
+          v-if="value === 0"
+          :src="require('@/assets/trees/tree_empty.png')"
+        />
+        <img v-else :src="require('@/assets/trees/tree_' + value + '.png')" />
       </div>
-      <Selection
-        :size="size"
-        :selected="pickedTree"
-        @changeSelection="pickedTree = $event"
-      />
-        </div>
-    <div v-if="showResult">
-      <h3>{{ resultText }}</h3>
+      <div>{{ rightView }}</div>
     </div>
+    <Selection
+      :size="size"
+      :selected="pickedTree"
+      @changeSelection="pickedTree = $event"
+    />
   </div>
 </template>
 
@@ -39,83 +27,79 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
-import Buttonmenu from "@/components/Buttonmenu.vue";
 
-type Answer = {
-  id: number;
-  value: number;
-}[];
-
-@Component({
+@Component<Row>({
   components: {
     Selection,
-    Buttonmenu,
+  },
+  watch: {
+    initialize(initialize: boolean) {
+      if (initialize) {
+        this.initializeGame();
+        this.$emit("initialized-game");
+      }
+    },
+    evaluate(evaluate: boolean) {
+      if (evaluate) {
+        const correct = this.evaluateGame();
+        this.$emit("evaluated-game", correct);
+      }
+    },
   },
 })
 export default class Row extends Vue {
-  @Prop({ type: Number, required: true })
-  private size!: number;
-  private answer: Answer = null;
+  @Prop({ default: false })
+  private initialize: boolean;
+  @Prop({ default: false })
+  private evaluate: boolean;
+  @Prop({ required: true })
+  private args!: { size: number };
+
+  private size: number;
+
+  private values: number[] = null;
   private leftView: number = null;
   private rightView: number = null;
 
-  private initializeGameText = "Start!";
-  private evaluateGameText = "Überprüfen!";
-  private resultText = "";
-  private isGameStarted = false;
-  private showResult = false;
   private pickedTree = 0;
 
-  public initializeGame(): void {
-    [this.leftView, this.rightView, this.answer] = this.generateTreeRow();
-    this.initializeGameText = "Neu starten";
-    this.isGameStarted = true;
-    this.resultText = "";
+  created() {
+    this.size = this.args.size;
+    this.initializeGame();
+    this.$emit("initialized-game");
   }
 
-  public evaluateGame(): void {
-    if (this.answer.length != this.size) {
-      this.resultText = "Ungültige Antwort!";
-    } else {
-      const trArr = this.answer.map((tree) => tree.value);
-      const visibleLeft = this.visibleTreesFromLeft(trArr);
-      const visibleRight = this.visibleTreesFromLeft(trArr.slice().reverse());
-      if (visibleLeft !== this.leftView || visibleRight !== this.rightView) {
-        this.resultText = "Falsch!";
-      } else {
-        this.resultText = "Richtig!";
-      }
+  private initializeGame(): void {
+    [this.leftView, this.rightView, this.values] = this.generateRow();
+  }
+
+  private evaluateGame(): boolean {
+    const visibleLeft = this.visibleTreesFromLeft(this.values);
+    const visibleRight = this.visibleTreesFromLeft(
+      this.values.slice().reverse()
+    );
+    return !(visibleLeft !== this.leftView || visibleRight !== this.rightView);
+  }
+
+  private putTree(index: number): void {
+    // TODO rm this after this.values is made reactive
+    if (this.pickedTree === 0) {
+      return;
     }
-    this.showResult = true;
-    this.isGameStarted = false;
-    setTimeout(() => {
-      this.showResult = false;
-      this.isGameStarted = true;
-    }, 2000);
-  }
-
-  public putTree(cellID: number): void {
-    this.answer.find((el) => el.id === cellID).value = this.pickedTree;
+    this.values[index] = this.pickedTree;
     this.pickedTree = 0;
   }
 
-  private generateTreeRow(): [number, number, Answer] {
-    const numbers: number[] = [];
+  private generateRow(): [number, number, number[]] {
+    const values: number[] = [];
     for (let i = 0; i < this.size; i++) {
-      numbers[i] = i + 1;
+      values[i] = i + 1;
     }
-    this.shuffle(numbers);
-    const answer: Answer = [];
-    for (let i = 0; i < this.size; i++) {
-      answer[i] = {
-        id: i + 1,
-        value: 0,
-      };
-    }
+    this.shuffle(values);
     return [
-      this.visibleTreesFromLeft(numbers),
-      this.visibleTreesFromLeft(numbers.slice().reverse()),
-      answer,
+      this.visibleTreesFromLeft(values),
+      this.visibleTreesFromLeft(values.slice().reverse()),
+      new Array<number>(this.size).fill(0),
     ];
   }
 
@@ -145,11 +129,8 @@ export default class Row extends Vue {
     return visible;
   }
 
-  get cellsPerRowWithViews(): string {
+  private get cellsPerRowWithViews(): string {
     return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
-  }
-  get cellsPerRow(): string {
-    return "grid-template-columns: repeat(" + this.size + ",auto)";
   }
 }
 </script>
