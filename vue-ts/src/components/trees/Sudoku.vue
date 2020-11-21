@@ -168,6 +168,7 @@ export default class Sudoku extends Vue {
         views[emptyViewSlotRow][emptyViewSlotCol] = 0;
       }
     }
+    return [values, views];
   }
 
   private solve(
