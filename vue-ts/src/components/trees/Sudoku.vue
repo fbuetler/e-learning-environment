@@ -8,7 +8,11 @@
         <!-- placeholder -->
         <div></div>
         <!-- top view -->
-        <div v-for="(visible, topIndex) in views[0]" :key="`top-${topIndex}`">
+        <div
+          v-for="(visible, topIndex) in views[0]"
+          :key="`top-${topIndex}`"
+          class="view"
+        >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>
         </div>
@@ -28,7 +32,7 @@
         "
       >
         <!-- left view -->
-        <div>
+        <div class="view">
           <span v-if="views[1][rowIndex] !== 0">{{ views[1][rowIndex] }}</span>
           <span v-else></span>
         </div>
@@ -44,7 +48,7 @@
           />
         </div>
         <!-- right view -->
-        <div>
+        <div class="view">
           <span v-if="views[2][rowIndex] !== 0">{{ views[2][rowIndex] }}</span>
           <span v-else></span>
         </div>
@@ -62,6 +66,7 @@
         <div
           v-for="(visible, bottomIndex) in views[3]"
           :key="`bottom-${bottomIndex}`"
+          class="view"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>
@@ -347,5 +352,12 @@ export default class Sudoku extends Vue {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+}
+.row > div > img {
+  max-height: 50%;
+}
+.view {
+  background: lightgray;
+  border: 1px solid gray;
 }
 </style>

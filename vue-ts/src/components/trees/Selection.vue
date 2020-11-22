@@ -45,4 +45,7 @@ export default class Selection extends Vue {
 .container-item.selected {
   background: #eeee4e;
 }
+.container-item > img {
+  max-height: 50%;
+}
 </style>
