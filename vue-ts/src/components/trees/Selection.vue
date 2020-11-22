@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop} from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Selection extends Vue {
@@ -24,7 +24,7 @@ export default class Selection extends Vue {
   private selected: number;
 
   private changeSelection(selected: number) {
-    this.$emit("changeSelection", selected);
+    this.$emit("change-selection", selected);
   }
 }
 </script>

@@ -73,7 +73,7 @@
     <Selection
       :size="size"
       :selected="pickedTree"
-      @changeSelection="pickedTree = $event"
+      @change-selection="pickedTree = $event"
     />
   </div>
 </template>
