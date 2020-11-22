@@ -1,19 +1,21 @@
 <template>
   <div>
     <div class="wrapper" :style="gridSize()">
-      <!-- placeholder -->
-      <div :style="gridPosition(1, 1)"></div>
-      <!-- top view -->
       <div
-        v-for="(visible, topIndex) in views[0]"
-        :key="`top-${topIndex}`"
-        :style="gridPosition(1, topIndex + 2)"
+        class="row"
+        :style="gridRowSizeAndPosition(`1 / 1`, `1 / ${size + 3}`)"
       >
-        <span v-if="visible !== 0">{{ visible }}</span>
-        <span v-else></span>
+        <!-- placeholder -->
+        <div></div>
+        <!-- top view -->
+        <div v-for="(visible, topIndex) in views[0]" :key="`top-${topIndex}`">
+          <span v-if="visible !== 0">{{ visible }}</span>
+          <span v-else></span>
+        </div>
+        <!-- placeholder -->
+        <div></div>
       </div>
-      <!-- placeholder -->
-      <div :style="gridPosition(1, size + 2)"></div>
+
       <div
         v-for="(row, rowIndex) in values"
         :key="`row-${rowIndex}`"
@@ -26,7 +28,7 @@
         "
       >
         <!-- left view -->
-        <div :style="gridPosition(1, 0)">
+        <div>
           <span v-if="views[1][rowIndex] !== 0">{{ views[1][rowIndex] }}</span>
           <span v-else></span>
         </div>
@@ -34,34 +36,39 @@
         <div
           v-for="(value, colIndex) in row"
           :key="`col-${colIndex}`"
-          :style="gridPosition(1, 0)"
           @click="putTree(rowIndex, colIndex)"
         >
           <img
-            v-if="value === 0"
-            :src="require('@/assets/trees/tree_empty.png')"
+            v-if="value !== 0"
+            :src="require('@/assets/trees/tree_' + value + '.png')"
           />
-          <img v-else :src="require('@/assets/trees/tree_' + value + '.png')" />
         </div>
         <!-- right view -->
-        <div :style="gridPosition(1, 0)">
+        <div>
           <span v-if="views[2][rowIndex] !== 0">{{ views[2][rowIndex] }}</span>
           <span v-else></span>
         </div>
       </div>
-      <!-- placeholder -->
-      <div :style="gridPosition(size + 2, 1)"></div>
-      <!-- bottom view -->
+
       <div
-        v-for="(visible, bottomIndex) in views[3]"
-        :key="`bottom-${bottomIndex}`"
-        :style="gridPosition(size + 2, bottomIndex + 2)"
+        class="row"
+        :style="
+          gridRowSizeAndPosition(`${size + 2} / ${size + 2}`, `1 / ${size + 3}`)
+        "
       >
-        <span v-if="visible !== 0">{{ visible }}</span>
-        <span v-else></span>
+        <!-- placeholder -->
+        <div></div>
+        <!-- bottom view -->
+        <div
+          v-for="(visible, bottomIndex) in views[3]"
+          :key="`bottom-${bottomIndex}`"
+        >
+          <span v-if="visible !== 0">{{ visible }}</span>
+          <span v-else></span>
+        </div>
+        <!-- placeholder -->
+        <div></div>
       </div>
-      <!-- placeholder -->
-      <div :style="gridPosition(size + 2, size + 2)"></div>
     </div>
     <Selection
       :size="size"
@@ -308,15 +315,12 @@ export default class Sudoku extends Vue {
   }
 
   private gridSize(): string {
-    return `grid-template-columns: 0.5fr repeat(${this.size}, 1fr) 0.5fr; grid-auto-rows: 0.5fr repeat(${this.size}, 1fr) 0.5fr;`;
+    return `grid-template-rows: repeat(${this.size + 2}, 1fr);`;
   }
 
   private gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
-    return `grid-template-columns: 0.5fr repeat(${this.size}, 1fr) 0.5fr; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
-  }
-
-  private gridPosition(rowIndex: string, colIndex: string): string {
-    return `grid-row: ${rowIndex}; grid-column: ${colIndex};`;
+    return `grid-template-columns: repeat(${this.size +
+      2}, 1fr); grid-row: ${rowIndex}; grid-column: ${colIndex};`;
   }
 }
 </script>
@@ -331,7 +335,17 @@ export default class Sudoku extends Vue {
 .row {
   display: grid;
 }
-.wrapper * {
+.row > div {
+  grid-row: 1;
   border: 1px solid gray;
+  font-size: 3em;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
 </style>
