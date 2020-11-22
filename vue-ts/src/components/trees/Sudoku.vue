@@ -177,6 +177,8 @@ export default class Sudoku extends Vue {
       if (this.isValid(values, views, false)) {
         const solutions = this.solve(values, views, 0);
         if (solutions === 0) {
+          values[emptyValueSlotRow][emptyValueSlotCol] = 0;
+          views[emptyViewSlotRow][emptyViewSlotCol] = 0;
           continue;
         } else if (solutions === 1) {
           return [values, views];
