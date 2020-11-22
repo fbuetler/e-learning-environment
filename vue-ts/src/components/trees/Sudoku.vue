@@ -9,7 +9,8 @@
         :key="`top-${topIndex}`"
         :style="gridPosition(1, topIndex + 2)"
       >
-        {{ visible }}
+        <span v-if="visible !== 0">{{ visible }}</span>
+        <span v-else></span>
       </div>
       <!-- placeholder -->
       <div :style="gridPosition(1, size + 2)"></div>
@@ -25,7 +26,10 @@
         "
       >
         <!-- left view -->
-        <div :style="gridPosition(1, 0)">{{ views[1][rowIndex] }}</div>
+        <div :style="gridPosition(1, 0)">
+          <span v-if="views[1][rowIndex] !== 0">{{ views[1][rowIndex] }}</span>
+          <span v-else></span>
+        </div>
         <!-- values -->
         <div
           v-for="(value, colIndex) in row"
@@ -41,7 +45,8 @@
         </div>
         <!-- right view -->
         <div :style="gridPosition(1, 0)">
-          {{ views[2][rowIndex] }}
+          <span v-if="views[2][rowIndex] !== 0">{{ views[2][rowIndex] }}</span>
+          <span v-else></span>
         </div>
       </div>
       <!-- placeholder -->
@@ -52,7 +57,8 @@
         :key="`bottom-${bottomIndex}`"
         :style="gridPosition(size + 2, bottomIndex + 2)"
       >
-        {{ visible }}
+        <span v-if="visible !== 0">{{ visible }}</span>
+        <span v-else></span>
       </div>
       <!-- placeholder -->
       <div :style="gridPosition(size + 2, size + 2)"></div>
