@@ -108,6 +108,8 @@ export default class Sudoku extends Vue {
   private values: number[][] = null;
   private views: number[][] = null;
 
+  private valuesSolution: number[][] = null;
+
   private pickedTree = 0;
 
   created() {
@@ -184,6 +186,7 @@ export default class Sudoku extends Vue {
   ): number {
     const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(values);
     if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
+      this.valuesSolution = JSON.parse(JSON.stringify(values)); // deep copy
       return solutions + 1;
     }
 
