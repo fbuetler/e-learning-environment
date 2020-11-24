@@ -1,7 +1,17 @@
 #!/bin/python
 import requests
 
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+
+def printProgressBar(
+    iteration,
+    total,
+    prefix="",
+    suffix="",
+    decimals=1,
+    length=100,
+    fill="█",
+    printEnd="\r",
+):
     """
     Call in a loop to create terminal progress bar
     @params:
@@ -16,15 +26,18 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     """
     percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
     filledLength = int(length * iteration // total)
-    bar = fill * filledLength + '-' * (length - filledLength)
-    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
+    bar = fill * filledLength + "-" * (length - filledLength)
+    print(f"\r{prefix} |{bar}| {percent}% {suffix}", end=printEnd)
     # Print New Line on Complete
     if iteration == total:
         print()
 
-resp = requests.get("http://pcai056.informatik.uni-leipzig.de/downloads/etc/legacy/Papers/top10000de.txt")
 
-words = list(map(lambda x: x.lower(), resp.text.split('\n')[:-1]))
+resp = requests.get(
+    "http://pcai056.informatik.uni-leipzig.de/downloads/etc/legacy/Papers/top10000de.txt"
+)
+
+words = list(map(lambda x: x.lower(), resp.text.split("\n")[:-1]))
 
 sim = dict()
 l = len(words)
@@ -37,14 +50,14 @@ for i, a in enumerate(words):
             continue
 
         # insert
-        for letter in list(map(chr, range(ord('a'), ord('z')+1))):
-            for pos in range(len(a)+1):
+        for letter in list(map(chr, range(ord("a"), ord("z") + 1))):
+            for pos in range(len(a) + 1):
                 if a[:pos] + letter + a[pos:] == b:
                     matches.append(b)
 
         # remove
         for pos in range(len(a)):
-            if a[:pos] + a[pos+1:] == b:
+            if a[:pos] + a[pos + 1 :] == b:
                 matches.append(b)
 
         # change
@@ -58,8 +71,7 @@ for i, a in enumerate(words):
 
     if len(matches) != 0:
         sim[a] = matches
-    printProgressBar(i + 1, l, prefix = 'Progress:', suffix = 'Complete', length = 50)
+    printProgressBar(i + 1, l, prefix="Progress:", suffix="Complete", length=50)
 
 for k, v in sorted(sim.items(), key=lambda elem: len(elem[1])):
     print("{} - {}".format(k, v))
-
