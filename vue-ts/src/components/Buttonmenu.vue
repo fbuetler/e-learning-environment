@@ -40,7 +40,7 @@ button:focus {
 
 .buttons-container {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
   justify-content: center;
 }
 button {
@@ -52,7 +52,7 @@ button {
   padding: 10px;
   width: 230px;
   cursor: pointer;
-  margin: 0px 0px 25px 0px;
   font-weight: bold;
+  margin: 0 1em 1em 1em;
 }
 </style>
