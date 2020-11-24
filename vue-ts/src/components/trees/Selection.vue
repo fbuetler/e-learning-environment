@@ -6,6 +6,10 @@
       :key="index"
       :class="{ selected: index === selected }"
       @click="changeSelection(index)"
+      draggable
+      @dragstart="$emit('change-selection', index)"
+      @dragover.prevent
+      @dragend.prevent
     >
       <img :src="require('@/assets/trees/tree_' + index + '.png')" />
     </div>
@@ -22,10 +26,6 @@ export default class Selection extends Vue {
   private size!: number;
   @Prop({ type: Number, required: true })
   private selected: number;
-
-  private changeSelection(selected: number) {
-    this.$emit("change-selection", selected);
-  }
 }
 </script>
 

@@ -41,6 +41,11 @@
           v-for="(value, colIndex) in row"
           :key="`row-${rowIndex}-col-${colIndex}`"
           @click="putTree(rowIndex, colIndex)"
+          draggable
+          @dragstart="startDrag($event, rowIndex, colIndex)"
+          @dragover.prevent
+          @dragend.prevent
+          @drop.stop.prevent="putTree(rowIndex, colIndex)"
         >
           <img
             v-if="value !== 0"
@@ -75,11 +80,17 @@
         <div class="placeholder"></div>
       </div>
     </div>
-    <Selection
-      :size="size"
-      :selected="pickedTree"
-      @change-selection="pickedTree = $event"
-    />
+    <div
+      @drop.stop.prevent="onDrop($event)"
+      @dragover.prevent
+      @dragenter.prevent
+    >
+      <Selection
+        :size="size"
+        :selected="pickedTree"
+        @change-selection="pickedTree = $event"
+      />
+    </div>
   </div>
 </template>
 
@@ -313,6 +324,17 @@ export default class Sudoku extends Vue {
   private gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
     return `grid-template-columns: repeat(${this.size +
       2}, 1fr); grid-row: ${rowIndex}; grid-column: ${colIndex};`;
+  }
+
+  private startDrag(event: DragEvent, rowIndex: number, colIndex: number) {
+    event.dataTransfer.setData("row-index", rowIndex.toString());
+    event.dataTransfer.setData("col-index", colIndex.toString());
+  }
+
+  private onDrop(event: DragEvent) {
+    const rowIndex = +event.dataTransfer.getData("row-index");
+    const colIndex = +event.dataTransfer.getData("col-index");
+    Vue.set(this.values[rowIndex], colIndex, 0);
   }
 }
 </script>

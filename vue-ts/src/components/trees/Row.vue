@@ -6,6 +6,11 @@
         v-for="(value, index) in values"
         :key="index"
         @click="putTree(index)"
+        draggable
+        @dragstart="startDrag($event, index)"
+        @dragover.prevent
+        @dragend.prevent
+        @drop.stop.prevent="putTree(index)"
       >
         <img
           v-if="value === 0"
@@ -15,11 +20,17 @@
       </div>
       <div class="view">{{ rightView }}</div>
     </div>
-    <Selection
-      :size="size"
-      :selected="pickedTree"
-      @change-selection="pickedTree = $event"
-    />
+    <div
+      @drop.stop.prevent="onDrop($event)"
+      @dragover.prevent
+      @dragenter.prevent
+    >
+      <Selection
+        :size="size"
+        :selected="pickedTree"
+        @change-selection="pickedTree = $event"
+      />
+    </div>
   </div>
 </template>
 
@@ -119,6 +130,15 @@ export default class Row extends Vue {
 
   private gridSize(): string {
     return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
+  }
+
+  private startDrag(event: DragEvent, index: number) {
+    event.dataTransfer.setData("index", index.toString());
+  }
+
+  private onDrop(event: DragEvent) {
+    const index = +event.dataTransfer.getData("index");
+    Vue.set(this.values, index, 0);
   }
 }
 </script>
