@@ -23,12 +23,16 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Buttonmenu from "@/components/Buttonmenu.vue";
-import Row from "@/components/trees/Row.vue";
-import Sudoku from "@/components/trees/Sudoku.vue";
+import TreeRow from "@/components/trees/Row.vue";
+import TreeSudoku from "@/components/trees/Sudoku.vue";
+import WordsAdd from "@/components/words/Add.vue";
+import WordsChange from "@/components/words/Change.vue";
+import WordsRemove from "@/components/words/Remove.vue";
+import WordsSwap from "@/components/words/Swap.vue";
 
 export enum GameType {
-  TREEROW = "Row",
-  TREESUDOKU = "Sudoku",
+  TREEROW = "TreeRow",
+  TREESUDOKU = "TreeSudoku",
   WORDSADD = "WordsAdd",
   WORDSCHANGE = "WordsChange",
   WORDSREMOVE = "WordsRemove",
@@ -38,8 +42,12 @@ export enum GameType {
 @Component({
   components: {
     Buttonmenu,
-    Row,
-    Sudoku,
+    TreeRow,
+    TreeSudoku,
+    WordsAdd,
+    WordsChange,
+    WordsRemove,
+    WordsSwap,
   },
 })
 export default class Game extends Vue {

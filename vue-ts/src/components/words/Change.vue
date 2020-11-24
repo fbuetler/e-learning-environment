@@ -6,8 +6,8 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
-@Component<WordsRemove>({})
-export default class WordsRemove extends Vue {}
+@Component<Change>({})
+export default class Change extends Vue {}
 </script>
 
 <style scoped></style>
