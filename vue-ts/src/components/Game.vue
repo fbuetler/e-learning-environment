@@ -5,13 +5,14 @@
       :restartGameText="restartGameText"
       :evaluateGameText="evaluateGameText"
     />
-    <div v-if="!showResult">
+    <keep-alive :max="1">
       <component
+        v-if="!showResult"
         :is="currentGameComponent"
         :args="args"
         @evaluated-game="(correct) => evaluatedGame(correct)"
       ></component>
-    </div>
+    </keep-alive>
     <div v-if="showResult">
       <h3>{{ resultText }}</h3>
     </div>

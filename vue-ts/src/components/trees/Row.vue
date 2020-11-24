@@ -62,12 +62,15 @@ export default class Row extends Vue {
     [this.leftView, this.rightView, this.values] = this.generate();
   }
 
-  private evaluateGame(): boolean {
+  private evaluateGame() {
     const visibleLeft = this.visibleTreesFromLeft(this.values);
     const visibleRight = this.visibleTreesFromLeft(
       this.values.slice().reverse()
     );
-    return !(visibleLeft !== this.leftView || visibleRight !== this.rightView);
+    this.$emit(
+      "evaluated-game",
+      !(visibleLeft !== this.leftView || visibleRight !== this.rightView)
+    );
   }
 
   private putTree(index: number): void {
