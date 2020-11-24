@@ -30,6 +30,26 @@ const routes: Array<RouteConfig> = [
     name: "4x4 Baumsudoku",
     component: () => import("@/views/TreeSudokuOfFour.vue"),
   },
+  {
+    path: "/wordsadd",
+    name: "Ähnlich Wörter (hinzufügen)",
+    component: () => import("@/views/WordsAdd.vue"),
+  },
+  {
+    path: "/wordschange",
+    name: "Ähnlich Wörter (ändern)",
+    component: () => import("@/views/WordsChange.vue"),
+  },
+  {
+    path: "/wordsremove",
+    name: "Ähnlich Wörter (entfernen)",
+    component: () => import("@/views/WordsRemove.vue"),
+  },
+  {
+    path: "/wordsswap",
+    name: "Ähnlich Wörter (vertauschen)",
+    component: () => import("@/views/WordsSwap.vue"),
+  },
 ];
 
 const router = new VueRouter({

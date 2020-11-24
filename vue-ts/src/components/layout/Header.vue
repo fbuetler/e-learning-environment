@@ -3,6 +3,10 @@
     <h1>einfach INFORMATIK</h1>
     <div id="nav">
       <router-link to="/">Home</router-link> |
+      <router-link to="/wordsadd">Ähnliche Wörter (hinzufügen)</router-link> |
+      <router-link to="/wordschange">Ähnliche Wörter (ändern)</router-link> |
+      <router-link to="/wordsremove">Ähnliche Wörter (entfernen)</router-link> |
+      <router-link to="/wordsswap">Ähnliche Wörter (vertauschen)</router-link> |
       <router-link to="/treerow3">Reihe aus 3 Bäumen</router-link> |
       <router-link to="/treesudoku3">3x3 Baumsudoku</router-link> |
       <router-link to="/treerow4">Reihe aus 4 Bäumen</router-link> |

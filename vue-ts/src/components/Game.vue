@@ -25,11 +25,14 @@ import { Component, Prop } from "vue-property-decorator";
 import Buttonmenu from "@/components/Buttonmenu.vue";
 import Row from "@/components/trees/Row.vue";
 import Sudoku from "@/components/trees/Sudoku.vue";
-import { EventBus, EventBusEvents } from "./EventBus";
 
 export enum GameType {
   TREEROW = "Row",
   TREESUDOKU = "Sudoku",
+  WORDSADD = "WordsAdd",
+  WORDSCHANGE = "WordsChange",
+  WORDSREMOVE = "WordsRemove",
+  WORDSSWAP = "WordsSwap",
 }
 
 @Component({
@@ -44,7 +47,7 @@ export default class Game extends Vue {
   private type: GameType;
   @Prop()
   private title: string;
-  @Prop({ default: {} })
+  @Prop({ type: Object, default: () => ({}) })
   private args: {};
 
   private restartGameText = "Neu starten!";
