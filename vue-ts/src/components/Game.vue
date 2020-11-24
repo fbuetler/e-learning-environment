@@ -2,19 +2,13 @@
   <div>
     <h2>{{ title }}</h2>
     <Buttonmenu
-      :initializeGameText="initializeGameText"
+      :restartGameText="restartGameText"
       :evaluateGameText="evaluateGameText"
-      :isGameStarted="isGameStarted"
-      @initialize-game="initializeGame()"
-      @evalute-game="evaluateGame()"
     />
-    <div v-if="isGameStarted && !showResult">
+    <div v-if="!showResult">
       <component
         :is="currentGameComponent"
         :args="args"
-        :initialize="initGame"
-        :evaluate="evalGame"
-        @initialized-game="initializedGame()"
         @evaluated-game="(correct) => evaluatedGame(correct)"
       ></component>
     </div>
@@ -31,6 +25,7 @@ import Buttonmenu from "@/components/Buttonmenu.vue";
 import Testgame from "@/components/Testgame.vue";
 import Row from "@/components/trees/Row.vue";
 import Sudoku from "@/components/trees/Sudoku.vue";
+import { EventBus, EventBusEvents } from "./EventBus";
 
 export enum GameType {
   TREEROW = "Row",
@@ -54,29 +49,10 @@ export default class Game extends Vue {
   @Prop({ default: {} })
   private args: {};
 
-  private initializeGameText = "Start!";
+  private restartGameText = "Neu starten!";
   private evaluateGameText = "Überprüfen!";
   private resultText = "";
-  private isGameStarted = false;
   private showResult = false;
-
-  private initGame = false;
-  private evalGame = false;
-
-  public initializeGame(): void {
-    this.initializeGameText = "Neu starten";
-    this.isGameStarted = true;
-    this.resultText = "";
-    this.initGame = true;
-  }
-
-  private initializedGame(): void {
-    this.initGame = false;
-  }
-
-  public evaluateGame(): void {
-    this.evalGame = true;
-  }
 
   private evaluatedGame(correct: boolean): void {
     if (correct) {
@@ -85,11 +61,9 @@ export default class Game extends Vue {
       this.resultText = "Falsch!";
     }
     this.showResult = true;
-    this.isGameStarted = false;
-    this.evalGame = false;
     setTimeout(() => {
       this.showResult = false;
-      this.isGameStarted = true;
+      this.resultText = "";
     }, 2000);
   }
 

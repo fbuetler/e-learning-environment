@@ -87,35 +87,18 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
+import { EventBus, EventBusEvents } from "../EventBus";
 
 @Component<Sudoku>({
   components: {
     Selection,
   },
-  watch: {
-    initialize(newValue: boolean) {
-      if (newValue) {
-        this.initializeGame();
-        this.$emit("initialized-game");
-      }
-    },
-    evaluate(newValue: boolean) {
-      if (newValue) {
-        const correct = this.evaluateGame();
-        this.$emit("evaluated-game", correct);
-      }
-    },
-  },
 })
 export default class Sudoku extends Vue {
-  @Prop({ default: false })
-  private initialize: boolean;
-  @Prop({ default: false })
-  private evaluate: boolean;
   @Prop({ required: true })
   private args!: { size: number };
 
-  private size: number;
+  private size: number = this.args.size;
 
   private values: number[][] = null;
   private views: number[][] = null;
@@ -125,12 +108,14 @@ export default class Sudoku extends Vue {
   private pickedTree = 0;
 
   created() {
-    this.size = this.args.size;
-    this.initializeGame();
-    this.$emit("initialized-game");
+    if (this.values === null || this.views === null) {
+      this.restartGame();
+    }
+    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
+    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
   }
 
-  public initializeGame(): void {
+  public restartGame(): void {
     [this.values, this.views] = this.generate(
       new Array<number>(this.size)
         .fill(0)
@@ -141,8 +126,8 @@ export default class Sudoku extends Vue {
     );
   }
 
-  public evaluateGame(): boolean {
-    return this.isValid(this.values, this.views, true);
+  public evaluateGame() {
+    this.$emit("evaluated-game", this.isValid(this.values, this.views, true));
   }
 
   private putTree(rowIndex: number, colIndex: number) {

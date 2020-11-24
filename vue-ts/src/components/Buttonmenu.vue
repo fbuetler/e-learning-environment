@@ -1,9 +1,9 @@
 <template>
   <div class="buttons-container">
-    <button @click="$emit('initialize-game')">
-      {{ initializeGameText }}
+    <button @click="emitRestartGameEvent()">
+      {{ restartGameText }}
     </button>
-    <button @click="$emit('evalute-game')" v-if="isGameStarted">
+    <button @click="emitEvalGameEvent()">
       {{ evaluateGameText }}
     </button>
   </div>
@@ -12,14 +12,21 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import { EventBus, EventBusEvents } from "./EventBus";
+
 @Component
 export default class Buttonmenu extends Vue {
   @Prop({ type: String, required: true })
-  private initializeGameText!: string;
+  private restartGameText!: string;
   @Prop({ type: String, required: true })
   private evaluateGameText!: string;
-  @Prop({ type: Boolean, default: false })
-  private isGameStarted: boolean;
+
+  private emitRestartGameEvent() {
+    EventBus.$emit(EventBusEvents.RestartGame);
+  }
+  private emitEvalGameEvent() {
+    EventBus.$emit(EventBusEvents.EvaluateGame);
+  }
 }
 </script>
 

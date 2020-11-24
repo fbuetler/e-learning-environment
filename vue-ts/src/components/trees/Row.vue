@@ -27,35 +27,18 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
+import { EventBus, EventBusEvents } from "../EventBus";
 
 @Component<Row>({
   components: {
     Selection,
   },
-  watch: {
-    initialize(newValue: boolean) {
-      if (newValue) {
-        this.initializeGame();
-        this.$emit("initialized-game");
-      }
-    },
-    evaluate(newValue: boolean) {
-      if (newValue) {
-        const correct = this.evaluateGame();
-        this.$emit("evaluated-game", correct);
-      }
-    },
-  },
 })
 export default class Row extends Vue {
-  @Prop({ default: false })
-  private initialize: boolean;
-  @Prop({ default: false })
-  private evaluate: boolean;
   @Prop({ required: true })
   private args!: { size: number };
 
-  private size: number;
+  private size: number = this.args.size;
 
   private values: number[] = null;
   private leftView: number = null;
@@ -64,12 +47,18 @@ export default class Row extends Vue {
   private pickedTree = 0;
 
   created() {
-    this.size = this.args.size;
-    this.initializeGame();
-    this.$emit("initialized-game");
+    if (
+      this.values === null ||
+      this.leftView === null ||
+      this.rightView === null
+    ) {
+      this.restartGame();
+    }
+    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
+    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
   }
 
-  private initializeGame(): void {
+  private restartGame(): void {
     [this.leftView, this.rightView, this.values] = this.generate();
   }
 
