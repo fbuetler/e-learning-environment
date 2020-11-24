@@ -6,7 +6,7 @@
         :style="gridRowSizeAndPosition(`1 / 1`, `1 / ${size + 3}`)"
       >
         <!-- placeholder -->
-        <div></div>
+        <div class="placeholder"></div>
         <!-- top view -->
         <div
           v-for="(visible, topIndex) in views[0]"
@@ -17,7 +17,7 @@
           <span v-else></span>
         </div>
         <!-- placeholder -->
-        <div></div>
+        <div class="placeholder"></div>
       </div>
 
       <div
@@ -61,7 +61,7 @@
         "
       >
         <!-- placeholder -->
-        <div></div>
+        <div class="placeholder"></div>
         <!-- bottom view -->
         <div
           v-for="(visible, bottomIndex) in views[3]"
@@ -72,7 +72,7 @@
           <span v-else></span>
         </div>
         <!-- placeholder -->
-        <div></div>
+        <div class="placeholder"></div>
       </div>
     </div>
     <Selection
@@ -346,5 +346,9 @@ export default class Sudoku extends Vue {
 .view {
   background: lightgray;
   border: 1px solid gray;
+}
+.placeholder {
+  background: black;
+  border: none !important;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="grid" :style="cellsPerRowWithViews">
-      <div>{{ leftView }}</div>
+    <div class="wrapper" :style="gridSize()">
+      <div class="view">{{ leftView }}</div>
       <div
         v-for="(value, index) in values"
         :key="index"
@@ -13,7 +13,7 @@
         />
         <img v-else :src="require('@/assets/trees/tree_' + value + '.png')" />
       </div>
-      <div>{{ rightView }}</div>
+      <div class="view">{{ rightView }}</div>
     </div>
     <Selection
       :size="size"
@@ -121,34 +121,36 @@ export default class Row extends Vue {
     return visible;
   }
 
-  private get cellsPerRowWithViews(): string {
+  private gridSize(): string {
     return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
   }
 }
 </script>
 
 <style scoped>
-.grid {
+.wrapper {
   display: grid;
   background: white;
   border: 3px solid black;
   margin: 0px 0px 25px 0px;
 }
-.grid > div {
-  padding: 1rem;
-  position: relative;
+.wrapper > div {
   border: 1px solid gray;
+  font-size: 3em;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
-.grid > div::before {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
+.wrapper > div > img {
+  max-height: 50%;
 }
-.grid > div img {
-  position: absolute;
-  max-width: 80%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.view {
+  background: lightgray;
+  border: 1px solid gray;
 }
 </style>
