@@ -29,7 +29,7 @@ export default class Testgame extends Vue {
   @Prop()
   private evaluate: boolean;
   @Prop()
-  private args: any;
+  private args: {};
 
   created() {
     this.initializeGame();

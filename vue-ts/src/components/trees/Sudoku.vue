@@ -239,9 +239,9 @@ export default class Sudoku extends Vue {
     return [null, null];
   }
 
-  private shuffle(arr: any[]): void {
+  private shuffle(arr: number[] | [number, number][]): void {
     let currentIndex = arr.length;
-    let tempValue: number;
+    let tempValue: number | [number, number];
     let randomIndex: number;
     while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
