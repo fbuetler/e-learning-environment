@@ -23,7 +23,6 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Buttonmenu from "@/components/Buttonmenu.vue";
-import Testgame from "@/components/Testgame.vue";
 import Row from "@/components/trees/Row.vue";
 import Sudoku from "@/components/trees/Sudoku.vue";
 import { EventBus, EventBusEvents } from "./EventBus";
@@ -31,13 +30,11 @@ import { EventBus, EventBusEvents } from "./EventBus";
 export enum GameType {
   TREEROW = "Row",
   TREESUDOKU = "Sudoku",
-  TESTGAME = "Testgame",
 }
 
 @Component({
   components: {
     Buttonmenu,
-    Testgame,
     Row,
     Sudoku,
   },
