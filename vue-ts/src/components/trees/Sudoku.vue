@@ -39,7 +39,7 @@
         <!-- values -->
         <div
           v-for="(value, colIndex) in row"
-          :key="`col-${colIndex}`"
+          :key="`row-${rowIndex}-col-${colIndex}`"
           @click="putTree(rowIndex, colIndex)"
         >
           <img
@@ -131,7 +131,7 @@ export default class Sudoku extends Vue {
   }
 
   private putTree(rowIndex: number, colIndex: number) {
-    this.values[rowIndex][colIndex] = this.pickedTree;
+    Vue.set(this.values[rowIndex], colIndex, this.pickedTree);
     this.pickedTree = 0;
   }
 

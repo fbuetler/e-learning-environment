@@ -74,11 +74,7 @@ export default class Row extends Vue {
   }
 
   private putTree(index: number): void {
-    // TODO rm this after this.values is made reactive
-    if (this.pickedTree === 0) {
-      return;
-    }
-    this.values[index] = this.pickedTree;
+    Vue.set(this.values, index, this.pickedTree);
     this.pickedTree = 0;
   }
 
