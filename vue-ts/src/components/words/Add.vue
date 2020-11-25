@@ -2,8 +2,10 @@
   <div>
     <div class="word-container">
       <div class="word-item" v-for="element in word" :key="element.id">
-        {{ element.letter }}
+        <div class="placeholder" @click="insertChar(element.id)">?</div>
+        <div class="word">{{ element.letter }}</div>
       </div>
+      <div class="placeholder" @click="insertChar(word.length)">?</div>
     </div>
     <Alphabet
       :selectedChar="selectedChar"
@@ -67,6 +69,14 @@ export default class Add extends Vue {
   private charSelected(char: string) {
     this.selectedChar = char;
   }
+
+  private insertChar(id: number) {
+    console.log(id);
+    /*
+    TODO
+    insert selectedChar into words
+    */
+  }
 }
 </script>
 
@@ -80,6 +90,16 @@ export default class Add extends Vue {
   margin: 1em;
 }
 .word-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.placeholder {
+  background: white;
+  min-width: 1em;
+}
+.word {
   background: white;
   border: 3px solid black;
   padding: 0.3em;
