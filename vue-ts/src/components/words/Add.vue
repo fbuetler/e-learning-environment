@@ -2,10 +2,10 @@
   <div>
     <div class="word-container">
       <div class="word-item" v-for="element in word" :key="element.id">
-        <div class="placeholder" @click="insertChar(element.id)">?</div>
+        <div class="placeholder" @click="addChar(element.id)">?</div>
         <div class="word">{{ element.letter }}</div>
       </div>
-      <div class="placeholder" @click="insertChar(word.length)">?</div>
+      <div class="placeholder" @click="addChar(word.length)">?</div>
     </div>
     <Alphabet
       :selectedChar="selectedChar"
@@ -30,7 +30,7 @@ export default class Add extends Vue {
   @Prop({ required: true })
   private args!: {};
 
-  private dataKey = "insert";
+  private dataKey = "add";
 
   private words: JSON = words;
   private word: { id: number; letter: string }[] = null;
@@ -72,7 +72,7 @@ export default class Add extends Vue {
     this.selectedChar = char;
   }
 
-  private insertChar(addBefore: number) {
+  private addChar(addBefore: number) {
     this.word.splice(addBefore, 0, {
       id: Math.max(...this.word.map((el) => el.id)) + 1,
       letter: this.selectedChar,
