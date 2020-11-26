@@ -2,15 +2,42 @@
   <div>
     <div class="word-container">
       <div class="word-item" v-for="element in word" :key="element.id">
-        <div class="placeholder" @click="addChar(element.id)">?</div>
-        <div class="word">{{ element.letter }}</div>
+        <div
+          class="placeholder"
+          @click="addChar(element.id)"
+          @dragover.prevent
+          @dragend.prevent
+          @drop.stop.prevent="addChar(element.id)"
+        >
+          ?
+        </div>
+        <div
+          class="char"
+          draggable
+          @dragover.prevent
+          @dragend.prevent
+          @dragstart="dragChar($event, element.id)"
+        >
+          {{ element.char }}
+        </div>
       </div>
-      <div class="placeholder" @click="addChar(word.length)">?</div>
+      <div
+        class="placeholder"
+        @click="addChar(word.length)"
+        @dragover.prevent
+        @dragend.prevent
+        @drop.stop.prevent="addChar(word.length)"
+      >
+        ?
+      </div>
     </div>
-    <Alphabet
-      :selectedChar="selectedChar"
-      @char-selected="(char) => charSelected(char)"
-    />
+    <div class="interaction-container">
+      <Alphabet
+        :selectedChar="selectedChar"
+        @char-selected="(char) => charSelected(char)"
+      />
+      <Trashcan @trashed-element="(event) => trashElement(event)" />
+    </div>
   </div>
 </template>
 
@@ -18,12 +45,14 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Alphabet from "@/components/words/Alphabet.vue";
+import Trashcan from "@/components/words/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 import words from "@/assets/words/words.json";
 
 @Component<Add>({
   components: {
     Alphabet,
+    Trashcan,
   },
 })
 export default class Add extends Vue {
@@ -33,7 +62,7 @@ export default class Add extends Vue {
   private dataKey = "add";
 
   private words: JSON = words;
-  private word: { id: number; letter: string }[] = null;
+  private word: { id: number; char: string; locked: boolean }[] = null;
   private similarWords: string[] = null;
   private selectedChar: string = null;
 
@@ -51,19 +80,20 @@ export default class Add extends Vue {
     const wordParts = key.split("");
 
     this.similarWords = this.words[this.dataKey][key];
-    this.word = new Array<{ id: number; letter: string }>();
+    this.word = new Array<{ id: number; char: string; locked: boolean }>();
 
     for (let i = 0; i < wordParts.length; i++) {
       this.word.push({
         id: i,
-        letter: wordParts[i],
+        char: wordParts[i],
+        locked: true,
       });
     }
   }
 
   private evaluateGame() {
     const isCorrect = this.similarWords.includes(
-      this.word.map((el) => el.letter).join("")
+      this.word.map((el) => el.char).join("")
     );
     this.$emit("evaluated-game", isCorrect);
   }
@@ -75,9 +105,22 @@ export default class Add extends Vue {
   private addChar(addBefore: number) {
     this.word.splice(addBefore, 0, {
       id: Math.max(...this.word.map((el) => el.id)) + 1,
-      letter: this.selectedChar,
+      char: this.selectedChar,
+      locked: false,
     });
     this.selectedChar = null;
+  }
+
+  private dragChar(event: DragEvent, id: string) {
+    event.dataTransfer.setData("id", id);
+  }
+
+  private trashElement(event: DragEvent) {
+    const id = +event.dataTransfer.getData("id");
+    if (this.word.find((el) => el.id === id).locked) {
+      return;
+    }
+    this.word = this.word.filter((el) => el.id !== id);
   }
 }
 </script>
@@ -98,13 +141,19 @@ export default class Add extends Vue {
   align-items: center;
 }
 .placeholder {
-  background: white;
   min-width: 1em;
+  border: 1px dashed black;
 }
-.word {
+.char {
   background: white;
   border: 3px solid black;
   padding: 0.3em;
   margin: 0.2em;
+}
+.interaction-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
 }
 </style>

@@ -6,6 +6,10 @@
       v-for="char in alphabet"
       :key="char"
       @click="$emit('char-selected', char)"
+      draggable
+      @dragstart="$emit('char-selected', char)"
+      @dragover.prevent
+      @dragend.prevent
     >
       {{ char }}
     </div>
