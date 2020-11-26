@@ -56,13 +56,15 @@ export default class Add extends Vue {
     for (let i = 0; i < wordParts.length; i++) {
       this.word.push({
         id: i,
-        letter: wordParts[i].toUpperCase(),
+        letter: wordParts[i],
       });
     }
   }
 
   private evaluateGame() {
-    const isCorrect = true;
+    const isCorrect = this.similarWords.includes(
+      this.word.map((el) => el.letter).join("")
+    );
     this.$emit("evaluated-game", isCorrect);
   }
 
@@ -70,12 +72,12 @@ export default class Add extends Vue {
     this.selectedChar = char;
   }
 
-  private insertChar(id: number) {
-    console.log(id);
-    /*
-    TODO
-    insert selectedChar into words
-    */
+  private insertChar(addBefore: number) {
+    this.word.splice(addBefore, 0, {
+      id: Math.max(...this.word.map((el) => el.id)) + 1,
+      letter: this.selectedChar,
+    });
+    this.selectedChar = null;
   }
 }
 </script>
