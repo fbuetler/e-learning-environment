@@ -132,4 +132,7 @@ export default class Game extends Vue {
 .tree-row > div > img {
   max-height: 50%;
 }
+hr {
+  border: 1px solid black;
+}
 </style>

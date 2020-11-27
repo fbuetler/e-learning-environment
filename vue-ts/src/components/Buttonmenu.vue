@@ -47,7 +47,7 @@ button:focus {
 }
 button {
   border-radius: 6px;
-  background-color: whitesmoke;
+  background-color: white;
   border: none;
   color: black;
   font-size: 16px;
