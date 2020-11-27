@@ -31,9 +31,9 @@ import { Component, Prop } from "vue-property-decorator";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
-import words from "@/assets/words/words.json";
+import { LoadWords } from "./LoadWords";
 
-type wordElement = {
+export type wordElement = {
   id: number;
   char: string;
   initialChar: string;
@@ -51,7 +51,6 @@ export default class Change extends Vue {
   private args!: {};
 
   private dataKey = "change";
-  private words: JSON = words;
   private word: wordElement[] = null;
   private similarWords: string[] = null;
   private selectedChar: string = null;
@@ -65,21 +64,7 @@ export default class Change extends Vue {
   }
 
   private restartGame() {
-    const keys = Object.keys(this.words[this.dataKey]);
-    const key = keys[Math.floor(Math.random() * keys.length)];
-    const wordParts = key.split("");
-
-    this.similarWords = this.words[this.dataKey][key];
-    this.word = new Array<wordElement>();
-
-    for (let i = 0; i < wordParts.length; i++) {
-      this.word.push({
-        id: i,
-        char: wordParts[i],
-        initialChar: wordParts[i],
-        locked: false,
-      });
-    }
+    [this.word, this.similarWords] = LoadWords(this.dataKey);
   }
 
   private evaluateGame() {

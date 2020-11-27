@@ -49,7 +49,7 @@ import { Component, Prop } from "vue-property-decorator";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
-import words from "@/assets/words/words.json";
+import { LoadWords } from "./LoadWords";
 
 @Component<Add>({
   components: {
@@ -63,7 +63,6 @@ export default class Add extends Vue {
 
   private dataKey = "add";
 
-  private words: JSON = words;
   private word: { id: number; char: string; locked: boolean }[] = null;
   private similarWords: string[] = null;
   private selectedChar: string = null;
@@ -78,21 +77,7 @@ export default class Add extends Vue {
   }
 
   private restartGame() {
-    const keys = Object.keys(this.words[this.dataKey]);
-    const key = keys[Math.floor(Math.random() * keys.length)];
-    const wordParts = key.split("");
-
-    this.similarWords = this.words[this.dataKey][key];
-    this.word = new Array<{ id: number; char: string; locked: boolean }>();
-    this.charAdded = false;
-
-    for (let i = 0; i < wordParts.length; i++) {
-      this.word.push({
-        id: i,
-        char: wordParts[i],
-        locked: true,
-      });
-    }
+    [this.word, this.similarWords] = LoadWords(this.dataKey);
   }
 
   private evaluateGame() {
