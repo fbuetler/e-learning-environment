@@ -45,7 +45,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Alphabet from "@/components/words/Alphabet.vue";
-import Trashcan from "@/components/words/Trashcan.vue";
+import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 import words from "@/assets/words/words.json";
 

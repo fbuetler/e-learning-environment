@@ -10,6 +10,7 @@
       @dragstart="$emit('change-selection', index)"
       @dragover.prevent
       @dragend.prevent
+      @drop.prevent
     >
       <img :src="require('@/assets/trees/tree_' + index + '.png')" />
     </div>
@@ -32,6 +33,8 @@ export default class Selection extends Vue {
 <style scoped>
 .container {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   background: white;
   border: 3px solid black;
 }

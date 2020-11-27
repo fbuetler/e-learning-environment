@@ -3,14 +3,14 @@
     <div class="wrapper" :style="gridSize()">
       <div class="view">{{ leftView }}</div>
       <div
-        v-for="(field, index) in values"
+        v-for="field in values"
         :key="field.id"
-        @click="putTree(index)"
+        @click="putTree(field.id)"
         draggable
-        @dragstart="startDrag($event, index)"
+        @dragstart="startDrag($event, field.id)"
         @dragover.prevent
         @dragend.prevent
-        @drop.stop.prevent="putTree(index)"
+        @drop.stop.prevent="putTree(field.id)"
       >
         <img
           v-if="field.value === 0"
@@ -23,16 +23,13 @@
       </div>
       <div class="view">{{ rightView }}</div>
     </div>
-    <div
-      @drop.stop.prevent="onDrop($event)"
-      @dragover.prevent
-      @dragenter.prevent
-    >
+    <div class="interaction-container">
       <Selection
         :size="size"
         :selected="pickedTree"
         @change-selection="pickedTree = $event"
       />
+      <Trashcan @trashed-element="(event) => trashElement(event)" />
     </div>
   </div>
 </template>
@@ -41,6 +38,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
+import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
 type rowField = { id: number; value: number; locked: boolean };
@@ -49,6 +47,7 @@ type row = rowField[];
 @Component<Row>({
   components: {
     Selection,
+    Trashcan,
   },
 })
 export default class Row extends Vue {
@@ -89,11 +88,12 @@ export default class Row extends Vue {
     );
   }
 
-  private putTree(index: number): void {
-    if (this.values[index].locked) {
+  private putTree(id: number): void {
+    const field = this.values.find((el) => el.id == id);
+    if (field.locked) {
       return;
     }
-    Vue.set(this.values[index], "value", this.pickedTree);
+    Vue.set(field, "value", this.pickedTree);
     this.pickedTree = 0;
   }
 
@@ -156,13 +156,16 @@ export default class Row extends Vue {
     return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
   }
 
-  private startDrag(event: DragEvent, index: number) {
-    event.dataTransfer.setData("index", index.toString());
+  private startDrag(event: DragEvent, id: number) {
+    event.dataTransfer.setData("id", id.toString());
   }
 
-  private onDrop(event: DragEvent) {
-    const index = +event.dataTransfer.getData("index");
-    Vue.set(this.values[index], "value", 0);
+  private trashElement(event: DragEvent) {
+    const id = +event.dataTransfer.getData("id");
+    if (this.values.find((el) => el.id === id).locked) {
+      return;
+    }
+    Vue.set(this.values[id], "value", 0);
   }
 }
 </script>
@@ -192,5 +195,11 @@ export default class Row extends Vue {
 .view {
   background: lightgray;
   border: 1px solid gray;
+}
+.interaction-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
 }
 </style>

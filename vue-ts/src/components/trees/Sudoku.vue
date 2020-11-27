@@ -38,14 +38,14 @@
         </div>
         <!-- values -->
         <div
-          v-for="(field, colIndex) in row"
+          v-for="field in row"
           :key="`row-col-${field.id}`"
-          @click="putTree(rowIndex, colIndex)"
+          @click="putTree(field.id)"
           draggable
-          @dragstart="startDrag($event, rowIndex, colIndex)"
+          @dragstart="startDrag($event, field.id)"
           @dragover.prevent
           @dragend.prevent
-          @drop.stop.prevent="putTree(rowIndex, colIndex)"
+          @drop.stop.prevent="putTree(field.id)"
         >
           <img
             v-if="field.value !== 0"
@@ -80,16 +80,13 @@
         <div class="placeholder"></div>
       </div>
     </div>
-    <div
-      @drop.stop.prevent="onDrop($event)"
-      @dragover.prevent
-      @dragenter.prevent
-    >
+    <div class="interaction-container">
       <Selection
         :size="size"
         :selected="pickedTree"
         @change-selection="pickedTree = $event"
       />
+      <Trashcan @trashed-element="(event) => trashElement(event)" />
     </div>
   </div>
 </template>
@@ -98,6 +95,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
+import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
 type sudokuField = { id: number; value: number; locked: boolean };
@@ -106,6 +104,7 @@ type sudoku = sudokuField[][];
 @Component<Sudoku>({
   components: {
     Selection,
+    Trashcan,
   },
 })
 export default class Sudoku extends Vue {
@@ -152,7 +151,8 @@ export default class Sudoku extends Vue {
     this.$emit("evaluated-game", this.isValid(this.values, this.views, true));
   }
 
-  private putTree(rowIndex: number, colIndex: number) {
+  private putTree(id: number) {
+    const [rowIndex, colIndex] = this.findFieldByID(id);
     if (this.values[rowIndex][colIndex].locked) {
       return;
     }
@@ -366,18 +366,31 @@ export default class Sudoku extends Vue {
       2}, 1fr); grid-row: ${rowIndex}; grid-column: ${colIndex};`;
   }
 
-  private startDrag(event: DragEvent, rowIndex: number, colIndex: number) {
-    event.dataTransfer.setData("row-index", rowIndex.toString());
-    event.dataTransfer.setData("col-index", colIndex.toString());
+  private startDrag(event: DragEvent, id: number) {
+    event.dataTransfer.setData("id", id.toString());
   }
 
-  private onDrop(event: DragEvent) {
-    const rowIndex = +event.dataTransfer.getData("row-index");
-    const colIndex = +event.dataTransfer.getData("col-index");
+  private trashElement(event: DragEvent) {
+    const id = +event.dataTransfer.getData("id");
+    const [rowIndex, colIndex] = this.findFieldByID(id);
     if (this.values[rowIndex][colIndex].locked) {
       return;
     }
     Vue.set(this.values[rowIndex][colIndex], "value", 0);
+  }
+
+  private findFieldByID(id: number): [number, number] {
+    let rowIndex: number;
+    let colIndex: number;
+    for (let i = 0; i < this.values.length; i++) {
+      for (let j = 0; j < this.values[i].length; j++) {
+        if (this.values[i][j].id == id) {
+          rowIndex = i;
+          colIndex = j;
+        }
+      }
+    }
+    return [rowIndex, colIndex];
   }
 }
 </script>
@@ -415,5 +428,11 @@ export default class Sudoku extends Vue {
 .placeholder {
   background: black;
   border: none !important;
+}
+.interaction-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
 }
 </style>
