@@ -91,13 +91,13 @@ export default class Game extends Vue {
   flex-wrap: wrap;
   margin: 1em;
 }
-.char {
+.word-char {
   background: white;
   border: 3px solid black;
   padding: 0.3em;
   margin: 0.2em;
 }
-.locked {
+.word-char-locked {
   background: lightgray;
 }
 .interaction-container {
@@ -106,7 +106,7 @@ export default class Game extends Vue {
   justify-content: center;
   align-items: stretch;
 }
-.view {
+.tree-view {
   background: lightgray;
   border: 1px solid gray;
 }

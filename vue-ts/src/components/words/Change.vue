@@ -3,8 +3,8 @@
     <div class="word-container">
       <div v-for="element in word" :key="element.id">
         <div
-          class="char"
-          :class="{ locked: element.locked }"
+          class="word-char"
+          :class="{ 'word-char-locked': element.locked }"
           @click="changeChar(element.id)"
           @dragover.prevent
           @dragend.prevent

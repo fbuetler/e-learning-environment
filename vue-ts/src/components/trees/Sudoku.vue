@@ -11,7 +11,7 @@
         <div
           v-for="(visible, topIndex) in views[0]"
           :key="`top-${topIndex}`"
-          class="view"
+          class="tree-view"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>
@@ -32,7 +32,7 @@
         "
       >
         <!-- left view -->
-        <div class="view">
+        <div class="tree-view">
           <span v-if="views[1][rowIndex] !== 0">{{ views[1][rowIndex] }}</span>
           <span v-else></span>
         </div>
@@ -53,7 +53,7 @@
           />
         </div>
         <!-- right view -->
-        <div class="view">
+        <div class="tree-view">
           <span v-if="views[2][rowIndex] !== 0">{{ views[2][rowIndex] }}</span>
           <span v-else></span>
         </div>
@@ -71,7 +71,7 @@
         <div
           v-for="(visible, bottomIndex) in views[3]"
           :key="`bottom-${bottomIndex}`"
-          class="view"
+          class="tree-view"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>

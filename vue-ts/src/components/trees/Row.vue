@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tree-container tree-row" :style="gridSize()">
-      <div class="view">{{ leftView }}</div>
+      <div class="tree-view">{{ leftView }}</div>
       <div
         v-for="field in values"
         :key="field.id"
@@ -21,7 +21,7 @@
           :src="require('@/assets/trees/tree_' + field.value + '.png')"
         />
       </div>
-      <div class="view">{{ rightView }}</div>
+      <div class="tree-view">{{ rightView }}</div>
     </div>
     <div class="interaction-container">
       <Trees

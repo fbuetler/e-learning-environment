@@ -12,8 +12,8 @@
           ?
         </div>
         <div
-          class="char"
-          :class="{ locked: element.locked }"
+          class="word-char"
+          :class="{ 'word-char-locked': element.locked }"
           draggable
           @dragover.prevent
           @dragend.prevent
