@@ -5,7 +5,7 @@
       v-for="index in size"
       :key="index"
       :class="{ selected: index === selected }"
-      @click="changeSelection(index)"
+      @click="$emit('change-selection', index)"
       draggable
       @dragstart="$emit('change-selection', index)"
       @dragover.prevent
