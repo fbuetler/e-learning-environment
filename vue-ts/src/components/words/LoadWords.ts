@@ -1,5 +1,12 @@
 import words from "@/assets/words/words.json";
 
+export type wordElement = {
+  id: number;
+  char: string;
+  initialChar: string;
+  locked: boolean;
+};
+
 export function LoadWords(key: string): [any[], string[]] {
   const allWords = words;
   const keys = Object.keys(allWords[key]);

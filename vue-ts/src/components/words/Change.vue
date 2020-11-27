@@ -31,14 +31,7 @@ import { Component, Prop } from "vue-property-decorator";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
-import { LoadWords } from "./LoadWords";
-
-export type wordElement = {
-  id: number;
-  char: string;
-  initialChar: string;
-  locked: boolean;
-};
+import { LoadWords, wordElement } from "./LoadWords";
 
 @Component<Change>({
   components: {
@@ -75,6 +68,9 @@ export default class Change extends Vue {
   }
 
   private changeChar(id: number) {
+    if (this.selectedChar === null) {
+      return;
+    }
     const element = this.word.find((el) => el.id === id);
     if (element.locked) {
       return;

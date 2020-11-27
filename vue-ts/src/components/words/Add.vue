@@ -49,7 +49,7 @@ import { Component, Prop } from "vue-property-decorator";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
-import { LoadWords } from "./LoadWords";
+import { LoadWords, wordElement } from "./LoadWords";
 
 @Component<Add>({
   components: {
@@ -63,7 +63,7 @@ export default class Add extends Vue {
 
   private dataKey = "add";
 
-  private word: { id: number; char: string; locked: boolean }[] = null;
+  private word: wordElement[] = null;
   private similarWords: string[] = null;
   private selectedChar: string = null;
   private charAdded = false;
@@ -94,6 +94,7 @@ export default class Add extends Vue {
     this.word.splice(addBefore, 0, {
       id: Math.max(...this.word.map((el) => el.id)) + 1,
       char: this.selectedChar,
+      initialChar: "",
       locked: false,
     });
     this.selectedChar = null;
