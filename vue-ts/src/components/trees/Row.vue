@@ -3,8 +3,8 @@
     <div class="wrapper" :style="gridSize()">
       <div class="view">{{ leftView }}</div>
       <div
-        v-for="(value, index) in values"
-        :key="index"
+        v-for="(field, index) in values"
+        :key="field.id"
         @click="putTree(index)"
         draggable
         @dragstart="startDrag($event, index)"
@@ -13,10 +13,13 @@
         @drop.stop.prevent="putTree(index)"
       >
         <img
-          v-if="value === 0"
+          v-if="field.value === 0"
           :src="require('@/assets/trees/tree_empty.png')"
         />
-        <img v-else :src="require('@/assets/trees/tree_' + value + '.png')" />
+        <img
+          v-else
+          :src="require('@/assets/trees/tree_' + field.value + '.png')"
+        />
       </div>
       <div class="view">{{ rightView }}</div>
     </div>
@@ -40,6 +43,9 @@ import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
+type rowField = { id: number; value: number; locked: boolean };
+type row = rowField[];
+
 @Component<Row>({
   components: {
     Selection,
@@ -51,7 +57,7 @@ export default class Row extends Vue {
 
   private size: number = this.args.size;
 
-  private values: number[] = null;
+  private values: row = null;
   private leftView: number = null;
   private rightView: number = null;
 
@@ -74,10 +80,9 @@ export default class Row extends Vue {
   }
 
   private evaluateGame() {
-    const visibleLeft = this.visibleTreesFromLeft(this.values);
-    const visibleRight = this.visibleTreesFromLeft(
-      this.values.slice().reverse()
-    );
+    const row = this.values.map((field) => field.value);
+    const visibleLeft = this.visibleTreesFromLeft(row);
+    const visibleRight = this.visibleTreesFromLeft(row.slice().reverse());
     this.$emit(
       "evaluated-game",
       !(visibleLeft !== this.leftView || visibleRight !== this.rightView)
@@ -85,20 +90,27 @@ export default class Row extends Vue {
   }
 
   private putTree(index: number): void {
-    Vue.set(this.values, index, this.pickedTree);
+    if (this.values[index].locked) {
+      return;
+    }
+    Vue.set(this.values[index], "value", this.pickedTree);
     this.pickedTree = 0;
   }
 
-  private generate(): [number, number, number[]] {
+  private generate(): [number, number, row] {
     const values: number[] = [];
     for (let i = 0; i < this.size; i++) {
       values[i] = i + 1;
     }
     this.shuffle(values);
+    const row = new Array<rowField>(this.size);
+    for (let i = 0; i < row.length; i++) {
+      row[i] = this.createRowField(i, 0, false);
+    }
     return [
       this.visibleTreesFromLeft(values),
       this.visibleTreesFromLeft(values.slice().reverse()),
-      new Array<number>(this.size).fill(0),
+      row,
     ];
   }
 
@@ -128,6 +140,18 @@ export default class Row extends Vue {
     return visible;
   }
 
+  private createRowField(
+    index: number,
+    value: number,
+    locked: boolean
+  ): rowField {
+    return {
+      id: index,
+      value: value,
+      locked: locked,
+    };
+  }
+
   private gridSize(): string {
     return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
   }
@@ -138,7 +162,7 @@ export default class Row extends Vue {
 
   private onDrop(event: DragEvent) {
     const index = +event.dataTransfer.getData("index");
-    Vue.set(this.values, index, 0);
+    Vue.set(this.values[index], "value", 0);
   }
 }
 </script>
