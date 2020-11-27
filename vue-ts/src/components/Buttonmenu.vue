@@ -39,8 +39,10 @@ button:focus {
 }
 
 .buttons-container {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
 }
 button {
