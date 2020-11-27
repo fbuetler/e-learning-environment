@@ -13,6 +13,7 @@
         </div>
         <div
           class="char"
+          :class="{ locked: element.locked }"
           draggable
           @dragover.prevent
           @dragend.prevent
@@ -34,7 +35,7 @@
     <div class="interaction-container">
       <Alphabet
         :selectedChar="selectedChar"
-        @char-selected="(char) => charSelected(char)"
+        @char-selected="selectedChar = $event"
       />
       <Trashcan @trashed-element="(event) => trashElement(event)" />
     </div>
@@ -65,6 +66,7 @@ export default class Add extends Vue {
   private word: { id: number; char: string; locked: boolean }[] = null;
   private similarWords: string[] = null;
   private selectedChar: string = null;
+  private charAdded = false;
 
   created() {
     if (this.word === null) {
@@ -81,6 +83,7 @@ export default class Add extends Vue {
 
     this.similarWords = this.words[this.dataKey][key];
     this.word = new Array<{ id: number; char: string; locked: boolean }>();
+    this.charAdded = false;
 
     for (let i = 0; i < wordParts.length; i++) {
       this.word.push({
@@ -98,17 +101,17 @@ export default class Add extends Vue {
     this.$emit("evaluated-game", isCorrect);
   }
 
-  private charSelected(char: string) {
-    this.selectedChar = char;
-  }
-
   private addChar(addBefore: number) {
+    if (this.selectedChar === null || this.charAdded) {
+      return;
+    }
     this.word.splice(addBefore, 0, {
       id: Math.max(...this.word.map((el) => el.id)) + 1,
       char: this.selectedChar,
       locked: false,
     });
     this.selectedChar = null;
+    this.charAdded = true;
   }
 
   private dragChar(event: DragEvent, id: string) {
@@ -121,6 +124,7 @@ export default class Add extends Vue {
       return;
     }
     this.word = this.word.filter((el) => el.id !== id);
+    this.charAdded = false;
   }
 }
 </script>
@@ -149,6 +153,9 @@ export default class Add extends Vue {
   border: 3px solid black;
   padding: 0.3em;
   margin: 0.2em;
+}
+.locked {
+  background: lightgray;
 }
 .interaction-container {
   display: flex;
