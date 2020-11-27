@@ -45,9 +45,6 @@ export default class Selection extends Vue {
   justify-content: center;
   border: 1px solid gray;
 }
-.tree-item.selected {
-  background: #eeee4e;
-}
 .tree-item > img {
   max-height: 50%;
 }

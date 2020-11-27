@@ -135,4 +135,7 @@ export default class Game extends Vue {
 hr {
   border: 1px solid black;
 }
+.selected {
+  background: #eeee4e !important;
+}
 </style>

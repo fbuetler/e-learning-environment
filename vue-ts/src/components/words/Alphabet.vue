@@ -70,7 +70,4 @@ export default class Alphabet extends Vue {
   padding: 0.3em;
   margin: 0.2em;
 }
-.alphabet-item.selected {
-  background: #eeee4e;
-}
 </style>
