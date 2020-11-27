@@ -32,6 +32,7 @@
         ?
       </div>
     </div>
+    <hr />
     <div class="interaction-container">
       <Alphabet
         :selectedChar="selectedChar"
