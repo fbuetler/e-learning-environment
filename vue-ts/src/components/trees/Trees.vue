@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="tree-container">
     <div
-      class="container-item"
+      class="tree-item"
       v-for="index in size"
       :key="index"
       :class="{ selected: index === selected }"
@@ -31,24 +31,24 @@ export default class Selection extends Vue {
 </script>
 
 <style scoped>
-.container {
+.tree-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   background: white;
   border: 3px solid black;
 }
-.container-item {
+.tree-item {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
   border: 1px solid gray;
 }
-.container-item.selected {
+.tree-item.selected {
   background: #eeee4e;
 }
-.container-item > img {
+.tree-item > img {
   max-height: 50%;
 }
 </style>

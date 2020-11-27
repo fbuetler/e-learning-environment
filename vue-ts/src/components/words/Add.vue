@@ -131,14 +131,6 @@ export default class Add extends Vue {
 </script>
 
 <style scoped>
-.word-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 1em;
-}
 .word-item {
   display: flex;
   flex-direction: row;
@@ -148,20 +140,5 @@ export default class Add extends Vue {
 .placeholder {
   min-width: 1em;
   border: 1px dashed black;
-}
-.char {
-  background: white;
-  border: 3px solid black;
-  padding: 0.3em;
-  margin: 0.2em;
-}
-.locked {
-  background: lightgray;
-}
-.interaction-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
 }
 </style>

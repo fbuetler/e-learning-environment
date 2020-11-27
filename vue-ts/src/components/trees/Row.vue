@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="wrapper" :style="gridSize()">
+    <div class="tree-container tree-row" :style="gridSize()">
       <div class="view">{{ leftView }}</div>
       <div
         v-for="field in values"
@@ -169,37 +169,3 @@ export default class Row extends Vue {
   }
 }
 </script>
-
-<style scoped>
-.wrapper {
-  display: grid;
-  background: white;
-  border: 3px solid black;
-  margin: 0px 0px 25px 0px;
-}
-.wrapper > div {
-  border: 1px solid gray;
-  font-size: 3em;
-
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  justify-content: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.wrapper > div > img {
-  max-height: 50%;
-}
-.view {
-  background: lightgray;
-  border: 1px solid gray;
-}
-.interaction-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-}
-</style>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="wrapper" :style="gridSize()">
+    <div class="tree-container" :style="gridSize()">
       <div
-        class="row"
+        class="tree-row"
         :style="gridRowSizeAndPosition(`1 / 1`, `1 / ${size + 3}`)"
       >
         <!-- placeholder -->
@@ -23,7 +23,7 @@
       <div
         v-for="(row, rowIndex) in values"
         :key="`row-${rowIndex}`"
-        class="row"
+        class="tree-row"
         :style="
           gridRowSizeAndPosition(
             `${rowIndex + 2} / ${rowIndex + 2}`,
@@ -60,7 +60,7 @@
       </div>
 
       <div
-        class="row"
+        class="tree-row"
         :style="
           gridRowSizeAndPosition(`${size + 2} / ${size + 2}`, `1 / ${size + 3}`)
         "
@@ -396,43 +396,11 @@ export default class Sudoku extends Vue {
 </script>
 
 <style scoped>
-.wrapper {
+.tree-row {
   display: grid;
-  background: white;
-  border: 3px solid black;
-  margin: 0px 0px 25px 0px;
-}
-.row {
-  display: grid;
-}
-.row > div {
-  grid-row: 1;
-  border: 1px solid gray;
-  font-size: 3em;
-
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  justify-content: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.row > div > img {
-  max-height: 50%;
-}
-.view {
-  background: lightgray;
-  border: 1px solid gray;
 }
 .placeholder {
   background: black;
   border: none !important;
-}
-.interaction-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
 }
 </style>

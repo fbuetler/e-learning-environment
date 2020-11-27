@@ -81,3 +81,55 @@ export default class Game extends Vue {
   }
 }
 </script>
+
+<style>
+.word-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1em;
+}
+.char {
+  background: white;
+  border: 3px solid black;
+  padding: 0.3em;
+  margin: 0.2em;
+}
+.locked {
+  background: lightgray;
+}
+.interaction-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+.view {
+  background: lightgray;
+  border: 1px solid gray;
+}
+.tree-container {
+  display: grid;
+  background: white;
+  border: 3px solid black;
+  margin: 0px 0px 25px 0px;
+}
+.tree-row > div {
+  grid-row: 1;
+  border: 1px solid gray;
+  font-size: 3em;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.tree-row > div > img {
+  max-height: 50%;
+}
+</style>
