@@ -5,9 +5,9 @@
       v-for="index in size"
       :key="index"
       :class="{ selected: index === selected }"
-      @click="$emit('change-selection', index)"
+      @click="$emit('tree-selected', index)"
       draggable
-      @dragstart="$emit('change-selection', index)"
+      @dragstart="$emit('tree-selected', index)"
       @dragover.prevent
       @dragend.prevent
       @drop.prevent

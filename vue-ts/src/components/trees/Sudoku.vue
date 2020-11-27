@@ -81,10 +81,10 @@
       </div>
     </div>
     <div class="interaction-container">
-      <Selection
+      <Trees
         :size="size"
-        :selected="pickedTree"
-        @change-selection="pickedTree = $event"
+        :selected="selectedTree"
+        @tree-selected="selectedTree = $event"
       />
       <Trashcan @trashed-element="(event) => trashElement(event)" />
     </div>
@@ -94,7 +94,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import Selection from "@/components/trees/Selection.vue";
+import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
@@ -103,7 +103,7 @@ type sudoku = sudokuField[][];
 
 @Component<Sudoku>({
   components: {
-    Selection,
+    Trees,
     Trashcan,
   },
 })
@@ -118,7 +118,7 @@ export default class Sudoku extends Vue {
 
   private valuesSolution: number[][] = null;
 
-  private pickedTree = 0;
+  private selectedTree = 0;
 
   created() {
     if (this.values === null || this.views === null) {
@@ -156,8 +156,8 @@ export default class Sudoku extends Vue {
     if (this.values[rowIndex][colIndex].locked) {
       return;
     }
-    Vue.set(this.values[rowIndex][colIndex], "value", this.pickedTree);
-    this.pickedTree = 0;
+    Vue.set(this.values[rowIndex][colIndex], "value", this.selectedTree);
+    this.selectedTree = 0;
   }
 
   private generate(values: sudoku, views: number[][]): [sudoku, number[][]] {

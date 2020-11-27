@@ -24,10 +24,10 @@
       <div class="view">{{ rightView }}</div>
     </div>
     <div class="interaction-container">
-      <Selection
+      <Trees
         :size="size"
-        :selected="pickedTree"
-        @change-selection="pickedTree = $event"
+        :selected="selectedTree"
+        @tree-selected="selectedTree = $event"
       />
       <Trashcan @trashed-element="(event) => trashElement(event)" />
     </div>
@@ -37,7 +37,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import Selection from "@/components/trees/Selection.vue";
+import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
@@ -46,7 +46,7 @@ type row = rowField[];
 
 @Component<Row>({
   components: {
-    Selection,
+    Trees,
     Trashcan,
   },
 })
@@ -60,7 +60,7 @@ export default class Row extends Vue {
   private leftView: number = null;
   private rightView: number = null;
 
-  private pickedTree = 0;
+  private selectedTree = 0;
 
   created() {
     if (
@@ -93,8 +93,8 @@ export default class Row extends Vue {
     if (field.locked) {
       return;
     }
-    Vue.set(field, "value", this.pickedTree);
-    this.pickedTree = 0;
+    Vue.set(field, "value", this.selectedTree);
+    this.selectedTree = 0;
   }
 
   private generate(): [number, number, row] {
