@@ -1,6 +1,7 @@
 <template>
   <div
     class="trashcan"
+    @click="$emit('trashed-element', $event)"
     @dragover.prevent
     @dragenter.prevent
     @drop.stop.prevent="$emit('trashed-element', $event)"
