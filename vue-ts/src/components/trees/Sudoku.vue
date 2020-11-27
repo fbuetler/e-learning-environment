@@ -38,8 +38,8 @@
         </div>
         <!-- values -->
         <div
-          v-for="(value, colIndex) in row"
-          :key="`row-${rowIndex}-col-${colIndex}`"
+          v-for="(field, colIndex) in row"
+          :key="`row-col-${field.id}`"
           @click="putTree(rowIndex, colIndex)"
           draggable
           @dragstart="startDrag($event, rowIndex, colIndex)"
@@ -48,8 +48,8 @@
           @drop.stop.prevent="putTree(rowIndex, colIndex)"
         >
           <img
-            v-if="value !== 0"
-            :src="require('@/assets/trees/tree_' + value + '.png')"
+            v-if="field.value !== 0"
+            :src="require('@/assets/trees/tree_' + field.value + '.png')"
           />
         </div>
         <!-- right view -->
@@ -100,6 +100,9 @@ import { Component, Prop } from "vue-property-decorator";
 import Selection from "@/components/trees/Selection.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
+type sudokuField = { id: number; value: number; locked: boolean };
+type sudoku = sudokuField[][];
+
 @Component<Sudoku>({
   components: {
     Selection,
@@ -111,7 +114,7 @@ export default class Sudoku extends Vue {
 
   private size: number = this.args.size;
 
-  private values: number[][] = null;
+  private values: sudoku = null;
   private views: number[][] = null;
 
   private valuesSolution: number[][] = null;
@@ -127,10 +130,18 @@ export default class Sudoku extends Vue {
   }
 
   public restartGame(): void {
+    const v = new Array<sudokuField>(this.size)
+      .fill(null)
+      .map(() => new Array<sudokuField>(this.size).fill(null));
+
+    for (let i = 0; i < v.length; i++) {
+      for (let j = 0; j < v[i].length; j++) {
+        v[i][j] = this.createSudokuField(i, j, 0, false);
+      }
+    }
+
     [this.values, this.views] = this.generate(
-      new Array<number>(this.size)
-        .fill(0)
-        .map(() => new Array<number>(this.size).fill(0)),
+      v,
       new Array<number>(4)
         .fill(0)
         .map(() => new Array<number>(this.size).fill(0))
@@ -142,15 +153,17 @@ export default class Sudoku extends Vue {
   }
 
   private putTree(rowIndex: number, colIndex: number) {
-    Vue.set(this.values[rowIndex], colIndex, this.pickedTree);
+    if (this.values[rowIndex][colIndex].locked) {
+      return;
+    }
+    Vue.set(this.values[rowIndex][colIndex], "value", this.pickedTree);
     this.pickedTree = 0;
   }
 
-  private generate(
-    values: number[][],
-    views: number[][]
-  ): [number[][], number[][]] {
-    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(values);
+  private generate(values: sudoku, views: number[][]): [sudoku, number[][]] {
+    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
+      values.map((row) => row.map((col) => col.value))
+    );
     if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
       return [values, views];
     }
@@ -166,14 +179,24 @@ export default class Sudoku extends Vue {
     this.shuffle(numbers);
     for (let i = 0; i < numbers.length; i++) {
       if (Math.random() <= 0.5) {
-        values[emptyValueSlotRow][emptyValueSlotCol] = numbers[i];
+        values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
+          emptyValueSlotRow,
+          emptyValueSlotCol,
+          numbers[i],
+          true
+        );
       } else {
         views[emptyViewSlotRow][emptyViewSlotCol] = numbers[i];
       }
       if (this.isValid(values, views, false)) {
         const solutions = this.solve(values, views, 0);
         if (solutions === 0) {
-          values[emptyValueSlotRow][emptyValueSlotCol] = 0;
+          values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
+            emptyValueSlotRow,
+            emptyValueSlotCol,
+            0,
+            false
+          );
           views[emptyViewSlotRow][emptyViewSlotCol] = 0;
           continue;
         } else if (solutions === 1) {
@@ -182,19 +205,22 @@ export default class Sudoku extends Vue {
           return this.generate(values, views);
         }
       } else {
-        values[emptyValueSlotRow][emptyValueSlotCol] = 0;
+        values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
+          emptyValueSlotRow,
+          emptyValueSlotCol,
+          0,
+          false
+        );
         views[emptyViewSlotRow][emptyViewSlotCol] = 0;
       }
     }
     return [values, views];
   }
 
-  private solve(
-    values: number[][],
-    views: number[][],
-    solutions: number
-  ): number {
-    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(values);
+  private solve(values: sudoku, views: number[][], solutions: number): number {
+    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
+      values.map((row) => row.map((col) => col.value))
+    );
     if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
       this.valuesSolution = JSON.parse(JSON.stringify(values)); // deep copy
       return solutions + 1;
@@ -206,7 +232,7 @@ export default class Sudoku extends Vue {
     }
     this.shuffle(numbers);
     for (let i = 0; i < numbers.length; i++) {
-      values[emptyValueSlotRow][emptyValueSlotCol] = numbers[i];
+      values[emptyValueSlotRow][emptyValueSlotCol].value = numbers[i];
       if (this.isValid(values, views, false)) {
         solutions = this.solve(values, views, solutions);
         if (solutions > 1) {
@@ -214,7 +240,7 @@ export default class Sudoku extends Vue {
         }
       }
     }
-    values[emptyValueSlotRow][emptyValueSlotCol] = 0;
+    values[emptyValueSlotRow][emptyValueSlotCol].value = 0;
     return solutions;
   }
 
@@ -250,7 +276,7 @@ export default class Sudoku extends Vue {
   }
 
   private isValid(
-    values: number[][],
+    values: sudoku,
     views: number[][],
     complete: boolean
   ): boolean {
@@ -259,8 +285,8 @@ export default class Sudoku extends Vue {
       const colSeen = new Set<number>();
       for (let j = 0; j < values[i].length; j++) {
         const traversal: [number, Set<number>][] = [
-          [values[i][j], rowSeen],
-          [values[j][i], colSeen],
+          [values[i][j].value, rowSeen],
+          [values[j][i].value, colSeen],
         ];
         for (let k = 0; k < traversal.length; k++) {
           const [el, seen] = traversal[k];
@@ -278,8 +304,9 @@ export default class Sudoku extends Vue {
       }
 
       if (rowSeen.size === this.size) {
-        const visible = this.getVisibleTrees(values[i]);
-        const visibleRev = this.getVisibleTrees(values[i].slice().reverse());
+        const row = values[i].map((el) => el.value);
+        const visible = this.getVisibleTrees(row);
+        const visibleRev = this.getVisibleTrees(row.slice().reverse());
         if (
           (views[1][i] !== 0 && views[1][i] !== visible) ||
           (views[2][i] !== 0 && views[2][i] !== visibleRev)
@@ -290,7 +317,7 @@ export default class Sudoku extends Vue {
       if (colSeen.size === this.size) {
         const col: number[] = [];
         for (let k = 0; k < values.length; k++) {
-          col[k] = values[k][i];
+          col[k] = values[k][i].value;
         }
         const visible = this.getVisibleTrees(col);
         const visibleRev = this.getVisibleTrees(col.slice().reverse());
@@ -317,6 +344,19 @@ export default class Sudoku extends Vue {
     return visible;
   }
 
+  private createSudokuField(
+    rowIndex: number,
+    colIndex: number,
+    value: number,
+    locked: boolean
+  ): sudokuField {
+    return {
+      id: rowIndex * this.size + colIndex,
+      value: value,
+      locked: locked,
+    };
+  }
+
   private gridSize(): string {
     return `grid-template-rows: repeat(${this.size + 2}, 1fr);`;
   }
@@ -334,7 +374,10 @@ export default class Sudoku extends Vue {
   private onDrop(event: DragEvent) {
     const rowIndex = +event.dataTransfer.getData("row-index");
     const colIndex = +event.dataTransfer.getData("col-index");
-    Vue.set(this.values[rowIndex], colIndex, 0);
+    if (this.values[rowIndex][colIndex].locked) {
+      return;
+    }
+    Vue.set(this.values[rowIndex][colIndex], "value", 0);
   }
 }
 </script>
