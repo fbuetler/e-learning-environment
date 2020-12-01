@@ -18,7 +18,7 @@ export default class Undo extends Vue {}
   align-items: center;
   justify-content: center;
   border: 3px dashed black;
-  margin: 1em;
+  margin: 0em 1em 0em 1em;
 }
 .undo > img {
   width: 100%;

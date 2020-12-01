@@ -102,6 +102,7 @@ export default class Game extends Vue {
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
+  margin: 25px 0px 0px 0px;
 }
 .tree-view {
   background: darkgray;
@@ -110,7 +111,6 @@ export default class Game extends Vue {
   display: grid;
   background: white;
   border: 3px solid black;
-  margin: 0px 0px 25px 0px;
 }
 .tree-row > div {
   grid-row: 1;
