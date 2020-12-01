@@ -92,12 +92,25 @@ export default class Game extends Vue {
 </script>
 
 <style>
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: white;
+  border: 3px solid black;
+}
+.flex-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gray;
+}
 .word-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
   margin: 1em;
 }
 .word-char {
@@ -105,13 +118,6 @@ export default class Game extends Vue {
   border: 3px solid black;
   padding: 0.3em;
   margin: 0.2em;
-}
-.interaction-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  margin: 25px 0px 0px 0px;
 }
 .tree-view {
   background: darkgray;
@@ -137,13 +143,20 @@ export default class Game extends Vue {
 .tree-row > div > img {
   max-height: 50%;
 }
-hr {
-  border: 1px solid black;
+.interaction-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  margin: 25px 0px 0px 0px;
 }
 .selected {
   background: #eeee4e !important;
 }
 .locked {
   background: lightgray !important;
+}
+hr {
+  border: 1px solid black;
 }
 </style>
