@@ -50,6 +50,21 @@ const routes: Array<RouteConfig> = [
     name: "Ähnlich Wörter (vertauschen)",
     component: () => import("@/views/WordsSwap.vue"),
   },
+  {
+    path: "/mayasto",
+    name: "Zahlen wie die Mayas darstellen",
+    component: () => import("@/views/MayasTo.vue"),
+  },
+  {
+    path: "/mayasfrom",
+    name: "Zahlen der Mayas verstehen",
+    component: () => import("@/views/MayasFrom.vue"),
+  },
+  {
+    path: "/mayasaddition",
+    name: "Zahlen der Mayas addieren",
+    component: () => import("@/views/MayasAddition.vue"),
+  },
 ];
 
 const router = new VueRouter({

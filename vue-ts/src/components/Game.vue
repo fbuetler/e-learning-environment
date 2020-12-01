@@ -29,6 +29,9 @@ import WordsAdd from "@/components/words/Add.vue";
 import WordsChange from "@/components/words/Change.vue";
 import WordsRemove from "@/components/words/Remove.vue";
 import WordsSwap from "@/components/words/Swap.vue";
+import MayasTo from "@/components/mayas/To.vue";
+import MayasFrom from "@/components/mayas/From.vue";
+import MayasAddition from "@/components/mayas/Addition.vue";
 
 export enum GameType {
   TREEROW = "TreeRow",
@@ -37,6 +40,9 @@ export enum GameType {
   WORDSCHANGE = "WordsChange",
   WORDSREMOVE = "WordsRemove",
   WORDSSWAP = "WordsSwap",
+  MAYASTO = "MayasTo",
+  MAYASFROM = "MayasFrom",
+  MAYASADDITION = "MayasAddition",
 }
 
 @Component({
@@ -48,6 +54,9 @@ export enum GameType {
     WordsChange,
     WordsRemove,
     WordsSwap,
+    MayasTo,
+    MayasFrom,
+    MayasAddition,
   },
 })
 export default class Game extends Vue {
