@@ -5,12 +5,12 @@
       <div
         v-for="field in values"
         :key="field.id"
-        @click="putTree(field.id)"
+        @click="putTree($event, field.id)"
         draggable
         @dragstart="startDrag($event, field.id)"
         @dragover.prevent
         @dragend.prevent
-        @drop.stop.prevent="putTree(field.id)"
+        @drop.stop.prevent="putTree($event, field.id)"
       >
         <img
           v-if="field.value === 0"
@@ -96,9 +96,21 @@ export default class Row extends Vue {
     );
   }
 
-  private putTree(id: number): void {
+  private putTree(event: Event, id: number): void {
     const field = this.values.find((el) => el.id == id);
     if (field.locked) {
+      return;
+    }
+    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
+      const oldID = +event.dataTransfer.getData("id");
+      const oldField = this.values.find((el) => el.id === oldID);
+      if (oldField.locked) {
+        return;
+      }
+      this.selectedTree = oldField.value;
+      Vue.set(oldField, "value", 0);
+    }
+    if (this.selectedTree === 0) {
       return;
     }
     Vue.set(field, "value", this.selectedTree);

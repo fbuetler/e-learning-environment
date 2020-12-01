@@ -41,12 +41,12 @@
           v-for="field in row"
           :key="`row-col-${field.id}`"
           :class="{ locked: field.locked }"
-          @click="putTree(field.id)"
+          @click="putTree($event, field.id)"
           draggable
           @dragstart="startDrag($event, field.id)"
           @dragover.prevent
           @dragend.prevent
-          @drop.stop.prevent="putTree(field.id)"
+          @drop.stop.prevent="putTree($event, field.id)"
         >
           <img
             v-if="field.value !== 0"
@@ -160,9 +160,21 @@ export default class Sudoku extends Vue {
     this.$emit("evaluated-game", this.isValid(this.values, this.views, true));
   }
 
-  private putTree(id: number) {
+  private putTree(event: Event, id: number) {
     const [rowIndex, colIndex] = this.findFieldByID(id);
     if (this.values[rowIndex][colIndex].locked) {
+      return;
+    }
+    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
+      const oldID = +event.dataTransfer.getData("id");
+      const [oldRowIndex, oldColIndex] = this.findFieldByID(oldID);
+      if (this.values[oldRowIndex][oldColIndex].locked) {
+        return;
+      }
+      this.selectedTree = this.values[oldRowIndex][oldColIndex].value;
+      Vue.set(this.values[oldRowIndex][oldColIndex], "value", 0);
+    }
+    if (this.selectedTree === 0) {
       return;
     }
     Vue.set(this.values[rowIndex][colIndex], "value", this.selectedTree);
