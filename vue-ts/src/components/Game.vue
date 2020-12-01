@@ -104,8 +104,7 @@ export default class Game extends Vue {
   align-items: stretch;
 }
 .tree-view {
-  background: lightgray;
-  border: 1px solid gray;
+  background: darkgray;
 }
 .tree-container {
   display: grid;

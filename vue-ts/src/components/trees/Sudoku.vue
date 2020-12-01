@@ -40,6 +40,7 @@
         <div
           v-for="field in row"
           :key="`row-col-${field.id}`"
+          :class="{ locked: field.locked }"
           @click="putTree(field.id)"
           draggable
           @dragstart="startDrag($event, field.id)"
