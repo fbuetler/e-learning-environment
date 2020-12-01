@@ -5,7 +5,7 @@
         <div
           class="word-char"
           :class="{
-            'word-char-locked': element.locked,
+            locked: element.locked,
             selected: element.id === selectedChar,
           }"
           v-if="element.char !== ''"

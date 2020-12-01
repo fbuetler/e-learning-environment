@@ -4,7 +4,7 @@
       <div v-for="element in word" :key="element.id">
         <div
           class="word-char"
-          :class="{ 'word-char-locked': element.locked }"
+          :class="{ locked: element.locked }"
           @click="changeChar(element.id)"
           @dragover.prevent
           @dragend.prevent

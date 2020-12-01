@@ -97,9 +97,6 @@ export default class Game extends Vue {
   padding: 0.3em;
   margin: 0.2em;
 }
-.word-char-locked {
-  background: lightgray;
-}
 .interaction-container {
   display: flex;
   flex-direction: row;
@@ -137,5 +134,8 @@ hr {
 }
 .selected {
   background: #eeee4e !important;
+}
+.locked {
+  background: lightgray !important;
 }
 </style>
