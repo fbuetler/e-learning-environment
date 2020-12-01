@@ -88,6 +88,7 @@
         @tree-selected="selectedTree = $event"
       />
       <Trashcan @trashed-element="(event) => trashElement(event)" />
+      <Undo @undo-operation="undo($event)" />
     </div>
   </div>
 </template>
@@ -97,15 +98,22 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
+import Undo from "@/components/Undo.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
-type sudokuField = { id: number; value: number; locked: boolean };
+type sudokuField = {
+  id: number;
+  value: number;
+  initialValue: number;
+  locked: boolean;
+};
 type sudoku = sudokuField[][];
 
 @Component<Sudoku>({
   components: {
     Trees,
     Trashcan,
+    Undo,
   },
 })
 export default class Sudoku extends Vue {
@@ -354,6 +362,7 @@ export default class Sudoku extends Vue {
     return {
       id: rowIndex * this.size + colIndex,
       value: value,
+      initialValue: value,
       locked: locked,
     };
   }
@@ -392,6 +401,14 @@ export default class Sudoku extends Vue {
       }
     }
     return [rowIndex, colIndex];
+  }
+
+  private undo() {
+    this.values.forEach((row) => {
+      row.forEach((el) => {
+        el.value = el.initialValue;
+      });
+    });
   }
 }
 </script>

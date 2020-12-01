@@ -30,6 +30,7 @@
         @tree-selected="selectedTree = $event"
       />
       <Trashcan @trashed-element="(event) => trashElement(event)" />
+      <Undo @undo-operation="undo($event)" />
     </div>
   </div>
 </template>
@@ -38,16 +39,23 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Trees from "@/components/trees/Trees.vue";
+import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { EventBus, EventBusEvents } from "../EventBus";
 
-type rowField = { id: number; value: number; locked: boolean };
+type rowField = {
+  id: number;
+  value: number;
+  initialValue: number;
+  locked: boolean;
+};
 type row = rowField[];
 
 @Component<Row>({
   components: {
     Trees,
     Trashcan,
+    Undo,
   },
 })
 export default class Row extends Vue {
@@ -148,6 +156,7 @@ export default class Row extends Vue {
     return {
       id: index,
       value: value,
+      initialValue: value,
       locked: locked,
     };
   }
@@ -166,6 +175,12 @@ export default class Row extends Vue {
       return;
     }
     Vue.set(this.values[id], "value", 0);
+  }
+
+  private undo() {
+    this.values.forEach((el) => {
+      el.value = el.initialValue;
+    });
   }
 }
 </script>
