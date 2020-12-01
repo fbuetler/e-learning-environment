@@ -68,8 +68,7 @@ export default class Change extends Vue {
 
   private evaluateGame() {
     const isCorrect = this.word.reduce(
-      (acc, currVal, currIndex, arr) =>
-        acc && currVal.initialChar === currVal.char,
+      (acc, currVal) => acc && currVal.initialChar === currVal.char,
       true
     );
     this.$emit("evaluated-game", isCorrect);
