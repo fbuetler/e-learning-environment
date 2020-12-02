@@ -94,12 +94,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
+import GameMixin, { GameInterface } from "../Game";
 import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
-import { EventBus, EventBusEvents } from "../EventBus";
 
 type sudokuField = {
   id: number;
@@ -116,7 +115,7 @@ type sudoku = sudokuField[][];
     Undo,
   },
 })
-export default class Sudoku extends Vue {
+export default class Sudoku extends Mixins(GameMixin) implements GameInterface {
   @Prop({ required: true })
   private args!: { size: number };
 
@@ -129,15 +128,11 @@ export default class Sudoku extends Vue {
 
   private selectedTree = 0;
 
-  created() {
-    if (this.values === null || this.views === null) {
-      this.restartGame();
-    }
-    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
-    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
+  isStarted(): boolean {
+    return this.values === null || this.views === null;
   }
 
-  public restartGame(): void {
+  restartGame(): void {
     const v = new Array<sudokuField>(this.size)
       .fill(null)
       .map(() => new Array<sudokuField>(this.size).fill(null));
@@ -156,11 +151,11 @@ export default class Sudoku extends Vue {
     );
   }
 
-  public evaluateGame() {
-    this.$emit("evaluated-game", this.isValid(this.values, this.views, true));
+  isCorrect(): boolean {
+    return this.isValid(this.values, this.views, true);
   }
 
-  private putTree(event: Event, id: number) {
+  putTree(event: Event, id: number) {
     const [rowIndex, colIndex] = this.findFieldByID(id);
     if (this.values[rowIndex][colIndex].locked) {
       return;
@@ -181,7 +176,7 @@ export default class Sudoku extends Vue {
     this.selectedTree = 0;
   }
 
-  private generate(values: sudoku, views: number[][]): [sudoku, number[][]] {
+  generate(values: sudoku, views: number[][]): [sudoku, number[][]] {
     const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
       values.map((row) => row.map((col) => col.value))
     );
@@ -238,7 +233,7 @@ export default class Sudoku extends Vue {
     return [values, views];
   }
 
-  private solve(values: sudoku, views: number[][], solutions: number): number {
+  solve(values: sudoku, views: number[][], solutions: number): number {
     const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
       values.map((row) => row.map((col) => col.value))
     );
@@ -265,7 +260,7 @@ export default class Sudoku extends Vue {
     return solutions;
   }
 
-  private findEmptySlot(slots: number[][]): [number, number] {
+  findEmptySlot(slots: number[][]): [number, number] {
     const indexes: [number, number][] = [];
     for (let i = 0; i < slots.length; i++) {
       for (let j = 0; j < slots[i].length; j++) {
@@ -282,7 +277,7 @@ export default class Sudoku extends Vue {
     return [null, null];
   }
 
-  private shuffle(arr: number[] | [number, number][]): void {
+  shuffle(arr: number[] | [number, number][]): void {
     let currentIndex = arr.length;
     let tempValue: number | [number, number];
     let randomIndex: number;
@@ -296,11 +291,7 @@ export default class Sudoku extends Vue {
     }
   }
 
-  private isValid(
-    values: sudoku,
-    views: number[][],
-    complete: boolean
-  ): boolean {
+  isValid(values: sudoku, views: number[][], complete: boolean): boolean {
     for (let i = 0; i < values.length; i++) {
       const rowSeen = new Set<number>();
       const colSeen = new Set<number>();
@@ -353,7 +344,7 @@ export default class Sudoku extends Vue {
     return true;
   }
 
-  private getVisibleTrees(values: number[]): number {
+  getVisibleTrees(values: number[]): number {
     let min = 0;
     let visible = 0;
     for (let i = 0; i < values.length; i++) {
@@ -365,7 +356,7 @@ export default class Sudoku extends Vue {
     return visible;
   }
 
-  private createSudokuField(
+  createSudokuField(
     rowIndex: number,
     colIndex: number,
     value: number,
@@ -379,20 +370,20 @@ export default class Sudoku extends Vue {
     };
   }
 
-  private gridSize(): string {
+  gridSize(): string {
     return `grid-template-rows: repeat(${this.size + 2}, 1fr);`;
   }
 
-  private gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
+  gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
     return `grid-template-columns: repeat(${this.size +
       2}, 1fr); grid-row: ${rowIndex}; grid-column: ${colIndex};`;
   }
 
-  private startDrag(event: DragEvent, id: number) {
+  startDrag(event: DragEvent, id: number) {
     event.dataTransfer.setData("id", id.toString());
   }
 
-  private trashElement(event: DragEvent) {
+  trashElement(event: DragEvent) {
     const id = +event.dataTransfer.getData("id");
     const [rowIndex, colIndex] = this.findFieldByID(id);
     if (this.values[rowIndex][colIndex].locked) {
@@ -415,7 +406,7 @@ export default class Sudoku extends Vue {
     return [rowIndex, colIndex];
   }
 
-  private undo() {
+  undo() {
     this.values.forEach((row) => {
       row.forEach((el) => {
         el.value = el.initialValue;

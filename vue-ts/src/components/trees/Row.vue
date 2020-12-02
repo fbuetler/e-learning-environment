@@ -36,12 +36,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
+import GameMixin, { GameInterface } from "../Game";
 import Trees from "@/components/trees/Trees.vue";
 import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
-import { EventBus, EventBusEvents } from "../EventBus";
 
 type rowField = {
   id: number;
@@ -58,7 +57,7 @@ type row = rowField[];
     Undo,
   },
 })
-export default class Row extends Vue {
+export default class Row extends Mixins(GameMixin) implements GameInterface {
   @Prop({ required: true })
   private args!: { size: number };
 
@@ -70,33 +69,24 @@ export default class Row extends Vue {
 
   private selectedTree = 0;
 
-  created() {
-    if (
-      this.values === null ||
-      this.leftView === null ||
-      this.rightView === null
-    ) {
-      this.restartGame();
-    }
-    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
-    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
-  }
-
-  private restartGame(): void {
-    [this.leftView, this.rightView, this.values] = this.generate();
-  }
-
-  private evaluateGame() {
-    const row = this.values.map((field) => field.value);
-    const visibleLeft = this.visibleTreesFromLeft(row);
-    const visibleRight = this.visibleTreesFromLeft(row.slice().reverse());
-    this.$emit(
-      "evaluated-game",
-      !(visibleLeft !== this.leftView || visibleRight !== this.rightView)
+  isStarted(): boolean {
+    return (
+      this.values === null || this.leftView === null || this.rightView === null
     );
   }
 
-  private putTree(event: Event, id: number): void {
+  restartGame(): void {
+    [this.leftView, this.rightView, this.values] = this.generate();
+  }
+
+  isCorrect(): boolean {
+    const row = this.values.map((field) => field.value);
+    const visibleLeft = this.visibleTreesFromLeft(row);
+    const visibleRight = this.visibleTreesFromLeft(row.slice().reverse());
+    return !(visibleLeft !== this.leftView || visibleRight !== this.rightView);
+  }
+
+  putTree(event: Event, id: number): void {
     const field = this.values.find((el) => el.id == id);
     if (field.locked) {
       return;
@@ -117,7 +107,7 @@ export default class Row extends Vue {
     this.selectedTree = 0;
   }
 
-  private generate(): [number, number, row] {
+  generate(): [number, number, row] {
     const values: number[] = [];
     for (let i = 0; i < this.size; i++) {
       values[i] = i + 1;
@@ -134,7 +124,7 @@ export default class Row extends Vue {
     ];
   }
 
-  private shuffle(arr: number[]): void {
+  shuffle(arr: number[]): void {
     let currentIndex = arr.length;
     let tempValue: number;
     let randomIndex: number;
@@ -148,7 +138,7 @@ export default class Row extends Vue {
     }
   }
 
-  private visibleTreesFromLeft(trees: number[]): number {
+  visibleTreesFromLeft(trees: number[]): number {
     let min = 0;
     let visible = 0;
     for (const tree of trees) {
@@ -160,11 +150,7 @@ export default class Row extends Vue {
     return visible;
   }
 
-  private createRowField(
-    index: number,
-    value: number,
-    locked: boolean
-  ): rowField {
+  createRowField(index: number, value: number, locked: boolean): rowField {
     return {
       id: index,
       value: value,
@@ -173,15 +159,15 @@ export default class Row extends Vue {
     };
   }
 
-  private gridSize(): string {
+  gridSize(): string {
     return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
   }
 
-  private startDrag(event: DragEvent, id: number) {
+  startDrag(event: DragEvent, id: number) {
     event.dataTransfer.setData("id", id.toString());
   }
 
-  private trashElement(event: DragEvent) {
+  trashElement(event: DragEvent) {
     const id = +event.dataTransfer.getData("id");
     if (this.values.find((el) => el.id === id).locked) {
       return;
@@ -189,7 +175,7 @@ export default class Row extends Vue {
     Vue.set(this.values[id], "value", 0);
   }
 
-  private undo() {
+  undo() {
     this.values.forEach((el) => {
       el.value = el.initialValue;
     });
