@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>{{ number }}</div>
+    <div class="number">{{ number }}</div>
     <div class="paper"></div>
     <hr />
     <div class="interaction-container">
@@ -10,9 +10,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
-import { EventBus, EventBusEvents } from "../EventBus";
+import { Component, Mixins } from "vue-property-decorator";
+import GameMixin, { GameInterface } from "../Game";
 import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
 
 @Component<To>({
@@ -20,30 +19,30 @@ import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
     NutsAndSticks,
   },
 })
-export default class To extends Vue {
+export default class To extends Mixins(GameMixin) implements GameInterface {
   private number: number = null;
   private selected = 0;
 
-  created() {
-    if (this.number === null) {
-      this.restartGame();
-    }
-    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
-    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
+  private limit = 19;
+
+  isStarted(): boolean {
+    return this.number == null;
   }
 
-  private restartGame() {
-    this.number = 17;
+  restartGame() {
+    this.number = Math.ceil(Math.random() * this.limit);
   }
 
-  private evaluateGame() {
-    const isCorrect = true;
-    this.$emit("evaluated-game", isCorrect);
+  isCorrect(): boolean {
+    return true;
   }
 }
 </script>
 
 <style scoped>
+.number {
+  font-size: 2em;
+}
 .paper {
   border: solid 1px black;
 }
