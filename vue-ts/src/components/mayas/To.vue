@@ -1,27 +1,47 @@
 <template>
   <div>
     <div class="number">{{ number }}</div>
-    <div class="paper"></div>
+    <div class="input-container" @click="addItem()">
+      <div v-if="selectedItems[0] === 0 && selectedItems[1] === 0">
+        Platziere hier die Nüsse und Stöcke
+      </div>
+      <div v-else>
+        <div class="nuts">
+          <div class="nut" v-for="index in selectedItems[0]" :key="index">
+            <img :src="require('@/assets/mayas/nut.png')" />
+          </div>
+        </div>
+        <div class="sticks">
+          <div class="stick" v-for="index in selectedItems[1]" :key="index">
+            <img :src="require('@/assets/mayas/stick.png')" />
+          </div>
+        </div>
+      </div>
+    </div>
     <hr />
     <div class="interaction-container">
       <NutsAndSticks :selected="selected" @selected="selected = $event" />
+      <Undo @undo-operation="undo()" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from "vue-property-decorator";
+import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
-import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
+import NutsAndSticks, { itemType } from "./NutsAndSticks.vue";
+import Undo from "@/components/Undo.vue";
 
 @Component<To>({
   components: {
     NutsAndSticks,
+    Undo,
   },
 })
 export default class To extends Mixins(GameMixin) implements GameInterface {
   private number: number = null;
-  private selected = 0;
+  private selected: itemType = null;
+  private selectedItems: Array<itemType> = null;
 
   private limit = 19;
 
@@ -31,10 +51,31 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
 
   restartGame() {
     this.number = Math.ceil(Math.random() * this.limit);
+    this.selectedItems = new Array<number>(
+      Object.keys(itemType).length / 2
+    ).fill(0);
   }
 
   isCorrect(): boolean {
-    return true;
+    return this.selectedItems[0] + this.selectedItems[1] * 5 === this.number;
+  }
+
+  addItem() {
+    if (this.selected === null) {
+      return;
+    }
+    Vue.set(
+      this.selectedItems,
+      this.selected,
+      this.selectedItems[this.selected] + 1
+    );
+    this.selected = null;
+  }
+
+  undo() {
+    for (let i = 0; i < this.selectedItems.length; i++) {
+      Vue.set(this.selectedItems, i, 0);
+    }
   }
 }
 </script>
@@ -43,7 +84,26 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
 .number {
   font-size: 2em;
 }
-.paper {
-  border: solid 1px black;
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 5rem;
+  border: dashed 3px black;
+  border-radius: 15px;
+  background-color: lightsalmon;
+}
+.nuts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.sticks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

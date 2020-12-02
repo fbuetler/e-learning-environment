@@ -20,7 +20,7 @@
         :selectedChar="selectedChar"
         @char-selected="selectedChar = $event"
       />
-      <Undo @undo-operation="undo($event)" />
+      <Undo @undo-operation="undo()" />
     </div>
   </div>
 </template>
