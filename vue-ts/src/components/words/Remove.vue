@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Mixins } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
