@@ -2,17 +2,17 @@
   <div>
     <div class="number">{{ number }}</div>
     <div class="input-container" @click="addItem()">
-      <div v-if="selectedItems[0] === 0 && selectedItems[1] === 0">
+      <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
         Platziere hier die Nüsse und Stöcke
       </div>
       <div v-else>
         <div class="nuts">
-          <div class="nut" v-for="index in selectedItems[0]" :key="index">
+          <div class="nut" v-for="index in selectedItems[nut]" :key="index">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
         <div class="sticks">
-          <div class="stick" v-for="index in selectedItems[1]" :key="index">
+          <div class="stick" v-for="index in selectedItems[stick]" :key="index">
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
         </div>
@@ -57,7 +57,11 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
   }
 
   isCorrect(): boolean {
-    return this.selectedItems[0] + this.selectedItems[1] * 5 === this.number;
+    return (
+      this.selectedItems[itemType.NUT] +
+        this.selectedItems[itemType.STICK] * 5 ===
+      this.number
+    );
   }
 
   addItem() {
@@ -76,6 +80,14 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
     for (let i = 0; i < this.selectedItems.length; i++) {
       Vue.set(this.selectedItems, i, 0);
     }
+  }
+
+  get nut(): number {
+    return itemType.NUT;
+  }
+
+  get stick(): number {
+    return itemType.STICK;
   }
 }
 </script>
