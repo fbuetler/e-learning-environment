@@ -13,7 +13,11 @@
         </div>
         <div
           class="word-char"
-          :class="{ locked: element.locked }"
+          :class="{
+            locked: element.locked,
+            selected: element.id === selectedChar,
+          }"
+          @click="selectedChar = element.id"
           draggable
           @dragover.prevent
           @dragend.prevent
@@ -38,7 +42,7 @@
         :selectedChar="selectedChar"
         @char-selected="selectedChar = $event"
       />
-      <Trashcan @trashed-element="(event) => trashElement(event)" />
+      <Trashcan @trashed-element="trashElement($event)" />
     </div>
   </div>
 </template>
@@ -48,7 +52,7 @@ import { Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
-import { LoadWords, wordElement } from "./LoadWords";
+import { LoadWords, wordElement } from "./Words";
 
 @Component<Add>({
   components: {
@@ -69,6 +73,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
 
   restartGame() {
     [this.word, this.similarWords] = LoadWords(this.dataKey);
+    this.word.forEach((el) => (el.locked = true));
   }
 
   isCorrect() {
@@ -93,8 +98,15 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     event.dataTransfer.setData("id", id);
   }
 
-  trashElement(event: DragEvent) {
-    const id = +event.dataTransfer.getData("id");
+  trashElement(event: Event) {
+    let id: number;
+    if (event instanceof DragEvent) {
+      id = +event.dataTransfer.getData("id");
+    } else if (!isNaN(+this.selectedChar)) {
+      id = +this.selectedChar;
+    } else {
+      return;
+    }
     if (this.word.find((el) => el.id === id).locked) {
       return;
     }
