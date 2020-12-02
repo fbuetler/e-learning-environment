@@ -30,7 +30,7 @@
 import { Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Undo from "@/components/Undo.vue";
-import { LoadWords, wordElement } from "./LoadWords";
+import { LoadWords, wordElement } from "./Words";
 
 @Component<Change>({
   components: {
@@ -95,11 +95,9 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       el.char = el.initialChar;
       el.locked = false;
     });
-    this.swap(this.word[this.randomIndex], this.word[this.randomIndex + 1]);
     this.selectedChar = null;
+    this.swap(this.word[this.randomIndex], this.word[this.randomIndex + 1]);
     this.charSwaped = false;
   }
 }
 </script>
-
-<style scoped></style>

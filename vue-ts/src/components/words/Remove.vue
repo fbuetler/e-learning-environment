@@ -21,10 +21,7 @@
     </div>
     <hr />
     <div class="interaction-container">
-      <Trashcan
-        @trashed-element="trashElement($event)"
-        @click="trashElement()"
-      />
+      <Trashcan @trashed-element="trashElement()" @click="trashElement()" />
       <Undo @undo-operation="undo($event)" />
     </div>
   </div>
@@ -35,7 +32,7 @@ import { Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
-import { LoadWords, wordElement } from "./LoadWords";
+import { LoadWords, wordElement } from "./Words";
 
 @Component<Remove>({
   components: {

@@ -30,7 +30,7 @@ import { Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
-import { LoadWords, wordElement } from "./LoadWords";
+import { LoadWords, wordElement } from "./Words";
 
 @Component<Change>({
   components: {
