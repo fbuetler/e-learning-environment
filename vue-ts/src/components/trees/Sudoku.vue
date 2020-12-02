@@ -96,6 +96,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
+import TreesMixin from "./Trees";
 import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
@@ -115,7 +116,8 @@ type sudoku = sudokuField[][];
     Undo,
   },
 })
-export default class Sudoku extends Mixins(GameMixin) implements GameInterface {
+export default class Sudoku extends Mixins(GameMixin, TreesMixin)
+  implements GameInterface {
   @Prop({ required: true })
   private args!: { size: number };
 
@@ -277,20 +279,6 @@ export default class Sudoku extends Mixins(GameMixin) implements GameInterface {
     return [null, null];
   }
 
-  shuffle(arr: number[] | [number, number][]): void {
-    let currentIndex = arr.length;
-    let tempValue: number | [number, number];
-    let randomIndex: number;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      tempValue = arr[currentIndex];
-      arr[currentIndex] = arr[randomIndex];
-      arr[randomIndex] = tempValue;
-    }
-  }
-
   isValid(values: sudoku, views: number[][], complete: boolean): boolean {
     for (let i = 0; i < values.length; i++) {
       const rowSeen = new Set<number>();
@@ -342,18 +330,6 @@ export default class Sudoku extends Mixins(GameMixin) implements GameInterface {
       }
     }
     return true;
-  }
-
-  getVisibleTrees(values: number[]): number {
-    let min = 0;
-    let visible = 0;
-    for (let i = 0; i < values.length; i++) {
-      if (values[i] > min) {
-        visible++;
-        min = values[i];
-      }
-    }
-    return visible;
   }
 
   createSudokuField(

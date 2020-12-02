@@ -38,6 +38,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
+import TreesMixin from "./Trees";
 import Trees from "@/components/trees/Trees.vue";
 import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
@@ -57,7 +58,8 @@ type row = rowField[];
     Undo,
   },
 })
-export default class Row extends Mixins(GameMixin) implements GameInterface {
+export default class Row extends Mixins(GameMixin, TreesMixin)
+  implements GameInterface {
   @Prop({ required: true })
   private args!: { size: number };
 
@@ -81,8 +83,8 @@ export default class Row extends Mixins(GameMixin) implements GameInterface {
 
   isCorrect(): boolean {
     const row = this.values.map((field) => field.value);
-    const visibleLeft = this.visibleTreesFromLeft(row);
-    const visibleRight = this.visibleTreesFromLeft(row.slice().reverse());
+    const visibleLeft = this.getVisibleTrees(row);
+    const visibleRight = this.getVisibleTrees(row.slice().reverse());
     return !(visibleLeft !== this.leftView || visibleRight !== this.rightView);
   }
 
@@ -118,36 +120,10 @@ export default class Row extends Mixins(GameMixin) implements GameInterface {
       row[i] = this.createRowField(i, 0, false);
     }
     return [
-      this.visibleTreesFromLeft(values),
-      this.visibleTreesFromLeft(values.slice().reverse()),
+      this.getVisibleTrees(values),
+      this.getVisibleTrees(values.slice().reverse()),
       row,
     ];
-  }
-
-  shuffle(arr: number[]): void {
-    let currentIndex = arr.length;
-    let tempValue: number;
-    let randomIndex: number;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      tempValue = arr[currentIndex];
-      arr[currentIndex] = arr[randomIndex];
-      arr[randomIndex] = tempValue;
-    }
-  }
-
-  visibleTreesFromLeft(trees: number[]): number {
-    let min = 0;
-    let visible = 0;
-    for (const tree of trees) {
-      if (tree > min) {
-        visible++;
-        min = tree;
-      }
-    }
-    return visible;
   }
 
   createRowField(index: number, value: number, locked: boolean): rowField {
