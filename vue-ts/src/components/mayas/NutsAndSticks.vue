@@ -12,7 +12,7 @@
       @dragend.prevent
       @drop.prevent
     >
-      <img :src="require('@/assets/' + item.path)" />
+      <img :src="require('@/assets/' + item.img)" />
     </div>
   </div>
 </template>
@@ -26,14 +26,14 @@ export default class NutsAndSticks extends Vue {
   @Prop({ type: Number, required: true })
   private selected: number;
 
-  private items: { id: number; path: string }[] = [
+  private items: { id: number; img: string }[] = [
     {
       id: 1,
-      path: "mayas/nut.png",
+      img: "mayas/nut.png",
     },
     {
       id: 2,
-      path: "mayas/stick.png",
+      img: "mayas/stick.png",
     },
   ];
 }
