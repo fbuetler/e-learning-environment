@@ -44,11 +44,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Mixins } from "vue-property-decorator";
+import GameMixin, { GameInterface } from "../Game";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
-import { EventBus, EventBusEvents } from "../EventBus";
 import { LoadWords, wordElement } from "./LoadWords";
 
 @Component<Add>({
@@ -57,37 +56,26 @@ import { LoadWords, wordElement } from "./LoadWords";
     Trashcan,
   },
 })
-export default class Add extends Vue {
-  @Prop({ required: true })
-  private args!: {};
-
+export default class Add extends Mixins(GameMixin) implements GameInterface {
   private dataKey = "add";
-
   private word: wordElement[] = null;
   private similarWords: string[] = null;
   private selectedChar: string = null;
   private charAdded = false;
 
-  created() {
-    if (this.word === null) {
-      this.restartGame();
-    }
-    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
-    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
+  isStarted(): boolean {
+    return this.word === null;
   }
 
-  private restartGame() {
+  restartGame() {
     [this.word, this.similarWords] = LoadWords(this.dataKey);
   }
 
-  private evaluateGame() {
-    const isCorrect = this.similarWords.includes(
-      this.word.map((el) => el.char).join("")
-    );
-    this.$emit("evaluated-game", isCorrect);
+  isCorrect() {
+    return this.similarWords.includes(this.word.map((el) => el.char).join(""));
   }
 
-  private addChar(addBefore: number) {
+  addChar(addBefore: number) {
     if (this.selectedChar === null || this.charAdded) {
       return;
     }
@@ -101,11 +89,11 @@ export default class Add extends Vue {
     this.charAdded = true;
   }
 
-  private dragChar(event: DragEvent, id: string) {
+  dragChar(event: DragEvent, id: string) {
     event.dataTransfer.setData("id", id);
   }
 
-  private trashElement(event: DragEvent) {
+  trashElement(event: DragEvent) {
     const id = +event.dataTransfer.getData("id");
     if (this.word.find((el) => el.id === id).locked) {
       return;

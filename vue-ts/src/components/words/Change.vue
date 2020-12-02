@@ -26,11 +26,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Mixins } from "vue-property-decorator";
+import GameMixin, { GameInterface } from "../Game";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
-import { EventBus, EventBusEvents } from "../EventBus";
 import { LoadWords, wordElement } from "./LoadWords";
 
 @Component<Change>({
@@ -39,35 +38,25 @@ import { LoadWords, wordElement } from "./LoadWords";
     Undo,
   },
 })
-export default class Change extends Vue {
-  @Prop({ required: true })
-  private args!: {};
-
+export default class Change extends Mixins(GameMixin) implements GameInterface {
   private dataKey = "change";
   private word: wordElement[] = null;
   private similarWords: string[] = null;
   private selectedChar: string = null;
 
-  created() {
-    if (this.word === null) {
-      this.restartGame();
-    }
-    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
-    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
+  isStarted(): boolean {
+    return this.word === null;
   }
 
-  private restartGame() {
+  restartGame() {
     [this.word, this.similarWords] = LoadWords(this.dataKey);
   }
 
-  private evaluateGame() {
-    const isCorrect = this.similarWords.includes(
-      this.word.map((el) => el.char).join("")
-    );
-    this.$emit("evaluated-game", isCorrect);
+  isCorrect(): boolean {
+    return this.similarWords.includes(this.word.map((el) => el.char).join(""));
   }
 
-  private changeChar(id: number) {
+  changeChar(id: number) {
     if (this.selectedChar === null) {
       return;
     }
@@ -84,7 +73,7 @@ export default class Change extends Vue {
     element.char = this.selectedChar;
   }
 
-  private undo() {
+  undo() {
     this.word.forEach((el) => {
       el.char = el.initialChar;
       el.locked = false;

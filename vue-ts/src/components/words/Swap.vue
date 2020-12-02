@@ -27,10 +27,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Mixins } from "vue-property-decorator";
+import GameMixin, { GameInterface } from "../Game";
 import Undo from "@/components/Undo.vue";
-import { EventBus, EventBusEvents } from "../EventBus";
 import { LoadWords, wordElement } from "./LoadWords";
 
 @Component<Change>({
@@ -38,10 +37,7 @@ import { LoadWords, wordElement } from "./LoadWords";
     Undo,
   },
 })
-export default class Change extends Vue {
-  @Prop({ required: true })
-  private args!: {};
-
+export default class Change extends Mixins(GameMixin) implements GameInterface {
   private dataKey = "change";
   private word: wordElement[] = null;
   private similarWords: string[] = null;
@@ -49,15 +45,11 @@ export default class Change extends Vue {
   private randomIndex: number = null;
   private charSwaped = false;
 
-  created() {
-    if (this.word === null) {
-      this.restartGame();
-    }
-    EventBus.$on(EventBusEvents.RestartGame, () => this.restartGame());
-    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
+  isStarted(): boolean {
+    return this.word === null;
   }
 
-  private restartGame() {
+  restartGame() {
     this.word = LoadWords(this.dataKey)[0];
     this.randomIndex = Math.floor(Math.random() * (this.word.length - 1));
     this.swap(this.word[this.randomIndex], this.word[this.randomIndex + 1]);
@@ -66,15 +58,14 @@ export default class Change extends Vue {
     this.charSwaped = false;
   }
 
-  private evaluateGame() {
-    const isCorrect = this.word.reduce(
+  isCorrect(): boolean {
+    return this.word.reduce(
       (acc, currVal) => acc && currVal.initialChar === currVal.char,
       true
     );
-    this.$emit("evaluated-game", isCorrect);
   }
 
-  private swapChar(id: number) {
+  swapChar(id: number) {
     if (this.charSwaped) {
       return;
     }
@@ -93,13 +84,13 @@ export default class Change extends Vue {
     this.selectedChar = null;
   }
 
-  private swap(a: wordElement, b: wordElement) {
+  swap(a: wordElement, b: wordElement) {
     const temp = a.char;
     a.char = b.char;
     b.char = temp;
   }
 
-  private undo() {
+  undo() {
     this.word.forEach((el) => {
       el.char = el.initialChar;
       el.locked = false;
