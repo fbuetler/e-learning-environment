@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="tree-container tree-row" :style="gridSize()">
-      <div class="tree-view">{{ leftView }}</div>
+    <div class="flex-item flex-center flex-row flex-stretch flex-flex">
+      <div class="flex-item flex-center card">{{ leftView }}</div>
       <div
+        class="flex-item flex-center dropzone tree-dropzone"
         v-for="field in values"
         :key="field.id"
         @click="putTree($event, field.id)"
@@ -13,15 +14,11 @@
         @drop.stop.prevent="putTree($event, field.id)"
       >
         <img
-          v-if="field.value === 0"
-          :src="require('@/assets/trees/tree_empty.png')"
-        />
-        <img
-          v-else
+          v-if="field.value !== 0"
           :src="require('@/assets/trees/tree_' + field.value + '.png')"
         />
       </div>
-      <div class="tree-view">{{ rightView }}</div>
+      <div class="flex-item flex-center card">{{ rightView }}</div>
     </div>
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
@@ -137,10 +134,6 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     };
   }
 
-  gridSize(): string {
-    return "grid-template-columns: repeat(" + (this.size + 2) + ",auto)";
-  }
-
   startDrag(event: DragEvent, id: number) {
     event.dataTransfer.setData("id", id.toString());
   }
@@ -160,3 +153,11 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   }
 }
 </script>
+
+<style scoped>
+.tree-dropzone {
+  align-items: flex-end;
+  min-height: 9rem;
+  min-width: 5rem;
+}
+</style>

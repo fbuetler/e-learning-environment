@@ -76,4 +76,11 @@ button:focus {
 .flex-flex {
   flex: 1;
 }
+.dropzone {
+  border: 2px dashed #a33535;
+  background: #df4747;
+  border-radius: 5px;
+  min-height: 1rem;
+  min-width: 1rem;
+}
 </style>

@@ -31,7 +31,7 @@ export default class Selection extends Vue {
 </script>
 
 <style scoped>
-.flex-item flex-wrap > img {
-  max-height: 50%;
+.card {
+  align-items: flex-end;
 }
 </style>

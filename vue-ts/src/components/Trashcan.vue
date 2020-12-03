@@ -1,6 +1,6 @@
 <template>
   <div
-    class="trashcan card"
+    class="trashcan flex-item flex-center dropzone"
     @click="$emit('trashed-element', $event)"
     @dragover.prevent
     @dragenter.prevent
@@ -19,11 +19,6 @@ export default class Trashcan extends Vue {}
 </script>
 
 <style scoped>
-.trashcan {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .trashcan > img {
   width: 100%;
   max-width: 80px;

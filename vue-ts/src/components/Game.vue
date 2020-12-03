@@ -120,7 +120,6 @@ export default class Game extends Vue {
 .tree-row > div {
   grid-row: 1;
   border: 1px solid gray;
-  font-size: 3em;
 
   display: -ms-flexbox;
   display: -webkit-flex;

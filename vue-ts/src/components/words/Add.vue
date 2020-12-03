@@ -7,7 +7,7 @@
         :key="element.id"
       >
         <div
-          class="placeholder"
+          class="dropzone"
           @click="addChar(element.id)"
           @dragover.prevent
           @dragend.prevent
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div
-        class="placeholder"
+        class="dropzone"
         @click="addChar(word.length)"
         @dragover.prevent
         @dragend.prevent
@@ -59,6 +59,8 @@ import GameMixin, { GameInterface } from "../Game";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { LoadWords, wordElement } from "./Words";
+
+// allow move placed chars
 
 @Component<Add>({
   components: {
@@ -121,10 +123,3 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   }
 }
 </script>
-
-<style scoped>
-.placeholder {
-  min-width: 1em;
-  border: 1px dashed black;
-}
-</style>

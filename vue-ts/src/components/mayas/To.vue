@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="number">{{ number }}</div>
+    <div class="number">Stell die folgende Zahl dar: {{ number }}</div>
     <div
-      class="flex-item flex-center flex-col flex-flex card input"
+      class="flex-item flex-center flex-col flex-flex dropzone input"
       @click="addItem()"
     >
       <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
@@ -100,6 +100,7 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
 
 <style scoped>
 .number {
+  margin: 1rem;
   font-size: 2em;
 }
 .input {
