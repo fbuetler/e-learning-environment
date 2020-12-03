@@ -23,7 +23,9 @@
       </div>
       <div class="tree-view">{{ rightView }}</div>
     </div>
-    <div class="interaction-container">
+    <div
+      class="interaction-container flex-item flex-row flex-center flex-stretch"
+    >
       <Trees
         :size="size"
         :selected="selectedTree"

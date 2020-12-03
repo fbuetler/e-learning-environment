@@ -1,17 +1,20 @@
 <template>
   <div>
     <div class="number">{{ number }}</div>
-    <div class="mayas-element-container " @click="addItem()">
+    <div
+      class="flex-item flex-center flex-col flex-flex card"
+      @click="addItem()"
+    >
       <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
         Platziere hier die Nüsse und Stöcke
       </div>
       <div v-else>
-        <div class="mayas-nuts">
+        <div class="flex-item flex-center flex-row">
           <div class="nut" v-for="index in selectedItems[nut]" :key="index">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
-        <div class="mayas-sticks">
+        <div class="flex-item flex-center flex-col">
           <div class="stick" v-for="index in selectedItems[stick]" :key="index">
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
@@ -19,7 +22,9 @@
       </div>
     </div>
     <hr />
-    <div class="interaction-container">
+    <div
+      class="interaction-container flex-item flex-row flex-center flex-stretch"
+    >
       <NutsAndSticks :selected="selected" @selected="selected = $event" />
       <Undo @undo-operation="undo()" />
     </div>

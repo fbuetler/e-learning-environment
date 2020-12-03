@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div class="word-container">
-      <div class="word-item" v-for="element in word" :key="element.id">
+    <div class="word-container flex-item flex-row flex-center">
+      <div
+        class="flex-item flex-center flex-row"
+        v-for="element in word"
+        :key="element.id"
+      >
         <div
           class="placeholder"
           @click="addChar(element.id)"
@@ -12,7 +16,7 @@
           ?
         </div>
         <div
-          class="word-char"
+          class="word-char card"
           :class="{
             locked: element.locked,
             selected: element.id === selectedChar,
@@ -37,7 +41,9 @@
       </div>
     </div>
     <hr />
-    <div class="interaction-container">
+    <div
+      class="interaction-container flex-item flex-row flex-center flex-stretch"
+    >
       <Alphabet
         :selectedChar="selectedChar"
         @char-selected="selectedChar = $event"
@@ -117,12 +123,6 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
 </script>
 
 <style scoped>
-.word-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
 .placeholder {
   min-width: 1em;
   border: 1px dashed black;

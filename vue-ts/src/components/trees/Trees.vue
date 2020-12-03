@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-container">
+  <div class="flex-item flex-wrap flex-row">
     <div
-      class="flex-item"
+      class="flex-item flex-wrap flex-center card"
       v-for="index in size"
       :key="index"
       :class="{ selected: index === selected }"
@@ -31,7 +31,7 @@ export default class Selection extends Vue {
 </script>
 
 <style scoped>
-.flex-item > img {
+.flex-item flex-wrap > img {
   max-height: 50%;
 }
 </style>

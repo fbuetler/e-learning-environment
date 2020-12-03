@@ -1,14 +1,18 @@
 <template>
   <div>
-    <div class="addition-container">
-      <div class="summands" v-for="(summand, index) in summands" :key="index">
-        <div class="mayas-element-container ">
-          <div class="mayas-nuts">
+    <div class="flex-item flex-wrap flex-center flex-row">
+      <div
+        class="flex-item flex-wrap flex-center flex-row flex-flex"
+        v-for="(summand, index) in summands"
+        :key="index"
+      >
+        <div class="flex-item flex-center flex-col flex-flex card">
+          <div class="flex-item flex-center flex-row">
             <div class="nut" v-for="nutIndex in summand[nut]" :key="nutIndex">
               <img :src="require('@/assets/mayas/nut.png')" />
             </div>
           </div>
-          <div class="mayas-sticks">
+          <div class="flex-item flex-center flex-col">
             <div
               class="stick"
               v-for="stickIndex in summand[stick]"
@@ -18,8 +22,8 @@
             </div>
           </div>
         </div>
-        <div v-if="!(index === summands.length - 1)">+</div>
-        <div v-else>=</div>
+        <div class="symbol" v-if="!(index === summands.length - 1)">+</div>
+        <div class="symbol" v-else>=</div>
       </div>
       <div>
         <input v-model.number="sum" type="number" />
@@ -62,17 +66,7 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
 </script>
 
 <style scoped>
-.addition-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.summands {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
+.symbol {
+  margin: 1rem;
 }
 </style>

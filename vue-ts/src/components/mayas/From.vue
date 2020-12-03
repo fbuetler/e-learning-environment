@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div class="mayas-element-container " @click="addItem()">
+    <div
+      class="flex-item flex-center flex-col flex-flex card"
+      @click="addItem()"
+    >
       <div>
-        <div class="mayas-nuts">
+        <div class="flex-item flex-center flex-row">
           <div class="nut" v-for="index in items[nut]" :key="index">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
-        <div class="mayas-sticks">
+        <div class="flex-item flex-center flex-col">
           <div class="stick" v-for="index in items[stick]" :key="index">
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
@@ -22,7 +25,7 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
-import MayasMixin, { itemType } from "./Mayas";
+import MayasMixin from "./Mayas";
 
 @Component<From>({})
 export default class From extends Mixins(GameMixin, MayasMixin)

@@ -92,32 +92,40 @@ export default class Game extends Vue {
 </script>
 
 <style>
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background: white;
-  border: 3px solid black;
-}
 .flex-item {
   display: flex;
+}
+.flex-warp {
+  flex-wrap: wrap;
+}
+.flex-center {
   align-items: center;
   justify-content: center;
-  border: 1px solid gray;
+}
+.flex-stretch {
+  align-items: stretch;
+}
+.flex-row {
+  flex-direction: row;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-flex {
+  flex: 1;
 }
 .word-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   margin: 1em;
 }
 .word-char {
-  background: white;
-  border: 3px solid black;
   padding: 0.3em;
   margin: 0.2em;
+}
+.card {
+  border-radius: 5px;
+  background: white;
+  border: 3px solid #e7e7e7;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .tree-view {
   background: darkgray;
@@ -143,41 +151,16 @@ export default class Game extends Vue {
 .tree-row > div > img {
   max-height: 50%;
 }
-.interaction-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  margin: 25px 0px 0px 0px;
-}
-.mayas-element-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  min-height: 5rem;
-  border: dashed 3px black;
-  border-radius: 15px;
-  background-color: lightsalmon;
-}
-.mayas-nuts {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.mayas-sticks {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.interaction-container > div {
+  margin: 1rem;
 }
 .selected {
   background: #eeee4e !important;
+  border: 3px solid #dbdb47;
 }
 .locked {
   background: lightgray !important;
+  border: 3px solid #cccccc;
 }
 hr {
   border: 1px solid black;

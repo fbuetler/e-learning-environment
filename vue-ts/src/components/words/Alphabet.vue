@@ -1,7 +1,7 @@
 <template>
-  <div class="alphabet-container">
+  <div class="flex-item flex-wrap flex-center flex-row">
     <div
-      class="alphabet-item"
+      class="word-char card"
       :class="{ selected: char === selectedChar }"
       v-for="char in alphabet"
       :key="char"
@@ -55,19 +55,3 @@ export default class Alphabet extends Vue {
   ];
 }
 </script>
-
-<style scoped>
-.alphabet-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.alphabet-item {
-  background: white;
-  border: 3px solid black;
-  padding: 0.3em;
-  margin: 0.2em;
-}
-</style>

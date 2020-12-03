@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-container">
+  <div class="flex-item flex-wrap flex-row">
     <div
-      class="flex-item"
+      class="flex-item flex-wrap flex-center card"
       v-for="item in items"
       :key="item.id"
       :class="{ selected: item.type === selected }"

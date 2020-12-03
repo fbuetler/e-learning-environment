@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="word-container">
+    <div class="word-container flex-item flex-row flex-center">
       <div v-for="element in word" :key="element.id">
         <div
-          class="word-char"
+          class="word-char card"
           :class="{
             locked: element.locked,
             selected: element.id === selectedChar,
@@ -20,7 +20,9 @@
       </div>
     </div>
     <hr />
-    <div class="interaction-container">
+    <div
+      class="interaction-container flex-item flex-row flex-center flex-stretch"
+    >
       <Undo @undo-operation="undo($event)" />
     </div>
   </div>

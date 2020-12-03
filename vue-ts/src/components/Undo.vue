@@ -1,5 +1,5 @@
 <template>
-  <div class="undo" @click="$emit('undo-operation', $event)">
+  <div class="undo card" @click="$emit('undo-operation', $event)">
     <img :src="require('@/assets/icons/undo.png')" />
   </div>
 </template>
@@ -17,8 +17,6 @@ export default class Undo extends Vue {}
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px dashed black;
-  margin: 0em 1em 0em 1em;
 }
 .undo > img {
   width: 100%;
