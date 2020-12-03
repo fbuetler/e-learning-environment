@@ -1,17 +1,14 @@
 <template>
   <div>
-    <div class="tree-container" :style="gridSize()">
-      <div
-        class="tree-row"
-        :style="gridRowSizeAndPosition(`1 / 1`, `1 / ${size + 3}`)"
-      >
+    <div class="flex-item flex-center flex-col">
+      <div class="flex-item flex-center flex-row">
         <!-- placeholder -->
         <div class="placeholder"></div>
         <!-- top view -->
         <div
+          class="card"
           v-for="(visible, topIndex) in views[0]"
           :key="`top-${topIndex}`"
-          class="tree-view"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>
@@ -21,26 +18,21 @@
       </div>
 
       <div
+        class="flex-item flex-center flex-row"
         v-for="(row, rowIndex) in values"
         :key="`row-${rowIndex}`"
-        class="tree-row"
-        :style="
-          gridRowSizeAndPosition(
-            `${rowIndex + 2} / ${rowIndex + 2}`,
-            `1 / ${size + 3}`
-          )
-        "
       >
         <!-- left view -->
-        <div class="tree-view">
+        <div class="card">
           <span v-if="views[1][rowIndex] !== 0">{{ views[1][rowIndex] }}</span>
           <span v-else></span>
         </div>
         <!-- values -->
         <div
+          class="flex-item flex-center dropzone tree-dropzone"
+          :class="{ locked: field.locked }"
           v-for="field in row"
           :key="`row-col-${field.id}`"
-          :class="{ locked: field.locked }"
           @click="putTree($event, field.id)"
           draggable
           @dragstart="startDrag($event, field.id)"
@@ -54,25 +46,20 @@
           />
         </div>
         <!-- right view -->
-        <div class="tree-view">
+        <div class="card">
           <span v-if="views[2][rowIndex] !== 0">{{ views[2][rowIndex] }}</span>
           <span v-else></span>
         </div>
       </div>
 
-      <div
-        class="tree-row"
-        :style="
-          gridRowSizeAndPosition(`${size + 2} / ${size + 2}`, `1 / ${size + 3}`)
-        "
-      >
+      <div class="flex-item flex-center flex-row">
         <!-- placeholder -->
         <div class="placeholder"></div>
         <!-- bottom view -->
         <div
+          class="card"
           v-for="(visible, bottomIndex) in views[3]"
           :key="`bottom-${bottomIndex}`"
-          class="tree-view"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>
@@ -398,8 +385,9 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 .tree-row {
   display: grid;
 }
-.placeholder {
-  background: black;
-  border: none !important;
+.tree-dropzone {
+  align-items: flex-end;
+  min-height: 9rem;
+  min-width: 5rem;
 }
 </style>

@@ -116,3 +116,8 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
 
 - drag and drop https://jsfiddle.net/mujaji/ntfs4k8c/17/
 - draw https://codepen.io/Lewitje/pen/MVommB
+
+## Fragen
+
+- sollte das ganze auf Mobile funktionieren? zB drag and drop?
+- Zugriff auf alle Grafiken aus dem Buch
