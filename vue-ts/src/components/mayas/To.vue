@@ -29,7 +29,8 @@
 <script lang="ts">
 import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
-import NutsAndSticks, { itemType } from "./NutsAndSticks.vue";
+import { itemType } from "./Mayas";
+import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
 import Undo from "@/components/Undo.vue";
 
 @Component<To>({

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="input-container" @click="addItem()">
+    <div class="element-container" @click="addItem()">
       <div>
         <div class="nuts">
           <div class="nut" v-for="index in items[nut]" :key="index">
@@ -22,49 +22,30 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
-import { itemType } from "./NutsAndSticks.vue";
+import MayasMixin, { itemType } from "./Mayas";
 
 @Component<From>({})
-export default class From extends Mixins(GameMixin) implements GameInterface {
-  private number: number = null;
-  private items: Array<itemType> = null;
-
-  private maxItems = new Map([
-    [itemType.NUT, 4],
-    [itemType.STICK, 3],
-  ]);
+export default class From extends Mixins(GameMixin, MayasMixin)
+  implements GameInterface {
+  number: number = null;
+  items: Array<number> = null; // unfortunately Maps and Sets are not reactive in vue 2
 
   isStarted(): boolean {
     return this.items === null;
   }
 
   restartGame() {
-    this.items = new Array<number>(Object.keys(itemType).length / 2);
-    for (const type in itemType) {
-      if (!isNaN(Number(type))) {
-        this.items[+type] = Math.ceil(Math.random() * this.maxItems.get(+type));
-      }
-    }
+    this.items = this.generateItems();
   }
 
   isCorrect(): boolean {
-    return (
-      this.number === this.items[itemType.NUT] + this.items[itemType.STICK] * 5
-    );
-  }
-
-  get nut(): number {
-    return itemType.NUT;
-  }
-
-  get stick(): number {
-    return itemType.STICK;
+    return this.number === this.sumItems(this.items);
   }
 }
 </script>
 
 <style scoped>
-.input-container {
+.element-container {
   display: flex;
   flex-direction: column;
   align-items: center;

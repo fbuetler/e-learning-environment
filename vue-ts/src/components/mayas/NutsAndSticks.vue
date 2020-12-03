@@ -20,11 +20,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-
-export enum itemType {
-  NUT = 0,
-  STICK = 1,
-}
+import { itemType } from "./Mayas";
 
 @Component<NutsAndSticks>({})
 export default class NutsAndSticks extends Vue {
