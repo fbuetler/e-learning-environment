@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="element-container" @click="addItem()">
+    <div class="mayas-element-container " @click="addItem()">
       <div>
-        <div class="nuts">
+        <div class="mayas-nuts">
           <div class="nut" v-for="index in items[nut]" :key="index">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
-        <div class="sticks">
+        <div class="mayas-sticks">
           <div class="stick" v-for="index in items[stick]" :key="index">
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
@@ -43,28 +43,3 @@ export default class From extends Mixins(GameMixin, MayasMixin)
   }
 }
 </script>
-
-<style scoped>
-.element-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 5rem;
-  border: dashed 3px black;
-  border-radius: 15px;
-  background-color: lightsalmon;
-}
-.nuts {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.sticks {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-</style>

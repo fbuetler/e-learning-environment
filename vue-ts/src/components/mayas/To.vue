@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="number">{{ number }}</div>
-    <div class="input-container" @click="addItem()">
+    <div class="mayas-element-container " @click="addItem()">
       <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
         Platziere hier die Nüsse und Stöcke
       </div>
       <div v-else>
-        <div class="nuts">
+        <div class="mayas-nuts">
           <div class="nut" v-for="index in selectedItems[nut]" :key="index">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
-        <div class="sticks">
+        <div class="mayas-sticks">
           <div class="stick" v-for="index in selectedItems[stick]" :key="index">
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
@@ -96,27 +96,5 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
 <style scoped>
 .number {
   font-size: 2em;
-}
-.input-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 5rem;
-  border: dashed 3px black;
-  border-radius: 15px;
-  background-color: lightsalmon;
-}
-.nuts {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.sticks {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 </style>

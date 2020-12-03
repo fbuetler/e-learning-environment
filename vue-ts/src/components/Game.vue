@@ -150,6 +150,29 @@ export default class Game extends Vue {
   align-items: stretch;
   margin: 25px 0px 0px 0px;
 }
+.mayas-element-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 5rem;
+  border: dashed 3px black;
+  border-radius: 15px;
+  background-color: lightsalmon;
+}
+.mayas-nuts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.mayas-sticks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .selected {
   background: #eeee4e !important;
 }

@@ -2,13 +2,13 @@
   <div>
     <div class="addition-container">
       <div class="summands" v-for="(summand, index) in summands" :key="index">
-        <div class="element-container">
-          <div class="nuts">
+        <div class="mayas-element-container ">
+          <div class="mayas-nuts">
             <div class="nut" v-for="nutIndex in summand[nut]" :key="nutIndex">
               <img :src="require('@/assets/mayas/nut.png')" />
             </div>
           </div>
-          <div class="sticks">
+          <div class="mayas-sticks">
             <div
               class="stick"
               v-for="stickIndex in summand[stick]"
@@ -72,29 +72,6 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
   display: flex;
   flex-direction: row;
   flex: 1;
-  align-items: center;
-  justify-content: center;
-}
-.element-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  min-height: 5rem;
-  border: dashed 3px black;
-  border-radius: 15px;
-  background-color: lightsalmon;
-}
-.nuts {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.sticks {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
