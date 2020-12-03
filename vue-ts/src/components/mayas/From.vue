@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Mixins } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import { itemType } from "./NutsAndSticks.vue";
 
@@ -29,7 +29,10 @@ export default class From extends Mixins(GameMixin) implements GameInterface {
   private number: number = null;
   private items: Array<itemType> = null;
 
-  private maxItems = 4;
+  private maxItems = new Map([
+    [itemType.NUT, 4],
+    [itemType.STICK, 3],
+  ]);
 
   isStarted(): boolean {
     return this.items === null;
@@ -37,8 +40,10 @@ export default class From extends Mixins(GameMixin) implements GameInterface {
 
   restartGame() {
     this.items = new Array<number>(Object.keys(itemType).length / 2);
-    for (let i = 0; i < this.items.length; i++) {
-      this.items[i] = Math.ceil(Math.random() * this.maxItems);
+    for (const type in itemType) {
+      if (!isNaN(Number(type))) {
+        this.items[+type] = Math.ceil(Math.random() * this.maxItems.get(+type));
+      }
     }
   }
 
