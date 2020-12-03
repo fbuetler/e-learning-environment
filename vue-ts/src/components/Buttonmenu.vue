@@ -1,9 +1,9 @@
 <template>
-  <div class="buttons-container">
-    <button @click="emitRestartGameEvent()">
+  <div class="flex-item flex-row flex-center flex-wrap">
+    <button class="card" @click="emitRestartGameEvent()">
       {{ restartGameText }}
     </button>
-    <button @click="emitEvalGameEvent()">
+    <button class="card" @click="emitEvalGameEvent()">
       {{ evaluateGameText }}
     </button>
   </div>
@@ -31,30 +31,11 @@ export default class Buttonmenu extends Vue {
 </script>
 
 <style scoped>
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-  outline: none;
-}
-
-.buttons-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
 button {
-  border-radius: 6px;
-  background-color: white;
-  border: none;
   color: black;
   font-size: 16px;
   padding: 10px;
   width: 230px;
-  cursor: pointer;
   font-weight: bold;
-  margin: 0 1em 1em 1em;
 }
 </style>

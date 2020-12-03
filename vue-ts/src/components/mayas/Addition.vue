@@ -22,11 +22,11 @@
             </div>
           </div>
         </div>
-        <div class="symbol" v-if="!(index === summands.length - 1)">+</div>
-        <div class="symbol" v-else>=</div>
+        <div v-if="!(index === summands.length - 1)">+</div>
+        <div v-else>=</div>
       </div>
       <div>
-        <input v-model.number="sum" type="number" />
+        <input class="card" v-model.number="sum" type="number" />
       </div>
     </div>
   </div>
@@ -64,9 +64,3 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
   }
 }
 </script>
-
-<style scoped>
-.symbol {
-  margin: 1rem;
-}
-</style>

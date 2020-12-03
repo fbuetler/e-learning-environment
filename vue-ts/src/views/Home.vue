@@ -100,17 +100,6 @@ export default class Home extends Vue {
   grid-auto-rows: auto;
   grid-gap: 1rem;
 }
-.card {
-  transition: 0.3s;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: white;
-  border: 2px solid #e7e7e7;
-  padding: 0.5rem;
-}
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
 .container {
   padding: 2px 16px;
 }
@@ -118,8 +107,5 @@ export default class Home extends Vue {
 a {
   text-decoration: none;
   color: black;
-}
-img {
-  border-radius: 5px 5px 0 0;
 }
 </style>

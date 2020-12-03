@@ -2,7 +2,7 @@
   <div>
     <div class="number">{{ number }}</div>
     <div
-      class="flex-item flex-center flex-col flex-flex card"
+      class="flex-item flex-center flex-col flex-flex card input"
       @click="addItem()"
     >
       <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
@@ -101,5 +101,8 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
 <style scoped>
 .number {
   font-size: 2em;
+}
+.input {
+  min-height: 5rem;
 }
 </style>

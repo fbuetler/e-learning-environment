@@ -18,7 +18,7 @@
       </div>
     </div>
     <hr />
-    <input v-model.number="number" type="number" />
+    <input class="card" v-model.number="number" type="number" />
   </div>
 </template>
 

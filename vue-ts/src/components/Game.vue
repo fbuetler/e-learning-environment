@@ -92,40 +92,22 @@ export default class Game extends Vue {
 </script>
 
 <style>
-.flex-item {
-  display: flex;
+.selected {
+  background: #eeee4e !important;
+  border: 3px solid #dbdb47;
 }
-.flex-warp {
-  flex-wrap: wrap;
+.locked {
+  background: lightgray !important;
+  border: 3px solid #cccccc;
 }
-.flex-center {
-  align-items: center;
-  justify-content: center;
-}
-.flex-stretch {
-  align-items: stretch;
-}
-.flex-row {
-  flex-direction: row;
-}
-.flex-col {
-  flex-direction: column;
-}
-.flex-flex {
-  flex: 1;
-}
+
+/* the special snowflakes */
 .word-container {
   margin: 1em;
 }
 .word-char {
   padding: 0.3em;
   margin: 0.2em;
-}
-.card {
-  border-radius: 5px;
-  background: white;
-  border: 3px solid #e7e7e7;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .tree-view {
   background: darkgray;
@@ -153,16 +135,5 @@ export default class Game extends Vue {
 }
 .interaction-container > div {
   margin: 1rem;
-}
-.selected {
-  background: #eeee4e !important;
-  border: 3px solid #dbdb47;
-}
-.locked {
-  background: lightgray !important;
-  border: 3px solid #cccccc;
-}
-hr {
-  border: 1px solid black;
 }
 </style>
