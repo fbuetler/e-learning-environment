@@ -109,30 +109,12 @@ export default class Game extends Vue {
   padding: 0.3em;
   margin: 0.2em;
 }
-.tree-view {
-  background: darkgray;
-}
-.tree-container {
-  display: grid;
-  background: white;
-  border: 3px solid black;
-}
-.tree-row > div {
-  grid-row: 1;
-  border: 1px solid gray;
-
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  justify-content: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.tree-row > div > img {
-  max-height: 50%;
-}
 .interaction-container > div {
   margin: 1rem;
+}
+.tree-dropzone {
+  align-items: flex-end;
+  min-height: 9rem;
+  min-width: 5rem;
 }
 </style>

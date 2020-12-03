@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="flex-item flex-center flex-col">
-      <div class="flex-item flex-center flex-row">
+    <div class="tree-container" :style="gridSize()">
+      <div
+        class="tree-row"
+        :style="gridRowSizeAndPosition(`1 / 1`, `1 / ${size + 3}`)"
+      >
         <!-- placeholder -->
-        <div class="placeholder"></div>
+        <div></div>
         <!-- top view -->
         <div
           class="card"
@@ -14,11 +17,17 @@
           <span v-else></span>
         </div>
         <!-- placeholder -->
-        <div class="placeholder"></div>
+        <div></div>
       </div>
 
       <div
-        class="flex-item flex-center flex-row"
+        class="tree-row"
+        :style="
+          gridRowSizeAndPosition(
+            `${rowIndex + 2} / ${rowIndex + 2}`,
+            `1 / ${size + 3}`
+          )
+        "
         v-for="(row, rowIndex) in values"
         :key="`row-${rowIndex}`"
       >
@@ -29,7 +38,7 @@
         </div>
         <!-- values -->
         <div
-          class="flex-item flex-center dropzone tree-dropzone"
+          class="dropzone tree-dropzone"
           :class="{ locked: field.locked }"
           v-for="field in row"
           :key="`row-col-${field.id}`"
@@ -52,9 +61,14 @@
         </div>
       </div>
 
-      <div class="flex-item flex-center flex-row">
+      <div
+        class="tree-row"
+        :style="
+          gridRowSizeAndPosition(`${size + 2} / ${size + 2}`, `1 / ${size + 3}`)
+        "
+      >
         <!-- placeholder -->
-        <div class="placeholder"></div>
+        <div></div>
         <!-- bottom view -->
         <div
           class="card"
@@ -65,7 +79,7 @@
           <span v-else></span>
         </div>
         <!-- placeholder -->
-        <div class="placeholder"></div>
+        <div></div>
       </div>
     </div>
     <div
@@ -336,12 +350,11 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   }
 
   gridSize(): string {
-    return `grid-template-rows: repeat(${this.size + 2}, 1fr);`;
+    return `grid-template-rows: 0.5fr repeat(${this.size}, 1fr) 0.5fr;`;
   }
 
   gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
-    return `grid-template-columns: repeat(${this.size +
-      2}, 1fr); grid-row: ${rowIndex}; grid-column: ${colIndex};`;
+    return `grid-template-columns: 0.3fr repeat(${this.size}, 1fr) 0.3fr ; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
   }
 
   startDrag(event: DragEvent, id: number) {
@@ -382,12 +395,20 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 </script>
 
 <style scoped>
+.tree-container {
+  display: grid;
+}
 .tree-row {
   display: grid;
 }
-.tree-dropzone {
-  align-items: flex-end;
-  min-height: 9rem;
-  min-width: 5rem;
+.tree-row > div {
+  display: flex;
+  justify-content: center;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -ms-flex-align: center;
+}
+.card {
+  align-items: center;
 }
 </style>

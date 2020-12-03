@@ -153,11 +153,3 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   }
 }
 </script>
-
-<style scoped>
-.tree-dropzone {
-  align-items: flex-end;
-  min-height: 9rem;
-  min-width: 5rem;
-}
-</style>
