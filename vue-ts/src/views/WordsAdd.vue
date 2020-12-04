@@ -15,6 +15,6 @@ import views from "./Views";
 })
 export default class WordsAdd extends Vue {
   private type: GameType = GameType.WORDSADD;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === GameType.WORDSADD).title;
 }
 </script>

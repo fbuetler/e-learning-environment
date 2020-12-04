@@ -15,6 +15,6 @@ import views from "./Views";
 })
 export default class SymbolDecryption extends Vue {
   private type: GameType = GameType.SYMBOLDECRYPTION;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === GameType.SYMBOLDECRYPTION).title;
 }
 </script>

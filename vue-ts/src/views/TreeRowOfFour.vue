@@ -16,7 +16,7 @@ import views from "./Views";
 export default class TreeRowOfFour extends Vue {
   private type: GameType = GameType.TREEROW;
   private size = 4;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === "TreeRowOfFour").title;
   private args = { size: this.size };
 }
 </script>

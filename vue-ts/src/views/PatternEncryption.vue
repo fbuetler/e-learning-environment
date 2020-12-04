@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component} from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import Game, { GameType } from "../components/Game.vue";
 import views from "./Views";
 
@@ -15,6 +15,6 @@ import views from "./Views";
 })
 export default class PatternEncryption extends Vue {
   private type: GameType = GameType.PATTERNENCRYPTION;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === GameType.PATTERNENCRYPTION).title;
 }
 </script>

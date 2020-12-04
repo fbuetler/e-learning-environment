@@ -16,7 +16,7 @@ import views from "./Views";
 export default class TreeSudokuOfFour extends Vue {
   private type: GameType = GameType.TREESUDOKU;
   private size = 4;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === "TreeSudokuOfFour").title;
   private args = { size: this.size };
 }
 </script>

@@ -17,6 +17,6 @@ export const symbolEncryptionTitle = "Sätze mit Zeichen chiffrieren";
 })
 export default class SymbolEncryption extends Vue {
   private type: GameType = GameType.SYMBOLENCRYPTION;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === GameType.SYMBOLENCRYPTION).title;
 }
 </script>

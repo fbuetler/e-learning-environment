@@ -15,6 +15,6 @@ import views from "./Views";
 })
 export default class WordsSwap extends Vue {
   private type: GameType = GameType.WORDSSWAP;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === GameType.WORDSSWAP).title;
 }
 </script>

@@ -15,6 +15,6 @@ import views from "./Views";
 })
 export default class MayasAddition extends Vue {
   private type: GameType = GameType.MAYASADDITION;
-  title = views.find((el) => el.component === this.constructor.name).title;
+  title = views.find((el) => el.component === GameType.MAYASADDITION).title;
 }
 </script>
