@@ -6,8 +6,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Game, { GameType } from "../components/Game.vue";
-
-export const patternEncryptionTitle = "Sätze mit Muster chiffrieren";
+import views from "./Views";
 
 @Component<PatternEncryption>({
   components: {
@@ -16,8 +15,6 @@ export const patternEncryptionTitle = "Sätze mit Muster chiffrieren";
 })
 export default class PatternEncryption extends Vue {
   private type: GameType = GameType.PATTERNENCRYPTION;
-  get title(): string {
-    return patternEncryptionTitle;
-  }
+  title = views.find((el) => el.component === this.constructor.name).title;
 }
 </script>

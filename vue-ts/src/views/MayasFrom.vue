@@ -6,6 +6,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Game, { GameType } from "../components/Game.vue";
+import views from "./Views";
 
 @Component<MayasFrom>({
   components: {
@@ -14,6 +15,6 @@ import Game, { GameType } from "../components/Game.vue";
 })
 export default class MayasFrom extends Vue {
   private type: GameType = GameType.MAYASFROM;
-  private title = "Zahlen der Mayas verstehen";
+  title = views.find((el) => el.component === this.constructor.name).title;
 }
 </script>

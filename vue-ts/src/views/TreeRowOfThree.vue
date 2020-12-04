@@ -5,7 +5,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import Game, { GameType } from "@/components/Game.vue";
+import Game, { GameType } from "../components/Game.vue";
+import views from "./Views";
 
 @Component({
   components: {
@@ -15,7 +16,7 @@ import Game, { GameType } from "@/components/Game.vue";
 export default class TreeRowOfThree extends Vue {
   private type: GameType = GameType.TREEROW;
   private size = 3;
-  private title = "Reihe aus " + this.size + " Bäumen";
+  title = views.find((el) => el.component === this.constructor.name).title;
   private args = { size: this.size };
 }
 </script>

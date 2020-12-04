@@ -6,6 +6,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Game, { GameType } from "../components/Game.vue";
+import views from "./Views";
 
 @Component({
   components: {
@@ -14,6 +15,6 @@ import Game, { GameType } from "../components/Game.vue";
 })
 export default class WordsRemove extends Vue {
   private type: GameType = GameType.WORDSREMOVE;
-  private title = "Ähnliche Wörter (entfernen)";
+  title = views.find((el) => el.component === this.constructor.name).title;
 }
 </script>

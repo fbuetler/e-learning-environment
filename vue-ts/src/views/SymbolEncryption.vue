@@ -6,6 +6,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Game, { GameType } from "../components/Game.vue";
+import views from "./Views";
 
 export const symbolEncryptionTitle = "Sätze mit Zeichen chiffrieren";
 
@@ -16,8 +17,6 @@ export const symbolEncryptionTitle = "Sätze mit Zeichen chiffrieren";
 })
 export default class SymbolEncryption extends Vue {
   private type: GameType = GameType.SYMBOLENCRYPTION;
-  get title(): string {
-    return symbolEncryptionTitle;
-  }
+  title = views.find((el) => el.component === this.constructor.name).title;
 }
 </script>

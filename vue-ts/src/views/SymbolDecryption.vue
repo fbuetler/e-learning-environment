@@ -6,8 +6,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Game, { GameType } from "../components/Game.vue";
-
-export const symbolDecryptionTitle = "Sätze mit Zeichen dechiffrieren";
+import views from "./Views";
 
 @Component<SymbolDecryption>({
   components: {
@@ -16,8 +15,6 @@ export const symbolDecryptionTitle = "Sätze mit Zeichen dechiffrieren";
 })
 export default class SymbolDecryption extends Vue {
   private type: GameType = GameType.SYMBOLDECRYPTION;
-  get title(): string {
-    return symbolDecryptionTitle;
-  }
+  title = views.find((el) => el.component === this.constructor.name).title;
 }
 </script>

@@ -1,75 +1,26 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
+import views from "../views/Views";
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+let routes: Array<RouteConfig> = [
   {
     path: "/",
     component: Home,
   },
-  {
-    path: "/treerow3",
-    component: () => import("@/views/TreeRowOfThree.vue"),
-  },
-  {
-    path: "/treesudoku3",
-    component: () => import("@/views/TreeSudokuOfThree.vue"),
-  },
-  {
-    path: "/treerow4",
-    component: () => import("@/views/TreeRowOfFour.vue"),
-  },
-  {
-    path: "/treesudoku4",
-    component: () => import("@/views/TreeSudokuOfFour.vue"),
-  },
-  {
-    path: "/wordsadd",
-    component: () => import("@/views/WordsAdd.vue"),
-  },
-  {
-    path: "/wordschange",
-    component: () => import("@/views/WordsChange.vue"),
-  },
-  {
-    path: "/wordsremove",
-    component: () => import("@/views/WordsRemove.vue"),
-  },
-  {
-    path: "/wordsswap",
-    component: () => import("@/views/WordsSwap.vue"),
-  },
-  {
-    path: "/mayasto",
-    component: () => import("@/views/MayasTo.vue"),
-  },
-  {
-    path: "/mayasfrom",
-    component: () => import("@/views/MayasFrom.vue"),
-  },
-  {
-    path: "/mayasaddition",
-    component: () => import("@/views/MayasAddition.vue"),
-  },
-  {
-    path: "/symbolencryption",
-    component: () => import("@/views/SymbolEncryption.vue"),
-  },
-  {
-    path: "/symboldecryption",
-    component: () => import("@/views/SymbolDecryption.vue"),
-  },
-  {
-    path: "/patternencryption",
-    component: () => import("@/views/PatternEncryption.vue"),
-  },
-  {
-    path: "/patterndecryption",
-    component: () => import("@/views/PatternDecryption.vue"),
-  },
 ];
+
+routes = routes.concat(
+  views.map((el) => {
+    const rc: RouteConfig = {
+      path: el.path,
+      component: () => import(`@/views/${el.component}`),
+    };
+    return rc;
+  })
+);
 
 const router = new VueRouter({
   mode: "history",
