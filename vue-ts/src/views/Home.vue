@@ -14,6 +14,10 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { symbolDecryptionTitle } from "./SymbolDecryption.vue";
+import { symbolEncryptionTitle } from "./SymbolEncryption.vue";
+import { patternDecryptionTitle } from "./PatternDecryption.vue";
+import { patternEncryptionTitle } from "./PatternEncryption.vue";
 
 @Component<Home>({})
 export default class Home extends Vue {
@@ -63,6 +67,30 @@ export default class Home extends Vue {
       id: 7,
       title: "Maya Zahlen addieren",
       link: "/mayasaddition",
+      img: "placeholder.jpg",
+    },
+    {
+      id: 12,
+      title: symbolEncryptionTitle,
+      link: "/symbolencryption",
+      img: "placeholder.jpg",
+    },
+    {
+      id: 13,
+      title: symbolDecryptionTitle,
+      link: "/symboldecryption",
+      img: "placeholder.jpg",
+    },
+    {
+      id: 14,
+      title: patternEncryptionTitle,
+      link: "/patternencryption",
+      img: "placeholder.jpg",
+    },
+    {
+      id: 15,
+      title: patternDecryptionTitle,
+      link: "/patterndecryption",
       img: "placeholder.jpg",
     },
     {

@@ -32,6 +32,10 @@ import WordsSwap from "@/components/words/Swap.vue";
 import MayasTo from "@/components/mayas/To.vue";
 import MayasFrom from "@/components/mayas/From.vue";
 import MayasAddition from "@/components/mayas/Addition.vue";
+import SymbolEncryption from "@/components/ciphertexts/SymbolEncryption.vue";
+import SymbolDecryption from "@/components/ciphertexts/SymbolDecryption.vue";
+import PatternEncryption from "@/components/ciphertexts/PatternEncryption.vue";
+import PatternDecryption from "@/components/ciphertexts/PatternDecryption.vue";
 
 export enum GameType {
   TREEROW = "TreeRow",
@@ -43,6 +47,10 @@ export enum GameType {
   MAYASTO = "MayasTo",
   MAYASFROM = "MayasFrom",
   MAYASADDITION = "MayasAddition",
+  SYMBOLENCRYPTION = "SymbolEncryption",
+  SYMBOLDECRYPTION = "SymbolDecryption",
+  PATTERNENCRYPTION = "PatternEncryption",
+  PATTERNDECRYPTION = "PatternDecryption",
 }
 
 @Component({
@@ -57,6 +65,10 @@ export enum GameType {
     MayasTo,
     MayasFrom,
     MayasAddition,
+    SymbolEncryption,
+    SymbolDecryption,
+    PatternEncryption,
+    PatternDecryption,
   },
 })
 export default class Game extends Vue {

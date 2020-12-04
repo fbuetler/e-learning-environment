@@ -53,6 +53,22 @@ const routes: Array<RouteConfig> = [
     path: "/mayasaddition",
     component: () => import("@/views/MayasAddition.vue"),
   },
+  {
+    path: "/symbolencryption",
+    component: () => import("@/views/SymbolEncryption.vue"),
+  },
+  {
+    path: "/symboldecryption",
+    component: () => import("@/views/SymbolDecryption.vue"),
+  },
+  {
+    path: "/patternencryption",
+    component: () => import("@/views/PatternEncryption.vue"),
+  },
+  {
+    path: "/patterndecryption",
+    component: () => import("@/views/PatternDecryption.vue"),
+  },
 ];
 
 const router = new VueRouter({
