@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2>{{ title }}</h2>
+    <div class="flex-item flex-center flex-row">
+      <h2>{{ title }}</h2>
+      <Tutorial />
+    </div>
     <Buttonmenu
       :restartGameText="restartGameText"
       :evaluateGameText="evaluateGameText"
@@ -23,6 +26,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Buttonmenu from "@/components/Buttonmenu.vue";
+import Tutorial from "@/components/Tutorial.vue";
 import TreeRow from "@/components/trees/Row.vue";
 import TreeSudoku from "@/components/trees/Sudoku.vue";
 import WordsAdd from "@/components/words/Add.vue";
@@ -56,6 +60,7 @@ export enum GameType {
 @Component({
   components: {
     Buttonmenu,
+    Tutorial,
     TreeRow,
     TreeSudoku,
     WordsAdd,

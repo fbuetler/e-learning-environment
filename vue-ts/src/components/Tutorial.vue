@@ -1,10 +1,12 @@
 <template>
-  <div class="flex-item flex-center card" @click="openModal()">
-    <div>Open Modal</div>
+  <div class="tutorial flex-item flex-center card" @click="openModal()">
+    <img :src="require('@/assets/icons/lightbulb.png')" />
     <div id="tutorial" class="modal">
       <div class="modal-content">
-        <span class="modal-close" @click="closeModal()">&times;</span>
-        <p>Some text in the Modal..</p>
+        <span id="modal-close" class="modal-close" @click="closeModal($event)"
+          >&times;</span
+        >
+        <p>Some text about the exercise..</p>
         <video loop controls>
           <source
             src="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4"
@@ -24,20 +26,33 @@ import { EventBus, EventBusEvents } from "./EventBus";
 
 @Component<Tutorial>({})
 export default class Tutorial extends Vue {
+  private modal: HTMLElement;
+  private modalClose: HTMLElement;
+
   created() {
     EventBus.$on(EventBusEvents.CloseModal, (event) => this.closeModal(event));
   }
 
+  mounted() {
+    this.modal = document.getElementById("tutorial");
+    this.modalClose = document.getElementById("modal-close");
+  }
+
   openModal() {
-    const modal = document.getElementById("tutorial");
-    modal.style.display = "block";
+    this.modal.style.display = "block";
   }
 
   closeModal(event: Event) {
-    const modal = document.getElementById("tutorial");
-    if (event.target === modal) {
-      modal.style.display = "none";
+    if (event.target === this.modal || event.target === this.modalClose) {
+      this.modal.style.display = "none";
     }
   }
 }
 </script>
+
+<style scoped>
+.tutorial > img {
+  width: 100%;
+  max-width: 30px;
+}
+</style>
