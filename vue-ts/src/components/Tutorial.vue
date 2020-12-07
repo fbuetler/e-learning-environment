@@ -9,7 +9,7 @@
           <p>{{ description }}</p>
         </div>
         <div>
-          <video loop controls>
+          <video loop controls muted>
             <source
               :src="require('@/assets/tutorials/' + video)"
               type="video/mp4"
@@ -62,6 +62,6 @@ export default class Tutorial extends Vue {
   max-width: 30px;
 }
 video {
-  width: 500px;
+  width: 700px;
 }
 </style>
