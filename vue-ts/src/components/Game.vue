@@ -2,7 +2,7 @@
   <div>
     <div class="flex-item flex-center flex-row">
       <h2>{{ title }}</h2>
-      <Tutorial />
+      <Tutorial :video="video" :description="description" />
     </div>
     <Buttonmenu
       :restartGameText="restartGameText"
@@ -83,6 +83,10 @@ export default class Game extends Vue {
   private title: string;
   @Prop({ type: Object, default: () => ({}) })
   private args: {};
+  @Prop({ required: true })
+  description: string;
+  @Prop({ required: true })
+  video: string;
 
   private restartGameText = "Neu starten!";
   private evaluateGameText = "Überprüfen!";

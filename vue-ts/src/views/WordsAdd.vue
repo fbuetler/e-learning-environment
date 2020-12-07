@@ -1,5 +1,5 @@
 <template>
-  <Game :type="type" :title="title" />
+  <Game :type="type" :title="title" :video="video" :description="description" />
 </template>
 
 <script lang="ts">
@@ -14,7 +14,10 @@ import views from "./Views";
   },
 })
 export default class WordsAdd extends Vue {
-  private type: GameType = GameType.WORDSADD;
+  type: GameType = GameType.WORDSADD;
   title = views.find((el) => el.component === GameType.WORDSADD).title;
+  video = "wordsadd.mp4";
+  description =
+    "Versuche neue Wörter zu bilden, indem du einen Buchstaben hinzufügst";
 }
 </script>
