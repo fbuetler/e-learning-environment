@@ -60,7 +60,7 @@ import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { LoadWords, wordElement } from "./Words";
 
-// allow move placed chars
+// TODO: allow move placed chars
 
 @Component<Add>({
   components: {

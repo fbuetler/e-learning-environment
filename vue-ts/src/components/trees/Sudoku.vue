@@ -104,6 +104,10 @@ import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
 
+/*
+  TODO: click placed tree and then trashcan to delete
+*/
+
 type sudokuField = {
   id: number;
   value: number;
