@@ -116,8 +116,17 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
 
 - drag and drop https://jsfiddle.net/mujaji/ntfs4k8c/17/
 - draw https://codepen.io/Lewitje/pen/MVommB
+- play video https://codepen.io/EastM/pen/GRJydjX
+- move "mouse" https://codepen.io/Mamboleoo/pen/79bd69e58f751fbb03ca7be25db6527c
 
 ## Fragen
 
+- es geht drum erstes feedback zum aufgabenstellungsstil und der umsetzung zu geben
+- es is nocht nicht alle aufgaben umgesetzt
+- es fehlen noch Tutorial/Aufgabestellung
 - sollte das ganze auf Mobile funktionieren? zB drag and drop?
+- aufgabenübersicht: was für icons? vorschau der aufgabe? grafiken aus dem buch?
+- wie sieht das ganze mit rechten an bildern etc aus?
 - Zugriff auf alle Grafiken aus dem Buch
+- title, co betreungspersonen, start/abgabe datum
+- feedback thesis description (jetzt, mail?)
