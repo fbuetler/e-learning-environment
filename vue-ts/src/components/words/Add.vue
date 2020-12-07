@@ -82,6 +82,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   restartGame() {
     [this.word, this.similarWords] = LoadWords(this.dataKey);
     this.word.forEach((el) => (el.locked = true));
+    this.charAdded = false;
   }
 
   isCorrect() {
