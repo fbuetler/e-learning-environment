@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click="emitCloseModal($event)">
     <Header />
     <router-view />
     <Footer />
@@ -9,12 +9,18 @@
 <script lang="ts">
 import Header from "@/components/layout/Header.vue";
 import Footer from "@/components/layout/Footer.vue";
+import { EventBus, EventBusEvents } from "./components/EventBus";
 
 export default {
   name: "app",
   components: {
     Header,
     Footer,
+  },
+  methods: {
+    emitCloseModal(event: Event) {
+      EventBus.$emit(EventBusEvents.CloseModal, event);
+    },
   },
 };
 </script>
