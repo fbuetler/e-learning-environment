@@ -130,3 +130,26 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
 - Zugriff auf alle Grafiken aus dem Buch
 - title, co betreungspersonen, start/abgabe datum
 - feedback thesis description (jetzt, mail?)
+
+## Feedback (8.12)
+
+- keine Fragezeichen in words/add aber pfeil darunter
+- words swap indicator mit pfeil zum swappen
+- wörter überarbeiten (gibt es alle ähnlichen wörter)
+- mayas addition zusätzlich statt dezimal mayazahl eingeben
+- sudoku lieber mehr als weniger informationen (zB Schwierigkeitsgrad)
+  - ohne zahlen nur bäume
+  - mit zahlen aber viele infos
+  - mit zahlen aber weniger infos
+  - 2 stufen reichen auch
+- für falsch und richtig gibt es bilder
+- einfach INFORMATIK kann weg sein oder klein
+- buchstabe 2x so gross
+- nich monoton rot sondern mit illustrationen
+- statt title einen Bieber
+- kein touch gerät
+- bilder auf urheberrecht checken
+- nach umsetzung des besprochenen einen link schicken
+- mail mit illustrationen
+- bsc thesis schicken per mail
+- nochmals hromkovic als co betreuung
