@@ -28,57 +28,70 @@ def printProgressBar(
     filledLength = int(length * iteration // total)
     bar = fill * filledLength + "-" * (length - filledLength)
     print(f"\r{prefix} |{bar}| {percent}% {suffix}", end=printEnd)
-    # Print New Line on Complete
     if iteration == total:
         print()
 
 
-resp = requests.get(
-    "http://pcai056.informatik.uni-leipzig.de/downloads/etc/legacy/Papers/top10000de.txt"
-)
+def word_exists(word):
+    try:
+        resp = requests.get(
+            "https://scrabble123.de/scrabble-worterbuch/{}".format(word)
+        )
+        return not ("nicht erlaubt" in resp.text)
+    except Exception:
+        print("caught exception")
+        return False
 
-words = list(map(lambda x: x.lower(), resp.text.split("\n")[:-1]))
+
+# https://scrabblemania.de/Alle-Worter
+# https://scrabble123.de/scrabble-worterbuch
+with open("words.txt", "r") as f:
+    words = list(map(lambda x: x.lower(), f.read().split("\n")[:-1]))
 
 sim_insert = dict()
 sim_remove = dict()
 sim_change = dict()
 l = len(words)
+alphabet = list(map(chr, range(ord("a"), ord("z") + 1)))
 for i, a in enumerate(words):
     if len(a) <= 4 or "." in a:
         continue
     insert = list()
     remove = list()
     change = list()
-    for b in words:
-        if a == b or len(b) == 1 or "." in b:
-            continue
 
-        # insert
-        for letter in list(map(chr, range(ord("a"), ord("z") + 1))):
-            for pos in range(len(a) + 1):
-                if a[:pos] + letter + a[pos:] == b and not b in insert:
-                    insert.append(b)
-
-        # remove
-        for pos in range(len(a)):
-            if a[:pos] + a[pos + 1 :] == b and not b in remove:
-                remove.append(b)
-
-        # change
-        if len(a) != len(b):
-            continue
-        distance = 0
-        for pos in range(len(a)):
-            distance += 1 if a[pos] != b[pos] else 0
-        if distance == 1 and not b in change:
-            change.append(b)
-
+    # insert
+    for pos in range(len(a) + 1):
+        for letter in alphabet:
+            w = a[:pos] + letter + a[pos:]
+            if word_exists(w) and not w in insert:
+                insert.append(w)
     if len(insert) != 0:
         sim_insert[a] = insert
+
+    # remove
+    for pos in range(len(a)):
+        w = a[:pos] + a[pos + 1 :]
+        if word_exists(w) and not w in remove:
+            remove.append(w)
     if len(remove) != 0:
         sim_remove[a] = remove
+
+    # change
+    distance = 0
+    for pos in range(len(a)):
+        for letter in alphabet:
+            w = a[:pos] + letter + a[pos + 1 :]
+            if w != a and word_exists(w) and not w in change:
+                change.append(w)
     if len(change) != 0:
         sim_change[a] = change
+
+    print(chr(27) + "[2J")
+    print(sim_insert)
+    print(sim_remove)
+    print(sim_change)
+
     printProgressBar(i + 1, l, prefix="Progress:", suffix="Complete", length=50)
 
 with open("words.json", "w") as f:
