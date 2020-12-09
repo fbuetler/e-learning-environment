@@ -17,6 +17,8 @@
       ></component>
     </keep-alive>
     <div v-if="showResult">
+      <img :src="require('@/assets/beavers/correct.png')" v-if="isCorrect" />
+      <img :src="require('@/assets/beavers/wrong.png')" v-else />
       <h3>{{ resultText }}</h3>
     </div>
   </div>
@@ -91,18 +93,22 @@ export default class Game extends Vue {
   private restartGameText = "Neu starten!";
   private evaluateGameText = "Überprüfen!";
   private resultText = "";
+  private isCorrect = false;
   private showResult = false;
 
   private evaluatedGame(correct: boolean): void {
     if (correct) {
       this.resultText = "Richtig!";
+      this.isCorrect = true;
     } else {
       this.resultText = "Falsch!";
+      this.isCorrect = false;
     }
     this.showResult = true;
     setTimeout(() => {
       this.showResult = false;
       this.resultText = "";
+      this.isCorrect = false;
     }, 2000);
   }
 

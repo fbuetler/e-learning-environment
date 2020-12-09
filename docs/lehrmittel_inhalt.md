@@ -142,7 +142,7 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
   - mit zahlen aber viele infos
   - mit zahlen aber weniger infos
   - 2 stufen reichen auch
-- für falsch und richtig gibt es bilder
+- <s>für falsch und richtig gibt es bilder</s>
 - einfach INFORMATIK kann weg sein oder klein
 - buchstabe 2x so gross
 - nich monoton rot sondern mit illustrationen
