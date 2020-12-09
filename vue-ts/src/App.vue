@@ -50,7 +50,7 @@ button:focus {
   border: 3px solid #e7e7e7;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  padding: 0.5rem;
+  padding: 0.5em;
   margin: 1em;
 }
 .card:hover {
@@ -89,8 +89,8 @@ button:focus {
   border: 2px dashed #a33535;
   background: #df4747;
   border-radius: 5px;
-  min-height: 1rem;
-  min-width: 1rem;
+  min-height: 1em;
+  min-width: 1em;
 }
 .modal {
   display: none;

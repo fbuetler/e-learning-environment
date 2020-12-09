@@ -137,14 +137,20 @@ export default class Game extends Vue {
 .word-char {
   padding: 0.3em;
   margin: 0.2em;
-  font-size: 2.5em;
+  font-size: 2em;
 }
 .interaction-container > div {
-  margin: 1rem;
+  margin: 1em;
 }
 .tree-dropzone {
   align-items: flex-end;
-  min-height: 9rem;
-  min-width: 5rem;
+  min-height: 9em;
+  min-width: 5em;
+}
+.nut > img {
+  max-width: 64px;
+}
+.stick > img {
+  max-height: 96px;
 }
 </style>

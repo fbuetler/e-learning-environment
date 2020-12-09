@@ -4,7 +4,11 @@
       class="flex-item flex-wrap flex-center card"
       v-for="item in items"
       :key="item.id"
-      :class="{ selected: item.type === selected }"
+      :class="{
+        selected: item.type === selected,
+        nut: item.type === nut,
+        stick: item.type === stick,
+      }"
       @click="$emit('selected', item.type)"
       draggable
       @dragstart="$emit('selected', item.type)"
@@ -18,12 +22,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
-import { itemType } from "./Mayas";
+import { Component, Prop, Mixins } from "vue-property-decorator";
+import MayasMixin, { itemType } from "./Mayas";
 
 @Component<NutsAndSticks>({})
-export default class NutsAndSticks extends Vue {
+export default class NutsAndSticks extends Mixins(MayasMixin) {
   @Prop({ required: true })
   private selected: itemType;
 

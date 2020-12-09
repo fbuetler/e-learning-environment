@@ -34,7 +34,7 @@
 <script lang="ts">
 import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
-import { itemType } from "./Mayas";
+import MayasMixin, { itemType } from "./Mayas";
 import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
 import Undo from "@/components/Undo.vue";
 
@@ -44,7 +44,8 @@ import Undo from "@/components/Undo.vue";
     Undo,
   },
 })
-export default class To extends Mixins(GameMixin) implements GameInterface {
+export default class To extends Mixins(GameMixin, MayasMixin)
+  implements GameInterface {
   private number: number = null;
   private selected: itemType = null;
   private selectedItems: Array<itemType> = null;
@@ -87,23 +88,14 @@ export default class To extends Mixins(GameMixin) implements GameInterface {
       Vue.set(this.selectedItems, i, 0);
     }
   }
-
-  get nut(): number {
-    return itemType.NUT;
-  }
-
-  get stick(): number {
-    return itemType.STICK;
-  }
 }
 </script>
 
 <style scoped>
 .number {
-  margin: 1rem;
-  font-size: 2em;
+  margin: 1em;
 }
 .input {
-  min-height: 5rem;
+  min-height: 5em;
 }
 </style>
