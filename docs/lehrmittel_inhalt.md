@@ -144,7 +144,7 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
   - 2 stufen reichen auch
 - <s>für falsch und richtig gibt es bilder</s>
 - einfach INFORMATIK kann weg sein oder klein
-- buchstabe 2x so gross
+- <s>buchstabe 2x so gross</s>>
 - nich monoton rot sondern mit illustrationen
 - statt title einen Bieber
 - kein touch gerät

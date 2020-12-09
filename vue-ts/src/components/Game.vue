@@ -135,6 +135,7 @@ export default class Game extends Vue {
 .word-char {
   padding: 0.3em;
   margin: 0.2em;
+  font-size: 2.5em;
 }
 .interaction-container > div {
   margin: 1rem;
