@@ -12,7 +12,9 @@
       @dragend.prevent
       @drop.prevent
     >
-      <img :src="require('@/assets/trees/tree_' + index + '.png')" />
+      <img
+        :src="require('@/assets/trees/tree_' + index + '_' + size + '.png')"
+      />
     </div>
   </div>
 </template>

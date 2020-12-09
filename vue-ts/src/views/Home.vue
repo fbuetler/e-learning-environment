@@ -2,8 +2,10 @@
   <div class="cards">
     <div class="card" v-for="item in items" :key="item.id">
       <router-link :to="item.path">
-        <img :src="require('@/assets/' + item.img)" style="width:100%" />
-        <div class="container">
+        <div class="card-image flex-item flex-center">
+          <img :src="require('@/assets/' + item.img)" />
+        </div>
+        <div class="card-container">
           {{ item.title }}
         </div>
       </router-link>
@@ -31,7 +33,16 @@ export default class Home extends Vue {
   grid-auto-rows: auto;
   grid-gap: 1em;
 }
-.container {
+.card-image {
+  height: 8em;
+}
+.card-image > img {
+  max-width: 100%;
+  max-height: 8em;
+  border-radius: 5px 5px 0 0;
+}
+.card-container {
+  margin-top: 6px;
   padding: 2px 16px;
 }
 /* router-link */

@@ -57,9 +57,6 @@ button:focus {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
-.card > img {
-  border-radius: 5px 5px 0 0;
-}
 .flex-item {
   display: flex;
 }

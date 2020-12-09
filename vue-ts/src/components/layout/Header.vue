@@ -1,6 +1,8 @@
 <template>
   <header>
-    <router-link to="/"><h1>einfach INFORMATIK</h1></router-link>
+    <router-link to="/">
+      <h1>einfach INFORMATIK</h1>
+    </router-link>
   </header>
 </template>
 

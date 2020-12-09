@@ -16,7 +16,7 @@ const views: Array<{
     id: 2,
     title: "Ähnliche Wörter (ändern)",
     path: "/wordschange",
-    img: "placeholder.jpg",
+    img: "words/beaver_change.png",
     component: "WordsChange",
   },
   {
@@ -30,7 +30,7 @@ const views: Array<{
     id: 4,
     title: "Ähnliche Wörter (vertauschen)",
     path: "/wordsswap",
-    img: "placeholder.jpg",
+    img: "words/beaver_swap.png",
     component: "WordsSwap",
   },
   {
@@ -44,7 +44,7 @@ const views: Array<{
     id: 6,
     title: "Maya Zahlen verstehen",
     path: "/mayasfrom",
-    img: "placeholder.jpg",
+    img: "mayas/nutsAndSticks.png",
     component: "MayasFrom",
   },
   {
@@ -58,7 +58,7 @@ const views: Array<{
     id: 12,
     title: "Sätze mit Zeichen chiffrieren",
     path: "/symbolencryption",
-    img: "placeholder.jpg",
+    img: "ciphertexts/ciphertext_symbols.png",
     component: "SymbolEncryption",
   },
   {
@@ -72,7 +72,7 @@ const views: Array<{
     id: 14,
     title: "Sätze mit Muster chiffrieren",
     path: "/patternencryption",
-    img: "placeholder.jpg",
+    img: "ciphertexts/ciphertext_pattern.png",
     component: "PatternEncryption",
   },
   {
@@ -86,7 +86,7 @@ const views: Array<{
     id: 8,
     title: "Reihe aus 3 Bäumen",
     path: "/treerow3",
-    img: "placeholder.jpg",
+    img: "trees/trees_3.png",
     component: "TreeRowOfThree",
   },
   {
@@ -100,7 +100,7 @@ const views: Array<{
     id: 10,
     title: "Reihe aus 4 Bäumen",
     path: "/treerow4",
-    img: "placeholder.jpg",
+    img: "trees/trees_4.png",
     component: "TreeRowOfFour",
   },
   {

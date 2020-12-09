@@ -15,7 +15,9 @@
       >
         <img
           v-if="field.value !== 0"
-          :src="require('@/assets/trees/tree_' + field.value + '.png')"
+          :src="
+            require('@/assets/trees/tree_' + field.value + '_' + size + '.png')
+          "
         />
       </div>
       <div class="flex-item flex-center card">{{ rightView }}</div>
