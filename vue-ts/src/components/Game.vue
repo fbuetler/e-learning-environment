@@ -4,22 +4,24 @@
       <h2>{{ title }}</h2>
       <Tutorial :video="video" :description="description" />
     </div>
-    <Buttonmenu
-      :restartGameText="restartGameText"
-      :evaluateGameText="evaluateGameText"
-    />
-    <keep-alive :max="1">
-      <component
-        v-if="!showResult"
-        :is="currentGameComponent"
-        :args="args"
-        @evaluated-game="(correct) => evaluatedGame(correct)"
-      ></component>
-    </keep-alive>
     <div v-if="showResult">
       <img :src="require('@/assets/beavers/correct.png')" v-if="isCorrect" />
       <img :src="require('@/assets/beavers/wrong.png')" v-else />
       <h3>{{ resultText }}</h3>
+    </div>
+    <div v-else>
+      <Buttonmenu
+        :restartGameText="restartGameText"
+        :evaluateGameText="evaluateGameText"
+      />
+      <keep-alive :max="1">
+        <component
+          v-if="!showResult"
+          :is="currentGameComponent"
+          :args="args"
+          @evaluated-game="(correct) => evaluatedGame(correct)"
+        ></component>
+      </keep-alive>
     </div>
   </div>
 </template>
