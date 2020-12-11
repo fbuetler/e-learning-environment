@@ -134,17 +134,12 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
 ## Feedback (8.12)
 
 - keine Fragezeichen in words/add aber pfeil darunter
-- wörter überarbeiten (gibt es alle ähnlichen wörter)
 - mayas addition zusätzlich statt dezimal mayazahl eingeben
 - sudoku lieber mehr als weniger informationen (zB Schwierigkeitsgrad)
   - ohne zahlen nur bäume
   - mit zahlen aber viele infos
   - mit zahlen aber weniger infos
   - 2 stufen reichen auch
-- <s>für falsch und richtig gibt es bilder</s>
-- einfach INFORMATIK kann weg sein oder klein
-- <s>buchstabe 2x so gross</s>>
-- nich monoton rot sondern mit illustrationen
-- statt title einen Bieber
 - bilder auf urheberrecht checken
+- wörter überarbeiten (gibt es alle ähnlichen wörter)
 - nach umsetzung des besprochenen einen link schicken

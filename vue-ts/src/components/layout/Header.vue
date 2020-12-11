@@ -1,7 +1,7 @@
 <template>
   <header>
     <router-link to="/">
-      <h1>einfach INFORMATIK</h1>
+      <img :src="require('@/assets/beavers/beavers.png')" />
     </router-link>
   </header>
 </template>
@@ -16,5 +16,8 @@ export default {
 a {
   text-decoration: none;
   color: black;
+}
+img {
+  max-width: 50%;
 }
 </style>
