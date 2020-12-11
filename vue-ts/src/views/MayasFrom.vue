@@ -1,5 +1,5 @@
 <template>
-  <Game :type="type" :title="title" />
+  <Game :type="type" :title="title" :video="video" :description="description" />
 </template>
 
 <script lang="ts">
@@ -14,7 +14,9 @@ import views from "./Views";
   },
 })
 export default class MayasFrom extends Vue {
-  private type: GameType = GameType.MAYASFROM;
+  type: GameType = GameType.MAYASFROM;
   title = views.find((el) => el.component === GameType.MAYASFROM).title;
+  video = "placeholder.mp4";
+  description = "intentionally empty";
 }
 </script>

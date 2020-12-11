@@ -1,5 +1,5 @@
 <template>
-  <Game :type="type" :title="title" />
+  <Game :type="type" :title="title" :video="video" :description="description" />
 </template>
 
 <script lang="ts">
@@ -16,7 +16,9 @@ export const symbolEncryptionTitle = "Sätze mit Zeichen chiffrieren";
   },
 })
 export default class SymbolEncryption extends Vue {
-  private type: GameType = GameType.SYMBOLENCRYPTION;
+  type: GameType = GameType.SYMBOLENCRYPTION;
   title = views.find((el) => el.component === GameType.SYMBOLENCRYPTION).title;
+  video = "placeholder.mp4";
+  description = "intentionally empty";
 }
 </script>

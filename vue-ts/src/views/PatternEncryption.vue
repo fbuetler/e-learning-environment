@@ -1,5 +1,5 @@
 <template>
-  <Game :type="type" :title="title" />
+  <Game :type="type" :title="title" :video="video" :description="description" />
 </template>
 
 <script lang="ts">
@@ -14,7 +14,9 @@ import views from "./Views";
   },
 })
 export default class PatternEncryption extends Vue {
-  private type: GameType = GameType.PATTERNENCRYPTION;
+  type: GameType = GameType.PATTERNENCRYPTION;
   title = views.find((el) => el.component === GameType.PATTERNENCRYPTION).title;
+  video = "placeholder.mp4";
+  description = "intentionally empty";
 }
 </script>

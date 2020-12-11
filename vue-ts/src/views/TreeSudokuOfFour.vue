@@ -1,5 +1,11 @@
 <template>
-  <Game :type="type" :title="title" :args="args" />
+  <Game
+    :type="type"
+    :title="title"
+    :args="args"
+    :video="video"
+    :description="description"
+  />
 </template>
 
 <script lang="ts">
@@ -14,9 +20,11 @@ import views from "./Views";
   },
 })
 export default class TreeSudokuOfFour extends Vue {
-  private type: GameType = GameType.TREESUDOKU;
-  private size = 4;
+  type: GameType = GameType.TREESUDOKU;
+  size = 4;
   title = views.find((el) => el.component === "TreeSudokuOfFour").title;
-  private args = { size: this.size };
+  args = { size: this.size };
+  video = "placeholder.mp4";
+  description = "intentionally empty";
 }
 </script>
