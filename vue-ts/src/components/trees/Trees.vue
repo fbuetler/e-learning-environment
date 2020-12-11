@@ -2,9 +2,9 @@
   <div class="flex-item flex-wrap flex-row">
     <div
       class="flex-item flex-wrap flex-center card"
+      :class="{ selected: index === selected }"
       v-for="index in size"
       :key="index"
-      :class="{ selected: index === selected }"
       @click="$emit('tree-selected', index)"
       draggable
       @dragstart="$emit('tree-selected', index)"
