@@ -133,7 +133,6 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
 
 ## Feedback (8.12)
 
-- keine Fragezeichen in words/add aber pfeil darunter
 - mayas addition zusätzlich statt dezimal mayazahl eingeben
 - sudoku lieber mehr als weniger informationen (zB Schwierigkeitsgrad)
   - ohne zahlen nur bäume

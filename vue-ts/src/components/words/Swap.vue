@@ -5,23 +5,23 @@
       id="word-container"
     >
       <div class="flex-item flex-row flex-center">
-        <div v-for="element in word" :key="element.id">
-          <div
-            class="word-char card"
-            :class="{
-              locked: element.locked,
-              selected: element.id === selectedChar,
-            }"
-            :id="'word-char-' + element.id"
-            @click="selectChar(element.id)"
-            draggable
-            @dragstart="selectedChar = element.id"
-            @dragover.prevent
-            @dragend.prevent
-            @drop.stop.prevent="selectChar(element.id)"
-          >
-            {{ element.char }}
-          </div>
+        <div
+          v-for="element in word"
+          :key="element.id"
+          class="word-char card"
+          :class="{
+            locked: element.locked,
+            selected: element.id === selectedChar,
+          }"
+          :id="'word-char-' + element.id"
+          @click="selectChar(element.id)"
+          draggable
+          @dragstart="selectedChar = element.id"
+          @dragover.prevent
+          @dragend.prevent
+          @drop.stop.prevent="selectChar(element.id)"
+        >
+          {{ element.char }}
         </div>
       </div>
       <div class="svg-container">
@@ -51,7 +51,7 @@
             </marker>
           </defs>
           <path
-            v-for="([left, right], index) in connectByArrow"
+            v-for="([left, right], index) in arrows"
             :key="index"
             :id="`arrow-${left}-${right}`"
             stroke="black"
@@ -128,7 +128,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   }
 
   drawArrows() {
-    this.connectByArrow.forEach(([leftID, rightID]) => {
+    this.arrows.forEach(([leftID, rightID]) => {
       const container = document.getElementById("word-container");
       const leftDiv = document.getElementById(`word-char-${leftID}`);
       const rightDiv = document.getElementById(`word-char-${rightID}`);
@@ -200,12 +200,12 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     this.charSwaped = false;
   }
 
-  get connectByArrow(): [number, number][] {
-    const arr = new Array<[number, number]>();
+  get arrows(): [number, number][] {
+    const arrrows = new Array<[number, number]>();
     for (let i = 0; i < this.word.length - 1; i++) {
-      arr.push([this.word[i].id, this.word[i + 1].id]);
+      arrrows.push([this.word[i].id, this.word[i + 1].id]);
     }
-    return arr;
+    return arrrows;
   }
 }
 </script>

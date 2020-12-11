@@ -1,26 +1,19 @@
 <template>
   <div>
-    <div class="word-container flex-item flex-row flex-center">
-      <div
-        class="flex-item flex-center flex-row"
-        v-for="element in word"
-        :key="element.id"
-      >
+    <div
+      class="word-container flex-item flex-col flex-center flex-flex"
+      id="word-container"
+    >
+      <div class="flex-item flex-row flex-center">
         <div
-          class="dropzone"
-          @click="addChar(element.id)"
-          @dragover.prevent
-          @dragend.prevent
-          @drop.stop.prevent="addChar(element.id)"
-        >
-          ?
-        </div>
-        <div
+          v-for="element in word"
+          :key="element.id"
           class="word-char card"
           :class="{
             locked: element.locked,
             selected: element.id === selectedChar,
           }"
+          :id="`word-char-${element.id}`"
           @click="selectedChar = element.id"
           draggable
           @dragover.prevent
@@ -29,15 +22,34 @@
         >
           {{ element.char }}
         </div>
+        <div :id="`word-char-${word.length}`"></div>
       </div>
-      <div
-        class="dropzone"
-        @click="addChar(word.length)"
-        @dragover.prevent
-        @dragend.prevent
-        @drop.stop.prevent="addChar(word.length)"
-      >
-        ?
+      <div class="svg-container" v-if="!charAdded">
+        <svg>
+          <defs>
+            <marker
+              id="arrowhead"
+              viewBox="0 0 10 10"
+              refX="1"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto"
+            >
+              <path d="M 0 5 L 10 0 L 10 10 z" />
+            </marker>
+          </defs>
+          <line
+            v-for="(id, index) in arrows"
+            :key="index"
+            :id="`arrow-${id}`"
+            stroke="black"
+            stroke-width="3"
+            fill="transparent"
+            marker-start="url(#arrowhead)"
+            @click="addChar(id)"
+          />
+        </svg>
       </div>
     </div>
     <hr />
@@ -60,8 +72,6 @@ import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { LoadWords, wordElement } from "./Words";
 
-// TODO: allow move placed chars
-
 @Component<Add>({
   components: {
     Alphabet,
@@ -75,6 +85,21 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   private selectedChar: string = null;
   private charAdded = false;
 
+  created() {
+    window.addEventListener("resize", this.drawArrows);
+  }
+  destroyed() {
+    window.removeEventListener("resize", this.drawArrows);
+  }
+
+  mounted() {
+    this.drawArrows();
+  }
+
+  updated() {
+    this.drawArrows();
+  }
+
   isStarted(): boolean {
     return this.word === null;
   }
@@ -87,6 +112,32 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
 
   isCorrect() {
     return this.similarWords.includes(this.word.map((el) => el.char).join(""));
+  }
+
+  drawArrows() {
+    if (this.charAdded) {
+      return;
+    }
+    this.arrows.forEach((id) => {
+      const container = document.getElementById("word-container");
+      const div = document.getElementById(`word-char-${id}`);
+      const arrow = document.getElementById(`arrow-${id}`);
+
+      const xPos = div.offsetLeft - container.offsetLeft;
+      const start = {
+        x: xPos,
+        y: 10,
+      };
+      const end = {
+        x: xPos,
+        y: 50,
+      };
+
+      arrow.setAttribute("x1", `${start.x}`);
+      arrow.setAttribute("y1", `${start.y}`);
+      arrow.setAttribute("x2", `${end.x}`);
+      arrow.setAttribute("y2", `${end.y}`);
+    });
   }
 
   addChar(addBefore: number) {
@@ -122,5 +173,20 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     this.word = this.word.filter((el) => el.id !== id);
     this.charAdded = false;
   }
+
+  get arrows(): number[] {
+    const arrows = new Array<number>();
+    for (let i = 0; i <= this.word.length; i++) {
+      arrows.push(i);
+    }
+    return arrows;
+  }
 }
 </script>
+
+<style scoped>
+svg {
+  width: 100%;
+  max-height: 3em;
+}
+</style>
