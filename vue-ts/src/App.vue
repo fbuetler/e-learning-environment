@@ -88,6 +88,7 @@ button:focus {
   border-radius: 5px;
   min-height: 1em;
   min-width: 1em;
+  margin: 1em;
 }
 .modal {
   display: none;
