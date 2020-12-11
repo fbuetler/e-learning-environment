@@ -134,7 +134,6 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
 ## Feedback (8.12)
 
 - keine Fragezeichen in words/add aber pfeil darunter
-- words swap indicator mit pfeil zum swappen
 - wörter überarbeiten (gibt es alle ähnlichen wörter)
 - mayas addition zusätzlich statt dezimal mayazahl eingeben
 - sudoku lieber mehr als weniger informationen (zB Schwierigkeitsgrad)
@@ -147,9 +146,5 @@ http://waste.informatik.hu-berlin.de/Lehre/ws0607/SE_verschluesselung/radinAntik
 - <s>buchstabe 2x so gross</s>>
 - nich monoton rot sondern mit illustrationen
 - statt title einen Bieber
-- kein touch gerät
 - bilder auf urheberrecht checken
 - nach umsetzung des besprochenen einen link schicken
-- mail mit illustrationen
-- bsc thesis schicken per mail
-- nochmals hromkovic als co betreuung
