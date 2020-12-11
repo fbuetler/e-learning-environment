@@ -6,7 +6,7 @@
         class="modal-content flex-item flex-center flex-space-between flex-row"
       >
         <div>
-          <p>{{ description }}</p>
+          <p class="description">{{ description }}</p>
         </div>
         <div>
           <video loop controls muted>
@@ -62,6 +62,9 @@ export default class Tutorial extends Vue {
   max-width: 30px;
 }
 video {
-  width: 700px;
+  max-width: 100%;
+}
+.description {
+  min-width: 50%;
 }
 </style>
