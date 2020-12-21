@@ -12,7 +12,7 @@ export function LoadRandomElement(key: string): string {
 }
 
 export function LoadRandomNumber(): number {
-  return Math.floor(Math.random() * 50);
+  return Math.floor(Math.random() * 99);
 }
 
 export enum Shape {

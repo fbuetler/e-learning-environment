@@ -117,6 +117,26 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   ]);
 
   mounted() {
+    this.drawShapes();
+  }
+
+  updated() {
+    this.drawShapes();
+  }
+
+  isStarted(): boolean {
+    return this.number === null;
+  }
+
+  restartGame() {
+    this.number = LoadRandomNumber();
+  }
+
+  isCorrect(): boolean {
+    return this.number === this.decryptedText;
+  }
+
+  drawShapes() {
     this.text.forEach((number, index) => {
       const cvText = new Canvas(
         document.getElementById(`encrypted-text-${index}`) as HTMLCanvasElement,
@@ -133,18 +153,6 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       );
       cvShape.draw(shapes);
     });
-  }
-
-  isStarted(): boolean {
-    return this.number === null;
-  }
-
-  restartGame() {
-    this.number = 27;
-  }
-
-  isCorrect(): boolean {
-    return this.number === this.decryptedText;
   }
 
   get text(): number[] {
