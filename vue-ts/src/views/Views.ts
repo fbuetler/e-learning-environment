@@ -44,14 +44,14 @@ const views: Array<{
     id: 6,
     title: "Maya Zahlen verstehen",
     path: "/mayasfrom",
-    img: "mayas/nutsAndSticks.png",
+    img: "mayas/from_icon.png",
     component: "MayasFrom",
   },
   {
     id: 7,
     title: "Maya Zahlen addieren",
     path: "/mayasaddition",
-    img: "placeholder.jpg",
+    img: "mayas/addition.png",
     component: "MayasAddition",
   },
   {
