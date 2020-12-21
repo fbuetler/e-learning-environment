@@ -27,7 +27,7 @@ export default {
 
 <style>
 body {
-  background-color: #ff5252;
+  background-color: #526cff;
 }
 hr {
   border: 1px solid black;
@@ -83,8 +83,8 @@ button:focus {
   flex: 1;
 }
 .dropzone {
-  border: 2px dashed #a33535;
-  background: #df4747;
+  border: 2px dashed #324197;
+  background: #4658c2;
   border-radius: 5px;
   min-height: 1em;
   min-width: 1em;
