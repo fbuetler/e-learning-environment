@@ -1,10 +1,18 @@
-// https://developer.mozilla.org/de/docs/Web/Guide/HTML/Canvas_Tutorial
+/*
+https://developer.mozilla.org/de/docs/Web/Guide/HTML/Canvas_Tutorial
+https://29a.ch/2010/2/10/hand-drawn-lines-algorithm-javascript-canvas-html5
+https://github.com/balint42/comic.js
+*/
 
 import data from "@/assets/ciphertexts/ciphertexts.json";
 
 export function LoadRandomElement(key: string): string {
   const elems = data[key];
   return elems[Math.floor(Math.random() * elems.length)];
+}
+
+export function LoadRandomNumber(): number {
+  return Math.floor(Math.random() * 50);
 }
 
 export enum Shape {

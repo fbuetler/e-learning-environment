@@ -63,7 +63,7 @@ const views: Array<{
   },
   {
     id: 13,
-    title: "Sätze mit Zeichen dechiffrieren",
+    title: "Sätze und Zahlen mit Zeichen dechiffrieren",
     path: "/symboldecryption",
     img: "placeholder.jpg",
     component: "SymbolDecryption",

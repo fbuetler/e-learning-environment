@@ -1,6 +1,23 @@
 <template>
-  <div>
-    <div>{{ noun }}</div>
+  <div class="flex-item flex-col">
+    <div>Entschlüssle den Text mit Hilfe der Tabelle</div>
+    <div class="flex-item flex-row flex-center">
+      <div class="flex-item flex-row flex-center equal-space">
+        Text:
+        <div class="canvas-container">
+          <canvas
+            v-for="(number, index) in text"
+            :key="index"
+            :id="'encrypted-text-' + index"
+            >Text</canvas
+          >
+        </div>
+      </div>
+      <div class="flex-flex equal-space">
+        Lösung:
+        <input class="card" v-model.number="decryptedText" type="text" />
+      </div>
+    </div>
     <div class="flex-item flex-wrap">
       <div
         class="flex flex-center"
@@ -16,36 +33,125 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
-import { Canvas, Shape } from "./Ciphertext";
-import { LoadRandomElement } from "./Ciphertext";
+import { Canvas, Shape, LoadRandomNumber } from "./Ciphertext";
 
 @Component<SymbolDecryption>({})
 export default class SymbolDecryption extends Mixins(GameMixin)
   implements GameInterface {
-  noun: string = null;
+  number: number = null;
   dataKey = "nouns";
 
+  decryptedText: number = null;
+
+  lookupTable: Map<number, [Shape, number][]> = new Map([
+    [
+      0,
+      [
+        [Shape.RECTANGLE, 1],
+        [Shape.DOT, 1],
+      ],
+    ],
+    [
+      1,
+      [
+        [Shape.RECTANGLE, 1],
+        [Shape.DOT, 2],
+      ],
+    ],
+    [
+      2,
+      [
+        [Shape.RECTANGLE, 1],
+        [Shape.DOT, 3],
+      ],
+    ],
+    [
+      3,
+      [
+        [Shape.RECTANGLE, 1],
+        [Shape.DOT, 4],
+      ],
+    ],
+    [
+      4,
+      [
+        [Shape.CIRCLE, 1],
+        [Shape.DOT, 1],
+      ],
+    ],
+    [
+      5,
+      [
+        [Shape.CIRCLE, 1],
+        [Shape.DOT, 2],
+      ],
+    ],
+    [
+      6,
+      [
+        [Shape.CIRCLE, 1],
+        [Shape.DOT, 3],
+      ],
+    ],
+    [
+      7,
+      [
+        [Shape.CIRCLE, 1],
+        [Shape.DOT, 4],
+      ],
+    ],
+    [
+      8,
+      [
+        [Shape.TRIANGLE, 1],
+        [Shape.DOT, 1],
+      ],
+    ],
+    [
+      9,
+      [
+        [Shape.TRIANGLE, 1],
+        [Shape.DOT, 2],
+      ],
+    ],
+  ]);
+
   mounted() {
+    this.text.forEach((number, index) => {
+      const cvText = new Canvas(
+        document.getElementById(`encrypted-text-${index}`) as HTMLCanvasElement,
+        100,
+        100
+      );
+      cvText.draw(this.lookupTable.get(number));
+    });
     this.shapes.forEach((shapes, index) => {
-      const cv = new Canvas(
+      const cvShape = new Canvas(
         document.getElementById(`shape-${index}`) as HTMLCanvasElement,
         100,
         100
       );
-      cv.draw(shapes);
+      cvShape.draw(shapes);
     });
   }
 
   isStarted(): boolean {
-    return this.noun === null;
+    return this.number === null;
   }
 
   restartGame() {
-    this.noun = LoadRandomElement(this.dataKey);
+    this.number = 27;
   }
 
   isCorrect(): boolean {
-    return false;
+    return this.number === this.decryptedText;
+  }
+
+  get text(): number[] {
+    return this.number
+      .toString()
+      .split("")
+      .map((el) => +el);
   }
 
   get shapes(): [Shape, number][][] {
@@ -82,5 +188,14 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   border-right: 4px solid black;
   border-bottom: 4px solid black;
   color: orange;
+}
+.flex-item {
+  padding: 1em;
+}
+.equal-space {
+  flex: 1 1 0px;
+}
+.canvas-container {
+  margin: 1em;
 }
 </style>
