@@ -17,6 +17,7 @@ export default class SymbolDecryption extends Vue {
   type: GameType = GameType.SYMBOLDECRYPTION;
   title = views.find((el) => el.component === GameType.SYMBOLDECRYPTION).title;
   video = "placeholder.mp4";
-  description = "intentionally empty";
+  description = `Die Bieber verwenden eine geheimnisvolle Tabelle, um Ziffern und Buchstaben mit 
+  ganz neuen Symbolen zu kodieren. Kannst du den Geheimtext lesen?`;
 }
 </script>
