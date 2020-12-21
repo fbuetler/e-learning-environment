@@ -6,6 +6,11 @@
         selected: level === selected,
         locked: level > difficultyLevels,
       }"
+      :title="
+        `Schwierigkeitsgrad: ${getDifficultyDescription(
+          level
+        )} ${getLockedDescription(level > difficultyLevels)}`
+      "
       v-for="level in 3"
       :key="level"
       @click="selectDifficulty(level)"
@@ -31,6 +36,26 @@ export default class Difficulty extends Vue {
       return;
     }
     this.$emit("difficulty-selected", level);
+  }
+
+  getDifficultyDescription(difficulty: number): string {
+    switch (difficulty) {
+      case 1: {
+        return "leicht";
+      }
+      case 2: {
+        return "mittelschwer";
+      }
+      case 3: {
+        return "schwer";
+      }
+      default: {
+        return "keine Angabe";
+      }
+    }
+  }
+  getLockedDescription(locked: boolean): string {
+    return locked ? "(nicht vorhanden)" : "";
   }
 }
 </script>
