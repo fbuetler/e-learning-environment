@@ -17,6 +17,6 @@ export default class WordsSwap extends Vue {
   type: GameType = GameType.WORDSSWAP;
   title = views.find((el) => el.component === GameType.WORDSSWAP).title;
   video = "placeholder.mp4";
-  description = "intentionally empty";
+  description = `Versuche neue Wörter zu bilden, indem du zwei Buchstaben vertauschst.`;
 }
 </script>

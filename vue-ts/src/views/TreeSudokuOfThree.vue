@@ -25,6 +25,12 @@ export default class TreeSudokuOfThree extends Vue {
   title = views.find((el) => el.component === "TreeSudokuOfThree").title;
   args = { size: this.size };
   video = "placeholder.mp4";
-  description = "intentionally empty";
+  description = `Die Biber pflanzen ein 3 x 3‐Feld mit insgesamt 9 Bäumen. Die Bäume haben 3 unterschiedliche
+  Höhen: 1, 2 und 3. In jeder horizontalen Reihe (Zeile) und in jeder vertikalen Reihe (Spalte) des
+  Feldes gibt es von jeder Baumhöhe einen Baum. Die Zahlen rund um das Feld zeigen an, wie viele
+  Bäume jemand sieht, wenn er oder sie die Baumreihe aus dieser Position heraus anschaut.
+  <img src='${require("@/assets/trees/sudoku_explanation_3.png")}' style='max-width: 100%; margin: 1em'/>
+  Auf den Feldern in dieser Aufgabe sind nur wenige Informationen vorhanden. Kannst du die Baumreihen
+  trotzdem bilden?`;
 }
 </script>

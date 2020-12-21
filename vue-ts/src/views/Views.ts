@@ -93,7 +93,7 @@ const views: Array<{
     id: 9,
     title: "3x3 Baumsudoku",
     path: "/treesudoku3",
-    img: "placeholder.jpg",
+    img: "trees/sudoku_explanation_3.png",
     component: "TreeSudokuOfThree",
   },
   {
@@ -107,7 +107,7 @@ const views: Array<{
     id: 11,
     title: "4x4 Baumsudoku",
     path: "/treesudoku4",
-    img: "placeholder.jpg",
+    img: "trees/sudoku_explanation_4.png",
     component: "TreeSudokuOfFour",
   },
 ];

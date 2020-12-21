@@ -17,6 +17,6 @@ export default class WordsRemove extends Vue {
   type: GameType = GameType.WORDSREMOVE;
   title = views.find((el) => el.component === GameType.WORDSREMOVE).title;
   video = "placeholder.mp4";
-  description = "intentionally empty";
+  description = `Versuche neue Wörter zu bilden, indem du einen Buchstaben entfernst.`;
 }
 </script>

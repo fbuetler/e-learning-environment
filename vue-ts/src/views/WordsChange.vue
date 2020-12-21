@@ -17,6 +17,6 @@ export default class WordsChange extends Vue {
   type: GameType = GameType.WORDSCHANGE;
   title = views.find((el) => el.component === GameType.WORDSCHANGE).title;
   video = "placeholder.mp4";
-  description = "intentionally empty";
+  description = `Versuche neue Wörter zu bilden, indem du einen Buchstaben austauschst.`;
 }
 </script>

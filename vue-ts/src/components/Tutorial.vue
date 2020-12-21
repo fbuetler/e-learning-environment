@@ -5,10 +5,10 @@
       <div
         class="modal-content flex-item flex-center flex-space-between flex-row"
       >
-        <div>
-          <p class="description">{{ description }}</p>
+        <div class="item">
+          <p v-html="description"></p>
         </div>
-        <div>
+        <div class="item">
           <video loop controls muted>
             <source
               :src="require('@/assets/tutorials/' + video)"
@@ -60,10 +60,15 @@ export default class Tutorial extends Vue {
   width: 100%;
   max-width: 30px;
 }
-video {
-  max-width: 100%;
+.item {
+  flex: 1 1 0px;
 }
-.description {
-  min-width: 50%;
+p {
+  margin: 1em;
+  text-align: justify;
+}
+video {
+  max-height: 100%;
+  max-width: 100%;
 }
 </style>
