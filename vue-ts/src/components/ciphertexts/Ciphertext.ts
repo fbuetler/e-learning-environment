@@ -7,7 +7,16 @@ export function LoadRandomElement(key: string): string {
   return elems[Math.floor(Math.random() * elems.length)];
 }
 
-export class Symbol {
+export enum Shape {
+  CIRCLE,
+  TRIANGLE,
+  RECTANGLE,
+  DOT,
+  TEXT,
+  EMPTY,
+}
+
+export class Canvas {
   private ctx: CanvasRenderingContext2D;
   constructor(
     private canvas: HTMLCanvasElement,
@@ -19,47 +28,133 @@ export class Symbol {
     this.width = width;
     this.height = height;
 
-    // someth doesnt work here
-    this.ctx.lineWidth = 3;
     // maybe I dont need that?
     this.canvas.width = width;
     this.canvas.height = height;
   }
 
   clear() {
-    console.log("clearing");
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  drawDot(radius: number, clear: boolean) {
-    if (clear) {
-      this.clear();
-    }
+  draw(shapes: [Shape, number][]) {
+    this.clear();
+    shapes.forEach(([shape, quantity]) => {
+      switch (shape) {
+        case Shape.CIRCLE: {
+          this.drawCircle();
+          break;
+        }
+        case Shape.RECTANGLE: {
+          this.drawRectangle();
+          break;
+        }
+        case Shape.TRIANGLE: {
+          this.drawTriangle();
+          break;
+        }
+        case Shape.DOT: {
+          this.drawDot(quantity);
+          break;
+        }
+        case Shape.TEXT: {
+          this.drawText(quantity);
+          break;
+        }
+        case Shape.EMPTY: {
+          break;
+        }
+      }
+    });
+  }
+
+  drawCircle() {
     const centerX = this.canvas.width / 2;
     const centerY = this.canvas.height / 2;
 
+    const lineWidth = 3;
+    this.ctx.lineWidth = lineWidth;
     this.ctx.beginPath();
-    this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    this.ctx.arc(
+      centerX,
+      centerY,
+      Math.min(this.width, this.height) / 2 - lineWidth,
+      0,
+      2 * Math.PI,
+      false
+    );
     this.ctx.stroke();
   }
 
-  drawRectangle(clear: boolean) {
-    if (clear) {
-      this.clear();
+  drawDot(quantity: number) {
+    const centers = new Array<[number, number]>();
+    if (quantity < 4) {
+      const centerX = this.canvas.width / 2;
+      let centerY = 0;
+      const offsetY = this.canvas.height / (quantity + 1);
+      for (let i = 0; i < quantity; i++) {
+        centerY += offsetY;
+        centers.push([centerX, centerY]);
+      }
+    } else {
+      let centerX = 0;
+      let centerY = 0;
+      const dotsPerRow = Math.ceil(quantity / 2);
+      const rows = Math.ceil(quantity / dotsPerRow);
+      let offsetX = this.canvas.width / (dotsPerRow + 1);
+      const offsetY = this.canvas.height / (rows + 1);
+      let drawnDots = 0;
+      for (let i = 0; i < rows; i++) {
+        centerX = 0;
+        centerY += offsetY;
+        if (quantity - drawnDots < dotsPerRow) {
+          offsetX = this.canvas.width / (quantity - drawnDots + 1);
+        }
+        for (let j = 0; j < dotsPerRow; j++) {
+          if (drawnDots < quantity) {
+            drawnDots++;
+            centerX += offsetX;
+            centers.push([centerX, centerY]);
+          }
+        }
+      }
     }
+    this.ctx.fillStyle = "#ffa500";
+    for (const [centerX, centerY] of centers) {
+      this.ctx.beginPath();
+      this.ctx.arc(
+        centerX,
+        centerY,
+        Math.min(this.width, this.height) / 20,
+        0,
+        2 * Math.PI,
+        false
+      );
+      this.ctx.fill();
+    }
+    this.ctx.strokeStyle = "#000000";
+  }
+
+  drawRectangle() {
+    const lineWidth = 5;
+    this.ctx.lineWidth = lineWidth;
     this.ctx.strokeRect(0, 0, this.width, this.height);
   }
 
-  drawTriangle(clear: boolean) {
-    if (clear) {
-      this.clear();
-    }
-
+  drawTriangle() {
+    const lineWidth = 3;
+    this.ctx.lineWidth = lineWidth;
     this.ctx.beginPath();
     this.ctx.moveTo(this.width / 2, 0);
     this.ctx.lineTo(this.height, this.width);
     this.ctx.lineTo(0, this.height);
     this.ctx.closePath();
     this.ctx.stroke();
+  }
+
+  drawText(quantity: number) {
+    this.ctx.font = "30px Arial";
+    this.ctx.textAlign = "center";
+    this.ctx.fillText(String(quantity), this.height / 2, this.width / 2);
   }
 }
