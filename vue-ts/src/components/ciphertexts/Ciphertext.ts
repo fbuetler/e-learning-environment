@@ -23,6 +23,10 @@ as it should be.
 
 import data from "@/assets/ciphertexts/ciphertexts.json";
 
+export interface CanvasInterface {
+  draw(shapes: [Shape, Map<string, number>][]): void;
+}
+
 export function LoadRandomElement(key: string): string {
   const elems = data[key];
   return elems[Math.floor(Math.random() * elems.length)];
@@ -32,29 +36,25 @@ export function LoadRandomNumber(): number {
   return Math.floor(Math.random() * 99);
 }
 
-export enum NumberShape {
-  CIRCLE,
-  TRIANGLE,
-  RECTANGLE,
-  DOT,
-  TEXT,
+export enum Shape {
   EMPTY,
+  NUMBER_CIRCLE,
+  NUMBER_TRIANGLE,
+  NUMBER_RECTANGLE,
+  NUMBER_DOT,
+  NUMBER_TEXT,
+  LETTER_NARROWRECT,
+  LETTER_HORRIZONTALLINE,
+  LETTER_TRIANGLES,
+  LETTER_ARCS,
 }
 
-export enum LetterShape {
-  NARROWRECT,
-  HORRIZONTALLINE,
-  TRIANGLES,
-  ARCS,
-  EMPTY,
-}
-
-export class Canvas {
-  private ctx: CanvasRenderingContext2D;
+abstract class Canvas {
+  ctx: CanvasRenderingContext2D;
   constructor(
-    private canvas: HTMLCanvasElement,
-    private width: number,
-    private height: number
+    public canvas: HTMLCanvasElement,
+    public width: number,
+    public height: number
   ) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
@@ -69,66 +69,44 @@ export class Canvas {
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
+}
 
-  drawNumberShape(shapes: [NumberShape, number][]) {
-    this.clear();
-    shapes.forEach(([shape, quantity]) => {
-      switch (shape) {
-        case NumberShape.CIRCLE: {
-          this.drawCircle();
-          break;
-        }
-        case NumberShape.RECTANGLE: {
-          this.drawRectangle();
-          break;
-        }
-        case NumberShape.TRIANGLE: {
-          this.drawTriangle();
-          break;
-        }
-        case NumberShape.DOT: {
-          this.drawDot(quantity);
-          break;
-        }
-        case NumberShape.TEXT: {
-          this.drawText(quantity);
-          break;
-        }
-        case NumberShape.EMPTY: {
-          break;
-        }
-      }
-    });
-  }
-
-  drawLetterShape(shapes: [LetterShape, Map<string, number>][]) {
+export class NumberCanvas extends Canvas implements CanvasInterface {
+  draw(shapes: [Shape, Map<string, number>][]) {
     this.clear();
     shapes.forEach(([shape, args]) => {
       switch (shape) {
-        case LetterShape.NARROWRECT: {
-          this.drawNarrowRectangle();
+        case Shape.NUMBER_CIRCLE: {
+          this.drawCircle();
           break;
         }
-        case LetterShape.HORRIZONTALLINE: {
-          this.drawHorrizontalLines(args);
+        case Shape.NUMBER_RECTANGLE: {
+          this.drawRectangle();
           break;
         }
-        case LetterShape.TRIANGLES: {
-          this.drawTriangles(args);
+        case Shape.NUMBER_TRIANGLE: {
+          this.drawTriangle();
           break;
         }
-        case LetterShape.ARCS: {
-          this.drawArcs(args);
+        case Shape.NUMBER_DOT: {
+          this.drawDot(args.get("quantity"));
           break;
         }
-        case LetterShape.EMPTY: {
+        case Shape.NUMBER_TEXT: {
+          this.drawText(args.get("quantity"));
+          break;
+        }
+        case Shape.EMPTY: {
+          break;
+        }
+        default: {
           break;
         }
       }
     });
   }
 
-  drawCircle() {
+  private drawCircle() {
     const centerX = this.canvas.width / 2;
     const centerY = this.canvas.height / 2;
 
@@ -146,7 +124,7 @@ export class Canvas {
     this.ctx.stroke();
   }
 
-  drawDot(quantity: number) {
+  private drawDot(quantity: number) {
     const centers = new Array<[number, number]>();
     if (quantity < 4) {
       const centerX = this.canvas.width / 2;
@@ -195,13 +173,13 @@ export class Canvas {
     this.ctx.strokeStyle = "#000000";
   }
 
-  drawRectangle() {
+  private drawRectangle() {
     const lineWidth = 5;
     this.ctx.lineWidth = lineWidth;
     this.ctx.strokeRect(0, 0, this.width, this.height);
   }
 
-  drawTriangle() {
+  private drawTriangle() {
     const lineWidth = 3;
     this.ctx.lineWidth = lineWidth;
     this.ctx.beginPath();
@@ -212,13 +190,45 @@ export class Canvas {
     this.ctx.stroke();
   }
 
-  drawText(quantity: number) {
+  private drawText(quantity: number) {
     this.ctx.font = "30px Arial";
     this.ctx.textAlign = "center";
     this.ctx.fillText(String(quantity), this.height / 2, this.width / 2);
   }
+}
 
-  drawNarrowRectangle() {
+export class LetterCanvas extends Canvas implements CanvasInterface {
+  draw(shapes: [Shape, Map<string, number>][]) {
+    this.clear();
+    shapes.forEach(([shape, args]) => {
+      switch (shape) {
+        case Shape.LETTER_NARROWRECT: {
+          this.drawNarrowRectangle();
+          break;
+        }
+        case Shape.LETTER_HORRIZONTALLINE: {
+          this.drawHorrizontalLines(args);
+          break;
+        }
+        case Shape.LETTER_TRIANGLES: {
+          this.drawTriangles(args);
+          break;
+        }
+        case Shape.LETTER_ARCS: {
+          this.drawArcs(args);
+          break;
+        }
+        case Shape.EMPTY: {
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+  }
+
+  private drawNarrowRectangle() {
     const lineWidth = 5;
     this.ctx.lineWidth = lineWidth;
     this.ctx.strokeRect(
@@ -229,7 +239,7 @@ export class Canvas {
     );
   }
 
-  drawHorrizontalLines(args: Map<string, number>) {
+  private drawHorrizontalLines(args: Map<string, number>) {
     this.ctx.lineWidth = 5;
     this.ctx.strokeStyle = "#000000";
     const numberOfLines = args.get("lines") || 0;
@@ -246,7 +256,7 @@ export class Canvas {
     }
   }
 
-  drawTriangles(args: Map<string, number>) {
+  private drawTriangles(args: Map<string, number>) {
     this.ctx.lineWidth = 5;
     this.ctx.lineJoin = "bevel";
     this.ctx.strokeStyle = "#ffa500";
@@ -266,7 +276,7 @@ export class Canvas {
     this.ctx.stroke();
   }
 
-  drawArcs(args: Map<string, number>) {
+  private drawArcs(args: Map<string, number>) {
     const lineWidth = 5;
     this.ctx.lineWidth = lineWidth;
     this.ctx.strokeStyle = "#ffa500";
@@ -293,110 +303,110 @@ export class Canvas {
   }
 }
 
-export const NumberShapeTable: [NumberShape, number][][] = [
-  [[NumberShape.EMPTY, 0]],
-  [[NumberShape.DOT, 1]],
-  [[NumberShape.DOT, 2]],
-  [[NumberShape.DOT, 3]],
-  [[NumberShape.DOT, 4]],
-  [[NumberShape.RECTANGLE, 1]],
-  [[NumberShape.TEXT, 0]],
-  [[NumberShape.TEXT, 1]],
-  [[NumberShape.TEXT, 2]],
-  [[NumberShape.TEXT, 3]],
-  [[NumberShape.CIRCLE, 1]],
-  [[NumberShape.TEXT, 4]],
-  [[NumberShape.TEXT, 5]],
-  [[NumberShape.TEXT, 6]],
-  [[NumberShape.TEXT, 7]],
-  [[NumberShape.TRIANGLE, 1]],
-  [[NumberShape.TEXT, 8]],
-  [[NumberShape.TEXT, 9]],
-  [[NumberShape.EMPTY, 0]],
-  [[NumberShape.EMPTY, 0]],
+export const NumberTable: [Shape, Map<string, number>][][] = [
+  [[Shape.EMPTY, null]],
+  [[Shape.NUMBER_DOT, new Map([["quantity", 1]])]],
+  [[Shape.NUMBER_DOT, new Map([["quantity", 2]])]],
+  [[Shape.NUMBER_DOT, new Map([["quantity", 3]])]],
+  [[Shape.NUMBER_DOT, new Map([["quantity", 4]])]],
+  [[Shape.NUMBER_RECTANGLE, null]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 0]])]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 1]])]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 2]])]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 3]])]],
+  [[Shape.NUMBER_CIRCLE, null]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 4]])]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 5]])]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 6]])]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 7]])]],
+  [[Shape.NUMBER_TRIANGLE, null]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 8]])]],
+  [[Shape.NUMBER_TEXT, new Map([["quantity", 9]])]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
 ];
 
-export const NumberShapeLookupTable: Map<
+export const NumberLookup: Map<
   number,
-  [NumberShape, number][]
+  [Shape, Map<string, number>][]
 > = new Map([
   [
     0,
     [
-      [NumberShape.RECTANGLE, 1],
-      [NumberShape.DOT, 1],
+      [Shape.NUMBER_RECTANGLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 1]])],
     ],
   ],
   [
     1,
     [
-      [NumberShape.RECTANGLE, 1],
-      [NumberShape.DOT, 2],
+      [Shape.NUMBER_RECTANGLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 2]])],
     ],
   ],
   [
     2,
     [
-      [NumberShape.RECTANGLE, 1],
-      [NumberShape.DOT, 3],
+      [Shape.NUMBER_RECTANGLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 3]])],
     ],
   ],
   [
     3,
     [
-      [NumberShape.RECTANGLE, 1],
-      [NumberShape.DOT, 4],
+      [Shape.NUMBER_RECTANGLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 4]])],
     ],
   ],
   [
     4,
     [
-      [NumberShape.CIRCLE, 1],
-      [NumberShape.DOT, 1],
+      [Shape.NUMBER_CIRCLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 1]])],
     ],
   ],
   [
     5,
     [
-      [NumberShape.CIRCLE, 1],
-      [NumberShape.DOT, 2],
+      [Shape.NUMBER_CIRCLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 2]])],
     ],
   ],
   [
     6,
     [
-      [NumberShape.CIRCLE, 1],
-      [NumberShape.DOT, 3],
+      [Shape.NUMBER_CIRCLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 3]])],
     ],
   ],
   [
     7,
     [
-      [NumberShape.CIRCLE, 1],
-      [NumberShape.DOT, 4],
+      [Shape.NUMBER_CIRCLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 4]])],
     ],
   ],
   [
     8,
     [
-      [NumberShape.TRIANGLE, 1],
-      [NumberShape.DOT, 1],
+      [Shape.NUMBER_TRIANGLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 1]])],
     ],
   ],
   [
     9,
     [
-      [NumberShape.TRIANGLE, 1],
-      [NumberShape.DOT, 2],
+      [Shape.NUMBER_TRIANGLE, null],
+      [Shape.NUMBER_DOT, new Map([["quantity", 2]])],
     ],
   ],
 ]);
 
-export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
-  [[LetterShape.EMPTY, null]],
+export const LetterTable: [Shape, Map<string, number>][][] = [
+  [[Shape.EMPTY, null]],
   [
     [
-      LetterShape.HORRIZONTALLINE,
+      Shape.LETTER_HORRIZONTALLINE,
       new Map([
         ["lines", 1],
         ["colored", 0],
@@ -406,7 +416,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.HORRIZONTALLINE,
+      Shape.LETTER_HORRIZONTALLINE,
       new Map([
         ["lines", 2],
         ["colored", 0],
@@ -416,7 +426,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.HORRIZONTALLINE,
+      Shape.LETTER_HORRIZONTALLINE,
       new Map([
         ["lines", 3],
         ["colored", 0],
@@ -426,7 +436,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.TRIANGLES,
+      Shape.LETTER_TRIANGLES,
       new Map([
         ["triangles", 1],
         ["offsetX", 0.5],
@@ -435,7 +445,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.TRIANGLES,
+      Shape.LETTER_TRIANGLES,
       new Map([
         ["triangles", 2],
         ["offsetX", 0.5],
@@ -444,7 +454,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.TRIANGLES,
+      Shape.LETTER_TRIANGLES,
       new Map([
         ["triangles", 3],
         ["offsetX", 0.5],
@@ -453,7 +463,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.ARCS,
+      Shape.LETTER_ARCS,
       new Map([
         ["arcs", 1],
         ["offsetX", 0.5],
@@ -462,7 +472,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.ARCS,
+      Shape.LETTER_ARCS,
       new Map([
         ["arcs", 2],
         ["offsetX", 0.5],
@@ -471,7 +481,7 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
   ],
   [
     [
-      LetterShape.ARCS,
+      Shape.LETTER_ARCS,
       new Map([
         ["arcs", 3],
         ["offsetX", 0.5],
@@ -479,422 +489,423 @@ export const LetterShapeTable: [LetterShape, Map<string, number>][][] = [
     ],
   ],
   [
-    [LetterShape.NARROWRECT, null],
-    [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
+    [Shape.LETTER_NARROWRECT, null],
+    [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
   ],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
   [
-    [LetterShape.NARROWRECT, null],
-    [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
+    [Shape.LETTER_NARROWRECT, null],
+    [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
   ],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
   [
-    [LetterShape.NARROWRECT, null],
-    [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
+    [Shape.LETTER_NARROWRECT, null],
+    [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
   ],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
-  [[LetterShape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
+  [[Shape.EMPTY, null]],
 ];
 
-export const dummy: Map<string, [LetterShape, Map<string, number>][]> = new Map(
+export const LetterLookup: Map<
+  string,
+  [Shape, Map<string, number>][]
+> = new Map([
   [
+    "A",
     [
-      "A",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "B",
     [
-      "B",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "C",
     [
-      "C",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "D",
     [
-      "D",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["triangles", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["triangles", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "E",
     [
-      "E",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["triangles", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["triangles", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "F",
     [
-      "F",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["triangles", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["triangles", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "G",
     [
-      "G",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "H",
     [
-      "H",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "I",
     [
-      "I",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 1]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 1]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "J",
     [
-      "J",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "K",
     [
-      "K",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "L",
     [
-      "L",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "N",
     [
-      "N",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["trianglesl", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["trianglesl", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "O",
     [
-      "O",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["trianglesl", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["trianglesl", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "P",
     [
-      "P",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "Q",
     [
-      "Q",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "R",
     [
-      "R",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 2]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 2]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "S",
     [
-      "S",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "T",
     [
-      "T",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "U",
     [
-      "U",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.HORRIZONTALLINE,
-          new Map([
-            ["lines", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map([
+          ["lines", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "V",
     [
-      "V",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["triangles", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["triangles", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "W",
     [
-      "W",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["triangles", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["triangles", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "X",
     [
-      "X",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.TRIANGLES,
-          new Map([
-            ["triangles", 3],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_TRIANGLES,
+        new Map([
+          ["triangles", 3],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "Y",
     [
-      "Y",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 1],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 1],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
+  ],
+  [
+    "Z",
     [
-      "Z",
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["lines", 3]])],
       [
-        [LetterShape.NARROWRECT, null],
-        [LetterShape.HORRIZONTALLINE, new Map([["lines", 3]])],
-        [
-          LetterShape.ARCS,
-          new Map([
-            ["arcs", 2],
-            ["colored", 0],
-            ["offsetX", 0.5],
-          ]),
-        ],
+        Shape.LETTER_ARCS,
+        new Map([
+          ["arcs", 2],
+          ["colored", 0],
+          ["offsetX", 0.5],
+        ]),
       ],
     ],
-  ]
-);
+  ],
+]);

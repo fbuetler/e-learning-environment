@@ -34,13 +34,13 @@
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import {
-  Canvas,
-  NumberShape,
-  LetterShape,
+  NumberCanvas,
+  LetterCanvas,
+  Shape,
   LoadRandomNumber,
-  NumberShapeTable,
-  NumberShapeLookupTable,
-  LetterShapeTable,
+  NumberTable,
+  NumberLookup,
+  LetterTable,
 } from "./Ciphertext";
 
 @Component<SymbolDecryption>({})
@@ -51,7 +51,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 
   decryptedText: number = null;
 
-  numberLookupTable = NumberShapeLookupTable;
+  numberLookupTable = NumberLookup;
 
   mounted() {
     this.drawShapes();
@@ -75,20 +75,20 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 
   drawShapes() {
     this.text.forEach((number, index) => {
-      const cvText = new Canvas(
+      const cvText = new NumberCanvas(
         document.getElementById(`encrypted-text-${index}`) as HTMLCanvasElement,
         100,
         100
       );
-      cvText.drawNumberShape(this.numberLookupTable.get(number));
+      cvText.draw(this.numberLookupTable.get(number));
     });
     this.shapes.forEach((shapes, index) => {
-      const cvShape = new Canvas(
+      const cvShape = new NumberCanvas(
         document.getElementById(`shape-${index}`) as HTMLCanvasElement,
         100,
         100
       );
-      cvShape.drawNumberShape(shapes);
+      cvShape.draw(shapes);
     });
   }
 
@@ -99,10 +99,8 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       .map((el) => +el);
   }
 
-  get shapes():
-    | [NumberShape, number][][]
-    | [LetterShape, Map<string, number>][][] {
-    return NumberShapeTable;
+  get shapes(): [Shape, Map<string, number>][][] {
+    return NumberTable;
   }
 }
 </script>
