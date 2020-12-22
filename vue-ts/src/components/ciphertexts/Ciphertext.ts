@@ -327,74 +327,74 @@ export const NumberTable: [Shape, Map<string, number>][][] = [
 ];
 
 export const NumberLookup: Map<
-  number,
+  string,
   [Shape, Map<string, number>][]
 > = new Map([
   [
-    0,
+    "0",
     [
       [Shape.NUMBER_RECTANGLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 1]])],
     ],
   ],
   [
-    1,
+    "1",
     [
       [Shape.NUMBER_RECTANGLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 2]])],
     ],
   ],
   [
-    2,
+    "2",
     [
       [Shape.NUMBER_RECTANGLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 3]])],
     ],
   ],
   [
-    3,
+    "3",
     [
       [Shape.NUMBER_RECTANGLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 4]])],
     ],
   ],
   [
-    4,
+    "4",
     [
       [Shape.NUMBER_CIRCLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 1]])],
     ],
   ],
   [
-    5,
+    "5",
     [
       [Shape.NUMBER_CIRCLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 2]])],
     ],
   ],
   [
-    6,
+    "6",
     [
       [Shape.NUMBER_CIRCLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 3]])],
     ],
   ],
   [
-    7,
+    "7",
     [
       [Shape.NUMBER_CIRCLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 4]])],
     ],
   ],
   [
-    8,
+    "8",
     [
       [Shape.NUMBER_TRIANGLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 1]])],
     ],
   ],
   [
-    9,
+    "9",
     [
       [Shape.NUMBER_TRIANGLE, null],
       [Shape.NUMBER_DOT, new Map([["quantity", 2]])],

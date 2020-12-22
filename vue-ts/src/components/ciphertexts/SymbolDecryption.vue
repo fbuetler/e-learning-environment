@@ -1,30 +1,37 @@
 <template>
-  <div class="flex-item flex-col">
-    <div>Entschlüssle den Text mit Hilfe der Tabelle</div>
-    <div class="flex-item flex-row flex-center">
-      <div class="flex-item flex-row flex-center equal-space">
-        Text:
-        <div class="canvas-container">
-          <canvas
-            v-for="(number, index) in text"
-            :key="index"
-            :id="'encrypted-text-' + index"
-            >Text</canvas
-          >
+  <div>
+    <Difficulty
+      :selected="currentDifficultyLevel"
+      :difficultyLevels="difficultyLevels"
+      @difficulty-selected="changeDifficulty($event)"
+    />
+    <div class="flex-item flex-col">
+      <div>Entschlüssle den Text mit Hilfe der Tabelle</div>
+      <div class="flex-item flex-row flex-center">
+        <div class="flex-item flex-row flex-center equal-space">
+          Text:
+          <div class="canvas-container">
+            <canvas
+              v-for="(part, index) in text"
+              :key="index"
+              :id="'encrypted-text-' + index"
+              >Text</canvas
+            >
+          </div>
+        </div>
+        <div class="flex-flex equal-space">
+          Lösung:
+          <input class="card" v-model="decryptedText" type="text" />
         </div>
       </div>
-      <div class="flex-flex equal-space">
-        Lösung:
-        <input class="card" v-model.number="decryptedText" type="text" />
-      </div>
-    </div>
-    <div class="flex-item flex-wrap">
-      <div
-        class="flex flex-center"
-        v-for="(shape, index) in shapes"
-        :key="index"
-      >
-        <canvas :id="'shape-' + index">Shape</canvas>
+      <div class="flex-item flex-wrap">
+        <div
+          class="flex flex-center"
+          v-for="(shape, index) in table"
+          :key="index"
+        >
+          <canvas :id="'shape-' + index">Shape</canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -33,25 +40,36 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
+import Difficulty from "../Difficulty.vue";
 import {
   NumberCanvas,
   LetterCanvas,
   Shape,
   LoadRandomNumber,
+  LoadRandomElement,
   NumberTable,
   NumberLookup,
   LetterTable,
+  LetterLookup,
 } from "./Ciphertext";
 
-@Component<SymbolDecryption>({})
+@Component<SymbolDecryption>({
+  components: {
+    Difficulty,
+  },
+})
 export default class SymbolDecryption extends Mixins(GameMixin)
   implements GameInterface {
-  number: number = null;
   dataKey = "nouns";
 
-  decryptedText: number = null;
+  originalText: string = null;
+  decryptedText: string = null;
 
-  numberLookupTable = NumberLookup;
+  lookupTable: Map<string, [Shape, Map<string, number>][]> = null;
+  table: [Shape, Map<string, number>][][] = null;
+
+  currentDifficultyLevel: number = null;
+  difficultyLevels = 2;
 
   mounted() {
     this.drawShapes();
@@ -62,15 +80,26 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   }
 
   isStarted(): boolean {
-    return this.number === null;
+    return this.originalText === null;
   }
 
   restartGame() {
-    this.number = LoadRandomNumber();
+    if (this.currentDifficultyLevel === null) {
+      this.currentDifficultyLevel = 1;
+    }
+    if (this.currentDifficultyLevel === 1) {
+      this.originalText = String(LoadRandomNumber());
+      this.lookupTable = NumberLookup;
+      this.table = NumberTable;
+    } else {
+      this.originalText = LoadRandomElement(this.dataKey);
+      this.lookupTable = LetterLookup;
+      this.table = LetterTable;
+    }
   }
 
   isCorrect(): boolean {
-    return this.number === this.decryptedText;
+    return this.originalText == this.decryptedText;
   }
 
   drawShapes() {
@@ -80,9 +109,9 @@ export default class SymbolDecryption extends Mixins(GameMixin)
         100,
         100
       );
-      cvText.draw(this.numberLookupTable.get(number));
+      cvText.draw(this.lookupTable.get(number));
     });
-    this.shapes.forEach((shapes, index) => {
+    this.table.forEach((shapes, index) => {
       const cvShape = new NumberCanvas(
         document.getElementById(`shape-${index}`) as HTMLCanvasElement,
         100,
@@ -92,15 +121,12 @@ export default class SymbolDecryption extends Mixins(GameMixin)
     });
   }
 
-  get text(): number[] {
-    return this.number
-      .toString()
-      .split("")
-      .map((el) => +el);
+  changeDifficulty(level: number) {
+    this.currentDifficultyLevel = level;
   }
 
-  get shapes(): [Shape, Map<string, number>][][] {
-    return NumberTable;
+  get text(): string[] {
+    return this.originalText.toString().split("");
   }
 }
 </script>
