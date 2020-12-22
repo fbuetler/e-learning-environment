@@ -10,10 +10,7 @@
         </div>
         <div class="item">
           <video loop controls muted>
-            <source
-              :src="require('@/assets/tutorials/' + video)"
-              type="video/mp4"
-            />
+            <source :src="require('@/assets/tutorials/' + video)" />
             Your browser does not support the video tag.
           </video>
         </div>
