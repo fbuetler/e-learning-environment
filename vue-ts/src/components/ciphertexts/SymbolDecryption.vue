@@ -33,7 +33,15 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
-import { Canvas, Shape, LoadRandomNumber } from "./Ciphertext";
+import {
+  Canvas,
+  NumberShape,
+  LetterShape,
+  LoadRandomNumber,
+  NumberShapeTable,
+  NumberShapeLookupTable,
+  LetterShapeTable,
+} from "./Ciphertext";
 
 @Component<SymbolDecryption>({})
 export default class SymbolDecryption extends Mixins(GameMixin)
@@ -43,78 +51,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 
   decryptedText: number = null;
 
-  lookupTable: Map<number, [Shape, number][]> = new Map([
-    [
-      0,
-      [
-        [Shape.RECTANGLE, 1],
-        [Shape.DOT, 1],
-      ],
-    ],
-    [
-      1,
-      [
-        [Shape.RECTANGLE, 1],
-        [Shape.DOT, 2],
-      ],
-    ],
-    [
-      2,
-      [
-        [Shape.RECTANGLE, 1],
-        [Shape.DOT, 3],
-      ],
-    ],
-    [
-      3,
-      [
-        [Shape.RECTANGLE, 1],
-        [Shape.DOT, 4],
-      ],
-    ],
-    [
-      4,
-      [
-        [Shape.CIRCLE, 1],
-        [Shape.DOT, 1],
-      ],
-    ],
-    [
-      5,
-      [
-        [Shape.CIRCLE, 1],
-        [Shape.DOT, 2],
-      ],
-    ],
-    [
-      6,
-      [
-        [Shape.CIRCLE, 1],
-        [Shape.DOT, 3],
-      ],
-    ],
-    [
-      7,
-      [
-        [Shape.CIRCLE, 1],
-        [Shape.DOT, 4],
-      ],
-    ],
-    [
-      8,
-      [
-        [Shape.TRIANGLE, 1],
-        [Shape.DOT, 1],
-      ],
-    ],
-    [
-      9,
-      [
-        [Shape.TRIANGLE, 1],
-        [Shape.DOT, 2],
-      ],
-    ],
-  ]);
+  numberLookupTable = NumberShapeLookupTable;
 
   mounted() {
     this.drawShapes();
@@ -143,7 +80,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
         100,
         100
       );
-      cvText.draw(this.lookupTable.get(number));
+      cvText.drawNumberShape(this.numberLookupTable.get(number));
     });
     this.shapes.forEach((shapes, index) => {
       const cvShape = new Canvas(
@@ -151,7 +88,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
         100,
         100
       );
-      cvShape.draw(shapes);
+      cvShape.drawNumberShape(shapes);
     });
   }
 
@@ -162,29 +99,10 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       .map((el) => +el);
   }
 
-  get shapes(): [Shape, number][][] {
-    return [
-      [[Shape.EMPTY, 0]],
-      [[Shape.DOT, 1]],
-      [[Shape.DOT, 2]],
-      [[Shape.DOT, 3]],
-      [[Shape.DOT, 4]],
-      [[Shape.RECTANGLE, 1]],
-      [[Shape.TEXT, 0]],
-      [[Shape.TEXT, 1]],
-      [[Shape.TEXT, 2]],
-      [[Shape.TEXT, 3]],
-      [[Shape.CIRCLE, 1]],
-      [[Shape.TEXT, 4]],
-      [[Shape.TEXT, 5]],
-      [[Shape.TEXT, 6]],
-      [[Shape.TEXT, 7]],
-      [[Shape.TRIANGLE, 1]],
-      [[Shape.TEXT, 8]],
-      [[Shape.TEXT, 9]],
-      [[Shape.EMPTY, 0]],
-      [[Shape.EMPTY, 0]],
-    ];
+  get shapes():
+    | [NumberShape, number][][]
+    | [LetterShape, Map<string, number>][][] {
+    return NumberShapeTable;
   }
 }
 </script>
