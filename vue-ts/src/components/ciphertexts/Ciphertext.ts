@@ -324,27 +324,35 @@ export class LetterCanvas extends Canvas implements CanvasInterface {
 export const NumberTable: [
   Shape,
   Map<string, number | string | boolean>
-][][] = [
-  [[Shape.EMPTY, null]],
-  [[Shape.NUMBER_DOT, new Map([["quantity", 1]])]],
-  [[Shape.NUMBER_DOT, new Map([["quantity", 2]])]],
-  [[Shape.NUMBER_DOT, new Map([["quantity", 3]])]],
-  [[Shape.NUMBER_DOT, new Map([["quantity", 4]])]],
-  [[Shape.NUMBER_RECTANGLE, null]],
-  [[Shape.TEXT, new Map([["text", 0]])]],
-  [[Shape.TEXT, new Map([["text", 1]])]],
-  [[Shape.TEXT, new Map([["text", 2]])]],
-  [[Shape.TEXT, new Map([["text", 3]])]],
-  [[Shape.NUMBER_CIRCLE, null]],
-  [[Shape.TEXT, new Map([["text", 4]])]],
-  [[Shape.TEXT, new Map([["text", 5]])]],
-  [[Shape.TEXT, new Map([["text", 6]])]],
-  [[Shape.TEXT, new Map([["text", 7]])]],
-  [[Shape.NUMBER_TRIANGLE, null]],
-  [[Shape.TEXT, new Map([["text", 8]])]],
-  [[Shape.TEXT, new Map([["text", 9]])]],
-  [[Shape.EMPTY, null]],
-  [[Shape.EMPTY, null]],
+][][][] = [
+  [
+    [[Shape.EMPTY, null]],
+    [[Shape.NUMBER_DOT, new Map([["quantity", 1]])]],
+    [[Shape.NUMBER_DOT, new Map([["quantity", 2]])]],
+    [[Shape.NUMBER_DOT, new Map([["quantity", 3]])]],
+    [[Shape.NUMBER_DOT, new Map([["quantity", 4]])]],
+  ],
+  [
+    [[Shape.NUMBER_RECTANGLE, null]],
+    [[Shape.TEXT, new Map([["text", 0]])]],
+    [[Shape.TEXT, new Map([["text", 1]])]],
+    [[Shape.TEXT, new Map([["text", 2]])]],
+    [[Shape.TEXT, new Map([["text", 3]])]],
+  ],
+  [
+    [[Shape.NUMBER_CIRCLE, null]],
+    [[Shape.TEXT, new Map([["text", 4]])]],
+    [[Shape.TEXT, new Map([["text", 5]])]],
+    [[Shape.TEXT, new Map([["text", 6]])]],
+    [[Shape.TEXT, new Map([["text", 7]])]],
+  ],
+  [
+    [[Shape.NUMBER_TRIANGLE, null]],
+    [[Shape.TEXT, new Map([["text", 8]])]],
+    [[Shape.TEXT, new Map([["text", 9]])]],
+    [[Shape.EMPTY, null]],
+    [[Shape.EMPTY, null]],
+  ],
 ];
 
 export const NumberLookup: Map<
@@ -426,140 +434,148 @@ export const NumberLookup: Map<
 export const LetterTable: [
   Shape,
   Map<string, number | string | boolean>
-][][] = [
-  [[Shape.EMPTY, null]],
+][][][] = [
   [
+    [[Shape.EMPTY, null]],
     [
-      Shape.LETTER_HORRIZONTALLINE,
-      new Map<string, number | string | boolean>([
-        ["quantity", 1],
-        ["colored", true],
-        ["offsetX", 0.5],
-      ]),
+      [
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map<string, number | string | boolean>([
+          ["quantity", 1],
+          ["colored", true],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map<string, number | string | boolean>([
+          ["quantity", 2],
+          ["colored", true],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map<string, number | string | boolean>([
+          ["quantity", 3],
+          ["colored", true],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_TRIANGLES,
+        new Map<string, number | string | boolean>([
+          ["quantity", 1],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_TRIANGLES,
+        new Map<string, number | string | boolean>([
+          ["quantity", 2],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_TRIANGLES,
+        new Map<string, number | string | boolean>([
+          ["quantity", 3],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_ARCS,
+        new Map<string, number | string | boolean>([
+          ["quantity", 1],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_ARCS,
+        new Map<string, number | string | boolean>([
+          ["quantity", 2],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+    [
+      [
+        Shape.LETTER_ARCS,
+        new Map<string, number | string | boolean>([
+          ["quantity", 3],
+          ["offsetX", 0.5],
+        ]),
+      ],
     ],
   ],
   [
     [
-      Shape.LETTER_HORRIZONTALLINE,
-      new Map<string, number | string | boolean>([
-        ["quantity", 2],
-        ["colored", true],
-        ["offsetX", 0.5],
-      ]),
+      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map<string, number | string | boolean>([["quantity", 1]]),
+      ],
     ],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "A"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "B"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "C"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "D"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "E"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "F"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "G"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "H"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "I"]])]],
   ],
   [
     [
-      Shape.LETTER_HORRIZONTALLINE,
-      new Map<string, number | string | boolean>([
-        ["quantity", 3],
-        ["colored", true],
-        ["offsetX", 0.5],
-      ]),
+      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map<string, number | string | boolean>([["quantity", 2]]),
+      ],
     ],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "J"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "K"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "L"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "M"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "N"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "O"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "P"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Q"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "R"]])]],
   ],
   [
     [
-      Shape.LETTER_TRIANGLES,
-      new Map<string, number | string | boolean>([
-        ["quantity", 1],
-        ["offsetX", 0.5],
-      ]),
+      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_HORRIZONTALLINE,
+        new Map<string, number | string | boolean>([["quantity", 3]]),
+      ],
     ],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "S"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "T"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "U"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "V"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "X"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Y"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Z"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", ""]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", ""]])]],
   ],
-  [
-    [
-      Shape.LETTER_TRIANGLES,
-      new Map<string, number | string | boolean>([
-        ["quantity", 2],
-        ["offsetX", 0.5],
-      ]),
-    ],
-  ],
-  [
-    [
-      Shape.LETTER_TRIANGLES,
-      new Map<string, number | string | boolean>([
-        ["quantity", 3],
-        ["offsetX", 0.5],
-      ]),
-    ],
-  ],
-  [
-    [
-      Shape.LETTER_ARCS,
-      new Map<string, number | string | boolean>([
-        ["quantity", 1],
-        ["offsetX", 0.5],
-      ]),
-    ],
-  ],
-  [
-    [
-      Shape.LETTER_ARCS,
-      new Map<string, number | string | boolean>([
-        ["quantity", 2],
-        ["offsetX", 0.5],
-      ]),
-    ],
-  ],
-  [
-    [
-      Shape.LETTER_ARCS,
-      new Map<string, number | string | boolean>([
-        ["quantity", 3],
-        ["offsetX", 0.5],
-      ]),
-    ],
-  ],
-  [
-    [Shape.LETTER_NARROWRECT, null],
-    [
-      Shape.LETTER_HORRIZONTALLINE,
-      new Map<string, number | string | boolean>([["quantity", 1]]),
-    ],
-  ],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "A"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "B"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "C"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "D"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "E"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "F"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "G"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "H"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "I"]])]],
-  [
-    [Shape.LETTER_NARROWRECT, null],
-    [
-      Shape.LETTER_HORRIZONTALLINE,
-      new Map<string, number | string | boolean>([["quantity", 2]]),
-    ],
-  ],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "J"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "K"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "L"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "M"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "N"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "O"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "P"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Q"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "R"]])]],
-  [
-    [Shape.LETTER_NARROWRECT, null],
-    [
-      Shape.LETTER_HORRIZONTALLINE,
-      new Map<string, number | string | boolean>([["quantity", 3]]),
-    ],
-  ],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "S"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "T"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "U"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "V"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "X"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Y"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Z"]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", ""]])]],
-  [[Shape.TEXT, new Map<string, number | string | boolean>([["text", ""]])]],
 ];
 
 export const LetterLookup: Map<

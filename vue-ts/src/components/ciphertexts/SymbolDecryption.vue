@@ -6,58 +6,35 @@
       @difficulty-selected="changeDifficulty($event)"
     />
     <div class="flex-item flex-col">
-      <div>Entschlüssle den Text mit Hilfe der Tabelle</div>
+      <div>Entschlüssle den Text mit Hilfe der Tabelle!</div>
       <div class="flex-item flex-row flex-center">
         <div class="flex-item flex-row flex-center equal-space">
           Text:
-          <div class="canvas-container" v-if="currentDifficultyLevel === 1">
+          <div class="canvas-container">
             <canvas
-              v-for="(part, index) in originalNumbers"
+              v-for="(part, index) in original"
               :key="index"
-              :id="'encrypted-number-' + index"
-              >{{ part }}</canvas
-            >
-          </div>
-          <div class="canvas-container" v-else>
-            <canvas
-              v-for="(part, index) in originalLetters"
-              :key="index"
-              :id="'encrypted-letter-' + index"
+              :id="'encrypted-' + index"
               >{{ part }}</canvas
             >
           </div>
         </div>
         <div class="flex-flex equal-space">
           Lösung:
-          <input
-            class="card"
-            v-model="decryptedNumbers"
-            type="text"
-            v-if="currentDifficultyLevel === 1"
-          />
-          <input class="card" v-model="decryptedLetters" type="text" v-else />
+          <input class="card" v-model="decrypted" type="text" />
         </div>
       </div>
-      <div class="flex-item flex-wrap" v-if="currentDifficultyLevel === 1">
-        <div
-          class="flex flex-center"
-          :style="tableWidth"
-          v-for="(shape, index) in numberTable"
-          :key="index"
-        >
-          <canvas :id="'number-shape-' + index">Shape</canvas>
-        </div>
-      </div>
-      <div class="flex-item flex-wrap" v-else>
-        <div
-          class="flex flex-center"
-          :style="tableWidth"
-          v-for="(shape, index) in letterTable"
-          :key="index"
-        >
-          <canvas :id="'letter-shape-' + index">Shape</canvas>
-        </div>
-      </div>
+      <table>
+        <tbody>
+          <tr v-for="(row, rowIndex) in table" :key="rowIndex">
+            <td v-for="(shape, shapeIndex) in row" :key="shapeIndex">
+              <canvas :id="'shape-' + rowIndex + '-' + shapeIndex"
+                >Shape</canvas
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -88,9 +65,8 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   dataKey = "nouns";
 
   originalNumbers: string[] = null;
-  decryptedNumbers: string = null;
   originalLetters: string[] = null;
-  decryptedLetters: string = null;
+  decrypted: string = null;
 
   lookupNumber: Map<
     string,
@@ -100,8 +76,8 @@ export default class SymbolDecryption extends Mixins(GameMixin)
     string,
     [Shape, Map<string, number | string | boolean>][]
   > = null;
-  numberTable: [Shape, Map<string, number | string | boolean>][][] = null;
-  letterTable: [Shape, Map<string, number | string | boolean>][][] = null;
+  numberTable: [Shape, Map<string, number | string | boolean>][][][] = null;
+  letterTable: [Shape, Map<string, number | string | boolean>][][][] = null;
 
   currentDifficultyLevel: number = null;
   difficultyLevels = 2;
@@ -135,9 +111,9 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 
   isCorrect(): boolean {
     if (this.currentDifficultyLevel === 1) {
-      return this.originalNumbers.join("") === this.decryptedNumbers;
+      return this.originalNumbers.join("") === this.decrypted;
     } else {
-      return this.originalLetters.join("") === this.decryptedLetters;
+      return this.originalLetters.join("") === this.decrypted.toUpperCase();
     }
   }
 
@@ -145,40 +121,44 @@ export default class SymbolDecryption extends Mixins(GameMixin)
     if (this.currentDifficultyLevel === 1) {
       this.originalNumbers.forEach((number, index) => {
         const cvText = new NumberCanvas(
-          document.getElementById(
-            `encrypted-number-${index}`
-          ) as HTMLCanvasElement,
+          document.getElementById(`encrypted-${index}`) as HTMLCanvasElement,
           100,
           100
         );
         cvText.draw(this.lookupNumber.get(number));
       });
-      this.numberTable.forEach((shapes, index) => {
-        const cvShape = new NumberCanvas(
-          document.getElementById(`number-shape-${index}`) as HTMLCanvasElement,
-          100,
-          100
-        );
-        cvShape.draw(shapes);
+      this.numberTable.forEach((row, rowIndex) => {
+        row.forEach((shapes, shapeIndex) => {
+          const cvShape = new NumberCanvas(
+            document.getElementById(
+              `shape-${rowIndex}-${shapeIndex}`
+            ) as HTMLCanvasElement,
+            100,
+            100
+          );
+          cvShape.draw(shapes);
+        });
       });
     } else {
       this.originalLetters.forEach((letter, index) => {
         const cvText = new LetterCanvas(
-          document.getElementById(
-            `encrypted-letter-${index}`
-          ) as HTMLCanvasElement,
+          document.getElementById(`encrypted-${index}`) as HTMLCanvasElement,
           50,
           50
         );
         cvText.draw(this.lookupLetter.get(letter));
       });
-      this.letterTable.forEach((shapes, index) => {
-        const cvShape = new LetterCanvas(
-          document.getElementById(`letter-shape-${index}`) as HTMLCanvasElement,
-          50,
-          50
-        );
-        cvShape.draw(shapes);
+      this.letterTable.forEach((row, rowIndex) => {
+        row.forEach((shapes, shapeIndex) => {
+          const cvShape = new LetterCanvas(
+            document.getElementById(
+              `shape-${rowIndex}-${shapeIndex}`
+            ) as HTMLCanvasElement,
+            50,
+            50
+          );
+          cvShape.draw(shapes);
+        });
       });
     }
   }
@@ -187,23 +167,21 @@ export default class SymbolDecryption extends Mixins(GameMixin)
     this.currentDifficultyLevel = level;
   }
 
-  get tableWidth(): string {
-    if (this.currentDifficultyLevel === 1) {
-      return "flex: 0 0 15%;"; // 5 cols per row
-    } else {
-      return "flex: 0 0 7%;"; // 10 cols per row
-    }
+  get original(): string[] {
+    return this.currentDifficultyLevel === 1
+      ? this.originalNumbers
+      : this.originalLetters;
+  }
+
+  get table(): [Shape, Map<string, number | string | boolean>][][][] {
+    return this.currentDifficultyLevel === 1
+      ? this.numberTable
+      : this.letterTable;
   }
 }
 </script>
 
 <style scoped>
-.flex {
-  padding: 1em;
-  border-right: 4px solid black;
-  border-bottom: 4px solid black;
-  color: orange;
-}
 .flex-item {
   padding: 1em;
 }
@@ -215,5 +193,13 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 }
 .canvas-container > canvas {
   margin: 0.5em;
+}
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+td {
+  border-right: 4px solid black;
+  border-bottom: 4px solid black;
 }
 </style>
