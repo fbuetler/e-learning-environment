@@ -35,7 +35,7 @@ import GameMixin, { GameInterface } from "../Game";
 import Difficulty from "../Difficulty.vue";
 import SymbolTable from "./SymbolTable.vue";
 import {
-  Shape,
+  SymbolConfig,
   LoadRandomNumber,
   LoadRandomElement,
   NumberTable,
@@ -60,16 +60,10 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   originalLetters: string[] = null;
   decrypted: string = null;
 
-  lookupNumber: Map<
-    string,
-    [Shape, Map<string, number | string | boolean>][]
-  > = null;
-  lookupLetter: Map<
-    string,
-    [Shape, Map<string, number | string | boolean>][]
-  > = null;
-  numberTable: [Shape, Map<string, number | string | boolean>][][][] = null;
-  letterTable: [Shape, Map<string, number | string | boolean>][][][] = null;
+  lookupNumber: Map<string, SymbolConfig> = null;
+  lookupLetter: Map<string, SymbolConfig> = null;
+  numberTable: SymbolConfig[][] = null;
+  letterTable: SymbolConfig[][] = null;
 
   currentDifficultyLevel: number = null;
   difficultyLevels = 2;
@@ -131,13 +125,13 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       : this.originalLetters;
   }
 
-  get table(): [Shape, Map<string, number | string | boolean>][][][] {
+  get table(): SymbolConfig[][] {
     return this.currentDifficultyLevel === 1
       ? this.numberTable
       : this.letterTable;
   }
 
-  get lookup(): Map<string, [Shape, Map<string, number | string | boolean>][]> {
+  get lookup(): Map<string, SymbolConfig> {
     return this.currentDifficultyLevel === 1
       ? this.lookupNumber
       : this.lookupLetter;

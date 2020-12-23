@@ -23,8 +23,10 @@ as it should be.
 
 import data from "@/assets/ciphertexts/ciphertexts.json";
 
+export type SymbolConfig = [Shape, Map<string, number | string | boolean>][];
+
 export interface CanvasInterface {
-  draw(shapes: [Shape, Map<string, number | string | boolean>][]): void;
+  draw(shapes: SymbolConfig): void;
 }
 
 export function LoadRandomElement(key: string): string {
@@ -77,7 +79,7 @@ abstract class Canvas {
 }
 
 class NumberCanvas extends Canvas implements CanvasInterface {
-  draw(shapes: [Shape, Map<string, number | string | boolean>][]) {
+  draw(shapes: SymbolConfig) {
     this.clear();
     shapes.forEach(([shape, args]) => {
       switch (shape) {
@@ -203,7 +205,7 @@ class NumberCanvas extends Canvas implements CanvasInterface {
 }
 
 class LetterCanvas extends Canvas implements CanvasInterface {
-  draw(shapes: [Shape, Map<string, number | string | boolean>][]) {
+  draw(shapes: SymbolConfig) {
     this.clear();
     shapes.forEach(([shape, args]) => {
       switch (shape) {
@@ -345,10 +347,7 @@ export function GetNewCanvas(
   }
 }
 
-export const NumberTable: [
-  Shape,
-  Map<string, number | string | boolean>
-][][][] = [
+export const NumberTable: SymbolConfig[][] = [
   [
     [[Shape.EMPTY, null]],
     [[Shape.NUMBER_DOT, new Map([["quantity", 1]])]],
@@ -379,10 +378,7 @@ export const NumberTable: [
   ],
 ];
 
-export const NumberLookup: Map<
-  string,
-  [Shape, Map<string, number | string | boolean>][]
-> = new Map([
+export const NumberLookup: Map<string, SymbolConfig> = new Map([
   [
     "0",
     [
@@ -455,10 +451,7 @@ export const NumberLookup: Map<
   ],
 ]);
 
-export const LetterTable: [
-  Shape,
-  Map<string, number | string | boolean>
-][][][] = [
+export const LetterTable: SymbolConfig[][] = [
   [
     [[Shape.EMPTY, null]],
     [
@@ -602,10 +595,7 @@ export const LetterTable: [
   ],
 ];
 
-export const LetterLookup: Map<
-  string,
-  [Shape, Map<string, number | string | boolean>][]
-> = new Map([
+export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "A",
     [

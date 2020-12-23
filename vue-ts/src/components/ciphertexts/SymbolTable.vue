@@ -19,12 +19,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { GetNewCanvas, Shape, Type } from "./Ciphertext";
+import { GetNewCanvas, SymbolConfig, Shape, Type } from "./Ciphertext";
 
 @Component<SymbolTable>({})
 export default class SymbolTable extends Vue {
   @Prop({ required: true })
-  table: [Shape, Map<string, number | string | boolean>][][][];
+  table: SymbolConfig[][];
   @Prop({ required: true })
   type: Type;
 
@@ -56,7 +56,7 @@ export default class SymbolTable extends Vue {
     const text = this.table[rowIndex][shapeIndex]
       .find((shape) => shape[0] === Shape.TEXT)[1]
       .get("text");
-    this.$emit("symbol-selected", text);
+    this.$emit("SymbolConfig-selected", text);
   }
 }
 </script>
