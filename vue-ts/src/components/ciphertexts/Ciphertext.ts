@@ -36,6 +36,11 @@ export function LoadRandomNumber(): number {
   return Math.floor(Math.random() * 99);
 }
 
+export enum Type {
+  NUMBER,
+  LETTER,
+}
+
 export enum Shape {
   EMPTY,
   TEXT,
@@ -71,7 +76,7 @@ abstract class Canvas {
   }
 }
 
-export class NumberCanvas extends Canvas implements CanvasInterface {
+class NumberCanvas extends Canvas implements CanvasInterface {
   draw(shapes: [Shape, Map<string, number | string | boolean>][]) {
     this.clear();
     shapes.forEach(([shape, args]) => {
@@ -197,7 +202,7 @@ export class NumberCanvas extends Canvas implements CanvasInterface {
   }
 }
 
-export class LetterCanvas extends Canvas implements CanvasInterface {
+class LetterCanvas extends Canvas implements CanvasInterface {
   draw(shapes: [Shape, Map<string, number | string | boolean>][]) {
     this.clear();
     shapes.forEach(([shape, args]) => {
@@ -318,6 +323,25 @@ export class LetterCanvas extends Canvas implements CanvasInterface {
     this.ctx.font = "30px Arial";
     this.ctx.textAlign = "center";
     this.ctx.fillText(text, this.height / 2, this.width / 2);
+  }
+}
+
+export function GetNewCanvas(
+  type: Type,
+  canvas: HTMLCanvasElement,
+  width: number,
+  height: number
+): CanvasInterface {
+  switch (type) {
+    case Type.NUMBER: {
+      return new NumberCanvas(canvas, width, height);
+    }
+    case Type.LETTER: {
+      return new LetterCanvas(canvas, width, height);
+    }
+    default: {
+      return null;
+    }
   }
 }
 

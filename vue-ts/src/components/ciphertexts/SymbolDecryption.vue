@@ -24,17 +24,7 @@
           <input class="card" v-model="decrypted" type="text" />
         </div>
       </div>
-      <table>
-        <tbody>
-          <tr v-for="(row, rowIndex) in table" :key="rowIndex">
-            <td v-for="(shape, shapeIndex) in row" :key="shapeIndex">
-              <canvas :id="'shape-' + rowIndex + '-' + shapeIndex"
-                >Shape</canvas
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <SymbolTable :table="table" :type="type" />
     </div>
   </div>
 </template>
@@ -43,9 +33,8 @@
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Difficulty from "../Difficulty.vue";
+import SymbolTable from "./SymbolTable.vue";
 import {
-  NumberCanvas,
-  LetterCanvas,
   Shape,
   LoadRandomNumber,
   LoadRandomElement,
@@ -53,11 +42,14 @@ import {
   NumberLookup,
   LetterTable,
   LetterLookup,
+  GetNewCanvas,
+  Type,
 } from "./Ciphertext";
 
 @Component<SymbolDecryption>({
   components: {
     Difficulty,
+    SymbolTable,
   },
 })
 export default class SymbolDecryption extends Mixins(GameMixin)
@@ -118,49 +110,15 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   }
 
   drawShapes() {
-    if (this.currentDifficultyLevel === 1) {
-      this.originalNumbers.forEach((number, index) => {
-        const cvText = new NumberCanvas(
-          document.getElementById(`encrypted-${index}`) as HTMLCanvasElement,
-          100,
-          100
-        );
-        cvText.draw(this.lookupNumber.get(number));
-      });
-      this.numberTable.forEach((row, rowIndex) => {
-        row.forEach((shapes, shapeIndex) => {
-          const cvShape = new NumberCanvas(
-            document.getElementById(
-              `shape-${rowIndex}-${shapeIndex}`
-            ) as HTMLCanvasElement,
-            100,
-            100
-          );
-          cvShape.draw(shapes);
-        });
-      });
-    } else {
-      this.originalLetters.forEach((letter, index) => {
-        const cvText = new LetterCanvas(
-          document.getElementById(`encrypted-${index}`) as HTMLCanvasElement,
-          50,
-          50
-        );
-        cvText.draw(this.lookupLetter.get(letter));
-      });
-      this.letterTable.forEach((row, rowIndex) => {
-        row.forEach((shapes, shapeIndex) => {
-          const cvShape = new LetterCanvas(
-            document.getElementById(
-              `shape-${rowIndex}-${shapeIndex}`
-            ) as HTMLCanvasElement,
-            50,
-            50
-          );
-          cvShape.draw(shapes);
-        });
-      });
-    }
+    this.original.forEach((part, index) => {
+      const cvText = GetNewCanvas(
+        this.type,
+        document.getElementById(`encrypted-${index}`) as HTMLCanvasElement,
+        75,
+        75
+      );
+      cvText.draw(this.lookup.get(part));
+    });
   }
 
   changeDifficulty(level: number) {
@@ -178,6 +136,16 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       ? this.numberTable
       : this.letterTable;
   }
+
+  get lookup(): Map<string, [Shape, Map<string, number | string | boolean>][]> {
+    return this.currentDifficultyLevel === 1
+      ? this.lookupNumber
+      : this.lookupLetter;
+  }
+
+  get type(): Type {
+    return this.currentDifficultyLevel === 1 ? Type.NUMBER : Type.LETTER;
+  }
 }
 </script>
 
@@ -193,13 +161,5 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 }
 .canvas-container > canvas {
   margin: 0.5em;
-}
-table {
-  width: 100%;
-  border-spacing: 0;
-}
-td {
-  border-right: 4px solid black;
-  border-bottom: 4px solid black;
 }
 </style>
