@@ -10,27 +10,52 @@
       <div class="flex-item flex-row flex-center">
         <div class="flex-item flex-row flex-center equal-space">
           Text:
-          <div class="canvas-container">
+          <div class="canvas-container" v-if="currentDifficultyLevel === 1">
             <canvas
-              v-for="(part, index) in text"
+              v-for="(part, index) in originalNumbers"
               :key="index"
-              :id="'encrypted-text-' + index"
-              >Text</canvas
+              :id="'encrypted-number-' + index"
+              >{{ part }}</canvas
+            >
+          </div>
+          <div class="canvas-container" v-else>
+            <canvas
+              v-for="(part, index) in originalLetters"
+              :key="index"
+              :id="'encrypted-letter-' + index"
+              >{{ part }}</canvas
             >
           </div>
         </div>
         <div class="flex-flex equal-space">
           Lösung:
-          <input class="card" v-model="decryptedText" type="text" />
+          <input
+            class="card"
+            v-model="decryptedNumbers"
+            type="text"
+            v-if="currentDifficultyLevel === 1"
+          />
+          <input class="card" v-model="decryptedLetters" type="text" v-else />
         </div>
       </div>
-      <div class="flex-item flex-wrap">
+      <div class="flex-item flex-wrap" v-if="currentDifficultyLevel === 1">
         <div
           class="flex flex-center"
-          v-for="(shape, index) in table"
+          :style="tableWidth"
+          v-for="(shape, index) in numberTable"
           :key="index"
         >
-          <canvas :id="'shape-' + index">Shape</canvas>
+          <canvas :id="'number-shape-' + index">Shape</canvas>
+        </div>
+      </div>
+      <div class="flex-item flex-wrap" v-else>
+        <div
+          class="flex flex-center"
+          :style="tableWidth"
+          v-for="(shape, index) in letterTable"
+          :key="index"
+        >
+          <canvas :id="'letter-shape-' + index">Shape</canvas>
         </div>
       </div>
     </div>
@@ -62,11 +87,21 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   implements GameInterface {
   dataKey = "nouns";
 
-  originalText: string = null;
-  decryptedText: string = null;
+  originalNumbers: string[] = null;
+  decryptedNumbers: string = null;
+  originalLetters: string[] = null;
+  decryptedLetters: string = null;
 
-  lookupTable: Map<string, [Shape, Map<string, number>][]> = null;
-  table: [Shape, Map<string, number>][][] = null;
+  lookupNumber: Map<
+    string,
+    [Shape, Map<string, number | string | boolean>][]
+  > = null;
+  lookupLetter: Map<
+    string,
+    [Shape, Map<string, number | string | boolean>][]
+  > = null;
+  numberTable: [Shape, Map<string, number | string | boolean>][][] = null;
+  letterTable: [Shape, Map<string, number | string | boolean>][][] = null;
 
   currentDifficultyLevel: number = null;
   difficultyLevels = 2;
@@ -80,60 +115,90 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   }
 
   isStarted(): boolean {
-    return this.originalText === null;
+    return this.originalNumbers === null || this.originalLetters === null;
   }
 
   restartGame() {
     if (this.currentDifficultyLevel === null) {
       this.currentDifficultyLevel = 1;
     }
-    if (this.currentDifficultyLevel === 1) {
-      this.originalText = String(LoadRandomNumber());
-      this.lookupTable = NumberLookup;
-      this.table = NumberTable;
-    } else {
-      this.originalText = LoadRandomElement(this.dataKey);
-      this.lookupTable = LetterLookup;
-      this.table = LetterTable;
-    }
+    this.originalNumbers = String(LoadRandomNumber()).split("");
+    this.lookupNumber = NumberLookup;
+    this.numberTable = NumberTable;
+
+    this.originalLetters = LoadRandomElement(this.dataKey)
+      .split("")
+      .map((letter) => letter.toUpperCase());
+    this.lookupLetter = LetterLookup;
+    this.letterTable = LetterTable;
   }
 
   isCorrect(): boolean {
-    return this.originalText == this.decryptedText;
+    if (this.currentDifficultyLevel === 1) {
+      return this.originalNumbers.join("") === this.decryptedNumbers;
+    } else {
+      return this.originalLetters.join("") === this.decryptedLetters;
+    }
   }
 
   drawShapes() {
-    this.text.forEach((number, index) => {
-      const cvText = new NumberCanvas(
-        document.getElementById(`encrypted-text-${index}`) as HTMLCanvasElement,
-        100,
-        100
-      );
-      cvText.draw(this.lookupTable.get(number));
-    });
-    this.table.forEach((shapes, index) => {
-      const cvShape = new NumberCanvas(
-        document.getElementById(`shape-${index}`) as HTMLCanvasElement,
-        100,
-        100
-      );
-      cvShape.draw(shapes);
-    });
+    if (this.currentDifficultyLevel === 1) {
+      this.originalNumbers.forEach((number, index) => {
+        const cvText = new NumberCanvas(
+          document.getElementById(
+            `encrypted-number-${index}`
+          ) as HTMLCanvasElement,
+          100,
+          100
+        );
+        cvText.draw(this.lookupNumber.get(number));
+      });
+      this.numberTable.forEach((shapes, index) => {
+        const cvShape = new NumberCanvas(
+          document.getElementById(`number-shape-${index}`) as HTMLCanvasElement,
+          100,
+          100
+        );
+        cvShape.draw(shapes);
+      });
+    } else {
+      this.originalLetters.forEach((letter, index) => {
+        const cvText = new LetterCanvas(
+          document.getElementById(
+            `encrypted-letter-${index}`
+          ) as HTMLCanvasElement,
+          50,
+          50
+        );
+        cvText.draw(this.lookupLetter.get(letter));
+      });
+      this.letterTable.forEach((shapes, index) => {
+        const cvShape = new LetterCanvas(
+          document.getElementById(`letter-shape-${index}`) as HTMLCanvasElement,
+          50,
+          50
+        );
+        cvShape.draw(shapes);
+      });
+    }
   }
 
   changeDifficulty(level: number) {
     this.currentDifficultyLevel = level;
   }
 
-  get text(): string[] {
-    return this.originalText.toString().split("");
+  get tableWidth(): string {
+    if (this.currentDifficultyLevel === 1) {
+      return "flex: 0 0 15%;"; // 5 cols per row
+    } else {
+      return "flex: 0 0 7%;"; // 10 cols per row
+    }
   }
 }
 </script>
 
 <style scoped>
 .flex {
-  flex: 0 0 15%; /* ensures having 5 cols per row */
   padding: 1em;
   border-right: 4px solid black;
   border-bottom: 4px solid black;
@@ -147,5 +212,8 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 }
 .canvas-container {
   margin: 1em;
+}
+.canvas-container > canvas {
+  margin: 0.5em;
 }
 </style>
