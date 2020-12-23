@@ -11,7 +11,7 @@
           level
         )} ${getLockedDescription(level > difficultyLevels)}`
       "
-      v-for="level in 3"
+      v-for="level in displayDifficultyLevels"
       :key="level"
       @click="selectDifficulty(level)"
     >
@@ -30,6 +30,8 @@ export default class Difficulty extends Vue {
   difficultyLevels: number;
   @Prop({ required: true })
   selected: number;
+
+  maxDifficultyLevels = 3;
 
   selectDifficulty(level: number) {
     if (level > this.difficultyLevels) {
@@ -56,6 +58,10 @@ export default class Difficulty extends Vue {
   }
   getLockedDescription(locked: boolean): string {
     return locked ? "(nicht vorhanden)" : "";
+  }
+
+  get displayDifficultyLevels(): number {
+    return Math.min(this.difficultyLevels, 3);
   }
 }
 </script>
