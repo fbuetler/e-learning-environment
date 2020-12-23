@@ -3,7 +3,11 @@
     <table>
       <tbody>
         <tr v-for="(row, rowIndex) in table" :key="rowIndex">
-          <td v-for="(shape, shapeIndex) in row" :key="shapeIndex">
+          <td
+            v-for="(shape, shapeIndex) in row"
+            :key="shapeIndex"
+            @click="selectSymbol(rowIndex, shapeIndex)"
+          >
             <canvas :id="'shape-' + rowIndex + '-' + shapeIndex">Shape</canvas>
           </td>
         </tr>
@@ -46,6 +50,13 @@ export default class SymbolTable extends Vue {
         cvShape.draw(shapes);
       });
     });
+  }
+
+  selectSymbol(rowIndex: number, shapeIndex: number) {
+    const text = this.table[rowIndex][shapeIndex]
+      .find((shape) => shape[0] === Shape.TEXT)[1]
+      .get("text");
+    this.$emit("symbol-selected", text);
   }
 }
 </script>
