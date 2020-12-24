@@ -5,10 +5,10 @@
       <div
         class="modal-content flex-item flex-center flex-space-between flex-row"
       >
-        <div class="item">
+        <div class="equal-space">
           <p v-html="description"></p>
         </div>
-        <div class="item">
+        <div class="equal-space">
           <video loop controls muted>
             <source :src="require('@/assets/tutorials/' + video)" />
             Your browser does not support the video tag.
@@ -56,9 +56,6 @@ export default class Tutorial extends Vue {
 .tutorial > img {
   width: 100%;
   max-width: 30px;
-}
-.item {
-  flex: 1 1 0px;
 }
 p {
   margin: 1em;

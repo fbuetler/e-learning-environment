@@ -125,4 +125,7 @@ button:focus {
   text-decoration: none;
   cursor: pointer;
 }
+.equal-space {
+  flex: 1 1 0px;
+}
 </style>

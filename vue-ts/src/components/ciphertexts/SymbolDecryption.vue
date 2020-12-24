@@ -147,9 +147,6 @@ export default class SymbolDecryption extends Mixins(GameMixin)
 .flex-item {
   padding: 1em;
 }
-.equal-space {
-  flex: 1 1 0px;
-}
 .canvas-container {
   margin: 1em;
 }
