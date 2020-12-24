@@ -8,8 +8,12 @@ import data from "@/assets/ciphertexts/ciphertexts.json";
 
 export type SymbolConfig = [Shape, Map<string, number | string | boolean>][];
 
-export interface CanvasInterface {
+export interface SymbolCanvasInterface {
   draw(shapes: SymbolConfig): void;
+}
+
+export interface PatternCanvasInterface {
+  draw(cells: number, connectAndFill: [number, number][]): void;
 }
 
 export function LoadRandomElement(key: string): string {
@@ -44,6 +48,16 @@ abstract class Canvas {
   width: number;
   height: number;
   lineWidth: number;
+  colors = [
+    "darkblue",
+    "darkgreen",
+    "darkorange",
+    "firebrick",
+    "maroon",
+    "violet",
+    "saddlebrown",
+    "mintcream",
+  ];
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext("2d");
 
@@ -62,7 +76,7 @@ abstract class Canvas {
   }
 }
 
-class NumberCanvas extends Canvas implements CanvasInterface {
+class NumberCanvas extends Canvas implements SymbolCanvasInterface {
   draw(shapes: SymbolConfig) {
     this.clear();
     shapes.forEach(([shape, args]) => {
@@ -186,7 +200,7 @@ class NumberCanvas extends Canvas implements CanvasInterface {
   }
 }
 
-class LetterCanvas extends Canvas implements CanvasInterface {
+class LetterCanvas extends Canvas implements SymbolCanvasInterface {
   draw(shapes: SymbolConfig) {
     this.clear();
     shapes.forEach(([shape, args]) => {
@@ -318,7 +332,7 @@ class LetterCanvas extends Canvas implements CanvasInterface {
 export function GetNewCanvas(
   type: Type,
   canvas: HTMLCanvasElement
-): CanvasInterface {
+): SymbolCanvasInterface {
   switch (type) {
     case Type.NUMBER: {
       return new NumberCanvas(canvas);
@@ -329,6 +343,117 @@ export function GetNewCanvas(
     default: {
       return null;
     }
+  }
+}
+
+export class PatternCanvas extends Canvas implements PatternCanvasInterface {
+  draw(cells: number, connectAndFill: [number, number][]) {
+    this.clear();
+    this.drawPattern(cells, connectAndFill);
+  }
+
+  drawPattern(cells: number, connectAndFill: [number, number][]) {
+    const rectX = this.lineWidth / 2;
+    const rectY = this.lineWidth / 2;
+    const rectWidth = this.width - this.lineWidth;
+    const rectHeight = this.height / 2 - this.lineWidth;
+
+    // draw box
+    this.ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+    const cellWidth = rectWidth / cells;
+    // draw walls
+    for (let i = 1; i < cells; i++) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(rectX + cellWidth * i, rectY);
+      this.ctx.lineTo(rectX + cellWidth * i, rectY + rectHeight);
+      this.ctx.stroke();
+    }
+
+    // sort to have it easier to draw the lines connecting the boxes on the right height
+    connectAndFill.sort(([a, b], [c, d]) => Math.abs(a - b) - Math.abs(c - d));
+    for (let i = 0; i < connectAndFill.length; i++) {
+      const [left, right] = connectAndFill[i];
+      if (
+        Math.min(left, right) < 0 ||
+        Math.max(left, right) >= cells ||
+        left === right
+      ) {
+        continue;
+      }
+      for (let j = 0; j < 2; j++) {
+        const box = connectAndFill[i][j];
+        const centerX = rectX + cellWidth * box + cellWidth / 2;
+
+        // highlight boxes
+        this.ctx.fillStyle = this.colors[i % this.colors.length];
+        this.ctx.beginPath();
+        this.ctx.moveTo(
+          rectX + cellWidth * box + this.lineWidth / 2,
+          rectY + this.lineWidth / 2
+        );
+        this.ctx.lineTo(
+          rectX + cellWidth * box + this.lineWidth / 2,
+          rectY + rectHeight - this.lineWidth / 2
+        );
+        this.ctx.lineTo(
+          rectX + cellWidth * (box + 1) - this.lineWidth / 2,
+          rectY + rectHeight - this.lineWidth / 2
+        );
+        this.ctx.lineTo(
+          rectX + cellWidth * (box + 1) - this.lineWidth / 2,
+          rectY + this.lineWidth / 2
+        );
+        this.ctx.lineTo(
+          rectX + cellWidth * box + this.lineWidth / 2,
+          rectY + this.lineWidth / 2
+        );
+        this.ctx.fill();
+
+        // draw arrow heads
+        this.ctx.fillStyle = "black";
+        this.drawArrowHead(
+          centerX,
+          rectY + rectHeight + 5,
+          Math.min(30, cellWidth),
+          10
+        );
+      }
+
+      // TODO maybe draw some arrow above the pattern to have more space
+      const lineY =
+        rectHeight + 20 + (i + 1) * ((rectHeight + rectY + 20) / cells);
+      // connect arrows
+      this.ctx.beginPath();
+      this.ctx.moveTo(
+        rectX + cellWidth * left + cellWidth / 2,
+        rectY + rectHeight + 15
+      );
+      this.ctx.bezierCurveTo(
+        rectX + cellWidth * left + cellWidth / 2,
+        lineY,
+        rectX + cellWidth * right + cellWidth / 2,
+        lineY,
+        rectX + cellWidth * right + cellWidth / 2,
+        rectY + rectHeight + 15
+      );
+      this.ctx.lineWidth = this.lineWidth / 2;
+      this.ctx.stroke();
+      this.ctx.lineWidth = this.lineWidth;
+    }
+  }
+
+  drawArrowHead(
+    headX: number,
+    headY: number,
+    headWidth: number,
+    headHeight: number
+  ) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(headX, headY);
+    this.ctx.lineTo(headX - headWidth / 2, headY + headHeight);
+    this.ctx.lineTo(headX + headWidth / 2, headY + headHeight);
+    this.ctx.lineTo(headX, headY);
+    this.ctx.fill();
   }
 }
 
