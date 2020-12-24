@@ -3,14 +3,14 @@
     <div class="flex-item flex-col">
       <div>Verschlüssle den Text mit Hilfe der Tabelle!</div>
       <div class="flex-item flex-row flex-center">
-        <div class="flex-item flex-row flex-center equal-space">
-          Text:
+        <div class="flex-item flex-row flex-center text">
+          <div>Text:</div>
           <div class="canvas-container card">
             {{ originalText }}
           </div>
         </div>
         <div
-          class="flex-item flex-center flex-row flex-flex equal-space dropzone"
+          class="flex-item flex-center flex-row flex-flex dropzone"
           @click="addSymbol()"
         >
           <div v-if="encryptedText.length === 0">
@@ -139,5 +139,8 @@ export default class SymbolEncryption extends Mixins(GameMixin)
 <style scoped>
 .dropzone {
   min-height: 5em;
+}
+.text {
+  font-size: 2em;
 }
 </style>

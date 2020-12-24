@@ -60,11 +60,16 @@ abstract class Canvas {
   ctx: CanvasRenderingContext2D;
   width: number;
   height: number;
+  lineWidth: number;
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext("2d");
 
     this.width = canvas.width;
     this.height = canvas.height;
+
+    this.lineWidth = 5;
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.lineWidth = this.lineWidth;
   }
 
   clear() {
@@ -111,13 +116,11 @@ class NumberCanvas extends Canvas implements CanvasInterface {
     const centerX = this.width / 2;
     const centerY = this.height / 2;
 
-    const lineWidth = 3;
-    this.ctx.lineWidth = lineWidth;
     this.ctx.beginPath();
     this.ctx.arc(
       centerX,
       centerY,
-      Math.min(this.width, this.height) / 2 - lineWidth,
+      Math.min(this.width, this.height) / 2 - this.lineWidth,
       0,
       2 * Math.PI,
       false
@@ -171,18 +174,13 @@ class NumberCanvas extends Canvas implements CanvasInterface {
       );
       this.ctx.fill();
     }
-    this.ctx.strokeStyle = "#000000";
   }
 
   private drawRectangle() {
-    const lineWidth = 5;
-    this.ctx.lineWidth = lineWidth;
     this.ctx.strokeRect(0, 0, this.width, this.height);
   }
 
   private drawTriangle() {
-    const lineWidth = 3;
-    this.ctx.lineWidth = lineWidth;
     this.ctx.beginPath();
     this.ctx.moveTo(this.width / 2, 0);
     this.ctx.lineTo(this.height, this.width);
@@ -244,14 +242,11 @@ class LetterCanvas extends Canvas implements CanvasInterface {
   }
 
   private drawNarrowRectangle() {
-    const lineWidth = 5;
-    this.ctx.lineWidth = lineWidth;
-    this.ctx.strokeStyle = "#000000";
     this.ctx.strokeRect(
-      lineWidth / 2,
-      lineWidth / 2,
-      this.width / 2 - lineWidth / 2,
-      this.height - lineWidth
+      this.lineWidth / 2,
+      this.lineWidth / 2,
+      this.width / 2 - this.lineWidth / 2,
+      this.height - this.lineWidth
     );
   }
 
@@ -260,8 +255,6 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     offsetX: number,
     colored: boolean
   ) {
-    this.ctx.lineWidth = 5;
-    this.ctx.strokeStyle = "#000000";
     const diffY = this.height / (lines + 1);
     if (colored) {
       this.ctx.strokeStyle = "#ffa500";
@@ -275,7 +268,6 @@ class LetterCanvas extends Canvas implements CanvasInterface {
   }
 
   private drawTriangles(triangles: number, offsetX: number) {
-    this.ctx.lineWidth = 5;
     this.ctx.lineJoin = "bevel";
     this.ctx.strokeStyle = "#ffa500";
     if (triangles <= 0) {
@@ -293,8 +285,6 @@ class LetterCanvas extends Canvas implements CanvasInterface {
   }
 
   private drawArcs(arcs: number, offsetX: number) {
-    const lineWidth = 5;
-    this.ctx.lineWidth = lineWidth;
     this.ctx.strokeStyle = "#ffa500";
     if (arcs <= 0) {
       return;
@@ -307,7 +297,7 @@ class LetterCanvas extends Canvas implements CanvasInterface {
       this.ctx.arc(
         offsetX * this.width,
         (2 * i - 1) * diffY,
-        diffY - lineWidth / 2,
+        diffY - this.lineWidth / 2,
         1.5 * Math.PI,
         0.5 * Math.PI,
         false
@@ -763,6 +753,21 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
         Shape.LETTER_HORRIZONTALLINE,
         new Map<string, number | string | boolean>([
           ["quantity", 3],
+          ["colored", true],
+          ["offsetX", 0.5],
+        ]),
+      ],
+    ],
+  ],
+  [
+    "M",
+    [
+      [Shape.LETTER_NARROWRECT, null],
+      [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
+      [
+        Shape.LETTER_TRIANGLES,
+        new Map<string, number | string | boolean>([
+          ["quantity", 1],
           ["colored", true],
           ["offsetX", 0.5],
         ]),
