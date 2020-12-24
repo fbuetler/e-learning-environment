@@ -68,8 +68,9 @@ abstract class Canvas {
     this.height = canvas.height;
 
     this.lineWidth = 5;
-    this.ctx.strokeStyle = "#000000";
     this.ctx.lineWidth = this.lineWidth;
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.lineCap = "butt";
   }
 
   clear() {
@@ -177,14 +178,19 @@ class NumberCanvas extends Canvas implements CanvasInterface {
   }
 
   private drawRectangle() {
-    this.ctx.strokeRect(0, 0, this.width, this.height);
+    this.ctx.strokeRect(
+      this.lineWidth / 2,
+      this.lineWidth / 2,
+      this.width - this.lineWidth,
+      this.height - this.lineWidth
+    );
   }
 
   private drawTriangle() {
     this.ctx.beginPath();
     this.ctx.moveTo(this.width / 2, 0);
-    this.ctx.lineTo(this.height, this.width);
-    this.ctx.lineTo(0, this.height);
+    this.ctx.lineTo(this.width, this.height - this.lineWidth / 2);
+    this.ctx.lineTo(0, this.height - this.lineWidth / 2);
     this.ctx.closePath();
     this.ctx.stroke();
   }
@@ -255,10 +261,11 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     offsetX: number,
     colored: boolean
   ) {
-    const diffY = this.height / (lines + 1);
+    this.ctx.lineCap = "square";
     if (colored) {
       this.ctx.strokeStyle = "#ffa500";
     }
+    const diffY = this.height / (lines + 1);
     for (let i = 0; i < lines; i++) {
       this.ctx.beginPath();
       this.ctx.moveTo(offsetX * this.width, (i + 1) * diffY);

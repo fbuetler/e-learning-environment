@@ -3,9 +3,9 @@
     <div class="flex-item flex-col">
       <div>Verschlüssle den Text mit Hilfe der Tabelle!</div>
       <div class="flex-item flex-row flex-center">
-        <div class="flex-item flex-row flex-center text">
+        <div class="flex-item flex-row flex-center">
           <div>Text:</div>
-          <div class="canvas-container card">
+          <div class="canvas-container card text">
             {{ originalText }}
           </div>
         </div>
