@@ -6,9 +6,15 @@
           <td
             v-for="(shape, shapeIndex) in row"
             :key="shapeIndex"
+            :class="{ selected: isSelected(rowIndex, shapeIndex) }"
             @click="selectSymbol(rowIndex, shapeIndex)"
           >
-            <canvas :id="'shape-' + rowIndex + '-' + shapeIndex">Shape</canvas>
+            <canvas
+              :id="'shape-' + rowIndex + '-' + shapeIndex"
+              width="100"
+              height="100"
+              >Shape</canvas
+            >
           </td>
         </tr>
       </tbody>
@@ -27,6 +33,8 @@ export default class SymbolTable extends Vue {
   table: SymbolConfig[][];
   @Prop({ required: true })
   type: Type;
+  @Prop()
+  selected: [string, number, number];
 
   mounted() {
     this.drawShapes();
@@ -43,20 +51,37 @@ export default class SymbolTable extends Vue {
           this.type,
           document.getElementById(
             `shape-${rowIndex}-${shapeIndex}`
-          ) as HTMLCanvasElement,
-          100,
-          100
+          ) as HTMLCanvasElement
         );
         cvShape.draw(shapes);
       });
     });
   }
 
+  isSelected(rowIndex: number, shapeIndex: number): boolean {
+    return (
+      JSON.stringify([
+        this.getSymboltext(rowIndex, shapeIndex),
+        rowIndex,
+        shapeIndex,
+      ]) == JSON.stringify(this.selected)
+    );
+  }
+
   selectSymbol(rowIndex: number, shapeIndex: number) {
-    const text = this.table[rowIndex][shapeIndex]
-      .find((shape) => shape[0] === Shape.TEXT)[1]
-      .get("text");
-    this.$emit("SymbolConfig-selected", text);
+    this.$emit(
+      "symbol-selected",
+      this.getSymboltext(rowIndex, shapeIndex),
+      rowIndex,
+      shapeIndex
+    );
+  }
+
+  getSymboltext(rowIndex: number, shapeIndex: number): string {
+    const symbol = this.table[rowIndex][shapeIndex].find(
+      (shape) => shape[0] === Shape.TEXT
+    );
+    return symbol !== undefined ? (symbol[1].get("text") as string) : "";
   }
 }
 </script>
@@ -67,6 +92,12 @@ table {
   border-spacing: 0;
 }
 td {
+  border-right: 4px solid black;
+  border-bottom: 4px solid black;
+}
+.selected {
+  border-top: none;
+  border-left: none;
   border-right: 4px solid black;
   border-bottom: 4px solid black;
 }

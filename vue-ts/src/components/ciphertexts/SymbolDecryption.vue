@@ -15,6 +15,8 @@
               v-for="(part, index) in original"
               :key="index"
               :id="'encrypted-' + index"
+              width="75"
+              height="75"
               >{{ part }}</canvas
             >
           </div>
@@ -60,11 +62,6 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   originalLetters: string[] = null;
   decrypted: string = null;
 
-  lookupNumber: Map<string, SymbolConfig> = null;
-  lookupLetter: Map<string, SymbolConfig> = null;
-  numberTable: SymbolConfig[][] = null;
-  letterTable: SymbolConfig[][] = null;
-
   currentDifficultyLevel: number = null;
   difficultyLevels = 2;
 
@@ -85,14 +82,10 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       this.currentDifficultyLevel = 1;
     }
     this.originalNumbers = String(LoadRandomNumber()).split("");
-    this.lookupNumber = NumberLookup;
-    this.numberTable = NumberTable;
 
     this.originalLetters = LoadRandomElement(this.dataKey)
       .split("")
       .map((letter) => letter.toUpperCase());
-    this.lookupLetter = LetterLookup;
-    this.letterTable = LetterTable;
   }
 
   isCorrect(): boolean {
@@ -107,9 +100,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
     this.original.forEach((part, index) => {
       const cvText = GetNewCanvas(
         this.type,
-        document.getElementById(`encrypted-${index}`) as HTMLCanvasElement,
-        75,
-        75
+        document.getElementById(`encrypted-${index}`) as HTMLCanvasElement
       );
       cvText.draw(this.lookup.get(part));
     });
@@ -126,15 +117,11 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   }
 
   get table(): SymbolConfig[][] {
-    return this.currentDifficultyLevel === 1
-      ? this.numberTable
-      : this.letterTable;
+    return this.currentDifficultyLevel === 1 ? NumberTable : LetterTable;
   }
 
   get lookup(): Map<string, SymbolConfig> {
-    return this.currentDifficultyLevel === 1
-      ? this.lookupNumber
-      : this.lookupLetter;
+    return this.currentDifficultyLevel === 1 ? NumberLookup : LetterLookup;
   }
 
   get type(): Type {

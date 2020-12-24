@@ -58,19 +58,13 @@ export enum Shape {
 
 abstract class Canvas {
   ctx: CanvasRenderingContext2D;
-  constructor(
-    public canvas: HTMLCanvasElement,
-    public width: number,
-    public height: number
-  ) {
-    this.canvas = canvas;
+  width: number;
+  height: number;
+  constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext("2d");
-    this.width = width;
-    this.height = height;
 
-    // maybe I dont need that?
-    this.canvas.width = width;
-    this.canvas.height = height;
+    this.width = canvas.width;
+    this.height = canvas.height;
   }
 
   clear() {
@@ -114,8 +108,8 @@ class NumberCanvas extends Canvas implements CanvasInterface {
   }
 
   private drawCircle() {
-    const centerX = this.canvas.width / 2;
-    const centerY = this.canvas.height / 2;
+    const centerX = this.width / 2;
+    const centerY = this.height / 2;
 
     const lineWidth = 3;
     this.ctx.lineWidth = lineWidth;
@@ -134,9 +128,9 @@ class NumberCanvas extends Canvas implements CanvasInterface {
   private drawDot(quantity: number) {
     const centers = new Array<[number, number]>();
     if (quantity < 4) {
-      const centerX = this.canvas.width / 2;
+      const centerX = this.width / 2;
       let centerY = 0;
-      const offsetY = this.canvas.height / (quantity + 1);
+      const offsetY = this.height / (quantity + 1);
       for (let i = 0; i < quantity; i++) {
         centerY += offsetY;
         centers.push([centerX, centerY]);
@@ -146,14 +140,14 @@ class NumberCanvas extends Canvas implements CanvasInterface {
       let centerY = 0;
       const dotsPerRow = Math.ceil(quantity / 2);
       const rows = Math.ceil(quantity / dotsPerRow);
-      let offsetX = this.canvas.width / (dotsPerRow + 1);
-      const offsetY = this.canvas.height / (rows + 1);
+      let offsetX = this.width / (dotsPerRow + 1);
+      const offsetY = this.height / (rows + 1);
       let drawnDots = 0;
       for (let i = 0; i < rows; i++) {
         centerX = 0;
         centerY += offsetY;
         if (quantity - drawnDots < dotsPerRow) {
-          offsetX = this.canvas.width / (quantity - drawnDots + 1);
+          offsetX = this.width / (quantity - drawnDots + 1);
         }
         for (let j = 0; j < dotsPerRow; j++) {
           if (drawnDots < quantity) {
@@ -252,6 +246,7 @@ class LetterCanvas extends Canvas implements CanvasInterface {
   private drawNarrowRectangle() {
     const lineWidth = 5;
     this.ctx.lineWidth = lineWidth;
+    this.ctx.strokeStyle = "#000000";
     this.ctx.strokeRect(
       lineWidth / 2,
       lineWidth / 2,
@@ -330,16 +325,14 @@ class LetterCanvas extends Canvas implements CanvasInterface {
 
 export function GetNewCanvas(
   type: Type,
-  canvas: HTMLCanvasElement,
-  width: number,
-  height: number
+  canvas: HTMLCanvasElement
 ): CanvasInterface {
   switch (type) {
     case Type.NUMBER: {
-      return new NumberCanvas(canvas, width, height);
+      return new NumberCanvas(canvas);
     }
     case Type.LETTER: {
-      return new LetterCanvas(canvas, width, height);
+      return new LetterCanvas(canvas);
     }
     default: {
       return null;

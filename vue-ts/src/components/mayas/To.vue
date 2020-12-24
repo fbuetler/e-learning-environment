@@ -2,7 +2,7 @@
   <div>
     <div class="number">Stell die folgende Zahl dar: {{ number }}</div>
     <div
-      class="flex-item flex-center flex-col flex-flex dropzone input"
+      class="flex-item flex-center flex-col flex-flex dropzone"
       @click="addItem()"
     >
       <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
@@ -95,7 +95,7 @@ export default class To extends Mixins(GameMixin, MayasMixin)
 .number {
   margin: 1em;
 }
-.input {
+.dropzone {
   min-height: 5em;
 }
 </style>
