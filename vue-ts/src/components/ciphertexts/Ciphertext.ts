@@ -71,6 +71,7 @@ abstract class Canvas {
     this.ctx.lineWidth = this.lineWidth;
     this.ctx.strokeStyle = "#000000";
     this.ctx.lineCap = "butt";
+    this.ctx.lineJoin = "miter";
   }
 
   clear() {
@@ -308,18 +309,17 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     if (arcs <= 0) {
       return;
     }
+    this.ctx.lineJoin = "bevel";
     this.ctx.beginPath();
     this.ctx.moveTo(offsetX * this.width + this.lineWidth, this.height);
     this.ctx.lineTo(offsetX * this.width + this.lineWidth, 0);
     const diffY = this.height / (2 * arcs);
     for (let i = 1; i <= arcs; i++) {
-      this.ctx.arc(
-        offsetX * this.width + this.lineWidth,
+      this.ctx.quadraticCurveTo(
+        this.width - this.lineWidth / 2,
         (2 * i - 1) * diffY,
-        diffY - this.lineWidth / 2,
-        1.5 * Math.PI,
-        0.5 * Math.PI,
-        false
+        offsetX * this.width + this.lineWidth,
+        2 * i * diffY
       );
     }
     this.ctx.stroke();
