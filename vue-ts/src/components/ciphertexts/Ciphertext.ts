@@ -2,23 +2,6 @@
 https://developer.mozilla.org/de/docs/Web/Guide/HTML/Canvas_Tutorial
 https://29a.ch/2010/2/10/hand-drawn-lines-algorithm-javascript-canvas-html5
 https://github.com/balint42/comic.js
-
-weird linewidths:
-
-odd lineWidths  will never apply cleanly with drawn on integer pixel values. 
-This is because X and Y refer to the space between pixels rather than their
-centers. So a stroke of 1 that runs from [1,1] to [1,10] spills half into 
-the pixel on the left column of pixels and half into right. If you instead 
-draw that line from [1.5,1] to [1.5,10] then it fills half to the left, and 
-half to the right, filling up the whole pixel column perfectly.
-
-Any odd number width will show this behavior, but even numbers will not 
-because they fill a full pixel on each side looking clean.
-
-the box is obscured by the top of the canvas. When you center your 3px 
-stroke on [0,0] it spills as far up and left as [-1.5,-1.5] which is 
-outside of the visible range of the canvas. So it appears half as thick 
-as it should be.
 */
 
 import data from "@/assets/ciphertexts/ciphertexts.json";
@@ -67,7 +50,7 @@ abstract class Canvas {
     this.width = canvas.width;
     this.height = canvas.height;
 
-    this.lineWidth = 5;
+    this.lineWidth = 6;
     this.ctx.lineWidth = this.lineWidth;
     this.ctx.strokeStyle = "#000000";
     this.ctx.lineCap = "butt";
