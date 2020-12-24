@@ -208,7 +208,7 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     shapes.forEach(([shape, args]) => {
       switch (shape) {
         case Shape.LETTER_NARROWRECT: {
-          this.drawNarrowRectangle();
+          this.drawNarrowRectangle((args.get("offsetX") as number) || 0);
           break;
         }
         case Shape.LETTER_HORRIZONTALLINE: {
@@ -247,9 +247,15 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     });
   }
 
-  private drawNarrowRectangle() {
+  private drawNarrowRectangle(offsetX: number) {
+    let startX: number;
+    if (offsetX === 0) {
+      startX = this.lineWidth / 2;
+    } else {
+      startX = offsetX * this.width;
+    }
     this.ctx.strokeRect(
-      this.lineWidth / 2,
+      startX,
       this.lineWidth / 2,
       this.width / 2 - this.lineWidth / 2,
       this.height - this.lineWidth
@@ -269,7 +275,10 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     for (let i = 0; i < lines; i++) {
       this.ctx.beginPath();
       this.ctx.moveTo(offsetX * this.width, (i + 1) * diffY);
-      this.ctx.lineTo(offsetX * this.width + this.width / 2, (i + 1) * diffY);
+      this.ctx.lineTo(
+        offsetX * this.width + this.width / 2 - this.lineWidth / 2,
+        (i + 1) * diffY
+      );
       this.ctx.stroke();
     }
   }
@@ -285,7 +294,10 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     this.ctx.lineTo(offsetX * this.width, 0);
     const diffY = this.height / (2 * triangles);
     for (let i = 1; i <= triangles; i++) {
-      this.ctx.lineTo(this.width, (2 * i - 1) * diffY);
+      this.ctx.lineTo(
+        offsetX * this.width + this.width / 2,
+        (2 * i - 1) * diffY
+      );
       this.ctx.lineTo(offsetX * this.width, 2 * i * diffY);
     }
     this.ctx.stroke();
@@ -450,7 +462,7 @@ export const LetterTable: SymbolConfig[][] = [
         new Map<string, number | string | boolean>([
           ["quantity", 1],
           ["colored", true],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -460,7 +472,7 @@ export const LetterTable: SymbolConfig[][] = [
         new Map<string, number | string | boolean>([
           ["quantity", 2],
           ["colored", true],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -470,7 +482,7 @@ export const LetterTable: SymbolConfig[][] = [
         new Map<string, number | string | boolean>([
           ["quantity", 3],
           ["colored", true],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -479,7 +491,7 @@ export const LetterTable: SymbolConfig[][] = [
         Shape.LETTER_TRIANGLES,
         new Map<string, number | string | boolean>([
           ["quantity", 1],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -488,7 +500,7 @@ export const LetterTable: SymbolConfig[][] = [
         Shape.LETTER_TRIANGLES,
         new Map<string, number | string | boolean>([
           ["quantity", 2],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -497,7 +509,7 @@ export const LetterTable: SymbolConfig[][] = [
         Shape.LETTER_TRIANGLES,
         new Map<string, number | string | boolean>([
           ["quantity", 3],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -506,7 +518,7 @@ export const LetterTable: SymbolConfig[][] = [
         Shape.LETTER_ARCS,
         new Map<string, number | string | boolean>([
           ["quantity", 1],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -515,7 +527,7 @@ export const LetterTable: SymbolConfig[][] = [
         Shape.LETTER_ARCS,
         new Map<string, number | string | boolean>([
           ["quantity", 2],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
@@ -524,17 +536,23 @@ export const LetterTable: SymbolConfig[][] = [
         Shape.LETTER_ARCS,
         new Map<string, number | string | boolean>([
           ["quantity", 3],
-          ["offsetX", 0.5],
+          ["offsetX", 0.25],
         ]),
       ],
     ],
   ],
   [
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.25]]),
+      ],
       [
         Shape.LETTER_HORRIZONTALLINE,
-        new Map<string, number | string | boolean>([["quantity", 1]]),
+        new Map<string, number | string | boolean>([
+          ["quantity", 1],
+          ["offsetX", 0.25],
+        ]),
       ],
     ],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "A"]])]],
@@ -549,10 +567,16 @@ export const LetterTable: SymbolConfig[][] = [
   ],
   [
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.25]]),
+      ],
       [
         Shape.LETTER_HORRIZONTALLINE,
-        new Map<string, number | string | boolean>([["quantity", 2]]),
+        new Map<string, number | string | boolean>([
+          ["quantity", 2],
+          ["offsetX", 0.25],
+        ]),
       ],
     ],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "J"]])]],
@@ -567,10 +591,16 @@ export const LetterTable: SymbolConfig[][] = [
   ],
   [
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.25]]),
+      ],
       [
         Shape.LETTER_HORRIZONTALLINE,
-        new Map<string, number | string | boolean>([["quantity", 3]]),
+        new Map<string, number | string | boolean>([
+          ["quantity", 3],
+          ["offsetX", 0.25],
+        ]),
       ],
     ],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "S"]])]],
@@ -589,7 +619,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "A",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -604,7 +637,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "B",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -619,7 +655,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "C",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -634,7 +673,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "D",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -649,7 +691,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "E",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -664,7 +709,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "F",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -679,7 +727,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "G",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_ARCS,
@@ -694,7 +745,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "H",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_ARCS,
@@ -709,7 +763,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "I",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 1]])],
       [
         Shape.LETTER_ARCS,
@@ -724,7 +781,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "J",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -739,7 +799,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "K",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -754,7 +817,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "L",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -769,7 +835,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "M",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -784,7 +853,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "N",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -799,7 +871,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "O",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -814,7 +889,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "P",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_ARCS,
@@ -829,7 +907,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "Q",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_ARCS,
@@ -844,7 +925,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "R",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 2]])],
       [
         Shape.LETTER_ARCS,
@@ -859,7 +943,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "S",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -874,7 +961,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "T",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -889,7 +979,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "U",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_HORRIZONTALLINE,
@@ -904,7 +997,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "V",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -919,7 +1015,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "W",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -934,7 +1033,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "X",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_TRIANGLES,
@@ -949,7 +1051,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "Y",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_ARCS,
@@ -964,7 +1069,10 @@ export const LetterLookup: Map<string, SymbolConfig> = new Map([
   [
     "Z",
     [
-      [Shape.LETTER_NARROWRECT, null],
+      [
+        Shape.LETTER_NARROWRECT,
+        new Map<string, number | string | boolean>([["offsetX", 0.0]]),
+      ],
       [Shape.LETTER_HORRIZONTALLINE, new Map([["quantity", 3]])],
       [
         Shape.LETTER_ARCS,
