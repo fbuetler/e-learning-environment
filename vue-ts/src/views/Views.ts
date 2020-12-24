@@ -56,16 +56,16 @@ const views: Array<{
   },
   {
     id: 12,
-    title: "Sätze mit Zeichen chiffrieren",
+    title: "Wörter mit Zeichen chiffrieren",
     path: "/symbolencryption",
-    img: "ciphertexts/ciphertext_symbols.png",
+    img: "ciphertexts/abcToSymbols.png",
     component: "SymbolEncryption",
   },
   {
     id: 13,
-    title: "Sätze und Zahlen mit Zeichen dechiffrieren",
+    title: "Wörter und Zahlen mit Zeichen dechiffrieren",
     path: "/symboldecryption",
-    img: "placeholder.jpg",
+    img: "ciphertexts/symbolsToAbc.png",
     component: "SymbolDecryption",
   },
   {
