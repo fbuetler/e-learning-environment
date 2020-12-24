@@ -274,7 +274,7 @@ class LetterCanvas extends Canvas implements CanvasInterface {
     const diffY = this.height / (lines + 1);
     for (let i = 0; i < lines; i++) {
       this.ctx.beginPath();
-      this.ctx.moveTo(offsetX * this.width, (i + 1) * diffY);
+      this.ctx.moveTo(offsetX * this.width + this.lineWidth, (i + 1) * diffY);
       this.ctx.lineTo(
         offsetX * this.width + this.width / 2 - this.lineWidth / 2,
         (i + 1) * diffY
@@ -290,15 +290,15 @@ class LetterCanvas extends Canvas implements CanvasInterface {
       return;
     }
     this.ctx.beginPath();
-    this.ctx.moveTo(offsetX * this.width, this.height);
-    this.ctx.lineTo(offsetX * this.width, 0);
+    this.ctx.moveTo(offsetX * this.width + this.lineWidth, this.height);
+    this.ctx.lineTo(offsetX * this.width + this.lineWidth, 0);
     const diffY = this.height / (2 * triangles);
     for (let i = 1; i <= triangles; i++) {
       this.ctx.lineTo(
         offsetX * this.width + this.width / 2,
         (2 * i - 1) * diffY
       );
-      this.ctx.lineTo(offsetX * this.width, 2 * i * diffY);
+      this.ctx.lineTo(offsetX * this.width + this.lineWidth, 2 * i * diffY);
     }
     this.ctx.stroke();
   }
@@ -309,12 +309,12 @@ class LetterCanvas extends Canvas implements CanvasInterface {
       return;
     }
     this.ctx.beginPath();
-    this.ctx.moveTo(offsetX * this.width, this.height);
-    this.ctx.lineTo(offsetX * this.width, 0);
+    this.ctx.moveTo(offsetX * this.width + this.lineWidth, this.height);
+    this.ctx.lineTo(offsetX * this.width + this.lineWidth, 0);
     const diffY = this.height / (2 * arcs);
     for (let i = 1; i <= arcs; i++) {
       this.ctx.arc(
-        offsetX * this.width,
+        offsetX * this.width + this.lineWidth,
         (2 * i - 1) * diffY,
         diffY - this.lineWidth / 2,
         1.5 * Math.PI,
