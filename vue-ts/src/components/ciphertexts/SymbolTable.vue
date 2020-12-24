@@ -69,6 +69,9 @@ export default class SymbolTable extends Vue {
   }
 
   selectSymbol(rowIndex: number, shapeIndex: number) {
+    if (rowIndex === 0 || shapeIndex === 0) {
+      return;
+    }
     this.$emit(
       "symbol-selected",
       this.getSymboltext(rowIndex, shapeIndex),
