@@ -502,8 +502,6 @@ export const NumberTable: SymbolConfig[][] = [
     [[Shape.NUMBER_TRIANGLE, null]],
     [[Shape.TEXT, new Map([["text", 8]])]],
     [[Shape.TEXT, new Map([["text", 9]])]],
-    [[Shape.EMPTY, null]],
-    [[Shape.EMPTY, null]],
   ],
 ];
 
@@ -737,8 +735,6 @@ export const LetterTable: SymbolConfig[][] = [
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "X"]])]],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Y"]])]],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Z"]])]],
-    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", ""]])]],
-    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", ""]])]],
   ],
 ];
 
