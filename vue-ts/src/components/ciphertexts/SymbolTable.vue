@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <table>
       <tbody>
         <tr v-for="(row, rowIndex) in table" :key="rowIndex">
