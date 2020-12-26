@@ -64,6 +64,9 @@ export default class To extends Mixins(GameMixin, MayasMixin)
   }
 
   isCorrect(): boolean {
+    if (this.selectedItems[itemType.NUT] > 4) {
+      return false;
+    }
     return (
       this.selectedItems[itemType.NUT] +
         this.selectedItems[itemType.STICK] * 5 ===

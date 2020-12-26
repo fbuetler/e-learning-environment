@@ -126,6 +126,9 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
     if (this.currentDifficultyLevel === 1) {
       return this.sum === expectedSum;
     } else {
+      if (this.selectedItems[itemType.NUT] > 4) {
+        return false;
+      }
       return (
         this.selectedItems[itemType.NUT] +
           this.selectedItems[itemType.STICK] * 5 ===
