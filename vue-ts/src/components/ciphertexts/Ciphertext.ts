@@ -420,6 +420,7 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
       }
 
       // TODO maybe draw some arrow above the pattern to have more space
+      // TODO only change level of connecting lines if crossing
       const lineY =
         rectHeight + 20 + (i + 1) * ((rectHeight + rectY + 20) / cells);
       // connect arrows

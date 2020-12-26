@@ -9,18 +9,20 @@
       <div>Entschlüssle den Text mit Hilfe des Musters!</div>
       <div class="flex-item flex-row flex-center">
         <div class="flex-item flex-row flex-center equal-space">
-          Text:
-          <div class="canvas-container card">
+          <div>Text:</div>
+          <div class="canvas-container card text">
             {{ encryptedText }}
           </div>
         </div>
-        <div class="flex-flex equal-space">
-          Lösung:
-          <input class="card" v-model="decryptedText" type="text" />
+        <div class="flex-item flex-row flex-center equal-space">
+          <div>Lösung:</div>
+          <input class="card text" v-model="decryptedText" type="text" />
         </div>
       </div>
       <div>
-        <canvas id="pattern-canvas" width="500" height="150">test</canvas>
+        <canvas class="card" id="pattern-canvas" width="500" height="150"
+          >test</canvas
+        >
       </div>
     </div>
   </div>
@@ -118,4 +120,8 @@ export default class PatternDecryption extends Mixins(GameMixin)
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.text {
+  font-size: 2em;
+}
+</style>
