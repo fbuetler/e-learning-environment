@@ -44,6 +44,10 @@ import SymbolEncryption from "@/components/ciphertexts/SymbolEncryption.vue";
 import SymbolDecryption from "@/components/ciphertexts/SymbolDecryption.vue";
 import PatternEncryption from "@/components/ciphertexts/PatternEncryption.vue";
 import PatternDecryption from "@/components/ciphertexts/PatternDecryption.vue";
+import CoinsFrom from "@/components/coins/From.vue";
+import CoinsMinimalAmount from "@/components/coins/MinimalAmount.vue";
+import CoinsSwap from "@/components/coins/Swap.vue";
+import CoinsTo from "@/components/coins/To.vue";
 
 export enum GameType {
   TREEROW = "TreeRow",
@@ -59,6 +63,10 @@ export enum GameType {
   SYMBOLDECRYPTION = "SymbolDecryption",
   PATTERNENCRYPTION = "PatternEncryption",
   PATTERNDECRYPTION = "PatternDecryption",
+  COINSFROM = "CoinsFrom",
+  COINSMINIMALAMOUNT = "CoinsMinimalAmount",
+  COINSSWAP = "CoinsSwap",
+  COINSTO = "CoinsTo",
 }
 
 @Component({
@@ -78,6 +86,10 @@ export enum GameType {
     SymbolDecryption,
     PatternEncryption,
     PatternDecryption,
+    CoinsFrom,
+    CoinsMinimalAmount,
+    CoinsSwap,
+    CoinsTo,
   },
 })
 export default class Game extends Vue {

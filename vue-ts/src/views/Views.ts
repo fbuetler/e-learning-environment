@@ -3,6 +3,7 @@ const views: Array<{
   path: string;
   title: string;
   img: string;
+  view: string;
   component: string;
 }> = [
   {
@@ -10,6 +11,7 @@ const views: Array<{
     title: "Ähnliche Wörter (hinzufügen)",
     path: "/wordsadd",
     img: "placeholder.jpg",
+    view: "WordsAdd",
     component: "WordsAdd",
   },
   {
@@ -17,6 +19,7 @@ const views: Array<{
     title: "Ähnliche Wörter (ändern)",
     path: "/wordschange",
     img: "words/beaver_change.png",
+    view: "WordsChange",
     component: "WordsChange",
   },
   {
@@ -24,6 +27,7 @@ const views: Array<{
     title: "Ähnliche Wörter (entfernen)",
     path: "/wordsremove",
     img: "placeholder.jpg",
+    view: "WordsRemove",
     component: "WordsRemove",
   },
   {
@@ -31,6 +35,7 @@ const views: Array<{
     title: "Ähnliche Wörter (vertauschen)",
     path: "/wordsswap",
     img: "words/beaver_swap.png",
+    view: "WordsSwap",
     component: "WordsSwap",
   },
   {
@@ -38,6 +43,7 @@ const views: Array<{
     title: "Maya Zahlen darstellen",
     path: "/mayasto",
     img: "placeholder.jpg",
+    view: "MayasTo",
     component: "MayasTo",
   },
   {
@@ -45,6 +51,7 @@ const views: Array<{
     title: "Maya Zahlen verstehen",
     path: "/mayasfrom",
     img: "mayas/from_icon.png",
+    view: "MayasFrom",
     component: "MayasFrom",
   },
   {
@@ -52,13 +59,63 @@ const views: Array<{
     title: "Maya Zahlen addieren",
     path: "/mayasaddition",
     img: "mayas/addition.png",
+    view: "MayasAddition",
     component: "MayasAddition",
+  },
+  {
+    id: 16,
+    title: "Zahlen mit Münzen und Geldscheinen",
+    path: "/normalto",
+    img: "placeholder.jpg",
+    view: "NormalCoinsTo",
+    component: "CoinsTo",
+  },
+  {
+    id: 17,
+    title: "Münzbeträge ausrechnen",
+    path: "/normalfrom",
+    img: "placeholder.jpg",
+    view: "NormalCoinsFrom",
+    component: "CoinsFrom",
+  },
+  {
+    id: 18,
+    title: "Mit möglichst wenig Münzen bezahlen",
+    path: "/normalminimalamount",
+    img: "placeholder.jpg",
+    view: "NormalCoinsMinimalAmount",
+    component: "CoinsMinimalAmount",
+  },
+  {
+    id: 19,
+    title: "Gleichwertige Münzen tauschen",
+    path: "/normalswap",
+    img: "placeholder.jpg",
+    view: "NormalCoinsSwap",
+    component: "CoinsSwap",
+  },
+  {
+    id: 20,
+    title: "Bezahlen mit binären Münzen",
+    path: "/binaryto",
+    img: "placeholder.jpg",
+    view: "BinaryCoinsTo",
+    component: "CoinsTo",
+  },
+  {
+    id: 21,
+    title: "Binäre Münzbeträge ausrechnen",
+    path: "/binaryfrom",
+    img: "placeholder.jpg",
+    view: "BinaryCoinsFrom",
+    component: "CoinsFrom",
   },
   {
     id: 15,
     title: "Sätze mit Muster dechiffrieren",
     path: "/patterndecryption",
     img: "placeholder.jpg",
+    view: "PatternDecryption",
     component: "PatternDecryption",
   },
   {
@@ -66,6 +123,7 @@ const views: Array<{
     title: "Sätze mit Muster chiffrieren",
     path: "/patternencryption",
     img: "ciphertexts/ciphertext_pattern.png",
+    view: "PatternEncryption",
     component: "PatternEncryption",
   },
   {
@@ -73,6 +131,7 @@ const views: Array<{
     title: "Wörter und Zahlen mit Zeichen dechiffrieren",
     path: "/symboldecryption",
     img: "ciphertexts/symbolsToAbc.png",
+    view: "SymbolDecryption",
     component: "SymbolDecryption",
   },
   {
@@ -80,6 +139,7 @@ const views: Array<{
     title: "Wörter mit Zeichen chiffrieren",
     path: "/symbolencryption",
     img: "ciphertexts/abcToSymbols.png",
+    view: "SymbolEncryption",
     component: "SymbolEncryption",
   },
   {
@@ -87,6 +147,7 @@ const views: Array<{
     title: "Reihe aus 3 Bäumen",
     path: "/treerow3",
     img: "trees/trees_3.png",
+    view: "TreeRowOfThree",
     component: "TreeRowOfThree",
   },
   {
@@ -94,6 +155,7 @@ const views: Array<{
     title: "3x3 Baumsudoku",
     path: "/treesudoku3",
     img: "trees/sudoku_explanation_3.png",
+    view: "TreeSudokuOfThree",
     component: "TreeSudokuOfThree",
   },
   {
@@ -101,6 +163,7 @@ const views: Array<{
     title: "Reihe aus 4 Bäumen",
     path: "/treerow4",
     img: "trees/trees_4.png",
+    view: "TreeRowOfFour",
     component: "TreeRowOfFour",
   },
   {
@@ -108,6 +171,7 @@ const views: Array<{
     title: "4x4 Baumsudoku",
     path: "/treesudoku4",
     img: "trees/sudoku_explanation_4.png",
+    view: "TreeSudokuOfFour",
     component: "TreeSudokuOfFour",
   },
 ];

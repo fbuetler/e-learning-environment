@@ -16,7 +16,7 @@ routes = routes.concat(
   views.map((el) => {
     const rc: RouteConfig = {
       path: el.path,
-      component: () => import(`@/views/${el.component}`),
+      component: () => import(`@/views/${el.view}`),
     };
     return rc;
   })
