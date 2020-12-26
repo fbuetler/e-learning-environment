@@ -25,6 +25,24 @@ export function LoadRandomNumber(): number {
   return Math.floor(Math.random() * 99);
 }
 
+export function CreatePattern(
+  text: string[],
+  swapAmount: number
+): Array<[number, number]> {
+  const pattern = new Array<[number, number]>();
+  const letters = [...Array(text.length).keys()];
+  for (let j = 1; j <= swapAmount && 2 * j <= text.length; j++) {
+    const leftIndex = Math.floor(Math.random() * letters.length);
+    const left = letters[leftIndex];
+    letters.splice(leftIndex, 1);
+    const rightIndex = Math.floor(Math.random() * letters.length);
+    const right = letters[rightIndex];
+    letters.splice(rightIndex, 1);
+    pattern.push([left, right]);
+  }
+  return pattern;
+}
+
 export enum Type {
   NUMBER,
   LETTER,

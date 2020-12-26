@@ -21,7 +21,7 @@
       </div>
       <div>
         <canvas class="card" id="pattern-canvas" width="500" height="150"
-          >test</canvas
+          >Das Muster ist nicht verfügbar</canvas
         >
       </div>
     </div>
@@ -32,7 +32,7 @@
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Difficulty from "../Difficulty.vue";
-import { LoadRandomElement, PatternCanvas } from "./Ciphertext";
+import { CreatePattern, LoadRandomElement, PatternCanvas } from "./Ciphertext";
 
 @Component<PatternDecryption>({
   components: {
@@ -73,18 +73,7 @@ export default class PatternDecryption extends Mixins(GameMixin)
 
     this.patterns = new Map<number, [number, number][]>();
     for (let level = 1; level <= this.difficultyLevels; level++) {
-      const pattern = new Array<[number, number]>();
-      const available = [...Array(this.originalText.length).keys()];
-      for (let j = 1; j <= level && 2 * j <= this.originalText.length; j++) {
-        const leftIndex = Math.floor(Math.random() * available.length);
-        const left = available[leftIndex];
-        available.splice(leftIndex, 1);
-        const rightIndex = Math.floor(Math.random() * available.length);
-        const right = available[rightIndex];
-        available.splice(rightIndex, 1);
-        pattern.push([left, right]);
-      }
-      this.patterns.set(level, pattern);
+      this.patterns.set(level, CreatePattern(this.originalText, level));
     }
   }
 
