@@ -17,6 +17,7 @@ export default class PatternEncryption extends Vue {
   type: GameType = GameType.PATTERNENCRYPTION;
   title = views.find((el) => el.component === GameType.PATTERNENCRYPTION).title;
   video = "placeholder.mp4";
-  description = "intentionally empty";
+  description = `Du möchtest nun deine eigene Nachricht chiffrieren. Schaffst du es 
+  die Nachricht mit Hilfe des Musters korrekt zu verschlüsseln?`;
 }
 </script>
