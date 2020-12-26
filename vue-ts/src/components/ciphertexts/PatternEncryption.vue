@@ -34,7 +34,11 @@ import GameMixin, { GameInterface } from "../Game";
 import Difficulty from "../Difficulty.vue";
 import { CreatePattern, LoadRandomElement, PatternCanvas } from "./Ciphertext";
 
-@Component<PatternEncryption>({})
+@Component<PatternEncryption>({
+  components: {
+    Difficulty,
+  },
+})
 export default class PatternEncryption extends Mixins(GameMixin)
   implements GameInterface {
   dataKey = "nouns";
