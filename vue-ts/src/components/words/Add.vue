@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragend="selectedChar = null">
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
       id="word-container"
@@ -47,7 +47,16 @@
             stroke-width="3"
             fill="transparent"
             marker-start="url(#arrowhead)"
+          />
+          <rect
+            v-for="(id, index) in arrows"
+            :key="index"
+            :id="`rect-around-arrow-${id}`"
+            fill="transparent"
             @click="addChar(id)"
+            @dragenter.prevent
+            @dragover.prevent
+            @drop.stop.prevent="addChar(id)"
           />
         </svg>
       </div>
@@ -120,23 +129,32 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     }
     this.arrows.forEach((id) => {
       const container = document.getElementById("word-container");
-      const div = document.getElementById(`word-char-${id}`);
+      const char = document.getElementById(`word-char-${id}`);
       const arrow = document.getElementById(`arrow-${id}`);
+      const rect = document.getElementById(`rect-around-arrow-${id}`);
 
-      const xPos = div.offsetLeft - container.offsetLeft;
+      const xPos = char.offsetLeft - container.offsetLeft;
+      const yPos = 10;
+      const width = 40;
+      const height = 40;
       const start = {
         x: xPos,
-        y: 10,
+        y: yPos,
       };
       const end = {
         x: xPos,
-        y: 50,
+        y: yPos + height,
       };
 
       arrow.setAttribute("x1", `${start.x}`);
       arrow.setAttribute("y1", `${start.y}`);
       arrow.setAttribute("x2", `${end.x}`);
       arrow.setAttribute("y2", `${end.y}`);
+
+      rect.setAttribute("x", `${xPos - width / 2}`);
+      rect.setAttribute("y", `${yPos}`);
+      rect.setAttribute("width", `${width}`);
+      rect.setAttribute("height", `${height}`);
     });
   }
 
