@@ -114,7 +114,10 @@ import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
 
 /*
-  TODO: click placed tree and then trashcan to delete
+  TODO: 
+    - click placed tree and then trashcan to delete
+    - restyle grid, especially that it fits on one page
+    (https://css-tricks.com/scaled-proportional-blocks-with-css-and-javascript/)
 */
 
 type sudokuField = {
@@ -423,5 +426,6 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 }
 .card {
   align-items: center;
+  min-height: 1em;
 }
 </style>

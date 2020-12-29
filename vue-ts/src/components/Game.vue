@@ -158,6 +158,7 @@ export default class Game extends Vue {
   align-items: flex-end;
   min-height: 9em;
   min-width: 5em;
+  margin: 0.1em;
 }
 .nut > img {
   max-width: 64px;
