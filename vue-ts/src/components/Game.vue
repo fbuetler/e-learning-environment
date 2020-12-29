@@ -4,24 +4,30 @@
       <h2>{{ title }}</h2>
       <Tutorial :video="video" :description="description" />
     </div>
-    <div v-if="showResult">
-      <img :src="require('@/assets/beavers/correct.png')" v-if="isCorrect" />
-      <img :src="require('@/assets/beavers/wrong.png')" v-else />
-      <h3>{{ resultText }}</h3>
+    <div id="result" class="modal">
+      <div class="modal-content flex-item flex-center flex-col">
+        <div>
+          <img
+            :src="require('@/assets/beavers/correct.png')"
+            v-if="isCorrect"
+          />
+          <img :src="require('@/assets/beavers/wrong.png')" v-else />
+        </div>
+        <div>
+          <h3>{{ resultText }}</h3>
+        </div>
+      </div>
     </div>
-    <div v-else>
+    <div>
       <Buttonmenu
         :restartGameText="restartGameText"
         :evaluateGameText="evaluateGameText"
       />
-      <keep-alive :max="1">
-        <component
-          v-if="!showResult"
-          :is="currentGameComponent"
-          :args="args"
-          @evaluated-game="(correct) => evaluatedGame(correct)"
-        ></component>
-      </keep-alive>
+      <component
+        :is="currentGameComponent"
+        :args="args"
+        @evaluated-game="(correct) => evaluatedGame(correct)"
+      ></component>
     </div>
   </div>
 </template>
@@ -108,7 +114,6 @@ export default class Game extends Vue {
   private evaluateGameText = "Überprüfen!";
   private resultText = "";
   private isCorrect = false;
-  private showResult = false;
 
   private evaluatedGame(correct: boolean): void {
     if (correct) {
@@ -118,9 +123,10 @@ export default class Game extends Vue {
       this.resultText = "Falsch!";
       this.isCorrect = false;
     }
-    this.showResult = true;
+    const resultModal = document.getElementById("result");
+    resultModal.style.display = "block";
     setTimeout(() => {
-      this.showResult = false;
+      resultModal.style.display = "none";
       this.resultText = "";
       this.isCorrect = false;
     }, 2000);
@@ -140,6 +146,11 @@ export default class Game extends Vue {
 .locked {
   background: lightgray !important;
   border: 3px solid #cccccc;
+}
+#result > .modal-content {
+  background-color: transparent;
+  border: none;
+  color: white;
 }
 
 /* the special snowflakes */
