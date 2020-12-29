@@ -10,6 +10,10 @@ let routes: Array<RouteConfig> = [
     path: "/",
     component: Home,
   },
+  {
+    path: "*",
+    component: Home,
+  },
 ];
 
 routes = routes.concat(
