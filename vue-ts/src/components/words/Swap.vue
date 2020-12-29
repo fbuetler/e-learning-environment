@@ -11,15 +11,8 @@
           class="word-char card"
           :class="{
             locked: element.locked,
-            selected: element.id === selectedChar,
           }"
           :id="'word-char-' + element.id"
-          @click="selectChar(element.id)"
-          draggable
-          @dragstart="selectedChar = element.id"
-          @dragover.prevent
-          @dragend.prevent
-          @drop.stop.prevent="selectChar(element.id)"
         >
           {{ element.char }}
         </div>
@@ -88,7 +81,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   private dataKey = "change";
   private word: wordElement[] = null;
   private similarWords: string[] = null;
-  private selectedChar: number = null;
   private randomIndex: number = null;
   private charSwaped = false;
 
@@ -116,7 +108,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     this.randomIndex = Math.floor(Math.random() * (this.word.length - 1));
     this.swap(this.word[this.randomIndex], this.word[this.randomIndex + 1]);
 
-    this.selectedChar = null;
     this.charSwaped = false;
   }
 
@@ -161,14 +152,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     });
   }
 
-  selectChar(id: number) {
-    if (this.selectedChar === null) {
-      this.selectedChar = id;
-      return;
-    }
-    this.swapChar(this.selectedChar, id);
-  }
-
   swapChar(leftID: number, rightID: number) {
     if (this.charSwaped) {
       return;
@@ -181,7 +164,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
 
     this.word.forEach((el) => (el.locked = true));
     this.charSwaped = true;
-    this.selectedChar = null;
   }
 
   swap(a: wordElement, b: wordElement) {
@@ -195,7 +177,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       el.char = el.initialChar;
       el.locked = false;
     });
-    this.selectedChar = null;
     this.swap(this.word[this.randomIndex], this.word[this.randomIndex + 1]);
     this.charSwaped = false;
   }
