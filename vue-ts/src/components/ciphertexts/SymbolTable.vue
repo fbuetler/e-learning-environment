@@ -8,6 +8,11 @@
             :key="shapeIndex"
             :class="{ selected: isSelected(rowIndex, shapeIndex) }"
             @click="selectSymbol(rowIndex, shapeIndex)"
+            draggable
+            @dragstart="selectSymbol(rowIndex, shapeIndex)"
+            @dragover.prevent
+            @dragend.prevent
+            @drop.prevent
           >
             <canvas
               :id="'shape-' + rowIndex + '-' + shapeIndex"

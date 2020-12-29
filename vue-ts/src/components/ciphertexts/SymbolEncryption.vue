@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragend.prevent="selected = null">
     <div class="flex-item flex-col">
       <div>Verschlüssle den Text mit Hilfe der Tabelle!</div>
       <div class="flex-item flex-row flex-center">
@@ -12,6 +12,9 @@
         <div
           class="flex-item flex-center flex-row flex-flex dropzone"
           @click="addSymbol()"
+          @dragover.prevent
+          @dragend.prevent
+          @drop.stop.prevent="addSymbol()"
         >
           <div v-if="encryptedText.length === 0">
             Platziere hier die Symbole
@@ -102,6 +105,9 @@ export default class SymbolEncryption extends Mixins(GameMixin)
 
   addSymbol() {
     if (this.selected === null) {
+      return;
+    }
+    if (this.encryptedText.length === this.originalText.length) {
       return;
     }
     this.encryptedText.push(this.selected[0]);
