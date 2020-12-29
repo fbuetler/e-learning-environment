@@ -118,6 +118,11 @@ import Undo from "@/components/Undo.vue";
     - click placed tree and then trashcan to delete
     - restyle grid, especially that it fits on one page
     (https://css-tricks.com/scaled-proportional-blocks-with-css-and-javascript/)
+    - sudoku lieber mehr als weniger informationen (zB Schwierigkeitsgrad)
+      - ohne zahlen nur bäume
+      - mit zahlen aber viele infos
+      - mit zahlen aber weniger infos
+      - 2 stufen reichen auch
 */
 
 type sudokuField = {
