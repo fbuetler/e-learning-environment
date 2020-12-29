@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragend.prevent="selected = null">
     <div class="number">Stell die folgende Zahl dar: {{ number }}</div>
     <div
       class="flex-item flex-center flex-col flex-flex dropzone"
@@ -58,6 +58,7 @@ export default class To extends Mixins(GameMixin, MayasMixin)
 
   restartGame() {
     this.number = Math.ceil(Math.random() * this.limit);
+    this.selected = null;
     this.selectedItems = new Array<number>(
       Object.keys(itemType).length / 2
     ).fill(0);
@@ -75,6 +76,7 @@ export default class To extends Mixins(GameMixin, MayasMixin)
   }
 
   addItem() {
+    console.log("add item");
     if (this.selected === null) {
       return;
     }

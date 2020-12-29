@@ -27,7 +27,7 @@ import { Component, Prop } from "vue-property-decorator";
 export default class Selection extends Vue {
   @Prop({ type: Number, required: true })
   private size!: number;
-  @Prop({ type: Number, required: true })
+  @Prop({ required: true })
   private selected: number;
 }
 </script>

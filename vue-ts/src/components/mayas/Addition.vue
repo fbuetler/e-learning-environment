@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragend.prevent="selected = null">
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"

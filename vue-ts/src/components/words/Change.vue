@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragend.prevent="selectedChar = null">
     <div class="word-container flex-item flex-row flex-center">
       <div v-for="element in word" :key="element.id">
         <div

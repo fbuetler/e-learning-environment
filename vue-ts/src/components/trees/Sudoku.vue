@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragend="selectedTree = null">
     <div class="tree-container" :style="gridSize()">
       <div
         class="tree-row"
@@ -141,7 +141,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 
   private valuesSolution: number[][] = null;
 
-  private selectedTree = 0;
+  private selectedTree = null;
 
   isStarted(): boolean {
     return this.values === null || this.views === null;
@@ -184,11 +184,11 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       this.selectedTree = this.values[oldRowIndex][oldColIndex].value;
       Vue.set(this.values[oldRowIndex][oldColIndex], "value", 0);
     }
-    if (this.selectedTree === 0) {
+    if (this.selectedTree === null) {
       return;
     }
     Vue.set(this.values[rowIndex][colIndex], "value", this.selectedTree);
-    this.selectedTree = 0;
+    this.selectedTree = null;
   }
 
   generate(values: sudoku, views: number[][]): [sudoku, number[][]] {

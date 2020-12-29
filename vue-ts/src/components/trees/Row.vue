@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragend="selectedTree = null">
     <div class="flex-item flex-center flex-row flex-stretch flex-flex">
       <div class="flex-item flex-center card">{{ leftView }}</div>
       <div
@@ -70,7 +70,7 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   private leftView: number = null;
   private rightView: number = null;
 
-  private selectedTree = 0;
+  private selectedTree = null;
 
   isStarted(): boolean {
     return (
@@ -103,11 +103,11 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
       this.selectedTree = oldField.value;
       Vue.set(oldField, "value", 0);
     }
-    if (this.selectedTree === 0) {
+    if (this.selectedTree === null) {
       return;
     }
     Vue.set(field, "value", this.selectedTree);
-    this.selectedTree = 0;
+    this.selectedTree = null;
   }
 
   generate(): [number, number, row] {
