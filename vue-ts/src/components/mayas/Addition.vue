@@ -37,6 +37,9 @@
         class="flex-item flex-center flex-col flex-flex dropzone input"
         v-else
         @click="addItem()"
+        @dragover.prevent
+        @dragend.prevent
+        @drop.stop.prevent="addItem()"
       >
         <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
           Platziere hier die Nüsse und Stöcke
@@ -108,6 +111,7 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
     if (this.currentDifficultyLevel === null) {
       this.currentDifficultyLevel = 1;
     }
+    this.selected = null;
     this.summands = new Array(this.numberOfSummands);
     for (let i = 0; i < this.summands.length; i++) {
       this.summands[i] = this.generateItems();
