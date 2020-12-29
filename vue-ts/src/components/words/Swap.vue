@@ -192,6 +192,9 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
 </script>
 
 <style scoped>
+.svg-container {
+  width: 100%;
+}
 svg {
   width: 100%;
   max-height: 1em;
