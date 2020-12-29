@@ -47,14 +47,21 @@
             </marker>
           </defs>
           <path
-            v-for="([left, right], index) in arrows"
-            :key="index"
+            v-for="[left, right] in arrows"
+            :key="`arrow-${left}-${right}`"
             :id="`arrow-${left}-${right}`"
             stroke="black"
             stroke-width="2"
             fill="transparent"
             marker-start="url(#arrowhead)"
             marker-end="url(#arrowtail)"
+            @click="swapChar(left, right)"
+          />
+          <rect
+            v-for="[left, right] in arrows"
+            :key="`rect-around-arrow-${left}-${right}`"
+            :id="`rect-around-arrow-${left}-${right}`"
+            fill="transparent"
             @click="swapChar(left, right)"
           />
         </svg>
@@ -124,26 +131,34 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   drawArrows() {
     this.arrows.forEach(([leftID, rightID]) => {
       const container = document.getElementById("word-container");
-      const leftDiv = document.getElementById(`word-char-${leftID}`);
-      const rightDiv = document.getElementById(`word-char-${rightID}`);
+      const leftChar = document.getElementById(`word-char-${leftID}`);
+      const rightChar = document.getElementById(`word-char-${rightID}`);
       const arrow = document.getElementById(`arrow-${leftID}-${rightID}`);
+      const rect = document.getElementById(
+        `rect-around-arrow-${leftID}-${rightID}`
+      );
 
-      const leftDivCenter =
-        leftDiv.offsetLeft - container.offsetLeft + leftDiv.offsetWidth / 2;
-      const rightDivCenter =
-        rightDiv.offsetLeft - container.offsetLeft + rightDiv.offsetWidth / 2;
+      const leftCharCenter =
+        leftChar.offsetLeft - container.offsetLeft + leftChar.offsetWidth / 2;
+      const rightCharCenter =
+        rightChar.offsetLeft - container.offsetLeft + rightChar.offsetWidth / 2;
 
+      const xPosLeft = leftCharCenter + 5;
+      const xPosRight = rightCharCenter - 5;
+      const yPos = 0;
+      const height = 30;
+      const width = xPosRight - xPosLeft;
       const start = {
-        x: leftDivCenter + 5,
-        y: 0,
+        x: xPosLeft,
+        y: yPos,
       };
       const anchor = {
-        x: (leftDivCenter + rightDivCenter) / 2,
-        y: 30,
+        x: (xPosLeft + xPosRight) / 2,
+        y: yPos + height,
       };
       const end = {
-        x: rightDivCenter - 5,
-        y: 0,
+        x: xPosRight,
+        y: yPos,
       };
 
       arrow.setAttribute(
@@ -152,6 +167,10 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
           `Q ${anchor.x} ${anchor.y}, ` +
           `${end.x} ${end.y}`
       );
+      rect.setAttribute("x", `${xPosLeft}`);
+      rect.setAttribute("y", `${yPos}`);
+      rect.setAttribute("width", `${width}`);
+      rect.setAttribute("height", `${1.5 * height}`);
     });
   }
 
@@ -200,6 +219,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
 }
 svg {
   width: 100%;
-  max-height: 1em;
+  max-height: 2em;
 }
 </style>
