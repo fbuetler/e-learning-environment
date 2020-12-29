@@ -81,10 +81,6 @@ import Difficulty from "../Difficulty.vue";
 import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
 import Undo from "@/components/Undo.vue";
 
-/*
-  TODO ensure that the sum does not overshoot 20
- */
-
 @Component<Addition>({
   components: {
     Difficulty,
@@ -113,9 +109,15 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
     }
     this.selected = null;
     this.summands = new Array(this.numberOfSummands);
-    for (let i = 0; i < this.summands.length; i++) {
-      this.summands[i] = this.generateItems();
-    }
+    let sum: number;
+    do {
+      sum = 0;
+      for (let i = 0; i < this.summands.length; i++) {
+        const summand = this.generateItems();
+        this.summands[i] = summand;
+        sum += this.sumItems(summand);
+      }
+    } while (sum > 19);
     // level 2
     this.selectedItems = new Array<number>(
       Object.keys(itemType).length / 2
