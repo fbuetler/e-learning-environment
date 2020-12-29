@@ -1,5 +1,8 @@
 <template>
   <div @dragend="selectedTree = null">
+    <div>
+      Versuch das Baumreihenrätsel zu lösen.
+    </div>
     <div class="flex-item flex-center flex-row flex-stretch flex-flex">
       <div class="flex-item flex-center card">{{ leftView }}</div>
       <div

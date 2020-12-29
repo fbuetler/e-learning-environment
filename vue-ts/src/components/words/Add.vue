@@ -1,5 +1,8 @@
 <template>
   <div @dragend="selectedChar = null">
+    <div>
+      Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
+    </div>
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
       id="word-container"

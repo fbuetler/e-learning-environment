@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div
-      class="flex-item flex-center flex-col flex-flex card"
-      @click="addItem()"
-    >
+    <div>Welche Zahl wird hier dargestellt?</div>
+    <div class="flex-item flex-center flex-col flex-flex card">
       <div>
         <div class="flex-item flex-center flex-row">
           <div class="nut" v-for="index in items[nut]" :key="index">
@@ -18,6 +16,7 @@
       </div>
     </div>
     <hr />
+    <div>Lösung:</div>
     <input class="card" v-model.number="number" type="number" />
   </div>
 </template>

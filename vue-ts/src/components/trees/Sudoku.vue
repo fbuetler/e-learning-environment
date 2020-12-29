@@ -1,5 +1,8 @@
 <template>
   <div @dragend="selectedTree = null">
+    <div>
+      Versuch das Baumsudoku zu lösen.
+    </div>
     <div class="tree-container" :style="gridSize()">
       <div
         class="tree-row"

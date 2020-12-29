@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      Versuch ein neues Wort zu bilden, indem du zwei Buchstaben vertauschst.
+    </div>
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
       id="word-container"

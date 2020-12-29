@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      Versuch ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
+    </div>
     <div class="word-container flex-item flex-row flex-center">
       <div v-for="element in word" :key="element.id">
         <div

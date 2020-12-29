@@ -5,6 +5,7 @@
       :difficultyLevels="difficultyLevels"
       @difficulty-selected="changeDifficulty($event)"
     />
+    <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
     <div class="flex-item flex-wrap flex-center flex-row">
       <div
         class="flex-item flex-wrap flex-center flex-row flex-flex"
