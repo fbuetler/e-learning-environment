@@ -43,8 +43,8 @@
             </marker>
           </defs>
           <line
-            v-for="(id, index) in arrows"
-            :key="index"
+            v-for="id in arrows"
+            :key="`arrow-${id}`"
             :id="`arrow-${id}`"
             stroke="black"
             stroke-width="3"
@@ -52,8 +52,8 @@
             marker-start="url(#arrowhead)"
           />
           <rect
-            v-for="(id, index) in arrows"
-            :key="index"
+            v-for="id in arrows"
+            :key="`rect-around-arrow-${id}`"
             :id="`rect-around-arrow-${id}`"
             fill="transparent"
             @click="addChar(id)"
