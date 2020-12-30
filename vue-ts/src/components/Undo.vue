@@ -2,6 +2,7 @@
   <div
     class="undo flex-item flex-center card"
     @click="$emit('undo-operation', $event)"
+    title="Neu starten!"
   >
     <img :src="require('@/assets/icons/undo.png')" />
   </div>

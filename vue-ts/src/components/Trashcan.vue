@@ -1,6 +1,7 @@
 <template>
   <div
     class="trashcan flex-item flex-center dropzone"
+    title="Element entfernen!"
     @click="$emit('trashed-element', $event)"
     @dragover.prevent
     @dragenter.prevent

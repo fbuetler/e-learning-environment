@@ -1,5 +1,9 @@
 <template>
-  <div class="tutorial flex-item flex-center card" @click="openModal()">
+  <div
+    class="tutorial flex-item flex-center card"
+    title="Anleitung öffnen"
+    @click="openModal()"
+  >
     <img :src="require('@/assets/icons/lightbulb.png')" />
     <div id="tutorial" class="modal">
       <div
