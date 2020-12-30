@@ -110,7 +110,7 @@ export default class Game extends Vue {
   @Prop({ required: true })
   video: string;
 
-  private restartGameText = "Neu starten!";
+  private restartGameText = "Nächstes Rätsel!";
   private evaluateGameText = "Überprüfen!";
   private resultText = "";
   private isCorrect = false;
