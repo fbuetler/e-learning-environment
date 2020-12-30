@@ -137,7 +137,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     }
     this.arrows.forEach((id) => {
       const container = document.getElementById("word-container");
-      const char = document.getElementById(`word-char-${id}`);
+      let char = document.getElementById(`word-char-${id}`);
       const arrow = document.getElementById(`arrow-${id}`);
       const rect = document.getElementById(`rect-around-arrow-${id}`);
 
@@ -159,10 +159,16 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
       arrow.setAttribute("x2", `${end.x}`);
       arrow.setAttribute("y2", `${end.y}`);
 
+      if (id === this.word.length) {
+        char = document.getElementById(`word-char-${id - 1}`);
+      }
       rect.setAttribute("x", `${xPos - width / 2}`);
-      rect.setAttribute("y", `${yPos}`);
+      rect.setAttribute(
+        "y",
+        `${-(char.offsetTop - container.offsetTop + char.clientHeight + yPos)}`
+      );
       rect.setAttribute("width", `${width}`);
-      rect.setAttribute("height", `${height}`);
+      rect.setAttribute("height", `${container.clientHeight}`);
     });
   }
 
@@ -217,5 +223,6 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
 svg {
   width: 100%;
   max-height: 3em;
+  overflow: visible;
 }
 </style>
