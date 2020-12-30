@@ -78,11 +78,6 @@ import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
 import { LoadWords, wordElement } from "./Words";
 
-/*
-  TODO:
-    - increase droppable are vertically so one can drop new letters between existing ones
-*/
-
 @Component<Add>({
   components: {
     Alphabet,
