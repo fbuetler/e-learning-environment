@@ -8,7 +8,7 @@ const views: Array<{
 }> = [
   {
     id: 1,
-    title: "Ähnliche Wörter (hinzufügen)",
+    title: "Ähnliche Wörter - Buchstabe hinzufügen",
     path: "/wordsadd",
     img: "placeholder.jpg",
     view: "WordsAdd",
@@ -16,7 +16,7 @@ const views: Array<{
   },
   {
     id: 2,
-    title: "Ähnliche Wörter (ändern)",
+    title: "Ähnliche Wörter - Buchstabe austauschen",
     path: "/wordschange",
     img: "words/beaver_change.png",
     view: "WordsChange",
@@ -24,7 +24,7 @@ const views: Array<{
   },
   {
     id: 3,
-    title: "Ähnliche Wörter (entfernen)",
+    title: "Ähnliche Wörter - Buchstabe entfernen",
     path: "/wordsremove",
     img: "placeholder.jpg",
     view: "WordsRemove",
@@ -32,7 +32,7 @@ const views: Array<{
   },
   {
     id: 4,
-    title: "Ähnliche Wörter (vertauschen)",
+    title: "Ähnliche Wörter - Buchstaben vertauschen",
     path: "/wordsswap",
     img: "words/beaver_swap.png",
     view: "WordsSwap",
@@ -112,7 +112,7 @@ const views: Array<{
   },
   {
     id: 15,
-    title: "Sätze mit Muster dechiffrieren",
+    title: "mit Muster dechiffrieren",
     path: "/patterndecryption",
     img: "placeholder.jpg",
     view: "PatternDecryption",
@@ -120,7 +120,7 @@ const views: Array<{
   },
   {
     id: 14,
-    title: "Sätze mit Muster chiffrieren",
+    title: "mit Muster chiffrieren",
     path: "/patternencryption",
     img: "ciphertexts/ciphertext_pattern.png",
     view: "PatternEncryption",
@@ -128,7 +128,7 @@ const views: Array<{
   },
   {
     id: 13,
-    title: "Wörter und Zahlen mit Zeichen dechiffrieren",
+    title: "mit Zeichen dechiffrieren",
     path: "/symboldecryption",
     img: "ciphertexts/symbolsToAbc.png",
     view: "SymbolDecryption",
@@ -136,7 +136,7 @@ const views: Array<{
   },
   {
     id: 12,
-    title: "Wörter mit Zeichen chiffrieren",
+    title: "mit Zeichen chiffrieren",
     path: "/symbolencryption",
     img: "ciphertexts/abcToSymbols.png",
     view: "SymbolEncryption",
