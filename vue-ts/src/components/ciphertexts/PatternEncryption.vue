@@ -70,6 +70,7 @@ export default class PatternEncryption extends Mixins(GameMixin)
     this.originalText = LoadRandomElement(this.dataKey)
       .split("")
       .map((letter) => letter.toUpperCase());
+    this.encryptedText = null
 
     this.patterns = new Map<number, [number, number][]>();
     for (let level = 1; level <= this.difficultyLevels; level++) {

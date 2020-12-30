@@ -82,6 +82,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       this.currentDifficultyLevel = 1;
     }
     this.originalNumbers = String(LoadRandomNumber()).split("");
+    this.decrypted = null
 
     this.originalLetters = LoadRandomElement(this.dataKey)
       .split("")
