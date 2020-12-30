@@ -1,5 +1,10 @@
 <template>
   <div>
+    <Difficulty
+      :selected="currentDifficultyLevel"
+      :difficultyLevels="difficultyLevels"
+      @difficulty-selected="changeDifficulty($event)"
+    />
     <div>
       Versuch ein neues Wort zu bilden, indem du zwei Buchstaben vertauschst.
     </div>
@@ -9,12 +14,9 @@
     >
       <div class="flex-item flex-row flex-center">
         <div
-          v-for="element in word"
+          v-for="element in swappedWord"
           :key="element.id"
           class="word-char card"
-          :class="{
-            locked: element.locked,
-          }"
           :id="'word-char-' + element.id"
         >
           {{ element.char }}
@@ -55,7 +57,6 @@
             fill="transparent"
             marker-start="url(#arrowhead)"
             marker-end="url(#arrowtail)"
-            @click="swapChar(left, right)"
           />
           <rect
             v-for="[left, right] in arrows"
@@ -80,24 +81,22 @@
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Undo from "@/components/Undo.vue";
+import Difficulty from "@/components/Difficulty.vue";
 import { LoadWords, wordElement } from "./Words";
-
-/*
-  TODO:
-    - add more difficulty levels
-*/
 
 @Component<Change>({
   components: {
     Undo,
+    Difficulty,
   },
 })
 export default class Change extends Mixins(GameMixin) implements GameInterface {
   private dataKey = "change";
   private word: wordElement[] = null;
-  private similarWords: string[] = null;
-  private randomIndex: number = null;
-  private charSwaped = false;
+  private swapIndexes = new Map<number, [number, number][]>();
+
+  private difficultyLevels = 2;
+  private currentDifficultyLevel: number = null;
 
   created() {
     window.addEventListener("resize", this.drawArrows);
@@ -119,18 +118,17 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   }
 
   restartGame() {
+    if (this.currentDifficultyLevel === null) {
+      this.currentDifficultyLevel = 1;
+    }
     this.word = LoadWords(this.dataKey)[0];
-    this.randomIndex = Math.floor(Math.random() * (this.word.length - 1));
-    this.swap(this.word[this.randomIndex], this.word[this.randomIndex + 1]);
-
-    this.charSwaped = false;
+    for (let level = 1; level <= this.difficultyLevels; level++) {
+      this.swapIndexes.set(level, this.getSwapPairs(this.word.length, level));
+    }
   }
 
   isCorrect(): boolean {
-    return this.word.reduce(
-      (acc, currVal) => acc && currVal.initialChar === currVal.char,
-      true
-    );
+    return this.word.every((currVal) => currVal.initialChar === currVal.char);
   }
 
   drawArrows() {
@@ -180,17 +178,10 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   }
 
   swapChar(leftID: number, rightID: number) {
-    if (this.charSwaped) {
-      return;
-    }
-
     this.swap(
       this.word.find((el) => el.id === leftID),
       this.word.find((el) => el.id === rightID)
     );
-
-    this.word.forEach((el) => (el.locked = true));
-    this.charSwaped = true;
   }
 
   swap(a: wordElement, b: wordElement) {
@@ -199,13 +190,37 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     b.char = temp;
   }
 
+  getSwapPairs(length: number, swapAmount: number): Array<[number, number]> {
+    const pairs = new Array<[number, number]>();
+    const free = new Array<boolean>(length).fill(true);
+    for (let j = 0; j < swapAmount; j++) {
+      let index: number;
+      do {
+        // is there any pair available
+        if (
+          !free.some((_, i, arr) =>
+            i < arr.length - 1 ? arr[i] && arr[i + 1] : false
+          )
+        ) {
+          return pairs;
+        }
+        index = Math.floor(Math.random() * length - 1);
+      } while (!free[index] || !free[index + 1]);
+      free[index] = false;
+      free[index + 1] = false;
+      pairs.push([index, index + 1]);
+    }
+    return pairs;
+  }
+
+  changeDifficulty(level: number) {
+    this.currentDifficultyLevel = level;
+  }
+
   undo() {
     this.word.forEach((el) => {
       el.char = el.initialChar;
-      el.locked = false;
     });
-    this.swap(this.word[this.randomIndex], this.word[this.randomIndex + 1]);
-    this.charSwaped = false;
   }
 
   get arrows(): [number, number][] {
@@ -214,6 +229,17 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       arrrows.push([this.word[i].id, this.word[i + 1].id]);
     }
     return arrrows;
+  }
+
+  get swappedWord(): wordElement[] {
+    this.undo();
+    this.swapIndexes
+      .get(this.currentDifficultyLevel)
+      .forEach(([left, right]) => {
+        this.word[left].char = this.word[right].initialChar;
+        this.word[right].char = this.word[left].initialChar;
+      });
+    return this.word;
   }
 }
 </script>

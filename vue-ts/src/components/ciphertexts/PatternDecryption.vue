@@ -16,7 +16,12 @@
         </div>
         <div class="flex-item flex-row flex-center equal-space">
           <div>Lösung:</div>
-          <input class="card big-text" size="5" v-model="decryptedText" type="text" />
+          <input
+            class="card big-text"
+            size="5"
+            v-model="decryptedText"
+            type="text"
+          />
         </div>
       </div>
       <div>
@@ -70,7 +75,7 @@ export default class PatternDecryption extends Mixins(GameMixin)
     this.originalText = LoadRandomElement(this.dataKey)
       .split("")
       .map((letter) => letter.toUpperCase());
-    this.decryptedText = null
+    this.decryptedText = null;
 
     this.patterns = new Map<number, [number, number][]>();
     for (let level = 1; level <= this.difficultyLevels; level++) {
@@ -110,5 +115,4 @@ export default class PatternDecryption extends Mixins(GameMixin)
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
