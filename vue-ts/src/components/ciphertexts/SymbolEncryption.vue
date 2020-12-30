@@ -19,16 +19,7 @@
           <div v-if="encryptedText.length === 0">
             Platziere hier die Symbole
           </div>
-          <div class="canvas-container" v-else>
-            <canvas
-              v-for="(part, index) in original"
-              :key="index"
-              :id="'encrypted-' + index"
-              width="75"
-              height="75"
-              >{{ part }}</canvas
-            >
-          </div>
+          <div id="encrypted-container" class="canvas-container"></div>
         </div>
         <Undo @undo-operation="undo()" />
       </div>
@@ -74,10 +65,6 @@ export default class SymbolEncryption extends Mixins(GameMixin)
 
   selected: [string, number, number] = null;
 
-  mounted() {
-    this.drawShapes();
-  }
-
   updated() {
     this.drawShapes();
   }
@@ -89,6 +76,7 @@ export default class SymbolEncryption extends Mixins(GameMixin)
   restartGame() {
     this.originalText = LoadRandomElement(this.dataKey).toUpperCase();
     this.encryptedText = new Array<string>();
+    this.deleteAllChildren(document.getElementById("encrypted-container"))
   }
 
   isCorrect(): boolean {
@@ -107,11 +95,23 @@ export default class SymbolEncryption extends Mixins(GameMixin)
     if (this.selected === null) {
       return;
     }
-    if (this.encryptedText.length === this.originalText.length) {
-      return;
-    }
+    this.appendCanvas(document.getElementById("encrypted-container"))
     this.encryptedText.push(this.selected[0]);
     this.selected = null;
+  }
+
+  appendCanvas(container: HTMLElement) {
+    const id = container.childElementCount
+    const canvas = document.createElement("canvas") as HTMLCanvasElement
+    canvas.setAttribute("id", `encrypted-${id}`)
+    canvas.setAttribute("width", "75")
+    canvas.setAttribute("height", "75")
+    canvas.innerText = "encrypted symbol"
+    container.appendChild(canvas)
+  }
+
+  deleteAllChildren(container: HTMLElement) {
+    container.innerHTML =""
   }
 
   drawShapes() {
