@@ -32,7 +32,7 @@
         <div v-else>=</div>
       </div>
       <div v-if="currentDifficultyLevel === 1">
-        <input class="card" v-model.number="sum" type="number" />
+        <input class="card big-text" size="5" v-model.number="sum" type="number" />
       </div>
       <div
         class="flex-item flex-center flex-col flex-flex dropzone input"

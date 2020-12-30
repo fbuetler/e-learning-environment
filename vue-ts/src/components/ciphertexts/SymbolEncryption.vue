@@ -5,7 +5,7 @@
       <div class="flex-item flex-row flex-center">
         <div class="flex-item flex-row flex-center">
           <div>Text:</div>
-          <div class="canvas-container card text">
+          <div class="canvas-container card big-text">
             {{ originalText }}
           </div>
         </div>
@@ -145,8 +145,5 @@ export default class SymbolEncryption extends Mixins(GameMixin)
 <style scoped>
 .dropzone {
   min-height: 5em;
-}
-.text {
-  font-size: 2em;
 }
 </style>

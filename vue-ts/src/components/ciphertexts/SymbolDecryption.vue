@@ -23,7 +23,7 @@
         </div>
         <div class="flex-flex equal-space">
           Lösung:
-          <input class="card" v-model="decrypted" type="text" />
+          <input class="card big-text" size="5" v-model="decrypted" type="text" />
         </div>
       </div>
       <SymbolTable :table="table" :type="type" />

@@ -17,7 +17,7 @@
     </div>
     <hr />
     <div>Lösung:</div>
-    <input class="card" v-model.number="number" type="number" />
+    <input class="card big-text" size="5" v-model.number="number" type="number" />
   </div>
 </template>
 

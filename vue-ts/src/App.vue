@@ -128,4 +128,7 @@ button:focus {
 .equal-space {
   flex: 1 1 0px;
 }
+.big-text {
+  font-size: 2em;
+}
 </style>

@@ -10,13 +10,13 @@
       <div class="flex-item flex-row flex-center">
         <div class="flex-item flex-row flex-center equal-space">
           <div>Text:</div>
-          <div class="canvas-container card text">
+          <div class="canvas-container card big-text">
             {{ encryptedText }}
           </div>
         </div>
         <div class="flex-item flex-row flex-center equal-space">
           <div>Lösung:</div>
-          <input class="card text" v-model="decryptedText" type="text" />
+          <input class="card big-text" size="5" v-model="decryptedText" type="text" />
         </div>
       </div>
       <div>
@@ -111,7 +111,4 @@ export default class PatternDecryption extends Mixins(GameMixin)
 </script>
 
 <style scoped>
-.text {
-  font-size: 2em;
-}
 </style>
