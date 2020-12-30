@@ -180,27 +180,6 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     return this.isValid(this.values, this.views, true);
   }
 
-  putTree(event: Event, id: number) {
-    const [rowIndex, colIndex] = this.findFieldByID(id);
-    if (this.values[rowIndex][colIndex].locked) {
-      return;
-    }
-    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
-      const oldID = +event.dataTransfer.getData("id");
-      const [oldRowIndex, oldColIndex] = this.findFieldByID(oldID);
-      if (this.values[oldRowIndex][oldColIndex].locked) {
-        return;
-      }
-      this.selectedTree = this.values[oldRowIndex][oldColIndex].value;
-      Vue.set(this.values[oldRowIndex][oldColIndex], "value", 0);
-    }
-    if (this.selectedTree === null) {
-      return;
-    }
-    Vue.set(this.values[rowIndex][colIndex], "value", this.selectedTree);
-    this.selectedTree = null;
-  }
-
   generate(values: sudoku, views: number[][]): [sudoku, number[][]] {
     const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
       values.map((row) => row.map((col) => col.value))
@@ -369,12 +348,39 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     };
   }
 
-  gridSize(): string {
-    return `grid-template-rows: 0.5fr repeat(${this.size}, 1fr) 0.5fr;`;
+  findFieldByID(id: number): [number, number] {
+    let rowIndex: number;
+    let colIndex: number;
+    for (let i = 0; i < this.values.length; i++) {
+      for (let j = 0; j < this.values[i].length; j++) {
+        if (this.values[i][j].id == id) {
+          rowIndex = i;
+          colIndex = j;
+        }
+      }
+    }
+    return [rowIndex, colIndex];
   }
 
-  gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
-    return `grid-template-columns: 0.3fr repeat(${this.size}, 1fr) 0.3fr ; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
+  putTree(event: Event, id: number) {
+    const [rowIndex, colIndex] = this.findFieldByID(id);
+    if (this.values[rowIndex][colIndex].locked) {
+      return;
+    }
+    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
+      const oldID = +event.dataTransfer.getData("id");
+      const [oldRowIndex, oldColIndex] = this.findFieldByID(oldID);
+      if (this.values[oldRowIndex][oldColIndex].locked) {
+        return;
+      }
+      this.selectedTree = this.values[oldRowIndex][oldColIndex].value;
+      Vue.set(this.values[oldRowIndex][oldColIndex], "value", 0);
+    }
+    if (this.selectedTree === null) {
+      return;
+    }
+    Vue.set(this.values[rowIndex][colIndex], "value", this.selectedTree);
+    this.selectedTree = null;
   }
 
   startDrag(event: DragEvent, id: number) {
@@ -396,26 +402,20 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     Vue.set(this.values[rowIndex][colIndex], "value", 0);
   }
 
-  private findFieldByID(id: number): [number, number] {
-    let rowIndex: number;
-    let colIndex: number;
-    for (let i = 0; i < this.values.length; i++) {
-      for (let j = 0; j < this.values[i].length; j++) {
-        if (this.values[i][j].id == id) {
-          rowIndex = i;
-          colIndex = j;
-        }
-      }
-    }
-    return [rowIndex, colIndex];
-  }
-
   undo() {
     this.values.forEach((row) => {
       row.forEach((el) => {
         el.value = el.initialValue;
       });
     });
+  }
+
+  gridSize(): string {
+    return `grid-template-rows: 0.5fr repeat(${this.size}, 1fr) 0.5fr;`;
+  }
+
+  gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
+    return `grid-template-columns: 0.3fr repeat(${this.size}, 1fr) 0.3fr ; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
   }
 }
 </script>
