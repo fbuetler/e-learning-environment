@@ -381,7 +381,13 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     event.dataTransfer.setData("id", id.toString());
   }
 
-  trashElement(event: DragEvent) {
+  trashElement(event: Event) {
+    if (
+      !(event instanceof DragEvent) ||
+      event.dataTransfer.getData("id") === ""
+    ) {
+      return;
+    }
     const id = +event.dataTransfer.getData("id");
     const [rowIndex, colIndex] = this.findFieldByID(id);
     if (this.values[rowIndex][colIndex].locked) {

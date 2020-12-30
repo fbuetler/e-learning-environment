@@ -143,7 +143,13 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     event.dataTransfer.setData("id", id.toString());
   }
 
-  trashElement(event: DragEvent) {
+  trashElement(event: Event) {
+    if (
+      !(event instanceof DragEvent) ||
+      event.dataTransfer.getData("id") === ""
+    ) {
+      return;
+    }
     const id = +event.dataTransfer.getData("id");
     if (this.values.find((el) => el.id === id).locked) {
       return;

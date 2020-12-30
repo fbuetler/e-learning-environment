@@ -76,7 +76,7 @@ export default class SymbolEncryption extends Mixins(GameMixin)
   restartGame() {
     this.originalText = LoadRandomElement(this.dataKey).toUpperCase();
     this.encryptedText = new Array<string>();
-    this.deleteAllChildren(document.getElementById("encrypted-container"))
+    this.deleteAllChildren(document.getElementById("encrypted-container"));
   }
 
   isCorrect(): boolean {
@@ -95,23 +95,29 @@ export default class SymbolEncryption extends Mixins(GameMixin)
     if (this.selected === null) {
       return;
     }
-    this.appendCanvas(document.getElementById("encrypted-container"))
+    this.appendCanvas(document.getElementById("encrypted-container"));
     this.encryptedText.push(this.selected[0]);
     this.selected = null;
   }
 
   appendCanvas(container: HTMLElement) {
-    const id = container.childElementCount
-    const canvas = document.createElement("canvas") as HTMLCanvasElement
-    canvas.setAttribute("id", `encrypted-${id}`)
-    canvas.setAttribute("width", "75")
-    canvas.setAttribute("height", "75")
-    canvas.innerText = "encrypted symbol"
-    container.appendChild(canvas)
+    if (container === null) {
+      return;
+    }
+    const id = container.childElementCount;
+    const canvas = document.createElement("canvas") as HTMLCanvasElement;
+    canvas.setAttribute("id", `encrypted-${id}`);
+    canvas.setAttribute("width", "75");
+    canvas.setAttribute("height", "75");
+    canvas.innerText = "encrypted symbol";
+    container.appendChild(canvas);
   }
 
   deleteAllChildren(container: HTMLElement) {
-    container.innerHTML =""
+    if (container === null) {
+      return;
+    }
+    container.innerHTML = "";
   }
 
   drawShapes() {
