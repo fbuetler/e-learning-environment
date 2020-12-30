@@ -732,6 +732,7 @@ export const LetterTable: SymbolConfig[][] = [
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "T"]])]],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "U"]])]],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "V"]])]],
+    [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "W"]])]],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "X"]])]],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Y"]])]],
     [[Shape.TEXT, new Map<string, number | string | boolean>([["text", "Z"]])]],
