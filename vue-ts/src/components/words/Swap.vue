@@ -82,6 +82,11 @@ import GameMixin, { GameInterface } from "../Game";
 import Undo from "@/components/Undo.vue";
 import { LoadWords, wordElement } from "./Words";
 
+/*
+  TODO:
+    - add more difficulty levels
+*/
+
 @Component<Change>({
   components: {
     Undo,

@@ -84,6 +84,11 @@ import Alphabet from "@/components/words/Alphabet.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { LoadWords, wordElement } from "./Words";
 
+/*
+  TODO:
+    - increase droppable are vertically so one can drop new letters between existing ones
+*/
+
 @Component<Add>({
   components: {
     Alphabet,

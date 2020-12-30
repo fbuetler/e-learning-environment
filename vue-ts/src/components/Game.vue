@@ -75,6 +75,12 @@ export enum GameType {
   COINSTO = "CoinsTo",
 }
 
+/*
+  TODO:
+    - rework word list: all similar words should be valid
+    - add tutorial videos
+*/
+
 @Component({
   components: {
     Buttonmenu,
