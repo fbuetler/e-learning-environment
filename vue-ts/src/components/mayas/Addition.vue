@@ -3,7 +3,8 @@
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="changeDifficulty($event)"
+      @difficulty-selected="currentDifficultyLevel = $event"
+      v
     />
     <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
     <div class="flex-item flex-wrap flex-center flex-row">
@@ -32,7 +33,12 @@
         <div v-else>=</div>
       </div>
       <div v-if="currentDifficultyLevel === 1">
-        <input class="card big-text" size="5" v-model.number="sum" type="number" />
+        <input
+          class="card big-text"
+          size="5"
+          v-model.number="sum"
+          type="number"
+        />
       </div>
       <div
         class="flex-item flex-center flex-col flex-flex dropzone input"
@@ -105,9 +111,6 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
   }
 
   restartGame() {
-    if (this.currentDifficultyLevel === null) {
-      this.currentDifficultyLevel = 1;
-    }
     this.selected = null;
     this.summands = new Array(this.numberOfSummands);
     let sum: number;
@@ -142,10 +145,6 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
         expectedSum
       );
     }
-  }
-
-  changeDifficulty(level: number) {
-    this.currentDifficultyLevel = level;
   }
 
   addItem() {

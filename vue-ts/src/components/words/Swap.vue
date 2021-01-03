@@ -3,7 +3,7 @@
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="changeDifficulty($event)"
+      @difficulty-selected="currentDifficultyLevel = $event"
     />
     <div>
       Versuch ein neues Wort zu bilden, indem du zwei Buchstaben vertauschst.
@@ -118,9 +118,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   }
 
   restartGame() {
-    if (this.currentDifficultyLevel === null) {
-      this.currentDifficultyLevel = 1;
-    }
     this.word = LoadWords(this.dataKey)[0];
     for (let level = 1; level <= this.difficultyLevels; level++) {
       this.swapIndexes.set(level, this.getSwapPairs(this.word.length, level));
@@ -211,10 +208,6 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       pairs.push([index, index + 1]);
     }
     return pairs;
-  }
-
-  changeDifficulty(level: number) {
-    this.currentDifficultyLevel = level;
   }
 
   undo() {

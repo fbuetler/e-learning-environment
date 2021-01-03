@@ -3,7 +3,7 @@
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="changeDifficulty($event)"
+      @difficulty-selected="currentDifficultyLevel = $event"
     />
     <div class="flex-item flex-col">
       <div>Entschlüssle den Text mit Hilfe der Tabelle!</div>
@@ -23,7 +23,12 @@
         </div>
         <div class="flex-flex equal-space">
           Lösung:
-          <input class="card big-text" size="5" v-model="decrypted" type="text" />
+          <input
+            class="card big-text"
+            size="5"
+            v-model="decrypted"
+            type="text"
+          />
         </div>
       </div>
       <SymbolTable :table="table" :type="type" />
@@ -78,11 +83,8 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   }
 
   restartGame() {
-    if (this.currentDifficultyLevel === null) {
-      this.currentDifficultyLevel = 1;
-    }
     this.originalNumbers = String(LoadRandomNumber()).split("");
-    this.decrypted = null
+    this.decrypted = null;
 
     this.originalLetters = LoadRandomElement(this.dataKey)
       .split("")
@@ -105,10 +107,6 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       );
       cvText.draw(this.lookup.get(part));
     });
-  }
-
-  changeDifficulty(level: number) {
-    this.currentDifficultyLevel = level;
   }
 
   get original(): string[] {

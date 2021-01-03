@@ -3,7 +3,7 @@
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="changeDifficulty($event)"
+      @difficulty-selected="currentDifficultyLevel = $event"
     />
     <div class="flex-item flex-col">
       <div>Entschlüssle den Text mit Hilfe des Musters!</div>
@@ -69,9 +69,6 @@ export default class PatternDecryption extends Mixins(GameMixin)
   }
 
   restartGame() {
-    if (this.currentDifficultyLevel === null) {
-      this.currentDifficultyLevel = 1;
-    }
     this.originalText = LoadRandomElement(this.dataKey)
       .split("")
       .map((letter) => letter.toUpperCase());
@@ -97,10 +94,6 @@ export default class PatternDecryption extends Mixins(GameMixin)
       this.originalText.length,
       this.patterns.get(this.currentDifficultyLevel)
     );
-  }
-
-  changeDifficulty(level: number) {
-    this.currentDifficultyLevel = level;
   }
 
   get encryptedText(): string {

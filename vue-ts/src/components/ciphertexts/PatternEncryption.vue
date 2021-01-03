@@ -3,7 +3,7 @@
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="changeDifficulty($event)"
+      @difficulty-selected="currentDifficultyLevel = $event"
     />
     <div class="flex-item flex-col">
       <div>Verschlüssle den Text mit Hilfe des Musters!</div>
@@ -16,7 +16,12 @@
         </div>
         <div class="flex-item flex-row flex-center equal-space">
           <div>Lösung:</div>
-          <input class="card big-text" size="5" v-model="encryptedText" type="text" />
+          <input
+            class="card big-text"
+            size="5"
+            v-model="encryptedText"
+            type="text"
+          />
         </div>
       </div>
       <div>
@@ -64,13 +69,10 @@ export default class PatternEncryption extends Mixins(GameMixin)
   }
 
   restartGame() {
-    if (this.currentDifficultyLevel === null) {
-      this.currentDifficultyLevel = 1;
-    }
     this.originalText = LoadRandomElement(this.dataKey)
       .split("")
       .map((letter) => letter.toUpperCase());
-    this.encryptedText = null
+    this.encryptedText = null;
 
     this.patterns = new Map<number, [number, number][]>();
     for (let level = 1; level <= this.difficultyLevels; level++) {
@@ -100,15 +102,10 @@ export default class PatternEncryption extends Mixins(GameMixin)
     );
   }
 
-  changeDifficulty(level: number) {
-    this.currentDifficultyLevel = level;
-  }
-
   get decryptedText(): string {
     return this.originalText.join("");
   }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
