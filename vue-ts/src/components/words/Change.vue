@@ -44,10 +44,10 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Change extends Mixins(GameMixin) implements GameInterface {
-  private dataKey = "change";
-  private word: wordElement[] = null;
-  private similarWords: string[] = null;
-  private selectedChar: string = null;
+  dataKey = "change";
+  word: wordElement[] = null;
+  similarWords: string[] = null;
+  selectedChar: string = null;
 
   isStarted(): boolean {
     return this.word === null;

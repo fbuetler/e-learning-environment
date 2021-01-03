@@ -106,22 +106,22 @@ export enum GameType {
 })
 export default class Game extends Vue {
   @Prop({ required: true })
-  private type: GameType;
+  type: GameType;
   @Prop()
-  private title: string;
+  title: string;
   @Prop({ type: Object, default: () => ({}) })
-  private args: {};
+  args: {};
   @Prop({ required: true })
   description: string;
   @Prop({ required: true })
   video: string;
 
-  private restartGameText = "Nächstes Rätsel!";
-  private evaluateGameText = "Überprüfen!";
-  private resultText = "";
-  private isCorrect = false;
+  restartGameText = "Nächstes Rätsel!";
+  evaluateGameText = "Überprüfen!";
+  resultText = "";
+  isCorrect = false;
 
-  private evaluatedGame(correct: boolean): void {
+  evaluatedGame(correct: boolean): void {
     if (correct) {
       this.resultText = "Richtig!";
       this.isCorrect = true;

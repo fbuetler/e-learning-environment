@@ -34,7 +34,7 @@ export default class Tutorial extends Vue {
   @Prop({ required: true })
   video: string;
 
-  private modal: HTMLElement;
+  modal: HTMLElement;
 
   created() {
     EventBus.$on(EventBusEvents.CloseModal, (event) => this.closeModal(event));

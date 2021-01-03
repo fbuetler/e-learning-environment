@@ -17,14 +17,14 @@ import { EventBus, EventBusEvents } from "./EventBus";
 @Component
 export default class Buttonmenu extends Vue {
   @Prop({ type: String, required: true })
-  private restartGameText!: string;
+  restartGameText!: string;
   @Prop({ type: String, required: true })
-  private evaluateGameText!: string;
+  evaluateGameText!: string;
 
-  private emitRestartGameEvent() {
+  emitRestartGameEvent() {
     EventBus.$emit(EventBusEvents.RestartGame);
   }
-  private emitEvalGameEvent() {
+  emitEvalGameEvent() {
     EventBus.$emit(EventBusEvents.EvaluateGame);
   }
 }

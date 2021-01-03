@@ -28,9 +28,9 @@ import MayasMixin, { itemType } from "./Mayas";
 @Component<NutsAndSticks>({})
 export default class NutsAndSticks extends Mixins(MayasMixin) {
   @Prop({ required: true })
-  private selected: itemType;
+  selected: itemType;
 
-  private items: { id: number; type: itemType; img: string }[] = [
+  items: { id: number; type: itemType; img: string }[] = [
     {
       id: 1,
       type: itemType.NUT,

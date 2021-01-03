@@ -85,11 +85,11 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Add extends Mixins(GameMixin) implements GameInterface {
-  private dataKey = "add";
-  private word: wordElement[] = null;
-  private similarWords: string[] = null;
-  private selectedChar: string = null;
-  private charAdded = false;
+  dataKey = "add";
+  word: wordElement[] = null;
+  similarWords: string[] = null;
+  selectedChar: string = null;
+  charAdded = false;
 
   created() {
     window.addEventListener("resize", this.drawArrows);

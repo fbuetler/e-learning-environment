@@ -23,9 +23,9 @@ import { Component, Prop } from "vue-property-decorator";
 @Component<Alphabet>({})
 export default class Alphabet extends Vue {
   @Prop()
-  private selectedChar: string;
+  selectedChar: string;
 
-  private alphabet = [
+  alphabet = [
     "A",
     "B",
     "C",

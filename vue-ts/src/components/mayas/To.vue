@@ -49,11 +49,11 @@ import Undo from "@/components/Undo.vue";
 })
 export default class To extends Mixins(GameMixin, MayasMixin)
   implements GameInterface {
-  private number: number = null;
-  private selected: itemType = null;
-  private selectedItems: Array<itemType> = null;
+  number: number = null;
+  selected: itemType = null;
+  selectedItems: Array<itemType> = null;
 
-  private limit = 19;
+  limit = 19;
 
   isStarted(): boolean {
     return this.number == null;

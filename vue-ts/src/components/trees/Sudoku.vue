@@ -142,14 +142,16 @@ type sudoku = sudokuField[][];
 export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   implements GameInterface {
   @Prop({ required: true })
-  private args!: { size: number };
+  args!: { size: number };
 
-  private size: number = this.args.size;
+  size: number = this.args.size;
 
-  private values: sudoku = null;
-  private views: number[][] = null;
+  values: sudoku = null;
+  views: number[][] = null;
 
-  private valuesSolution: number[][] = null;
+  valuesSolution: number[][] = null;
+
+  selectedTree = null;
 
   private selectedTree = null;
 

@@ -91,12 +91,12 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Change extends Mixins(GameMixin) implements GameInterface {
-  private dataKey = "change";
-  private word: wordElement[] = null;
-  private swapIndexes = new Map<number, [number, number][]>();
+  dataKey = "change";
+  word: wordElement[] = null;
+  swapIndexes = new Map<number, [number, number][]>();
 
-  private difficultyLevels = 2;
-  private currentDifficultyLevel: number = null;
+  difficultyLevels = 2;
+  currentDifficultyLevel: number = null;
 
   created() {
     window.addEventListener("resize", this.drawArrows);

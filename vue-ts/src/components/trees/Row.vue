@@ -65,15 +65,15 @@ type row = rowField[];
 export default class Row extends Mixins(GameMixin, TreesMixin)
   implements GameInterface {
   @Prop({ required: true })
-  private args!: { size: number };
+  args!: { size: number };
 
-  private size: number = this.args.size;
+  size: number = this.args.size;
 
-  private values: row = null;
-  private leftView: number = null;
-  private rightView: number = null;
+  values: row = null;
+  leftView: number = null;
+  rightView: number = null;
 
-  private selectedTree = null;
+  selectedTree = null;
 
   isStarted(): boolean {
     return (

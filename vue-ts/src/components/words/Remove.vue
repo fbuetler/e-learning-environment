@@ -46,11 +46,11 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Remove extends Mixins(GameMixin) implements GameInterface {
-  private dataKey = "remove";
-  private word: wordElement[] = null;
-  private similarWords: string[] = null;
-  private selectedChar: number = null;
-  private charRemoved = false;
+  dataKey = "remove";
+  word: wordElement[] = null;
+  similarWords: string[] = null;
+  selectedChar: number = null;
+  charRemoved = false;
 
   isStarted(): boolean {
     return this.word === null;
