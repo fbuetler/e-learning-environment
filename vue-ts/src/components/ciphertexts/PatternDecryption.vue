@@ -53,7 +53,7 @@ export default class PatternDecryption extends Mixins(GameMixin)
 
   patterns: Map<number, [number, number][]> = null;
 
-  currentDifficultyLevel: number = null;
+  currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
   mounted() {

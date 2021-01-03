@@ -67,7 +67,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   originalLetters: string[] = null;
   decrypted: string = null;
 
-  currentDifficultyLevel: number = null;
+  currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
   mounted() {

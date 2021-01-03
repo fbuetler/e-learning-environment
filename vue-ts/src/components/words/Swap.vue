@@ -96,7 +96,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   swapIndexes = new Map<number, [number, number][]>();
 
   difficultyLevels = 2;
-  currentDifficultyLevel: number = null;
+  currentDifficultyLevel = 1;
 
   created() {
     window.addEventListener("resize", this.drawArrows);

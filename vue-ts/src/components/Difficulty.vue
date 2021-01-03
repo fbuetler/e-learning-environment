@@ -33,12 +33,6 @@ export default class Difficulty extends Vue {
 
   maxDifficultyLevels = 3;
 
-  mounted() {
-    if (this.selected === null) {
-      this.selectDifficulty(1);
-    }
-  }
-
   selectDifficulty(level: number) {
     if (level > this.difficultyLevels) {
       return;
@@ -67,7 +61,7 @@ export default class Difficulty extends Vue {
   }
 
   get displayDifficultyLevels(): number {
-    return Math.min(this.difficultyLevels, 3);
+    return Math.min(this.difficultyLevels, this.maxDifficultyLevels);
   }
 }
 </script>
