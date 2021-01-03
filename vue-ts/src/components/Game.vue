@@ -79,6 +79,7 @@ export enum GameType {
   TODO:
     - rework word list: all similar words should be valid, also words with a distance of at least 2 (swap)
     - add tutorial videos
+    - check if vue slots are possible for tutorial html embedding
 */
 
 @Component({

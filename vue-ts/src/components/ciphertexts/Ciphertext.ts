@@ -38,7 +38,7 @@ export function CreatePattern(
     const rightIndex = Math.floor(Math.random() * letters.length);
     const right = letters[rightIndex];
     letters.splice(rightIndex, 1);
-    pattern.push([left, right]);
+    pattern.push([Math.min(left, right), Math.max(left, right)]);
   }
   return pattern;
 }
@@ -389,6 +389,7 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
 
     // sort to have it easier to draw the lines connecting the boxes on the right height
     connectAndFill.sort(([a, b], [c, d]) => Math.abs(a - b) - Math.abs(c - d));
+    const arrowLevelY = this.calculateArrowLevelY(connectAndFill);
     for (let i = 0; i < connectAndFill.length; i++) {
       const [left, right] = connectAndFill[i];
       if (
@@ -437,10 +438,16 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
         );
       }
 
-      // TODO maybe draw some arrow above the pattern to have more space
-      // TODO only change level of connecting lines if crossing
+      /*
+        TODO:
+          - maybe draw some arrow above the pattern to have more spaces
+      */
+
       const lineY =
-        rectHeight + 20 + (i + 1) * ((rectHeight + rectY + 20) / cells);
+        rectHeight +
+        20 +
+        arrowLevelY.get(JSON.stringify(connectAndFill[i])) *
+          ((rectHeight + rectY + 20) / cells);
       // connect arrows
       this.ctx.beginPath();
       this.ctx.moveTo(
@@ -473,6 +480,26 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
     this.ctx.lineTo(headX + headWidth / 2, headY + headHeight);
     this.ctx.lineTo(headX, headY);
     this.ctx.fill();
+  }
+
+  calculateArrowLevelY(
+    connectAndFill: [number, number][]
+  ): Map<string, number> {
+    const level = new Map<string, number>();
+    connectAndFill.forEach((el) => level.set(JSON.stringify(el), 1));
+    for (let i = 0; i < connectAndFill.length; i++) {
+      const [a, b] = connectAndFill[i];
+      for (let j = i + 1; j < connectAndFill.length; j++) {
+        const [c, d] = connectAndFill[j];
+        if (c < a && b < d) {
+          level.set(
+            JSON.stringify(connectAndFill[j]),
+            level.get(JSON.stringify(connectAndFill[i])) + 1
+          );
+        }
+      }
+    }
+    return level;
   }
 }
 

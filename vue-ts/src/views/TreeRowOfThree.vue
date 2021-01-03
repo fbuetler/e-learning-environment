@@ -14,10 +14,6 @@ import { Component } from "vue-property-decorator";
 import Game, { GameType } from "../components/Game.vue";
 import views from "./Views";
 
-/*
-  TODO check if slots are possible for tutorial html embedding
-*/
-
 @Component({
   components: {
     Game,
