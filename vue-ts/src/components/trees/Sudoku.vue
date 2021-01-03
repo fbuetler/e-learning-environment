@@ -1,5 +1,10 @@
 <template>
   <div @dragend="selectedTree = null">
+    <Difficulty
+      :selected="currentDifficultyLevel"
+      :difficultyLevels="difficultyLevels"
+      @difficulty-selected="changeDifficultyLevel($event)"
+    />
     <div>
       Versuch das Baumsudoku zu lösen.
     </div>
@@ -114,16 +119,13 @@ import TreesMixin from "./Trees";
 import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
+import Difficulty from "../Difficulty.vue";
 
 /*
-  TODO: 
+  TODO:
     - click placed tree and then trashcan to delete
     - restyle grid, especially that it fits on one page
       (https://css-tricks.com/scaled-proportional-blocks-with-css-and-javascript/)
-    - sudoku mit mehr informationen (zB Schwierigkeitsgrad)
-      - ohne zahlen nur bäume (3/4 der Lösung gesetzt)
-      - mit zahlen aber viele infos (1/2 der Lösung gesetzt)
-      - mit zahlen aber weniger infos (minimale Anzahl gesetzt so dass noch eindeutig)
 */
 
 type sudokuField = {
@@ -132,6 +134,7 @@ type sudokuField = {
   initialValue: number;
   locked: boolean;
 };
+
 type sudoku = sudokuField[][];
 
 @Component<Sudoku>({
@@ -139,6 +142,7 @@ type sudoku = sudokuField[][];
     Trees,
     Trashcan,
     Undo,
+    Difficulty,
   },
 })
 export default class Sudoku extends Mixins(GameMixin, TreesMixin)
@@ -151,11 +155,19 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   values: sudoku = null;
   views: number[][] = null;
 
-  valuesSolution: number[][] = null;
+  valuesSolution: sudoku = null;
 
   selectedTree = null;
 
-  private selectedTree = null;
+  currentDifficultyLevel = 1;
+  difficultyLevels = 3;
+  // states how many percent of the values are initially set
+  minimalCoveragePerLevel: Map<number, number> = new Map([
+    [1, 0.75], // size 3: 2 missing, size 4: 4 missing
+    [2, 0.5], // size 3: 4 missing, size 4: 8 missing
+    [3, 0], // only minimal amount of information given to solve the sudoku uniquely
+  ]);
+  LevelsWithNoViews = [1]; // no view values, only trees
 
   isStarted(): boolean {
     return this.values === null || this.views === null;
@@ -178,6 +190,8 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
         .fill(0)
         .map(() => new Array<number>(this.size).fill(0))
     );
+
+    this.values = this.guaranteeMinimalCoverage();
   }
 
   isCorrect(): boolean {
@@ -202,7 +216,10 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     }
     this.shuffle(numbers);
     for (let i = 0; i < numbers.length; i++) {
-      if (Math.random() <= 0.5) {
+      if (
+        Math.random() <= 0.5 ||
+        this.LevelsWithNoViews.includes(this.currentDifficultyLevel)
+      ) {
         values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
           emptyValueSlotRow,
           emptyValueSlotCol,
@@ -246,7 +263,8 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       values.map((row) => row.map((col) => col.value))
     );
     if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
-      this.valuesSolution = JSON.parse(JSON.stringify(values)); // deep copy
+      // this is possibly overwritten several times until a unique solution is found
+      this.valuesSolution = JSON.parse(JSON.stringify(values)) as sudoku; // deep copy
       return solutions + 1;
     }
 
@@ -269,13 +287,10 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   }
 
   findEmptySlot(slots: number[][]): [number, number] {
-    const indexes: [number, number][] = [];
-    for (let i = 0; i < slots.length; i++) {
-      for (let j = 0; j < slots[i].length; j++) {
-        indexes.push([i, j]);
-      }
-    }
-    this.shuffle(indexes);
+    const indexes = this.indexesInRandomOrder(
+      slots.length,
+      (slots[0] || []).length
+    );
     for (let i = 0; i < indexes.length; i++) {
       const [row, col] = indexes[i];
       if (slots[row][col] === 0) {
@@ -283,6 +298,17 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       }
     }
     return [null, null];
+  }
+
+  indexesInRandomOrder(rows: number, cols: number): [number, number][] {
+    const indexes: [number, number][] = [];
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        indexes.push([i, j]);
+      }
+    }
+    this.shuffle(indexes);
+    return indexes;
   }
 
   isValid(values: sudoku, views: number[][], complete: boolean): boolean {
@@ -336,6 +362,42 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       }
     }
     return true;
+  }
+
+  guaranteeMinimalCoverage(): sudoku {
+    const indexes = this.indexesInRandomOrder(this.size, this.size);
+    const values = JSON.parse(JSON.stringify(this.valuesSolution)) as sudoku;
+    values.forEach((row) => row.forEach((col) => (col.locked = true)));
+
+    while (indexes.length > 0) {
+      const [row, col] = indexes.shift();
+      const tmpValue = values[row][col].value;
+      values[row][col].value = 0;
+
+      if (
+        this.calculateValueCoverage(values) <
+          this.minimalCoveragePerLevel.get(this.currentDifficultyLevel) ||
+        this.solve(values, this.views, 0) !== 1
+      ) {
+        values[row][col].value = tmpValue;
+        break;
+      }
+      values[row][col].locked = false;
+    }
+    return values;
+  }
+
+  calculateValueCoverage(values: sudoku): number {
+    const total = this.size * this.size;
+    const covered = values.reduce(
+      (rowSum, row) =>
+        (rowSum += row.reduce(
+          (colSum, col) => (colSum += col.value !== 0 ? 1 : 0),
+          0
+        )),
+      0
+    );
+    return covered / total;
   }
 
   createSudokuField(
@@ -420,6 +482,11 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 
   gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
     return `grid-template-columns: 0.3fr repeat(${this.size}, 1fr) 0.3fr ; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
+  }
+
+  changeDifficultyLevel(level: number) {
+    this.currentDifficultyLevel = level;
+    this.restartGame();
   }
 
   get topView(): number[] {
