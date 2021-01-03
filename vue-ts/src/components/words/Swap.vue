@@ -93,7 +93,7 @@ import { LoadWords, wordElement } from "./Words";
 export default class Change extends Mixins(GameMixin) implements GameInterface {
   dataKey = "change";
   word: wordElement[] = null;
-  swapIndexes = new Map<number, [number, number][]>();
+  swapIndexesPerLevel = new Map<number, [number, number][]>();
 
   difficultyLevels = 2;
   currentDifficultyLevel = 1;
@@ -120,7 +120,10 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   restartGame() {
     this.word = LoadWords(this.dataKey)[0];
     for (let level = 1; level <= this.difficultyLevels; level++) {
-      this.swapIndexes.set(level, this.getSwapPairs(this.word.length, level));
+      this.swapIndexesPerLevel.set(
+        level,
+        this.getSwapPairs(this.word.length, level)
+      );
     }
   }
 
@@ -226,7 +229,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
 
   get swappedWord(): wordElement[] {
     this.undo();
-    this.swapIndexes
+    this.swapIndexesPerLevel
       .get(this.currentDifficultyLevel)
       .forEach(([left, right]) => {
         this.word[left].char = this.word[right].initialChar;

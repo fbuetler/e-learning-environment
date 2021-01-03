@@ -51,7 +51,7 @@ export default class PatternEncryption extends Mixins(GameMixin)
   originalText: string[] = null;
   encryptedText: string = null;
 
-  patterns: Map<number, [number, number][]> = null;
+  patternPerLevel: Map<number, [number, number][]> = null;
 
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
@@ -74,9 +74,9 @@ export default class PatternEncryption extends Mixins(GameMixin)
       .map((letter) => letter.toUpperCase());
     this.encryptedText = null;
 
-    this.patterns = new Map<number, [number, number][]>();
+    this.patternPerLevel = new Map<number, [number, number][]>();
     for (let level = 1; level <= this.difficultyLevels; level++) {
-      this.patterns.set(level, CreatePattern(this.originalText, level));
+      this.patternPerLevel.set(level, CreatePattern(this.originalText, level));
     }
   }
 
@@ -85,11 +85,13 @@ export default class PatternEncryption extends Mixins(GameMixin)
       return false;
     }
     const text = JSON.parse(JSON.stringify(this.originalText)) as string[];
-    this.patterns.get(this.currentDifficultyLevel).forEach(([left, right]) => {
-      const tmp = text[left];
-      text[left] = text[right];
-      text[right] = tmp;
-    });
+    this.patternPerLevel
+      .get(this.currentDifficultyLevel)
+      .forEach(([left, right]) => {
+        const tmp = text[left];
+        text[left] = text[right];
+        text[right] = tmp;
+      });
     return text.join("") === this.encryptedText.toUpperCase();
   }
 
@@ -98,7 +100,7 @@ export default class PatternEncryption extends Mixins(GameMixin)
       document.getElementById(`pattern-canvas`) as HTMLCanvasElement
     ).draw(
       this.originalText.length,
-      this.patterns.get(this.currentDifficultyLevel)
+      this.patternPerLevel.get(this.currentDifficultyLevel)
     );
   }
 
