@@ -13,7 +13,7 @@
         <!-- top view -->
         <div
           class="card"
-          v-for="(visible, topIndex) in views[0]"
+          v-for="(visible, topIndex) in topView"
           :key="`top-${topIndex}`"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
@@ -36,7 +36,7 @@
       >
         <!-- left view -->
         <div class="card">
-          <span v-if="views[1][rowIndex] !== 0">{{ views[1][rowIndex] }}</span>
+          <span v-if="leftView[rowIndex] !== 0">{{ leftView[rowIndex] }}</span>
           <span v-else></span>
         </div>
         <!-- values -->
@@ -65,7 +65,9 @@
         </div>
         <!-- right view -->
         <div class="card">
-          <span v-if="views[2][rowIndex] !== 0">{{ views[2][rowIndex] }}</span>
+          <span v-if="rightView[rowIndex] !== 0">{{
+            rightView[rowIndex]
+          }}</span>
           <span v-else></span>
         </div>
       </div>
@@ -81,7 +83,7 @@
         <!-- bottom view -->
         <div
           class="card"
-          v-for="(visible, bottomIndex) in views[3]"
+          v-for="(visible, bottomIndex) in bottomView"
           :key="`bottom-${bottomIndex}`"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
@@ -418,6 +420,22 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 
   gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
     return `grid-template-columns: 0.3fr repeat(${this.size}, 1fr) 0.3fr ; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
+  }
+
+  get topView(): number[] {
+    return this.views[0];
+  }
+
+  get leftView(): number[] {
+    return this.views[1];
+  }
+
+  get rightView(): number[] {
+    return this.views[2];
+  }
+
+  get bottomView(): number[] {
+    return this.views[3];
   }
 }
 </script>
