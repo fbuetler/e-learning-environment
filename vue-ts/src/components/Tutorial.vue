@@ -1,14 +1,18 @@
 <template>
-  <div
-    id="tutorial"
-    class="tutorial flex-item flex-center card"
-    title="Anleitung öffnen"
-    @click="openModal()"
-  >
-    <img :src="require('@/assets/icons/lightbulb.png')" />
-    <div id="tutorial" class="modal">
+  <div>
+    <div
+      id="tutorial"
+      class="tutorial flex-item flex-center card"
+      title="Anleitung öffnen"
+      @click="showModal = true"
+    >
+      <img :src="require('@/assets/icons/lightbulb.png')" />
+    </div>
+    <modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">Anleitung</h3>
       <div
-        class="modal-content flex-item flex-center flex-space-between flex-row"
+        slot="body"
+        class="flex-item flex-center flex-space-between flex-row"
       >
         <div class="equal-space">
           <p v-html="description"></p>
@@ -20,40 +24,26 @@
           </video>
         </div>
       </div>
-    </div>
+    </modal>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { EventBus, EventBusEvents } from "./EventBus";
+import Modal from "./Modal.vue";
 
-@Component<Tutorial>({})
+@Component<Tutorial>({
+  components: {
+    Modal,
+  },
+})
 export default class Tutorial extends Vue {
   @Prop({ required: true })
   description: string;
   @Prop({ required: true })
   video: string;
 
-  modal: HTMLElement;
-
-  created() {
-    EventBus.$on(EventBusEvents.CloseModal, (event) => this.closeModal(event));
-  }
-
-  mounted() {
-    this.modal = document.getElementById("tutorial");
-  }
-
-  openModal() {
-    this.modal.style.display = "block";
-  }
-
-  closeModal(event: Event) {
-    if (event.target === this.modal) {
-      this.modal.style.display = "none";
-    }
-  }
+  showModal = false;
 }
 </script>
 

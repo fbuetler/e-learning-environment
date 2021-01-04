@@ -1,5 +1,5 @@
 <template>
-  <div id="app" @click="emitCloseModal($event)">
+  <div id="app">
     <Header />
     <router-view />
     <Footer />
@@ -7,22 +7,18 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 import Header from "@/components/layout/Header.vue";
 import Footer from "@/components/layout/Footer.vue";
-import { EventBus, EventBusEvents } from "./components/EventBus";
 
-export default {
-  name: "app",
+@Component<App>({
   components: {
     Header,
     Footer,
   },
-  methods: {
-    emitCloseModal(event: Event) {
-      EventBus.$emit(EventBusEvents.CloseModal, event);
-    },
-  },
-};
+})
+export default class App extends Vue {}
 </script>
 
 <style>
@@ -100,41 +96,6 @@ button:focus {
   min-height: 1em;
   min-width: 1em;
   margin: 1em;
-}
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 60%;
-}
-
-/* The Close Button */
-.modal-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.modal.close:hover,
-.modal-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 .equal-space {
   flex: 1 1 0px;

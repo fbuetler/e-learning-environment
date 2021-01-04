@@ -4,8 +4,8 @@
       <h2>{{ title }}</h2>
       <Tutorial :video="video" :description="description" />
     </div>
-    <div id="result" class="modal">
-      <div class="modal-content flex-item flex-center flex-col">
+    <modal id="result" v-if="showModal" @close="showModal = false">
+      <div slot="body" class="flex-item flex-center flex-col">
         <div>
           <img
             :src="require('@/assets/beavers/correct.png')"
@@ -17,7 +17,7 @@
           <h3>{{ resultText }}</h3>
         </div>
       </div>
-    </div>
+    </modal>
     <div>
       <Buttonmenu
         :restartGameText="restartGameText"
@@ -37,6 +37,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Buttonmenu from "@/components/Buttonmenu.vue";
 import Tutorial from "@/components/Tutorial.vue";
+import Modal from "@/components/Modal.vue";
 import TreeRow from "@/components/trees/Row.vue";
 import TreeSudoku from "@/components/trees/Sudoku.vue";
 import WordsAdd from "@/components/words/Add.vue";
@@ -86,6 +87,7 @@ export enum GameType {
   components: {
     Buttonmenu,
     Tutorial,
+    Modal,
     TreeRow,
     TreeSudoku,
     WordsAdd,
@@ -121,6 +123,7 @@ export default class Game extends Vue {
   evaluateGameText = "Überprüfen!";
   resultText = "";
   isCorrect = false;
+  showModal = false;
 
   evaluatedGame(correct: boolean): void {
     if (correct) {
@@ -130,12 +133,9 @@ export default class Game extends Vue {
       this.resultText = "Falsch!";
       this.isCorrect = false;
     }
-    const resultModal = document.getElementById("result");
-    resultModal.style.display = "block";
+    this.showModal = true;
     setTimeout(() => {
-      resultModal.style.display = "none";
-      this.resultText = "";
-      this.isCorrect = false;
+      this.showModal = false;
     }, 1500);
   }
 
@@ -153,11 +153,6 @@ export default class Game extends Vue {
 .locked {
   background: lightgray !important;
   border: 3px solid #cccccc;
-}
-#result > .modal-content {
-  background-color: transparent;
-  border: none;
-  color: white;
 }
 
 /* the special snowflakes */
