@@ -29,7 +29,10 @@ export default class TutorialAnimation extends Vue {
   mounted() {
     this.mouse = document.getElementById("mouse") as HTMLElement;
     this.centerMouse();
-    requestAnimationFrame(this.animate);
+    setTimeout(
+      () => requestAnimationFrame(this.animate),
+      this.animationIntervalMs
+    );
   }
 
   centerMouse() {
@@ -39,6 +42,7 @@ export default class TutorialAnimation extends Vue {
 
   animate() {
     if (this.currentTarget >= this.targets.length) {
+      this.$emit("finished");
       return;
     }
     const target = document.getElementById(this.targets[this.currentTarget]);

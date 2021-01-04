@@ -70,7 +70,8 @@
     </div>
     <TutorialAnimation
       :targets="animationTargets"
-      v-if="animationTargets !== null"
+      v-if="showAnimation"
+      @finished="showAnimation = false"
     />
   </div>
 </template>
@@ -98,6 +99,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   charAdded = false;
 
   animationTargets: Array<string> = null;
+  showAnimation = false;
 
   created() {
     window.addEventListener("resize", this.drawArrows);
