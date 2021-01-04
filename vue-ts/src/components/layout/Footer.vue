@@ -14,9 +14,11 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: "Footer",
-};
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
+@Component<Footer>({})
+export default class Footer extends Vue {}
 </script>
 
 <style scoped></style>

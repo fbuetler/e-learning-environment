@@ -7,9 +7,11 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: "Header",
-};
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
+@Component<Header>({})
+export default class Header extends Vue {}
 </script>
 
 <style scoped>
