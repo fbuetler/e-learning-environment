@@ -438,11 +438,6 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
         );
       }
 
-      /*
-        TODO:
-          - maybe draw some arrow above the pattern to have more spaces
-      */
-
       const lineY =
         rectHeight +
         20 +

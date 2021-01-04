@@ -134,19 +134,11 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
       const yPos = 10;
       const width = 40;
       const height = 40;
-      const start = {
-        x: xPos,
-        y: yPos,
-      };
-      const end = {
-        x: xPos,
-        y: yPos + height,
-      };
 
-      arrow.setAttribute("x1", `${start.x}`);
-      arrow.setAttribute("y1", `${start.y}`);
-      arrow.setAttribute("x2", `${end.x}`);
-      arrow.setAttribute("y2", `${end.y}`);
+      arrow.setAttribute("x1", `${xPos}`);
+      arrow.setAttribute("y1", `${yPos}`);
+      arrow.setAttribute("x2", `${xPos}`);
+      arrow.setAttribute("y2", `${yPos + height}`);
 
       if (id === this.word.length) {
         char = document.getElementById(`word-char-${id - 1}`);

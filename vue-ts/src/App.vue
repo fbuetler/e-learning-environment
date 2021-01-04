@@ -48,14 +48,18 @@ button:focus {
   border-radius: 5px;
   background: white;
   border: 3px solid #e7e7e7;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
   transition: 0.3s;
   padding: 0.5em;
   margin: 1em;
 }
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
   cursor: pointer;
+}
+.card:active {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+  transform: scale(0.98);
 }
 .flex-item {
   display: flex;

@@ -136,7 +136,7 @@ export default class Game extends Vue {
       resultModal.style.display = "none";
       this.resultText = "";
       this.isCorrect = false;
-    }, 2000);
+    }, 1500);
   }
 
   get currentGameComponent() {
