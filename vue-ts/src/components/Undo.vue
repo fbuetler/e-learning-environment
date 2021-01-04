@@ -1,5 +1,6 @@
 <template>
   <div
+    id="undo"
     class="undo flex-item flex-center card"
     @click="$emit('undo-operation', $event)"
     title="Neu starten!"

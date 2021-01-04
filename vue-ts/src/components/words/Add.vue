@@ -68,6 +68,10 @@
       />
       <Undo @undo-operation="undo()" />
     </div>
+    <TutorialAnimation
+      :targets="animationTargets"
+      v-if="animationTargets !== null"
+    />
   </div>
 </template>
 
@@ -76,12 +80,14 @@ import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
+import TutorialAnimation from "@/components/TutorialAnimation.vue";
 import { LoadWords, wordElement } from "./Words";
 
 @Component<Add>({
   components: {
     Alphabet,
     Undo,
+    TutorialAnimation,
   },
 })
 export default class Add extends Mixins(GameMixin) implements GameInterface {
@@ -90,6 +96,8 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   similarWords: string[] = null;
   selectedChar: string = null;
   charAdded = false;
+
+  animationTargets: Array<string> = null;
 
   created() {
     window.addEventListener("resize", this.drawArrows);
@@ -114,6 +122,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     [this.word, this.similarWords] = LoadWords(this.dataKey);
     this.word.forEach((el) => (el.locked = true));
     this.charAdded = false;
+    this.animationTargets = this.getAnimationTargets();
   }
 
   isCorrect() {
@@ -170,6 +179,40 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   undo() {
     this.word = this.word.filter((el) => el.locked);
     this.charAdded = false;
+  }
+
+  getAnimationTargets(): Array<string> {
+    const [correctPos, correctChar] = this.findFirstDiffPos(
+      this.word.map((el) => el.char).join(""),
+      this.similarWords[0]
+    );
+    let wrongChar: string;
+    let wrongPos: number;
+    do {
+      wrongChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    } while (wrongChar === correctChar);
+    do {
+      wrongPos = Math.floor(Math.random() * this.word.length + 1);
+    } while (wrongPos === correctPos);
+
+    return new Array<string>(
+      `alphabet-${wrongChar}`,
+      `rect-around-arrow-${wrongPos}`,
+      "button-menu-check",
+      "undo",
+      `alphabet-${correctChar}`,
+      `rect-around-arrow-${correctPos}`,
+      "button-menu-check",
+      "button-menu-next"
+    );
+  }
+
+  findFirstDiffPos(a: string, b: string): [number, string] {
+    let i = 0;
+    while (a[i] === b[i]) {
+      i++;
+    }
+    return [i, b[i]];
   }
 
   get arrows(): number[] {

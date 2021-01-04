@@ -1,6 +1,7 @@
 <template>
   <div class="difficulty flex-item flex-center flex-row">
     <div
+      :id="`difficulty-${level}`"
       class="card"
       :class="{
         selected: level === selected,

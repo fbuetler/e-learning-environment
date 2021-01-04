@@ -1,5 +1,6 @@
 <template>
   <div
+    id="tutorial"
     class="tutorial flex-item flex-center card"
     title="Anleitung öffnen"
     @click="openModal()"
