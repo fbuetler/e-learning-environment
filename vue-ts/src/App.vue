@@ -32,6 +32,13 @@ body {
 hr {
   border: 1px solid black;
 }
+button {
+  color: black;
+  font-size: 16px;
+  padding: 10px;
+  width: 230px;
+  font-weight: bold;
+}
 input:focus,
 select:focus,
 textarea:focus,

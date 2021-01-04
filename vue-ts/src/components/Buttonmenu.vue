@@ -30,12 +30,4 @@ export default class Buttonmenu extends Vue {
 }
 </script>
 
-<style scoped>
-button {
-  color: black;
-  font-size: 16px;
-  padding: 10px;
-  width: 230px;
-  font-weight: bold;
-}
-</style>
+<style scoped></style>
