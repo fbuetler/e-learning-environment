@@ -16,16 +16,16 @@ import { Component, Prop } from "vue-property-decorator";
 @Component<TutorialAnimation>({})
 export default class TutorialAnimation extends Vue {
   @Prop({ required: true })
-  targets: Array<string>;
+  steps: Array<string>;
 
   mouse: HTMLElement = null;
-  currentTarget = 0;
+  currentStep = 0;
   transitionTimeMs = 1000;
   animationIntervalMs = 1500;
   waitBeforeClickMs = 500;
 
   mounted() {
-    if (this.targets === null) {
+    if (this.steps === null) {
       this.$emit("finished");
       return;
     }
@@ -43,11 +43,11 @@ export default class TutorialAnimation extends Vue {
   }
 
   animate() {
-    if (this.currentTarget >= this.targets.length) {
+    if (this.currentStep >= this.steps.length) {
       this.$emit("finished");
       return;
     }
-    const target = document.getElementById(this.targets[this.currentTarget]);
+    const target = document.getElementById(this.steps[this.currentStep]);
     const [targetCenterX, targetCenterY] = this.calculateElementCenter(target);
     this.moveMouseTo(targetCenterX, targetCenterY);
 
@@ -59,7 +59,7 @@ export default class TutorialAnimation extends Vue {
       () => requestAnimationFrame(this.animate),
       this.transitionTimeMs + this.waitBeforeClickMs + this.animationIntervalMs
     );
-    this.currentTarget++;
+    this.currentStep++;
   }
 
   calculateElementCenter(el: HTMLElement): [number, number] {

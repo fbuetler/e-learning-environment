@@ -34,7 +34,7 @@
       >
         <TutorialAnimation
           slot-scope="slotScope"
-          :targets="slotScope.animationTargets"
+          :steps="slotScope.animationSteps"
           v-if="showAnimation"
           @finished="showAnimation = false"
         />
@@ -92,7 +92,6 @@ export enum GameType {
   TODO:
     - rework word list: all similar words should be valid, also words with a distance of at least 2 (swap)
     - add tutorial videos
-      - simulate drag and drop (https://github.com/Photonios/JS-DragAndDrop-Simulator/blob/master/dndsim.js)
     - check if vue slots are possible for tutorial html embedding
 */
 

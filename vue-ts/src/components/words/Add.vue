@@ -1,6 +1,6 @@
 <template>
   <div @dragend="selectedChar = null">
-    <slot :animationTargets="animationTargets" />
+    <slot :animationSteps="animationSteps" />
     <div>
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
     </div>
@@ -92,7 +92,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   selectedChar: string = null;
   charAdded = false;
 
-  animationTargets: Array<string> = null;
+  animationSteps: Array<string> = null;
 
   created() {
     window.addEventListener("resize", this.drawArrows);
@@ -118,7 +118,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     [this.word, this.similarWords] = LoadWords(this.dataKey);
     this.word.forEach((el) => (el.locked = true));
     this.charAdded = false;
-    this.animationTargets = this.getAnimationTargets();
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect() {
@@ -177,7 +177,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     this.charAdded = false;
   }
 
-  getAnimationTargets(): Array<string> {
+  getAnimationSteps(): Array<string> {
     const [correctPos, correctChar] = this.findFirstDiffPos(
       this.word.map((el) => el.char).join(""),
       this.similarWords[0]
