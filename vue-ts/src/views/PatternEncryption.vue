@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title">
+  <Game :type="type">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Du möchtest nun deine eigene Nachricht chiffrieren. Schaffst du es die
       Nachricht mit Hilfe des Musters korrekt zu verschlüsseln?

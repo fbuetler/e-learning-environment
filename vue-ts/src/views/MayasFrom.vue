@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title">
+  <Game :type="type">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Der Maya‐Stamm der Biber verwendet Nüsse und Hölzchen, um Zahlen
       darzustellen. Jede Nuss steht für 1, jedes Hölzchen für 5. Zum Beispiel
@@ -10,8 +11,8 @@
       <source :src="require('@/assets/tutorials/' + video)" />
       Your browser does not support the video tag.
     </video>
-  </Game> </template
->>
+  </Game>
+</template>
 
 <script lang="ts">
 import Vue from "vue";

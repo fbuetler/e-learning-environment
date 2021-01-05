@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-item flex-center flex-row">
-      <h2>{{ title }}</h2>
+      <slot name="title">Unintentionally empty!</slot>
       <Tutorial @start-tutorial-animation="showAnimation = true">
         <slot name="description" slot="description" />
         <slot name="video" slot="video" />
@@ -91,7 +91,6 @@ export enum GameType {
   TODO:
     - rework word list: all similar words should be valid, also words with a distance of at least 2 (swap)
     - add tutorial videos
-    - check if vue slots are possible for tutorial html embedding
 */
 
 @Component({
@@ -122,8 +121,6 @@ export enum GameType {
 export default class Game extends Vue {
   @Prop({ required: true })
   type: GameType;
-  @Prop()
-  title: string;
   @Prop({ type: Object, default: () => ({}) })
   args: {};
 

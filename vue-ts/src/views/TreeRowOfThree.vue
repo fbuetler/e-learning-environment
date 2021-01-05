@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title" :args="args">
+  <Game :type="type" :args="args">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Die Biber haben jeweils 3 Bäume in einer Reihe gepflanzt. In jeder Reihe
       ist ein Baum der Höhe 1 (<img

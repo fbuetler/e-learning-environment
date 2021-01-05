@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title">
+  <Game :type="type">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Biberin Anita findet auf einem Stück Rinde einen Geheimtext und Biberin
       Ada zeigt ihr ein anderes Stück Rinde und meint darauf ist "das Geheimnis

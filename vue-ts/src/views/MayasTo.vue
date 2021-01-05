@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title">
+  <Game :type="type">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Der Maya‐Stamm der Biber verwendet Nüsse und Hölzchen, um Zahlen
       darzustellen. In jeder Darstellung dürfen höchstens vier Nüsse vorkommen.

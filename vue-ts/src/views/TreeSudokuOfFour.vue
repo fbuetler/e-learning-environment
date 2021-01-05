@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title" :args="args">
+  <Game :type="type" :args="args">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Die Biber pflanzen 16 Bäume in Felder der Grösse 4 x 4. Die Höhen der
       Bäume sind 1, 2, 3 und 4. In jeder Reihe (horizontal und vertikal) kommt

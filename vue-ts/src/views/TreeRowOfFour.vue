@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title" :args="args">
+  <Game :type="type" :args="args">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Die Biber pflanzen weitere Bäume in Reihen, diesmal jeweils 4 Laubbäume in
       einer Reihe. In jeder Reihe befindet sich genau ein Baum der Höhe 1 (<img

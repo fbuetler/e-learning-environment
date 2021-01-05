@@ -1,5 +1,6 @@
 <template>
-  <Game :type="type" :title="title">
+  <Game :type="type">
+    <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Versuche neue Wörter zu bilden, indem du einen Buchstaben austauschst.
     </p>
