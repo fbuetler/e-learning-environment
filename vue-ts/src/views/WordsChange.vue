@@ -1,5 +1,13 @@
 <template>
-  <Game :type="type" :title="title" :video="video" :description="description" />
+  <Game :type="type" :title="title">
+    <p slot="description">
+      Versuche neue Wörter zu bilden, indem du einen Buchstaben austauschst.
+    </p>
+    <video loop controls muted slot="video">
+      <source :src="require('@/assets/tutorials/' + video)" />
+      Your browser does not support the video tag.
+    </video>
+  </Game>
 </template>
 
 <script lang="ts">
@@ -17,6 +25,5 @@ export default class WordsChange extends Vue {
   type: GameType = GameType.WORDSCHANGE;
   title = views.find((el) => el.component === GameType.WORDSCHANGE).title;
   video = "placeholder.mp4";
-  description = `Versuche neue Wörter zu bilden, indem du einen Buchstaben austauschst.`;
 }
 </script>

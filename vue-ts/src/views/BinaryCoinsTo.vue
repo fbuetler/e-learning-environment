@@ -1,5 +1,5 @@
 <template>
-  <Game :type="type" :title="title" :video="video" :description="description" />
+  <Game :type="type" :title="title" />
 </template>
 
 <script lang="ts">

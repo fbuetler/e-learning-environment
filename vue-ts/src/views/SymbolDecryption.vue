@@ -1,5 +1,15 @@
 <template>
-  <Game :type="type" :title="title" :video="video" :description="description" />
+  <Game :type="type" :title="title">
+    <p slot="description">
+      Die Bieber verwenden eine geheimnisvolle Tabelle, um Ziffern und
+      Buchstaben mit ganz neuen Symbolen zu kodieren. Kannst du den Geheimtext
+      lesen?
+    </p>
+    <video loop controls muted slot="video">
+      <source :src="require('@/assets/tutorials/' + video)" />
+      Your browser does not support the video tag.
+    </video>
+  </Game>
 </template>
 
 <script lang="ts">
@@ -17,7 +27,5 @@ export default class SymbolDecryption extends Vue {
   type: GameType = GameType.SYMBOLDECRYPTION;
   title = views.find((el) => el.component === GameType.SYMBOLDECRYPTION).title;
   video = "placeholder.mp4";
-  description = `Die Bieber verwenden eine geheimnisvolle Tabelle, um Ziffern und Buchstaben mit 
-  ganz neuen Symbolen zu kodieren. Kannst du den Geheimtext lesen?`;
 }
 </script>

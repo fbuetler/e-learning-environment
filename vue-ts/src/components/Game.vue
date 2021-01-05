@@ -2,11 +2,10 @@
   <div>
     <div class="flex-item flex-center flex-row">
       <h2>{{ title }}</h2>
-      <Tutorial
-        :video="video"
-        :description="description"
-        @start-tutorial-animation="showAnimation = true"
-      />
+      <Tutorial @start-tutorial-animation="showAnimation = true">
+        <slot name="description" slot="description" />
+        <slot name="video" slot="video" />
+      </Tutorial>
     </div>
     <modal id="result" v-if="showResult" @close="showResult = false">
       <div slot="body" class="flex-item flex-center flex-col">
@@ -127,10 +126,6 @@ export default class Game extends Vue {
   title: string;
   @Prop({ type: Object, default: () => ({}) })
   args: {};
-  @Prop({ required: true })
-  description: string;
-  @Prop({ required: true })
-  video: string;
 
   restartGameText = "Nächstes Rätsel!";
   evaluateGameText = "Überprüfen!";
@@ -167,6 +162,15 @@ export default class Game extends Vue {
 .locked {
   background: lightgray !important;
   border: 3px solid #cccccc;
+}
+
+.description > p {
+  margin: 1em;
+  text-align: justify;
+}
+.video > video {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 /* the special snowflakes */

@@ -15,14 +15,11 @@
         class="flex-item flex-center flex-space-between flex-col"
       >
         <div class="flex-item flex-center flex-space-between flex-row">
-          <div class="equal-space">
-            <p v-html="description"></p>
+          <div class="description equal-space">
+            <slot name="description">Unintentionally empty!</slot>
           </div>
-          <div class="equal-space">
-            <video loop controls muted>
-              <source :src="require('@/assets/tutorials/' + video)" />
-              Your browser does not support the video tag.
-            </video>
+          <div class="video equal-space">
+            <slot name="video">Unintentionally empty!</slot>
           </div>
         </div>
         <div>
@@ -42,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 import Modal from "./Modal.vue";
 
 @Component<Tutorial>({
@@ -51,11 +48,6 @@ import Modal from "./Modal.vue";
   },
 })
 export default class Tutorial extends Vue {
-  @Prop({ required: true })
-  description: string;
-  @Prop({ required: true })
-  video: string;
-
   showModal = false;
 }
 </script>
@@ -64,13 +56,5 @@ export default class Tutorial extends Vue {
 .tutorial > img {
   width: 100%;
   max-width: 30px;
-}
-p {
-  margin: 1em;
-  text-align: justify;
-}
-video {
-  max-height: 100%;
-  max-width: 100%;
 }
 </style>

@@ -1,5 +1,14 @@
 <template>
-  <Game :type="type" :title="title" :video="video" :description="description" />
+  <Game :type="type" :title="title">
+    <p slot="description">
+      Du möchtest nun deine eigene Nachricht chiffrieren. Schaffst du es die
+      Nachricht mit Hilfe des Musters korrekt zu verschlüsseln?
+    </p>
+    <video loop controls muted slot="video">
+      <source :src="require('@/assets/tutorials/' + video)" />
+      Your browser does not support the video tag.
+    </video>
+  </Game>
 </template>
 
 <script lang="ts">
@@ -17,7 +26,5 @@ export default class PatternEncryption extends Vue {
   type: GameType = GameType.PATTERNENCRYPTION;
   title = views.find((el) => el.component === GameType.PATTERNENCRYPTION).title;
   video = "placeholder.mp4";
-  description = `Du möchtest nun deine eigene Nachricht chiffrieren. Schaffst du es 
-  die Nachricht mit Hilfe des Musters korrekt zu verschlüsseln?`;
 }
 </script>
