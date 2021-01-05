@@ -12,16 +12,29 @@
       <h3 slot="header">Anleitung</h3>
       <div
         slot="body"
-        class="flex-item flex-center flex-space-between flex-row"
+        class="flex-item flex-center flex-space-between flex-col"
       >
-        <div class="equal-space">
-          <p v-html="description"></p>
+        <div class="flex-item flex-center flex-space-between flex-row">
+          <div class="equal-space">
+            <p v-html="description"></p>
+          </div>
+          <div class="equal-space">
+            <video loop controls muted>
+              <source :src="require('@/assets/tutorials/' + video)" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
-        <div class="equal-space">
-          <video loop controls muted>
-            <source :src="require('@/assets/tutorials/' + video)" />
-            Your browser does not support the video tag.
-          </video>
+        <div>
+          <button
+            class="card"
+            @click="
+              showModal = false;
+              $emit('start-tutorial-animation');
+            "
+          >
+            Live Demo!
+          </button>
         </div>
       </div>
     </modal>

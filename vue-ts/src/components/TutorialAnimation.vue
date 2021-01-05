@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <svg
-      viewBox="11.8 9 16 22"
-      id="mouse"
-      class="mouse"
-      :style="`transition: transform ${transitionTimeMs / 1000}s;`"
-    >
-      <path d="M20,21l4.5,8l-3.4,2l-4.6-8.1L12,29V9l16,12H20z"></path>
-    </svg>
-  </div>
+  <svg
+    viewBox="11.8 9 16 22"
+    id="mouse"
+    class="mouse"
+    :style="`transition: transform ${transitionTimeMs / 1000}s;`"
+  >
+    <path d="M20,21l4.5,8l-3.4,2l-4.6-8.1L12,29V9l16,12H20z"></path>
+  </svg>
 </template>
 
 <script lang="ts">
@@ -27,6 +25,10 @@ export default class TutorialAnimation extends Vue {
   waitBeforeClickMs = 500;
 
   mounted() {
+    if (this.targets === null) {
+      this.$emit("finished");
+      return;
+    }
     this.mouse = document.getElementById("mouse") as HTMLElement;
     this.centerMouse();
     setTimeout(
@@ -104,7 +106,7 @@ export default class TutorialAnimation extends Vue {
 </script>
 
 <style scoped>
-svg {
+.mouse {
   width: 40px;
   top: 0;
   left: 0;

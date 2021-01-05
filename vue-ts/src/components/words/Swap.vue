@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="svg-container">
-        <svg>
+        <svg class="svg-item">
           <defs>
             <marker
               id="arrowhead"
@@ -244,7 +244,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
 .svg-container {
   width: 100%;
 }
-svg {
+.svg-item {
   width: 100%;
   max-height: 2em;
 }

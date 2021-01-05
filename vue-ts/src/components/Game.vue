@@ -2,9 +2,13 @@
   <div>
     <div class="flex-item flex-center flex-row">
       <h2>{{ title }}</h2>
-      <Tutorial :video="video" :description="description" />
+      <Tutorial
+        :video="video"
+        :description="description"
+        @start-tutorial-animation="showAnimation = true"
+      />
     </div>
-    <modal id="result" v-if="showModal" @close="showModal = false">
+    <modal id="result" v-if="showResult" @close="showResult = false">
       <div slot="body" class="flex-item flex-center flex-col">
         <div>
           <img
@@ -27,7 +31,14 @@
         :is="currentGameComponent"
         :args="args"
         @evaluated-game="(correct) => evaluatedGame(correct)"
-      ></component>
+      >
+        <TutorialAnimation
+          slot-scope="slotScope"
+          :targets="slotScope.animationTargets"
+          v-if="showAnimation"
+          @finished="showAnimation = false"
+        />
+      </component>
     </div>
   </div>
 </template>
@@ -37,6 +48,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Buttonmenu from "@/components/Buttonmenu.vue";
 import Tutorial from "@/components/Tutorial.vue";
+import TutorialAnimation from "@/components/TutorialAnimation.vue";
 import Modal from "@/components/Modal.vue";
 import TreeRow from "@/components/trees/Row.vue";
 import TreeSudoku from "@/components/trees/Sudoku.vue";
@@ -80,6 +92,7 @@ export enum GameType {
   TODO:
     - rework word list: all similar words should be valid, also words with a distance of at least 2 (swap)
     - add tutorial videos
+      - simulate drag and drop (https://github.com/Photonios/JS-DragAndDrop-Simulator/blob/master/dndsim.js)
     - check if vue slots are possible for tutorial html embedding
 */
 
@@ -87,6 +100,7 @@ export enum GameType {
   components: {
     Buttonmenu,
     Tutorial,
+    TutorialAnimation,
     Modal,
     TreeRow,
     TreeSudoku,
@@ -123,7 +137,8 @@ export default class Game extends Vue {
   evaluateGameText = "Überprüfen!";
   resultText = "";
   isCorrect = false;
-  showModal = false;
+  showResult = false;
+  showAnimation = false;
 
   evaluatedGame(correct: boolean): void {
     if (correct) {
@@ -133,9 +148,9 @@ export default class Game extends Vue {
       this.resultText = "Falsch!";
       this.isCorrect = false;
     }
-    this.showModal = true;
+    this.showResult = true;
     setTimeout(() => {
-      this.showModal = false;
+      this.showResult = false;
     }, 1500);
   }
 

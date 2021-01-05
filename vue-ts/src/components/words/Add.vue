@@ -1,5 +1,6 @@
 <template>
   <div @dragend="selectedChar = null">
+    <slot :animationTargets="animationTargets" />
     <div>
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
     </div>
@@ -22,7 +23,7 @@
         <div :id="`word-char-${word.length}`"></div>
       </div>
       <div class="svg-container" v-if="!charAdded">
-        <svg>
+        <svg class="svg-item">
           <defs>
             <marker
               id="arrowhead"
@@ -68,11 +69,6 @@
       />
       <Undo @undo-operation="undo()" />
     </div>
-    <TutorialAnimation
-      :targets="animationTargets"
-      v-if="showAnimation"
-      @finished="showAnimation = false"
-    />
   </div>
 </template>
 
@@ -81,14 +77,12 @@ import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "../Game";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
-import TutorialAnimation from "@/components/TutorialAnimation.vue";
 import { LoadWords, wordElement } from "./Words";
 
 @Component<Add>({
   components: {
     Alphabet,
     Undo,
-    TutorialAnimation,
   },
 })
 export default class Add extends Mixins(GameMixin) implements GameInterface {
@@ -99,11 +93,11 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   charAdded = false;
 
   animationTargets: Array<string> = null;
-  showAnimation = false;
 
   created() {
     window.addEventListener("resize", this.drawArrows);
   }
+
   destroyed() {
     window.removeEventListener("resize", this.drawArrows);
   }
@@ -231,7 +225,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
 .svg-container {
   width: 100%;
 }
-svg {
+.svg-item {
   width: 100%;
   max-height: 3em;
   overflow: visible;
