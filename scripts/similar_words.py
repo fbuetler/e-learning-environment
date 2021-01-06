@@ -1,5 +1,12 @@
 #!/bin/python
 import requests
+import string
+import json
+
+ALPHABET = list(string.ascii_lowercase)
+MIN_LENGTH = 2
+MAX_LENGTH = 6
+MIN_SIMILAR_WORDS = 2
 
 
 def printProgressBar(
@@ -32,78 +39,70 @@ def printProgressBar(
         print()
 
 
-def word_exists(word):
-    try:
-        resp = requests.get(
-            "https://scrabble123.de/scrabble-worterbuch/{}".format(word)
-        )
-        return not ("nicht erlaubt" in resp.text)
-    except Exception:
-        print("caught exception")
-        return False
+with open("children_nouns.txt", "r") as f:
+    children_words = list(map(lambda x: x.lower(), f.read().split("\n")))
 
+with open("scrabble_words.txt", "r") as f:
+    allowed_words = list(map(lambda x: x.lower(), f.read().split("\n")))
 
-# https://scrabblemania.de/Alle-Worter
-# https://scrabble123.de/scrabble-worterbuch
-with open("words.txt", "r") as f:
-    words = list(map(lambda x: x.lower(), f.read().split("\n")[:-1]))
-
-sim_insert = dict()
-sim_remove = dict()
-sim_change = dict()
-l = len(words)
-alphabet = list(map(chr, range(ord("a"), ord("z") + 1)))
-for i, a in enumerate(words):
-    if len(a) <= 4 or "." in a:
-        continue
-    insert = list()
-    remove = list()
-    change = list()
-
+similar_words = {
+    "insert": {1: dict()},
+    "remove": {1: dict()},
+    "change": {1: dict(), 2: dict()},
+}
+l = len(children_words)
+for i, word in enumerate(children_words):
     # insert
-    for pos in range(len(a) + 1):
-        for letter in alphabet:
-            w = a[:pos] + letter + a[pos:]
-            if word_exists(w) and not w in insert:
-                insert.append(w)
-    if len(insert) != 0:
-        sim_insert[a] = insert
+    insert = list()
+    if len(word) + 1 <= MAX_LENGTH:
+        for pos in range(len(word) + 1):
+            for letter in ALPHABET:
+                w = word[:pos] + letter + word[pos:]
+                if w in allowed_words and not w in insert:
+                    insert.append(w)
+        if len(insert) >= MIN_SIMILAR_WORDS:
+            similar_words["insert"][1][word] = insert
 
     # remove
-    for pos in range(len(a)):
-        w = a[:pos] + a[pos + 1 :]
-        if word_exists(w) and not w in remove:
-            remove.append(w)
-    if len(remove) != 0:
-        sim_remove[a] = remove
+    remove = list()
+    if len(word) - 1 >= MIN_LENGTH:
+        for pos in range(len(word)):
+            w = word[:pos] + word[pos + 1 :]
+            if w in allowed_words and not w in remove:
+                remove.append(w)
+        if len(remove) >= MIN_SIMILAR_WORDS:
+            similar_words["remove"][1][word] = remove
 
     # change
-    distance = 0
-    for pos in range(len(a)):
-        for letter in alphabet:
-            w = a[:pos] + letter + a[pos + 1 :]
-            if w != a and word_exists(w) and not w in change:
+    change = list()
+    for pos in range(len(word)):
+        for letter in ALPHABET:
+            w = word[:pos] + letter + word[pos + 1 :]
+            if w != word and w in allowed_words and not w in change:
                 change.append(w)
-    if len(change) != 0:
-        sim_change[a] = change
+    if len(change) >= MIN_SIMILAR_WORDS:
+        similar_words["change"][1][word] = change
 
-    print(chr(27) + "[2J")
-    print(sim_insert)
-    print(sim_remove)
-    print(sim_change)
+    change = list()
+    for left_pos in range(len(word)):
+        for right_pos in range(left_pos + 1, len(word)):
+            for left_letter in ALPHABET:
+                for right_letter in ALPHABET:
+                    if word[left_pos] == left_letter or word[right_pos] == right_letter:
+                        continue
+                    w = (
+                        word[:left_pos]
+                        + left_letter
+                        + word[left_pos + 1 : right_pos]
+                        + right_letter
+                        + word[right_pos + 1 :]
+                    )
+                    if w != word and w in allowed_words and not w in change:
+                        change.append(w)
+    if len(change) >= MIN_SIMILAR_WORDS:
+        similar_words["change"][2][word] = change
 
-    printProgressBar(i + 1, l, prefix="Progress:", suffix="Complete", length=50)
+    printProgressBar(i + 1, l, length=10)
 
-with open("words.json", "w") as f:
-    f.write("{\n")
-    for name, sim in [
-        ('"insert"', sim_insert),
-        ('"remove"', sim_remove),
-        ('"change"', sim_change),
-    ]:
-        f.write(name + ": {\n")
-        for k, v in sorted(sim.items(), key=lambda elem: len(elem[1])):
-            if len(v) >= 3:
-                f.write('"{}": {},\n'.format(k, v))
-        f.write("},\n")
-    f.write("}\n")
+with open("similar_words.json", "w") as f:
+    f.write(json.dumps(similar_words))
