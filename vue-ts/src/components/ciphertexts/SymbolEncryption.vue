@@ -85,6 +85,7 @@ export default class SymbolEncryption extends Mixins(GameMixin)
 
   undo() {
     this.encryptedText = new Array<string>();
+    this.deleteAllChildren(document.getElementById("encrypted-container"));
   }
 
   symbolSelected(symbol: string, rowIndex: number, shapeIndex: number) {
