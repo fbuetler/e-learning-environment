@@ -1,10 +1,10 @@
 import { shallowMount } from "@vue/test-utils";
-import Footer from "@/components/layout/Footer.vue";
+import Undo from "@/components/Undo.vue";
 
-describe("Footer.vue", () => {
+describe("Undo.vue", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(Footer);
+    wrapper = shallowMount(Undo);
   });
 
   it("is a Vue instance", () => {
@@ -13,5 +13,10 @@ describe("Footer.vue", () => {
 
   it("renders correctly", () => {
     expect(wrapper.element).toMatchSnapshot();
+  });
+
+  it("event triggered", async () => {
+    await wrapper.find("#undo").trigger("click");
+    expect(wrapper.emitted("undo-operation")).toBeTruthy();
   });
 });

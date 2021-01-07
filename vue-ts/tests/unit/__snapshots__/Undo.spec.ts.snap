@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Undo.vue renders correctly 1`] = `
+<div
+  class="undo flex-item flex-center card clickable"
+  id="undo"
+  title="Neu starten!"
+>
+  <img
+    src=""
+  />
+</div>
+`;
