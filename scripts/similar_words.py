@@ -46,22 +46,22 @@ with open("scrabble_words.txt", "r") as f:
     allowed_words = list(map(lambda x: x.lower(), f.read().split("\n")))
 
 similar_words = {
-    "insert": {1: dict()},
+    "add": {1: dict()},
     "remove": {1: dict()},
     "change": {1: dict(), 2: dict()},
 }
 l = len(children_words)
 for i, word in enumerate(children_words):
-    # insert
-    insert = list()
+    # add
+    add = list()
     if len(word) + 1 <= MAX_LENGTH:
         for pos in range(len(word) + 1):
             for letter in ALPHABET:
                 w = word[:pos] + letter + word[pos:]
-                if w in allowed_words and not w in insert:
-                    insert.append(w)
-        if len(insert) >= MIN_SIMILAR_WORDS:
-            similar_words["insert"][1][word] = insert
+                if w in allowed_words and not w in add:
+                    add.append(w)
+        if len(add) >= MIN_SIMILAR_WORDS:
+            similar_words["add"][1][word] = add
 
     # remove
     remove = list()
