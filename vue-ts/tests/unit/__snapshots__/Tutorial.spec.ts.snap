@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tutorial.vue renders correctly 1`] = `
+<div>
+  <div
+    class="tutorial flex-item flex-center card clickable"
+    id="tutorial"
+    title="Anleitung öffnen"
+  >
+    <img
+      src=""
+    />
+  </div>
+   
+  <!---->
+</div>
+`;

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal.vue renders correctly 1`] = `
+<transition-stub
+  name="modal"
+>
+  <div
+    class="modal-mask"
+  >
+    <div
+      class="modal-wrapper"
+    >
+      <div
+        class="modal-container"
+      >
+        <div
+          class="modal-header"
+        >
+          <div>
+            Header
+          </div>
+        </div>
+         
+        <div
+          class="modal-body"
+        >
+          <div>
+            Body
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</transition-stub>
+`;
