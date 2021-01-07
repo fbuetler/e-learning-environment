@@ -123,10 +123,15 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     for (let level = 1; level <= this.difficultyLevels; level++) {
       const word = LoadWords("change", level)[0];
       this.wordPerLevel.set(level, word);
-      this.swapIndexesPerLevel.set(
-        level,
-        this.getSwapPairs(word.length, level)
+      let swapIndexes: Array<[number, number]>;
+      do {
+        swapIndexes = this.getSwapPairs(word.length, level);
+      } while (
+        swapIndexes.some(
+          ([left, right]) => word[left].initialChar === word[right].initialChar
+        )
       );
+      this.swapIndexesPerLevel.set(level, swapIndexes);
     }
     this.prepareWord();
   }
