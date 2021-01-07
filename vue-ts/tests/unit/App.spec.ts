@@ -7,11 +7,19 @@ describe("App.vue", () => {
   localVue.use(VueRouter);
   const router = new VueRouter();
 
-  it("is a Vue instance", () => {
-    const wrapper = shallowMount(App, {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallowMount(App, {
       localVue,
       router,
     });
+  });
+
+  it("is a Vue instance", () => {
     expect(wrapper.vm).toBeTruthy();
+  });
+
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
   });
 });

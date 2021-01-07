@@ -2,10 +2,13 @@ import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 import Header from "@/components/layout/Header.vue";
 
 describe("Header.vue", () => {
-  const wrapper = shallowMount(Header, {
-    stubs: {
-      RouterLink: RouterLinkStub,
-    },
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallowMount(Header, {
+      stubs: {
+        RouterLink: RouterLinkStub,
+      },
+    });
   });
 
   it("is a Vue instance", () => {
@@ -17,6 +20,10 @@ describe("Header.vue", () => {
   });
 
   it("has correct home path", () => {
-    expect(wrapper.find(RouterLinkStub).props().to).toBe("/");
+    expect(wrapper.findComponent(RouterLinkStub).props().to).toBe("/");
+  });
+
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
   });
 });
