@@ -44,7 +44,6 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Change extends Mixins(GameMixin) implements GameInterface {
-  dataKey = "change";
   word: wordElement[] = null;
   similarWords: string[] = null;
   selectedChar: string = null;
@@ -54,7 +53,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   }
 
   restartGame() {
-    [this.word, this.similarWords] = LoadWords(this.dataKey);
+    [this.word, this.similarWords] = LoadWords("change", 1);
   }
 
   isCorrect(): boolean {

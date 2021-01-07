@@ -3,7 +3,7 @@
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="currentDifficultyLevel = $event"
+      @difficulty-selected="changeDifficultyLevel($event)"
     />
     <div>
       Versuch ein neues Wort zu bilden, indem du zwei Buchstaben vertauschst.
@@ -14,7 +14,7 @@
     >
       <div class="flex-item flex-row flex-center">
         <div
-          v-for="element in swappedWord"
+          v-for="element in word"
           :key="element.id"
           class="word-char card"
           :id="'word-char-' + element.id"
@@ -91,8 +91,8 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Change extends Mixins(GameMixin) implements GameInterface {
-  dataKey = "change";
   word: wordElement[] = null;
+  wordPerLevel = new Map<number, wordElement[]>();
   swapIndexesPerLevel = new Map<number, [number, number][]>();
 
   difficultyLevels = 2;
@@ -101,6 +101,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   created() {
     window.addEventListener("resize", this.drawArrows);
   }
+
   destroyed() {
     window.removeEventListener("resize", this.drawArrows);
   }
@@ -118,17 +119,78 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   }
 
   restartGame() {
-    this.word = LoadWords(this.dataKey)[0];
+    this.wordPerLevel = new Map<number, wordElement[]>();
     for (let level = 1; level <= this.difficultyLevels; level++) {
+      const word = LoadWords("change", level)[0];
+      this.wordPerLevel.set(level, word);
       this.swapIndexesPerLevel.set(
         level,
-        this.getSwapPairs(this.word.length, level)
+        this.getSwapPairs(word.length, level)
       );
     }
+    this.prepareWord();
   }
 
   isCorrect(): boolean {
-    return this.word.every((currVal) => currVal.initialChar === currVal.char);
+    return this.wordPerLevel
+      .get(this.currentDifficultyLevel)
+      .every((currVal) => currVal.initialChar === currVal.char);
+  }
+
+  getSwapPairs(length: number, swapAmount: number): Array<[number, number]> {
+    const pairs = new Array<[number, number]>();
+    const free = new Array<boolean>(length).fill(true);
+    for (let j = 1; j <= swapAmount && 2 * j <= length; j++) {
+      let index: number;
+      do {
+        // is there any pair available
+        if (
+          !free.some((_, i, arr) =>
+            i < arr.length - 1 ? arr[i] && arr[i + 1] : false
+          )
+        ) {
+          return pairs;
+        }
+        index = Math.floor(Math.random() * length - 1);
+      } while (!free[index] || !free[index + 1]);
+      free[index] = false;
+      free[index + 1] = false;
+      pairs.push([index, index + 1]);
+    }
+    return pairs;
+  }
+
+  swapChar(leftID: number, rightID: number) {
+    const left = this.word.findIndex((el) => el.id === leftID);
+    const right = this.word.findIndex((el) => el.id === rightID);
+
+    const tmp = this.word[left].char;
+    this.word[left].char = this.word[right].char;
+    this.word[right].char = tmp;
+  }
+
+  undo() {
+    this.word.forEach((el) => (el.char = el.initialChar));
+    this.prepareWord();
+  }
+
+  changeDifficultyLevel(newLevel: number) {
+    this.currentDifficultyLevel = newLevel;
+    this.prepareWord();
+  }
+
+  prepareWord() {
+    const word = this.wordPerLevel.get(this.currentDifficultyLevel);
+    const swapIndexes = this.swapIndexesPerLevel.get(
+      this.currentDifficultyLevel
+    );
+
+    swapIndexes.forEach(([left, right]) => {
+      word[left].char = word[right].initialChar;
+      word[right].char = word[left].initialChar;
+    });
+
+    this.word = word;
   }
 
   drawArrows() {
@@ -177,65 +239,13 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     });
   }
 
-  swapChar(leftID: number, rightID: number) {
-    this.swap(
-      this.word.find((el) => el.id === leftID),
-      this.word.find((el) => el.id === rightID)
-    );
-  }
-
-  swap(a: wordElement, b: wordElement) {
-    const temp = a.char;
-    a.char = b.char;
-    b.char = temp;
-  }
-
-  getSwapPairs(length: number, swapAmount: number): Array<[number, number]> {
-    const pairs = new Array<[number, number]>();
-    const free = new Array<boolean>(length).fill(true);
-    for (let j = 0; j < swapAmount; j++) {
-      let index: number;
-      do {
-        // is there any pair available
-        if (
-          !free.some((_, i, arr) =>
-            i < arr.length - 1 ? arr[i] && arr[i + 1] : false
-          )
-        ) {
-          return pairs;
-        }
-        index = Math.floor(Math.random() * length - 1);
-      } while (!free[index] || !free[index + 1]);
-      free[index] = false;
-      free[index + 1] = false;
-      pairs.push([index, index + 1]);
-    }
-    return pairs;
-  }
-
-  undo() {
-    this.word.forEach((el) => {
-      el.char = el.initialChar;
-    });
-  }
-
   get arrows(): [number, number][] {
-    const arrrows = new Array<[number, number]>();
-    for (let i = 0; i < this.word.length - 1; i++) {
-      arrrows.push([this.word[i].id, this.word[i + 1].id]);
+    const arrows = new Array<[number, number]>();
+    const word = this.word;
+    for (let i = 0; i < word.length - 1; i++) {
+      arrows.push([word[i].id, word[i + 1].id]);
     }
-    return arrrows;
-  }
-
-  get swappedWord(): wordElement[] {
-    this.undo();
-    this.swapIndexesPerLevel
-      .get(this.currentDifficultyLevel)
-      .forEach(([left, right]) => {
-        this.word[left].char = this.word[right].initialChar;
-        this.word[right].char = this.word[left].initialChar;
-      });
-    return this.word;
+    return arrows;
   }
 }
 </script>

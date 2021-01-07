@@ -7,13 +7,16 @@ export type wordElement = {
   locked: boolean;
 };
 
-export function LoadWords(key: string): [wordElement[], string[]] {
+export function LoadWords(
+  key: string,
+  distance: number
+): [wordElement[], string[]] {
   const allWords = words;
-  const keys = Object.keys(allWords[key]);
+  const keys = Object.keys(allWords[key][distance]);
   const chosenWord = keys[Math.floor(Math.random() * keys.length)];
   const wordParts = chosenWord.split("");
 
-  const similarWords = allWords[key][chosenWord];
+  const similarWords = allWords[key][distance][chosenWord];
   const word = new Array<wordElement>();
   for (let i = 0; i < wordParts.length; i++) {
     word.push({

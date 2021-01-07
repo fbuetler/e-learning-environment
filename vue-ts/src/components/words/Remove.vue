@@ -46,7 +46,6 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Remove extends Mixins(GameMixin) implements GameInterface {
-  dataKey = "remove";
   word: wordElement[] = null;
   similarWords: string[] = null;
   selectedChar: number = null;
@@ -57,7 +56,7 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
   }
 
   restartGame() {
-    [this.word, this.similarWords] = LoadWords(this.dataKey);
+    [this.word, this.similarWords] = LoadWords("remove", 1);
     this.selectedChar = null;
     this.charRemoved = false;
   }

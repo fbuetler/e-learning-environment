@@ -86,7 +86,6 @@ import { LoadWords, wordElement } from "./Words";
   },
 })
 export default class Add extends Mixins(GameMixin) implements GameInterface {
-  dataKey = "add";
   word: wordElement[] = null;
   similarWords: string[] = null;
   selectedChar: string = null;
@@ -115,7 +114,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   }
 
   restartGame() {
-    [this.word, this.similarWords] = LoadWords(this.dataKey);
+    [this.word, this.similarWords] = LoadWords("add", 1);
     this.word.forEach((el) => (el.locked = true));
     this.charAdded = false;
     this.animationSteps = this.getAnimationSteps();
