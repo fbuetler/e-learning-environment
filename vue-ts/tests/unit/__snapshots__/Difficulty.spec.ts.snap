@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Difficulty.vue renders correctly 1`] = `
+<div
+  class="difficulty flex-item flex-center flex-row"
+>
+  <div
+    class="card clickable selected"
+    id="difficulty-1"
+    title="Schwierigkeitsgrad: leicht "
+  >
+    <img
+      src=""
+    />
+  </div>
+  <div
+    class="card clickable"
+    id="difficulty-2"
+    title="Schwierigkeitsgrad: mittelschwer "
+  >
+    <img
+      src=""
+    />
+  </div>
+</div>
+`;

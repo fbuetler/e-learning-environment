@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Trashcan.vue renders correctly 1`] = `
+<div
+  class="trashcan flex-item flex-center dropzone"
+  id="trashcan"
+  title="Element entfernen!"
+>
+  <img
+    src=""
+  />
+</div>
+`;
