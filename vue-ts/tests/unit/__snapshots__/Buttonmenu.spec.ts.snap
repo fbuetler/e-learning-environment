@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Buttonmenu.vue renders correctly 1`] = `
+<div
+  class="flex-item flex-row flex-center flex-wrap"
+>
+  <button
+    class="card clickable"
+    id="button-menu-next"
+  >
+    
+    Restart
+  
+  </button>
+   
+  <button
+    class="card clickable"
+    id="button-menu-check"
+  >
+    
+    Evaluate
+  
+  </button>
+</div>
+`;
