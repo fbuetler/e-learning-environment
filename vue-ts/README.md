@@ -24,6 +24,26 @@ yarn build
 yarn lint
 ```
 
+### Run unit tests
+
+```
+yarn test:unit
+```
+
+### Run e2e tests
+
+When development server is already running
+
+```
+yarn test:e2e --url http://localhost:8080 --headless
+```
+
+else
+
+```
+est:e2e --headless
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
