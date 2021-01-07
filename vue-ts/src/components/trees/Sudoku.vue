@@ -384,6 +384,9 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       }
       values[row][col].locked = false;
     }
+    values.forEach((row) =>
+      row.forEach((col) => (col.initialValue = col.value))
+    );
     return values;
   }
 
