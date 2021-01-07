@@ -22,10 +22,7 @@
       </div>
     </modal>
     <div>
-      <Buttonmenu
-        :restartGameText="restartGameText"
-        :evaluateGameText="evaluateGameText"
-      />
+      <Buttonmenu />
       <component
         :is="currentGameComponent"
         :args="args"
@@ -124,8 +121,6 @@ export default class Game extends Vue {
   @Prop({ type: Object, default: () => ({}) })
   args: {};
 
-  restartGameText = "Nächstes Rätsel!";
-  evaluateGameText = "Überprüfen!";
   resultText = "";
   isCorrect = false;
   showResult = false;

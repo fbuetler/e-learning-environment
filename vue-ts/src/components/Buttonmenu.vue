@@ -5,30 +5,25 @@
       class="card clickable"
       @click="emitRestartGameEvent()"
     >
-      {{ restartGameText }}
+      Nächstes Rätsel!
     </button>
     <button
       id="button-menu-check"
       class="card clickable"
       @click="emitEvalGameEvent()"
     >
-      {{ evaluateGameText }}
+      Überprüfen!
     </button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import { EventBus, EventBusEvents } from "./EventBus";
 
 @Component
 export default class Buttonmenu extends Vue {
-  @Prop({ type: String, required: true })
-  restartGameText!: string;
-  @Prop({ type: String, required: true })
-  evaluateGameText!: string;
-
   emitRestartGameEvent() {
     EventBus.$emit(EventBusEvents.RestartGame);
   }
