@@ -1,7 +1,7 @@
 <template>
   <div class="flex-item flex-wrap flex-row">
     <div
-      class="flex-item flex-wrap flex-center card"
+      class="flex-item flex-wrap flex-center card clickable"
       v-for="item in items"
       :key="item.id"
       :class="{

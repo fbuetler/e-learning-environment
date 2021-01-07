@@ -1,9 +1,17 @@
 <template>
   <div class="flex-item flex-row flex-center flex-wrap">
-    <button id="button-menu-next" class="card" @click="emitRestartGameEvent()">
+    <button
+      id="button-menu-next"
+      class="card clickable"
+      @click="emitRestartGameEvent()"
+    >
       {{ restartGameText }}
     </button>
-    <button id="button-menu-check" class="card" @click="emitEvalGameEvent()">
+    <button
+      id="button-menu-check"
+      class="card clickable"
+      @click="emitEvalGameEvent()"
+    >
       {{ evaluateGameText }}
     </button>
   </div>

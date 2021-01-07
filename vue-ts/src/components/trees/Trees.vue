@@ -1,7 +1,7 @@
 <template>
   <div class="flex-item flex-wrap flex-row">
     <div
-      class="flex-item flex-wrap flex-center card"
+      class="flex-item flex-wrap flex-center card clickable"
       :class="{ selected: index === selected }"
       v-for="index in size"
       :key="index"

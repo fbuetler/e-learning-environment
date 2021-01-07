@@ -2,7 +2,7 @@
   <div class="difficulty flex-item flex-center flex-row">
     <div
       :id="`difficulty-${level}`"
-      class="card"
+      class="card clickable"
       :class="{
         selected: level === selected,
         locked: level > difficultyLevels,

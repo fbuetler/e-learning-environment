@@ -2,7 +2,7 @@
   <div class="flex-item flex-wrap flex-center flex-row">
     <div
       :id="`alphabet-${char}`"
-      class="word-char card"
+      class="word-char card clickable"
       :class="{ selected: char === selectedChar }"
       v-for="char in alphabet"
       :key="char"

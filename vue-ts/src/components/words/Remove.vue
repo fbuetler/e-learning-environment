@@ -6,7 +6,7 @@
     <div class="word-container flex-item flex-row flex-center">
       <div v-for="element in word" :key="element.id">
         <div
-          class="word-char card"
+          class="word-char card clickable"
           :class="{
             locked: element.locked,
             selected: element.id === selectedChar,

@@ -1,6 +1,6 @@
 <template>
   <div class="cards">
-    <div class="card" v-for="item in items" :key="item.id">
+    <div class="card clickable" v-for="item in items" :key="item.id">
       <router-link :to="item.path">
         <div class="card-image flex-item flex-center">
           <img :src="require('@/assets/' + item.img)" />

@@ -30,7 +30,6 @@ hr {
 }
 button {
   color: black;
-  font-size: 16px;
   padding: 10px;
   width: 230px;
   font-weight: bold;
@@ -56,11 +55,11 @@ button:focus {
   padding: 0.5em;
   margin: 1em;
 }
-.card:hover {
+.clickable:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
-.card:active {
+.clickable:active {
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
   transform: scale(0.98);
 }

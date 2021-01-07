@@ -2,7 +2,7 @@
   <div>
     <div
       id="tutorial"
-      class="tutorial flex-item flex-center card"
+      class="tutorial flex-item flex-center card clickable"
       title="Anleitung öffnen"
       @click="showModal = true"
     >
@@ -24,7 +24,7 @@
         </div>
         <div>
           <button
-            class="card"
+            class="card clickable"
             @click="
               showModal = false;
               $emit('start-tutorial-animation');
