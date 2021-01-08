@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { Component, Prop, Mixins } from "vue-property-decorator";
-import MayasMixin, { itemType } from "./Mayas";
+import MayasMixin, { itemType } from "@/components/mayas/Mayas";
 
 @Component<NutsAndSticks>({})
 export default class NutsAndSticks extends Mixins(MayasMixin) {

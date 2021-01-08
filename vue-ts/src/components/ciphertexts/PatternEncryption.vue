@@ -35,9 +35,13 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "../Game";
-import Difficulty from "../Difficulty.vue";
-import { CreatePattern, LoadRandomElement, PatternCanvas } from "./Ciphertext";
+import GameMixin, { GameInterface } from "@/components/Game";
+import Difficulty from "@/components/Difficulty.vue";
+import {
+  CreatePattern,
+  LoadRandomElement,
+  PatternCanvas,
+} from "@/components/ciphertexts/Ciphertext";
 
 @Component<PatternEncryption>({
   components: {

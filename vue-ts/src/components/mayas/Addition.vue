@@ -82,9 +82,9 @@
 
 <script lang="ts">
 import { Vue, Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "../Game";
-import MayasMixin, { itemType } from "./Mayas";
-import Difficulty from "../Difficulty.vue";
+import GameMixin, { GameInterface } from "@/components/Game";
+import MayasMixin, { itemType } from "@/components/mayas/Mayas";
+import Difficulty from "@/components/Difficulty.vue";
 import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
 import Undo from "@/components/Undo.vue";
 

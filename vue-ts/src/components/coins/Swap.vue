@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "../Game";
+import GameMixin, { GameInterface } from "@/components/Game";
 
 @Component<Swap>({})
 export default class Swap extends Mixins(GameMixin) implements GameInterface {

@@ -17,14 +17,19 @@
     </div>
     <hr />
     <div>Lösung:</div>
-    <input class="card big-text" size="5" v-model.number="number" type="number" />
+    <input
+      class="card big-text"
+      size="5"
+      v-model.number="number"
+      type="number"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "../Game";
-import MayasMixin from "./Mayas";
+import GameMixin, { GameInterface } from "@/components/Game";
+import MayasMixin from "@/components/mayas/Mayas";
 
 @Component<From>({})
 export default class From extends Mixins(GameMixin, MayasMixin)

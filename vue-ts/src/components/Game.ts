@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { EventBus, EventBusEvents } from "./EventBus";
+import { EventBus, EventBusEvents } from "@/components/EventBus";
 
 export interface GameInterface {
   isStarted(): boolean;

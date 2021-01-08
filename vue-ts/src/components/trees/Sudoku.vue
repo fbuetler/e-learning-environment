@@ -114,12 +114,12 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "../Game";
-import TreesMixin from "./Trees";
+import GameMixin, { GameInterface } from "@/components/Game";
+import TreesMixin from "@/components/trees/Trees";
 import Trees from "@/components/trees/Trees.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
-import Difficulty from "../Difficulty.vue";
+import Difficulty from "@/components/Difficulty.vue";
 
 /*
   TODO:

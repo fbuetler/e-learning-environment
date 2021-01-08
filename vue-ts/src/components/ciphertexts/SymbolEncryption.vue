@@ -38,9 +38,9 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "../Game";
+import GameMixin, { GameInterface } from "@/components/Game";
 import Undo from "@/components/Undo.vue";
-import SymbolTable from "./SymbolTable.vue";
+import SymbolTable from "@/components/ciphertexts/SymbolTable.vue";
 import {
   SymbolConfig,
   LoadRandomElement,
@@ -48,7 +48,7 @@ import {
   LetterLookup,
   GetNewCanvas,
   Type,
-} from "./Ciphertext";
+} from "@/components/ciphertexts/Ciphertext";
 
 @Component<SymbolEncryption>({
   components: {

@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Modal from "./Modal.vue";
+import Modal from "@/components/Modal.vue";
 
 @Component<Tutorial>({
   components: {

@@ -30,7 +30,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { GetNewCanvas, SymbolConfig, Shape, Type } from "./Ciphertext";
+import {
+  GetNewCanvas,
+  SymbolConfig,
+  Shape,
+  Type,
+} from "@/components/ciphertexts/Ciphertext";
 
 @Component<SymbolTable>({})
 export default class SymbolTable extends Vue {

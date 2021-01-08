@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import views from "./Views";
+import views from "@/views/Views";
 
 @Component<Home>({})
 export default class Home extends Vue {

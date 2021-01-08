@@ -20,7 +20,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { EventBus, EventBusEvents } from "./EventBus";
+import { EventBus, EventBusEvents } from "@/components/EventBus";
 
 @Component
 export default class Buttonmenu extends Vue {

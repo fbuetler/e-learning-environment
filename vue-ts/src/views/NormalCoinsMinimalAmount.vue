@@ -7,8 +7,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import Game, { GameType } from "../components/Game.vue";
-import views from "./Views";
+import Game, { GameType } from "@/components/Game.vue";
+import views from "@/views/Views";
 
 @Component<NormalCoinsMinimalAmount>({
   components: {
