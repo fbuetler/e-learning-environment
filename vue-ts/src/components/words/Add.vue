@@ -6,7 +6,7 @@
     </div>
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
-      id="word-container"
+      ref="word-container"
     >
       <div class="flex-item flex-row flex-center">
         <div
@@ -16,11 +16,11 @@
           :class="{
             locked: element.locked,
           }"
-          :id="`word-char-${element.id}`"
+          ref="word-char"
         >
           {{ element.char }}
         </div>
-        <div :id="`word-char-${word.length}`"></div>
+        <div ref="word-char-hidden"></div>
       </div>
       <div class="svg-container" v-if="!charAdded">
         <svg class="svg-item">
@@ -40,7 +40,7 @@
           <line
             v-for="id in arrows"
             :key="`arrow-${id}`"
-            :id="`arrow-${id}`"
+            ref="arrow"
             stroke="black"
             stroke-width="3"
             fill="transparent"
@@ -49,7 +49,7 @@
           <rect
             v-for="id in arrows"
             :key="`rect-around-arrow-${id}`"
-            :id="`rect-around-arrow-${id}`"
+            ref="rect-around-arrow"
             fill="transparent"
             @click="addChar(id)"
             @dragenter.prevent
@@ -118,6 +118,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     this.word.forEach((el) => (el.locked = true));
     this.charAdded = false;
     this.animationSteps = this.getAnimationSteps();
+    console.log(this.similarWords);
   }
 
   isCorrect() {
@@ -129,10 +130,15 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
       return;
     }
     this.arrows.forEach((id) => {
-      const container = document.getElementById("word-container");
-      let char = document.getElementById(`word-char-${id}`);
-      const arrow = document.getElementById(`arrow-${id}`);
-      const rect = document.getElementById(`rect-around-arrow-${id}`);
+      const container = this.$refs["word-container"] as HTMLElement;
+      let char: HTMLElement;
+      if (id === this.word.length) {
+        char = this.$refs["word-char-hidden"] as HTMLElement;
+      } else {
+        char = this.$refs["word-char"][id] as HTMLElement;
+      }
+      const arrow = this.$refs["arrow"][id] as SVGElement;
+      const rect = this.$refs["rect-around-arrow"][id] as SVGElement;
 
       const xPos = char.offsetLeft - container.offsetLeft;
       const yPos = 10;
@@ -144,9 +150,6 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
       arrow.setAttribute("x2", `${xPos}`);
       arrow.setAttribute("y2", `${yPos + height}`);
 
-      if (id === this.word.length) {
-        char = document.getElementById(`word-char-${id - 1}`);
-      }
       rect.setAttribute("x", `${xPos - width / 2}`);
       rect.setAttribute(
         "y",
