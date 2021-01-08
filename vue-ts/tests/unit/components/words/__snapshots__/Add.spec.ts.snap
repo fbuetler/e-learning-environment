@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add.vue renders correctly 1`] = `
+<div>
+   
+  <div>
+    
+    Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
+  
+  </div>
+   
+  <div
+    class="word-container flex-item flex-col flex-center flex-flex"
+  >
+    <div
+      class="flex-item flex-row flex-center"
+    >
+      <div
+        class="word-char card locked"
+      >
+        
+        A
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        D
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        L
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        E
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        R
+      
+      </div>
+       
+      <div />
+    </div>
+     
+    <div
+      class="svg-container"
+    >
+      <svg
+        class="svg-item"
+      >
+        <defs>
+          <marker
+            id="arrowhead"
+            markerHeight="6"
+            markerWidth="6"
+            orient="auto"
+            refX="1"
+            refY="5"
+            viewBox="0 0 10 10"
+          >
+            <path
+              d="M 0 5 L 10 0 L 10 10 z"
+            />
+          </marker>
+        </defs>
+         
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+         
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+      </svg>
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <alphabet-stub />
+     
+    <undo-stub />
+  </div>
+</div>
+`;

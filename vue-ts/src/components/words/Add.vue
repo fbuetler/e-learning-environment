@@ -118,7 +118,6 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     this.word.forEach((el) => (el.locked = true));
     this.charAdded = false;
     this.animationSteps = this.getAnimationSteps();
-    console.log(this.similarWords);
   }
 
   isCorrect() {
