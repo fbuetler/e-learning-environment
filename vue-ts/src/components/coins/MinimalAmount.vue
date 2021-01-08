@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "@/components/Game";
+import GameMixin, { GameInterface } from "@/components/GameMixins";
 
 @Component<MinimalAmount>({})
 export default class MinimalAmount extends Mixins(GameMixin)

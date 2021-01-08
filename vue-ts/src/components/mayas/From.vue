@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "@/components/Game";
+import GameMixin, { GameInterface } from "@/components/GameMixins";
 import MayasMixin from "@/components/mayas/Mayas";
 
 @Component<From>({})

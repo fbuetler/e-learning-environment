@@ -74,7 +74,7 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "@/components/Game";
+import GameMixin, { GameInterface } from "@/components/GameMixins";
 import Alphabet from "@/components/words/Alphabet.vue";
 import Undo from "@/components/Undo.vue";
 import { LoadWords, wordElement } from "@/components/words/Words";

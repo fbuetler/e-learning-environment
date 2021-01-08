@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "@/components/Game";
+import GameMixin, { GameInterface } from "@/components/GameMixins";
 import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import { LoadWords, wordElement } from "@/components/words/Words";
