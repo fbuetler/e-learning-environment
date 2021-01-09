@@ -16,11 +16,11 @@
           :class="{
             locked: element.locked,
           }"
-          ref="word-char"
+          :ref="`word-char-${element.id}`"
         >
           {{ element.char }}
         </div>
-        <div ref="word-char-hidden"></div>
+        <div :ref="`word-char-${word.length}`"></div>
       </div>
       <div class="svg-container" v-if="!charAdded">
         <svg class="svg-item">
@@ -40,7 +40,7 @@
           <line
             v-for="id in arrows"
             :key="`arrow-${id}`"
-            ref="arrow"
+            :ref="`arrow-${id}`"
             stroke="black"
             stroke-width="3"
             fill="transparent"
@@ -49,7 +49,7 @@
           <rect
             v-for="id in arrows"
             :key="`rect-around-arrow-${id}`"
-            ref="rect-around-arrow"
+            :ref="`rect-around-arrow-${id}`"
             fill="transparent"
             @click="addChar(id)"
             @dragenter.prevent
@@ -132,12 +132,13 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
       const container = this.$refs["word-container"] as HTMLElement;
       let char: HTMLElement;
       if (id === this.word.length) {
-        char = this.$refs["word-char-hidden"] as HTMLElement;
+        char = this.$refs[`word-char-${id}`] as HTMLElement;
       } else {
-        char = this.$refs["word-char"][id] as HTMLElement;
+        // When ref is used together with v-for, the ref you get will be an array
+        char = this.$refs[`word-char-${id}`][0] as HTMLElement;
       }
-      const arrow = this.$refs["arrow"][id] as SVGElement;
-      const rect = this.$refs["rect-around-arrow"][id] as SVGElement;
+      const arrow = this.$refs[`arrow-${id}`][0] as SVGElement;
+      const rect = this.$refs[`rect-around-arrow-${id}`][0] as SVGElement;
 
       const xPos = char.offsetLeft - container.offsetLeft;
       const yPos = 10;
