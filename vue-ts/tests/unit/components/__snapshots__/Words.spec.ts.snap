@@ -1,0 +1,582 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add.vue renders correctly 1`] = `
+<div>
+   
+  <div>
+    
+    Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
+  
+  </div>
+   
+  <div
+    class="word-container flex-item flex-col flex-center flex-flex"
+  >
+    <div
+      class="flex-item flex-row flex-center"
+    >
+      <div
+        class="word-char card locked"
+      >
+        
+        A
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        D
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        L
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        E
+      
+      </div>
+      <div
+        class="word-char card locked"
+      >
+        
+        R
+      
+      </div>
+       
+      <div />
+    </div>
+     
+    <div
+      class="svg-container"
+    >
+      <svg
+        class="svg-item"
+      >
+        <defs>
+          <marker
+            id="arrowhead"
+            markerHeight="6"
+            markerWidth="6"
+            orient="auto"
+            refX="1"
+            refY="5"
+            viewBox="0 0 10 10"
+          >
+            <path
+              d="M 0 5 L 10 0 L 10 10 z"
+            />
+          </marker>
+        </defs>
+         
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+        <line
+          fill="transparent"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="3"
+          x1="0"
+          x2="0"
+          y1="10"
+          y2="50"
+        />
+         
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+        <rect
+          fill="transparent"
+          height="0"
+          width="40"
+          x="-20"
+          y="-10"
+        />
+      </svg>
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <alphabet-stub />
+     
+    <undo-stub />
+  </div>
+</div>
+`;
+
+exports[`Alphabet.vue renders correctly 1`] = `
+<div
+  class="flex-item flex-wrap flex-center flex-row"
+>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-A"
+  >
+    
+    A
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-B"
+  >
+    
+    B
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-C"
+  >
+    
+    C
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-D"
+  >
+    
+    D
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-E"
+  >
+    
+    E
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-F"
+  >
+    
+    F
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-G"
+  >
+    
+    G
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-H"
+  >
+    
+    H
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-I"
+  >
+    
+    I
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-J"
+  >
+    
+    J
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-K"
+  >
+    
+    K
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-L"
+  >
+    
+    L
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-M"
+  >
+    
+    M
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-N"
+  >
+    
+    N
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-O"
+  >
+    
+    O
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-P"
+  >
+    
+    P
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-Q"
+  >
+    
+    Q
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-R"
+  >
+    
+    R
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-S"
+  >
+    
+    S
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-T"
+  >
+    
+    T
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-U"
+  >
+    
+    U
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-V"
+  >
+    
+    V
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-W"
+  >
+    
+    W
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-X"
+  >
+    
+    X
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-Y"
+  >
+    
+    Y
+  
+  </div>
+  <div
+    class="word-char card clickable"
+    draggable="true"
+    id="alphabet-Z"
+  >
+    
+    Z
+  
+  </div>
+</div>
+`;
+
+exports[`Change.vue renders correctly 1`] = `
+<div>
+  <div>
+    
+    Versuch ein neues Wort zu bilden, indem du einen Buchstaben änderst.
+  
+  </div>
+   
+  <div
+    class="word-container flex-item flex-row flex-center"
+  >
+    <div>
+      <div
+        class="word-char card locked"
+      >
+        
+        A
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card locked"
+      >
+        
+        D
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card locked"
+      >
+        
+        L
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card locked"
+      >
+        
+        E
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card locked"
+      >
+        
+        R
+      
+      </div>
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <alphabet-stub />
+     
+    <undo-stub />
+  </div>
+</div>
+`;
+
+exports[`Remove.vue renders correctly 1`] = `
+<div>
+  <div>
+    
+    Versuch ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
+  
+  </div>
+   
+  <div
+    class="word-container flex-item flex-row flex-center"
+  >
+    <div>
+      <div
+        class="word-char card clickable locked"
+        draggable="true"
+      >
+        
+        A
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card clickable locked"
+        draggable="true"
+      >
+        
+        D
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card clickable locked"
+        draggable="true"
+      >
+        
+        L
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card clickable locked"
+        draggable="true"
+      >
+        
+        E
+      
+      </div>
+    </div>
+    <div>
+      <div
+        class="word-char card clickable locked"
+        draggable="true"
+      >
+        
+        R
+      
+      </div>
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <trashcan-stub />
+     
+    <undo-stub />
+  </div>
+</div>
+`;

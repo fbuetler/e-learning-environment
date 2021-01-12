@@ -1,5 +1,9 @@
 import { shallowMount } from "@vue/test-utils";
 import Add from "@/components/words/Add.vue";
+import Alphabet from "@/components/words/Alphabet.vue";
+import Change from "@/components/words/Change.vue";
+import Remove from "@/components/words/Remove.vue";
+import Swap from "@/components/words/Swap.vue";
 import { wordElement } from "@/components/words/Words";
 
 function prepareWord(word: string): wordElement[] {
@@ -105,4 +109,72 @@ describe("Add.vue", () => {
       expect(wrapper.vm["charAdded"]).toBeFalsy();
     });
   }
+});
+
+describe("Alphabet.vue", () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallowMount(Alphabet, {});
+  });
+
+  it("is a Vue instance", () => {
+    expect(wrapper.vm).toBeTruthy();
+  });
+
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  // TODO: add more tests
+});
+
+describe("Change.vue", () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallowMount(Change, {});
+  });
+
+  it("is a Vue instance", () => {
+    expect(wrapper.vm).toBeTruthy();
+  });
+
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  // TODO: add more tests
+});
+
+describe("Remove.vue", () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallowMount(Remove, {});
+  });
+
+  it("is a Vue instance", () => {
+    expect(wrapper.vm).toBeTruthy();
+  });
+
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  // TODO: add more tests
+});
+
+describe("Swap.vue", () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallowMount(Swap, {});
+  });
+
+  it("is a Vue instance", () => {
+    expect(wrapper.vm).toBeTruthy();
+  });
+
+  it("renders correctly", () => {
+    // TODO: problems with mocking multiple functions in Words
+  });
+
+  // TODO: add more tests
 });

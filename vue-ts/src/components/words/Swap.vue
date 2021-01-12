@@ -10,14 +10,14 @@
     </div>
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
-      id="word-container"
+      ref="word-container"
     >
       <div class="flex-item flex-row flex-center">
         <div
           v-for="element in word"
           :key="element.id"
           class="word-char card"
-          :id="'word-char-' + element.id"
+          :ref="'word-char-' + element.id"
         >
           {{ element.char }}
         </div>
@@ -51,7 +51,7 @@
           <path
             v-for="[left, right] in arrows"
             :key="`arrow-${left}-${right}`"
-            :id="`arrow-${left}-${right}`"
+            :ref="`arrow-${left}-${right}`"
             stroke="black"
             stroke-width="2"
             fill="transparent"
@@ -61,7 +61,7 @@
           <rect
             v-for="[left, right] in arrows"
             :key="`rect-around-arrow-${left}-${right}`"
-            :id="`rect-around-arrow-${left}-${right}`"
+            :ref="`rect-around-arrow-${left}-${right}`"
             fill="transparent"
             @click="swapChar(left, right)"
           />
@@ -200,13 +200,13 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
 
   drawArrows() {
     this.arrows.forEach(([leftID, rightID]) => {
-      const container = document.getElementById("word-container");
-      const leftChar = document.getElementById(`word-char-${leftID}`);
-      const rightChar = document.getElementById(`word-char-${rightID}`);
-      const arrow = document.getElementById(`arrow-${leftID}-${rightID}`);
-      const rect = document.getElementById(
+      const container = this.$refs["word-container"] as HTMLElement;
+      const leftChar = this.$refs[`word-char-${leftID}`][0] as HTMLElement;
+      const rightChar = this.$refs[`word-char-${rightID}`][0] as HTMLElement;
+      const arrow = this.$refs[`arrow-${leftID}-${rightID}`][0] as SVGElement;
+      const rect = this.$refs[
         `rect-around-arrow-${leftID}-${rightID}`
-      );
+      ][0] as SVGElement;
 
       const leftCharCenter =
         leftChar.offsetLeft - container.offsetLeft + leftChar.offsetWidth / 2;
