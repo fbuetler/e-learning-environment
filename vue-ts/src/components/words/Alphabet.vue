@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-item flex-wrap flex-center flex-row">
+  <div id="alphabet" class="flex-item flex-wrap flex-center flex-row">
     <div
       :id="`alphabet-${char}`"
       class="word-char card clickable"

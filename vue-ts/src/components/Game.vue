@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="game">
     <div class="flex-item flex-center flex-row">
       <slot name="title">Unintentionally empty!</slot>
       <Tutorial @start-tutorial-animation="showAnimation = true">
@@ -7,7 +7,7 @@
         <slot name="video" slot="video" />
       </Tutorial>
     </div>
-    <modal id="result" v-if="showResult" @close="showResult = false">
+    <Modal id="result" v-if="showResult" @close="showResult = false">
       <div slot="body" class="flex-item flex-center flex-col">
         <div>
           <img
@@ -20,15 +20,17 @@
           <h3>{{ resultText }}</h3>
         </div>
       </div>
-    </modal>
+    </Modal>
     <div>
       <Buttonmenu />
       <component
+        id="task"
         :is="currentGameComponent"
         :args="args"
         @evaluated-game="(correct) => evaluatedGame(correct)"
       >
         <TutorialAnimation
+          id="tutorial-animation"
           slot-scope="slotScope"
           :steps="slotScope.animationSteps"
           v-if="showAnimation"
@@ -88,6 +90,7 @@ export enum GameType {
   TODO:
     - add tutorial videos
     - test that shit
+    - multilingual (vue-i18n)
 */
 
 @Component({

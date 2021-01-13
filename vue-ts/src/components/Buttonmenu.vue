@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-item flex-row flex-center flex-wrap">
+  <div id="button-menu" class="flex-item flex-row flex-center flex-wrap">
     <button
       id="button-menu-next"
       class="card clickable"

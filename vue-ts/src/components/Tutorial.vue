@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="tutorial-wrapper">
     <div
       id="tutorial"
       class="tutorial flex-item flex-center card clickable"

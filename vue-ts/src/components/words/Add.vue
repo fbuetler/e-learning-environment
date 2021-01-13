@@ -7,6 +7,7 @@
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
       ref="word-container"
+      id="word-container"
     >
       <div class="flex-item flex-row flex-center">
         <div
@@ -17,6 +18,7 @@
             locked: element.locked,
           }"
           :ref="`word-char-${element.id}`"
+          :id="`word-char-${element.id}`"
         >
           {{ element.char }}
         </div>
@@ -41,6 +43,7 @@
             v-for="id in arrows"
             :key="`arrow-${id}`"
             :ref="`arrow-${id}`"
+            :id="`arrow-${id}`"
             stroke="black"
             stroke-width="3"
             fill="transparent"
@@ -50,6 +53,7 @@
             v-for="id in arrows"
             :key="`rect-around-arrow-${id}`"
             :ref="`rect-around-arrow-${id}`"
+            :id="`rect-around-arrow-${id}`"
             fill="transparent"
             @click="addChar(id)"
             @dragenter.prevent
