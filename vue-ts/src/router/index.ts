@@ -10,10 +10,6 @@ let routes: Array<RouteConfig> = [
     path: "/",
     component: Home,
   },
-  {
-    path: "*",
-    component: Home,
-  },
 ];
 
 routes = routes.concat(
@@ -25,6 +21,11 @@ routes = routes.concat(
     return rc;
   })
 );
+
+routes.push({
+  path: "/*",
+  component: Home,
+});
 
 const router = new VueRouter({
   mode: "history",
