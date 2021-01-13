@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tutorial.vue renders correctly 1`] = `
-<div>
+<div
+  id="tutorial-wrapper"
+>
   <div
     class="tutorial flex-item flex-center card clickable"
     id="tutorial"

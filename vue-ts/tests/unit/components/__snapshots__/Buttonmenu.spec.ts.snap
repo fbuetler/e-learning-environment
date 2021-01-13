@@ -3,6 +3,7 @@
 exports[`Buttonmenu.vue renders correctly 1`] = `
 <div
   class="flex-item flex-row flex-center flex-wrap"
+  id="button-menu"
 >
   <button
     class="card clickable"
