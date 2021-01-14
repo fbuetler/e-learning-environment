@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "@/components/GameMixins";
+import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import MayasMixin from "@/components/mayas/MayasMixin.vue";
 
 @Component<From>({})

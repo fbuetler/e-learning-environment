@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "@/components/GameMixins";
+import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import TreesMixin from "@/components/trees/TreesMixin.vue";
 import Trees from "@/components/trees/Trees.vue";
 import Undo from "@/components/Undo.vue";

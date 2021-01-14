@@ -1,3 +1,4 @@
+<script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { EventBus, EventBusEvents } from "@/components/EventBus";
@@ -36,3 +37,4 @@ export default class GameMixin extends Vue {
     throw Error(this.notOverwrittenMsg);
   }
 }
+</script>

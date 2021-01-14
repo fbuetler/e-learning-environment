@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
-import GameMixin, { GameInterface } from "@/components/GameMixins";
+import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import CoinsMixin, {
   normalCoins,
   binaryCoins,
