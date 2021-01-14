@@ -113,10 +113,7 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
     ) {
       return false;
     }
-    let sum = 0;
-    for (let i = 0; i < this.items(this.type).length; i++) {
-      sum += this.selectedItems[i] * this.items(this.type)[i].value;
-    }
+    const sum = this.sumItems(this.type, this.selectedItems);
     if (this.currentDifficultyLevel === 2 && this.type === coinType.NORMAL) {
       return (
         sum === this.number &&

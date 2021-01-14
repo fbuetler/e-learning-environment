@@ -51,24 +51,11 @@ export default class From extends Mixins(GameMixin, CoinsMixin)
   }
 
   restartGame() {
-    const items = new Array<number>(this.items(this.coinType).length).fill(0);
-    for (let i = 0; i < items.length; i++) {
-      items[i] = Math.floor(
-        Math.random() * this.maxItems(this.coinType, i) + 0.5
-      );
-    }
-    if (items.every((el) => el === 0)) {
-      items[0] = 1; // ensure it is non empty
-    }
-    this.generatedItems = items;
+    this.generatedItems = this.generateItems(this.coinType);
   }
 
   isCorrect(): boolean {
-    let sum = 0;
-    for (let i = 0; i < this.items(this.coinType).length; i++) {
-      sum += this.generatedItems[i] * this.items(this.coinType)[i].value;
-    }
-    return this.number === sum;
+    return this.number === this.sumItems(this.coinType, this.generatedItems);
   }
 }
 </script>

@@ -37,6 +37,25 @@ export default class CoinsMixin extends Vue {
     [normalCoins.FIFTY, 2],
   ]);
 
+  generateItems(type: coinType): number[] {
+    const items = new Array<number>(this.items(type).length).fill(0);
+    for (let i = 0; i < items.length; i++) {
+      items[i] = Math.floor(Math.random() * this.maxItems(type, i) + 0.5);
+    }
+    if (items.every((el) => el === 0)) {
+      items[0] = 1; // ensure it is non empty
+    }
+    return items;
+  }
+
+  sumItems(type: coinType, items: number[]): number {
+    let sum = 0;
+    for (let i = 0; i < this.items(type).length; i++) {
+      sum += items[i] * this.items(type)[i].value;
+    }
+    return sum;
+  }
+
   items(type: coinType): item[] {
     switch (type) {
       case coinType.NORMAL: {
