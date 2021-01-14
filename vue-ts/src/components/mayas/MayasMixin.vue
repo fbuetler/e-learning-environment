@@ -23,8 +23,8 @@ export default class MayasMixin extends Vue {
         );
       }
     }
-    if (items.reduce((acc, val) => acc && val === 0, true)) {
-      items[0] = 1; // ensure it non empty
+    if (items.every((el) => el === 0)) {
+      items[0] = 1; // ensure its non empty
     }
     return items;
   }
