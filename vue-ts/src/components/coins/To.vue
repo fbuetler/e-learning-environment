@@ -28,15 +28,17 @@
           <div class="flex-item flex-center flex-row">
             <div
               class="flex-item flex-center flex-col"
-              v-for="(amount, i) in selectedItems"
+              v-for="(amount, i) in displaySelectedItems"
               :key="`item-${i}`"
             >
               <div
-                :class="items(type)[i].class"
+                :class="items(type).reverse()[i].class"
                 v-for="j in amount"
                 :key="`amount-${j}`"
               >
-                <img :src="require(`@/assets/${items(type)[i].img}`)" />
+                <img
+                  :src="require(`@/assets/${items(type).reverse()[i].img}`)"
+                />
               </div>
             </div>
           </div>
@@ -49,7 +51,7 @@
     >
       <ItemSelection
         :selected="selected"
-        :items="items(type)"
+        :items="items(type).reverse()"
         @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
@@ -163,6 +165,10 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
 
   get displayDifficulty(): boolean {
     return this.type === coinType.NORMAL;
+  }
+
+  get displaySelectedItems(): number[] {
+    return JSON.parse(JSON.stringify(this.selectedItems)).reverse();
   }
 }
 </script>
