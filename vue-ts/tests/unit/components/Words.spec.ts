@@ -1,6 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
 import Add from "@/components/words/Add.vue";
-import Alphabet from "@/components/words/Alphabet.vue";
 import Change from "@/components/words/Change.vue";
 import Remove from "@/components/words/Remove.vue";
 import Swap from "@/components/words/Swap.vue";
@@ -40,6 +39,20 @@ jest.mock("@/components/words/Words", () => ({
       JSON.parse(JSON.stringify(mockSimilarWords)),
     ];
   },
+  get alphabet() {
+    return ["A", "B", "C"];
+  },
+  get items() {
+    return this.alphabet.map((el, i) => {
+      return {
+        id: i,
+        type: i,
+        value: i,
+        img: el,
+        class: "word-char",
+      };
+    });
+  },
 }));
 
 describe("Add.vue", () => {
@@ -66,13 +79,13 @@ describe("Add.vue", () => {
   });
 
   for (let i = 0; i <= mockWord.length; i++) {
-    it(`adding a char by click is possible at possition ${i}`, async () => {
-      await wrapper.setData({ selected: "5" }); // 'F'
+    it(`adding a char by click at position ${i}`, async () => {
+      await wrapper.setData({ selected: 1 }); // 'B'
       wrapper
         .findAll("rect")
         .at(i)
         .trigger("click");
-      const newWord = addToWord(copy(mockWord), "F", i);
+      const newWord = addToWord(copy(mockWord), "B", i);
       expect(wrapper.vm["word"]).toEqual(newWord);
     });
   }
@@ -83,10 +96,10 @@ describe("Add.vue", () => {
   });
 
   it("add a char twice", async () => {
-    await wrapper.setData({ selected: "5" }); // 'F'
+    await wrapper.setData({ selected: 1 }); // 'B'
     wrapper.vm.addChar(0);
     const word = copy(wrapper.vm["word"]);
-    await wrapper.setData({ selected: "5" }); // 'F'
+    await wrapper.setData({ selected: 1 }); // 'B'
     wrapper.vm.addChar(0);
     expect(copy(wrapper.vm["word"])).toEqual(word);
   });
@@ -103,29 +116,12 @@ describe("Add.vue", () => {
 
   for (let i = 0; i <= mockWord.length; i++) {
     it(`undo is handled correctly at position ${i}`, async () => {
-      await wrapper.setData({ word: addToWord(copy(mockWord), "F", i) });
+      await wrapper.setData({ word: addToWord(copy(mockWord), "B", i) });
       wrapper.vm.undo();
       expect(copy(wrapper.vm["word"])).toEqual(mockWord);
       expect(wrapper.vm["charAdded"]).toBeFalsy();
     });
   }
-});
-
-describe("Alphabet.vue", () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = shallowMount(Alphabet, {});
-  });
-
-  it("is a Vue instance", () => {
-    expect(wrapper.vm).toBeTruthy();
-  });
-
-  it("renders correctly", () => {
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  // TODO: add more tests
 });
 
 describe("Change.vue", () => {

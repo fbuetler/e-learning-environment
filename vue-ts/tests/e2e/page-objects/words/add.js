@@ -75,11 +75,11 @@ module.exports = {
 
                   sections: {
                     alphabet: {
-                      selector: "#alphabet",
+                      selector: "#item-selection",
 
                       elements: {
                         letters: {
-                          selector: "[id^='alphabet-']",
+                          selector: "[id^='item-selection-']",
                         },
                       },
                     },

@@ -98,7 +98,7 @@ import {
 export default class Add extends Mixins(GameMixin) implements GameInterface {
   word: wordElement[] = null;
   similarWords: string[] = null;
-  selected: string = null;
+  selected: number = null;
   charAdded = false;
 
   animationSteps: Array<string> = null;
@@ -204,11 +204,11 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     } while (wrongPos === correctPos);
 
     return new Array<string>(
-      `alphabet-${wrongChar}`,
+      `item-selection-${alphabet.findIndex((el) => el === wrongChar)}`,
       `rect-around-arrow-${wrongPos}`,
       "button-menu-check",
       "undo",
-      `alphabet-${correctChar}`,
+      `item-selection-${alphabet.findIndex((el) => el === correctChar)}`,
       `rect-around-arrow-${correctPos}`,
       "button-menu-check",
       "button-menu-next"
