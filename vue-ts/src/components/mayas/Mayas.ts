@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { item } from "@/components/ItemSelection";
+import { item } from "@/components/ItemSelection.vue";
 
 export enum itemType {
   NUT = 0,
@@ -12,11 +12,6 @@ export default class MayasMixin extends Vue {
   maxItems = new Map([
     [itemType.NUT, 4],
     [itemType.STICK, 3],
-  ]);
-
-  itemValue = new Map([
-    [itemType.NUT, 1],
-    [itemType.STICK, 5],
   ]);
 
   generateItems(): Array<number> {
@@ -37,7 +32,7 @@ export default class MayasMixin extends Vue {
   sumItems(items: Array<number>): number {
     return Object.keys(itemType)
       .filter((el) => !isNaN(Number(el)))
-      .reduce((acc, type) => acc + items[+type] * this.itemValue.get(+type), 0);
+      .reduce((acc, type) => acc + items[+type] * this.items[+type].value, 0);
   }
 
   get nut(): number {
@@ -48,17 +43,19 @@ export default class MayasMixin extends Vue {
     return itemType.STICK;
   }
 
-  get itemsList(): item[] {
+  get items(): item[] {
     return [
       {
         id: 1,
         type: itemType.NUT,
+        value: 1,
         img: "mayas/nut.png",
         class: "nut",
       },
       {
         id: 2,
         type: itemType.STICK,
+        value: 5,
         img: "mayas/stick.png",
         class: "stick",
       },

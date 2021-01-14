@@ -53,7 +53,7 @@ import CoinsMixin, {
   normalCoins,
   binaryCoins,
 } from "@/components/coins/CoinsMixin";
-import ItemSelection, { item } from "@/components/ItemSelection";
+import ItemSelection, { item } from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 
 export enum coinType {

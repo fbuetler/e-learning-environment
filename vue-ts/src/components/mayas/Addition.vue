@@ -76,7 +76,7 @@
     >
       <ItemSelection
         :selected="selected"
-        :items="itemsList"
+        :items="items"
         @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
@@ -89,7 +89,7 @@ import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins";
 import MayasMixin, { itemType } from "@/components/mayas/Mayas";
 import Difficulty from "@/components/Difficulty.vue";
-import ItemSelection from "@/components/ItemSelection";
+import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 
 @Component<Addition>({
@@ -106,6 +106,8 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
   currentDifficultyLevel = 1;
   selected: itemType = null;
   selectedItems: Array<itemType> = null;
+
+  limit = 19;
 
   numberOfSummands = 2;
   difficultyLevels = 2;
@@ -125,7 +127,7 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
         this.summands[i] = summand;
         sum += this.sumItems(summand);
       }
-    } while (sum > 19);
+    } while (sum > this.limit);
     // level 2
     this.selectedItems = new Array<number>(
       Object.keys(itemType).length / 2
@@ -143,11 +145,11 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
       if (this.selectedItems[itemType.NUT] > 4) {
         return false;
       }
-      return (
-        this.selectedItems[itemType.NUT] +
-          this.selectedItems[itemType.STICK] * 5 ===
-        expectedSum
-      );
+      let sum = 0;
+      for (let i = 0; i < this.items.length; i++) {
+        sum += this.selectedItems[i] * this.items[i].value;
+      }
+      return sum === this.sum;
     }
   }
 

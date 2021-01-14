@@ -31,7 +31,7 @@
     >
       <ItemSelection
         :selected="selected"
-        :items="itemsList"
+        :items="items"
         @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
@@ -43,7 +43,7 @@
 import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins";
 import MayasMixin, { itemType } from "@/components/mayas/Mayas";
-import ItemSelection from "@/components/ItemSelection";
+import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 
 @Component<To>({
@@ -76,11 +76,11 @@ export default class To extends Mixins(GameMixin, MayasMixin)
     if (this.selectedItems[itemType.NUT] > 4) {
       return false;
     }
-    return (
-      this.selectedItems[itemType.NUT] +
-        this.selectedItems[itemType.STICK] * 5 ===
-      this.number
-    );
+    let sum = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      sum += this.selectedItems[i] * this.items[i].value;
+    }
+    return sum === this.number;
   }
 
   addItem() {
