@@ -9,7 +9,7 @@ const views: Array<{
   {
     id: 1,
     title: "Ähnliche Wörter - Buchstabe hinzufügen",
-    path: "/wordsadd",
+    path: "/words/add",
     img: "placeholder.jpg",
     view: "WordsAdd",
     component: "WordsAdd",
@@ -17,7 +17,7 @@ const views: Array<{
   {
     id: 2,
     title: "Ähnliche Wörter - Buchstabe austauschen",
-    path: "/wordschange",
+    path: "/words/change",
     img: "words/beaver_change.png",
     view: "WordsChange",
     component: "WordsChange",
@@ -25,7 +25,7 @@ const views: Array<{
   {
     id: 3,
     title: "Ähnliche Wörter - Buchstabe entfernen",
-    path: "/wordsremove",
+    path: "/words/remove",
     img: "placeholder.jpg",
     view: "WordsRemove",
     component: "WordsRemove",
@@ -33,7 +33,7 @@ const views: Array<{
   {
     id: 4,
     title: "Ähnliche Wörter - Buchstaben vertauschen",
-    path: "/wordsswap",
+    path: "/words/swap",
     img: "words/beaver_swap.png",
     view: "WordsSwap",
     component: "WordsSwap",
@@ -41,7 +41,7 @@ const views: Array<{
   {
     id: 5,
     title: "Maya Zahlen darstellen",
-    path: "/mayasto",
+    path: "/mayas/to",
     img: "placeholder.jpg",
     view: "MayasTo",
     component: "MayasTo",
@@ -49,7 +49,7 @@ const views: Array<{
   {
     id: 6,
     title: "Maya Zahlen verstehen",
-    path: "/mayasfrom",
+    path: "/mayas/from",
     img: "mayas/from_icon.png",
     view: "MayasFrom",
     component: "MayasFrom",
@@ -57,7 +57,7 @@ const views: Array<{
   {
     id: 7,
     title: "Maya Zahlen addieren",
-    path: "/mayasaddition",
+    path: "/mayas/addition",
     img: "mayas/addition.png",
     view: "MayasAddition",
     component: "MayasAddition",
@@ -65,7 +65,7 @@ const views: Array<{
   {
     id: 16,
     title: "Zahlen mit Münzen und Geldscheinen",
-    path: "/normalto",
+    path: "/coins/normal/to",
     img: "placeholder.jpg",
     view: "NormalCoinsTo",
     component: "CoinsTo",
@@ -73,7 +73,7 @@ const views: Array<{
   {
     id: 17,
     title: "Münzbeträge ausrechnen",
-    path: "/normalfrom",
+    path: "/coins/normal/from",
     img: "placeholder.jpg",
     view: "NormalCoinsFrom",
     component: "CoinsFrom",
@@ -81,7 +81,7 @@ const views: Array<{
   {
     id: 18,
     title: "Mit möglichst wenig Münzen bezahlen",
-    path: "/normalminimalamount",
+    path: "/coins/normal/minimalamount",
     img: "placeholder.jpg",
     view: "NormalCoinsMinimalAmount",
     component: "CoinsMinimalAmount",
@@ -89,7 +89,7 @@ const views: Array<{
   {
     id: 19,
     title: "Gleichwertige Münzen tauschen",
-    path: "/normalswap",
+    path: "/coins/normal/swap",
     img: "placeholder.jpg",
     view: "NormalCoinsSwap",
     component: "CoinsSwap",
@@ -97,7 +97,7 @@ const views: Array<{
   {
     id: 20,
     title: "Bezahlen mit binären Münzen",
-    path: "/binaryto",
+    path: "/coins/binary/to",
     img: "placeholder.jpg",
     view: "BinaryCoinsTo",
     component: "CoinsTo",
@@ -105,7 +105,7 @@ const views: Array<{
   {
     id: 21,
     title: "Binäre Münzbeträge ausrechnen",
-    path: "/binaryfrom",
+    path: "/coins/binary/from",
     img: "placeholder.jpg",
     view: "BinaryCoinsFrom",
     component: "CoinsFrom",
@@ -113,7 +113,7 @@ const views: Array<{
   {
     id: 15,
     title: "mit Muster dechiffrieren",
-    path: "/patterndecryption",
+    path: "/pattern/decryption",
     img: "placeholder.jpg",
     view: "PatternDecryption",
     component: "PatternDecryption",
@@ -121,7 +121,7 @@ const views: Array<{
   {
     id: 14,
     title: "mit Muster chiffrieren",
-    path: "/patternencryption",
+    path: "/pattern/encryption",
     img: "ciphertexts/ciphertext_pattern.png",
     view: "PatternEncryption",
     component: "PatternEncryption",
@@ -129,7 +129,7 @@ const views: Array<{
   {
     id: 13,
     title: "mit Zeichen dechiffrieren",
-    path: "/symboldecryption",
+    path: "/symbol/decryption",
     img: "ciphertexts/symbolsToAbc.png",
     view: "SymbolDecryption",
     component: "SymbolDecryption",
@@ -137,7 +137,7 @@ const views: Array<{
   {
     id: 12,
     title: "mit Zeichen chiffrieren",
-    path: "/symbolencryption",
+    path: "/symbol/encryption",
     img: "ciphertexts/abcToSymbols.png",
     view: "SymbolEncryption",
     component: "SymbolEncryption",
@@ -145,7 +145,7 @@ const views: Array<{
   {
     id: 8,
     title: "Reihe aus 3 Bäumen",
-    path: "/treerow3",
+    path: "/tree/row/3",
     img: "trees/trees_3.png",
     view: "TreeRowOfThree",
     component: "TreeRowOfThree",
@@ -153,7 +153,7 @@ const views: Array<{
   {
     id: 9,
     title: "3x3 Baumsudoku",
-    path: "/treesudoku3",
+    path: "/tree/sudoku/3",
     img: "trees/sudoku_explanation_3.png",
     view: "TreeSudokuOfThree",
     component: "TreeSudokuOfThree",
@@ -161,7 +161,7 @@ const views: Array<{
   {
     id: 10,
     title: "Reihe aus 4 Bäumen",
-    path: "/treerow4",
+    path: "/tree/row/4",
     img: "trees/trees_4.png",
     view: "TreeRowOfFour",
     component: "TreeRowOfFour",
@@ -169,7 +169,7 @@ const views: Array<{
   {
     id: 11,
     title: "4x4 Baumsudoku",
-    path: "/treesudoku4",
+    path: "/tree/sudoku/4",
     img: "trees/sudoku_explanation_4.png",
     view: "TreeSudokuOfFour",
     component: "TreeSudokuOfFour",

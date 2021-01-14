@@ -1,5 +1,5 @@
 module.exports = {
-  url: "/wordsadd",
+  url: "/words/add",
 
   elements: {
     app: "#app",
