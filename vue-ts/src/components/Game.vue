@@ -91,7 +91,7 @@ export enum GameType {
     - add tutorial videos
     - test that shit
     - multilingual (vue-i18n)
-    - use itemSelection for trees (and alphabet)
+    - optional: union To, From from mayas and coins
 */
 
 @Component({

@@ -1,5 +1,5 @@
 <template>
-  <div @dragend="selectedTree = null">
+  <div @dragend="selected = null">
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
@@ -101,10 +101,10 @@
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
-      <Trees
-        :size="size"
-        :selected="selectedTree"
-        @tree-selected="selectedTree = $event"
+      <ItemSelection
+        :selected="selected"
+        :items="items(size)"
+        @selected="selected = $event"
       />
       <Trashcan @trashed-element="(event) => trashElement(event)" />
       <Undo @undo-operation="undo($event)" />
@@ -116,7 +116,7 @@
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import TreesMixin from "@/components/trees/TreesMixin.vue";
-import Trees from "@/components/trees/Trees.vue";
+import ItemSelection from "@/components/ItemSelection.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
@@ -139,7 +139,7 @@ type sudoku = sudokuField[][];
 
 @Component<Sudoku>({
   components: {
-    Trees,
+    ItemSelection,
     Trashcan,
     Undo,
     Difficulty,
@@ -157,7 +157,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 
   valuesSolution: sudoku = null;
 
-  selectedTree = null;
+  selected = null;
 
   currentDifficultyLevel = 1;
   difficultyLevels = 3;
@@ -442,14 +442,14 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       if (this.values[oldRowIndex][oldColIndex].locked) {
         return;
       }
-      this.selectedTree = this.values[oldRowIndex][oldColIndex].value;
+      this.selected = this.values[oldRowIndex][oldColIndex].value;
       Vue.set(this.values[oldRowIndex][oldColIndex], "value", 0);
     }
-    if (this.selectedTree === null) {
+    if (this.selected === null) {
       return;
     }
-    Vue.set(this.values[rowIndex][colIndex], "value", this.selectedTree);
-    this.selectedTree = null;
+    Vue.set(this.values[rowIndex][colIndex], "value", this.selected);
+    this.selected = null;
   }
 
   startDrag(event: DragEvent, id: number) {

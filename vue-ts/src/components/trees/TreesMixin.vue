@@ -1,6 +1,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { item } from "../ItemSelection.vue";
 
 @Component
 export default class TreesMixin extends Vue {
@@ -28,6 +29,20 @@ export default class TreesMixin extends Vue {
       }
     }
     return visible;
+  }
+
+  items(size: number): item[] {
+    const items = new Array<item>();
+    for (let i = 1; i <= size; i++) {
+      items.push({
+        id: i,
+        type: i,
+        value: i,
+        img: `trees/tree_${i}_${size}.png`,
+        class: "",
+      });
+    }
+    return items;
   }
 }
 </script>

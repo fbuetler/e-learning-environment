@@ -1,5 +1,5 @@
 <template>
-  <div @dragend="selectedTree = null">
+  <div @dragend="selected = null">
     <div>
       Versuch das Baumreihenrätsel zu lösen.
     </div>
@@ -28,10 +28,10 @@
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
-      <Trees
-        :size="size"
-        :selected="selectedTree"
-        @tree-selected="selectedTree = $event"
+      <ItemSelection
+        :selected="selected"
+        :items="items(size)"
+        @selected="selected = $event"
       />
       <Trashcan @trashed-element="(event) => trashElement(event)" />
       <Undo @undo-operation="undo($event)" />
@@ -43,7 +43,7 @@
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import TreesMixin from "@/components/trees/TreesMixin.vue";
-import Trees from "@/components/trees/Trees.vue";
+import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
 
@@ -57,7 +57,7 @@ type row = rowField[];
 
 @Component<Row>({
   components: {
-    Trees,
+    ItemSelection,
     Trashcan,
     Undo,
   },
@@ -73,7 +73,7 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   leftView: number = null;
   rightView: number = null;
 
-  selectedTree = null;
+  selected = null;
 
   isStarted(): boolean {
     return (
@@ -103,14 +103,14 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
       if (oldField.locked) {
         return;
       }
-      this.selectedTree = oldField.value;
+      this.selected = oldField.value;
       Vue.set(oldField, "value", 0);
     }
-    if (this.selectedTree === null) {
+    if (this.selected === null) {
       return;
     }
-    Vue.set(field, "value", this.selectedTree);
-    this.selectedTree = null;
+    Vue.set(field, "value", this.selected);
+    this.selected = null;
   }
 
   generate(): [number, number, row] {
