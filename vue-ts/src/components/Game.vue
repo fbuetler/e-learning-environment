@@ -91,6 +91,7 @@ export enum GameType {
     - add tutorial videos
     - test that shit
     - multilingual (vue-i18n)
+    - use itemSelection for trees and alphabet
 */
 
 @Component({
@@ -191,5 +192,8 @@ export default class Game extends Vue {
 }
 .stick > img {
   max-height: 96px;
+}
+.coin > img {
+  max-width: 64px;
 }
 </style>

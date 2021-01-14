@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { item } from "@/components/ItemSelection";
 
 export enum itemType {
   NUT = 0,
@@ -45,5 +46,22 @@ export default class MayasMixin extends Vue {
 
   get stick(): number {
     return itemType.STICK;
+  }
+
+  get itemsList(): item[] {
+    return [
+      {
+        id: 1,
+        type: itemType.NUT,
+        img: "mayas/nut.png",
+        class: "nut",
+      },
+      {
+        id: 2,
+        type: itemType.STICK,
+        img: "mayas/stick.png",
+        class: "stick",
+      },
+    ];
   }
 }

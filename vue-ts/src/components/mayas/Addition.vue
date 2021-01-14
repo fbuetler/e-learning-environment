@@ -74,7 +74,11 @@
       class="interaction-container flex-item flex-row flex-center flex-stretch"
       v-if="currentDifficultyLevel === 2"
     >
-      <NutsAndSticks :selected="selected" @selected="selected = $event" />
+      <ItemSelection
+        :selected="selected"
+        :items="itemsList"
+        @selected="selected = $event"
+      />
       <Undo @undo-operation="undo()" />
     </div>
   </div>
@@ -85,13 +89,13 @@ import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins";
 import MayasMixin, { itemType } from "@/components/mayas/Mayas";
 import Difficulty from "@/components/Difficulty.vue";
-import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
+import ItemSelection from "@/components/ItemSelection";
 import Undo from "@/components/Undo.vue";
 
 @Component<Addition>({
   components: {
     Difficulty,
-    NutsAndSticks,
+    ItemSelection,
     Undo,
   },
 })

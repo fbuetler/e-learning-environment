@@ -29,7 +29,11 @@
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
-      <NutsAndSticks :selected="selected" @selected="selected = $event" />
+      <ItemSelection
+        :selected="selected"
+        :items="itemsList"
+        @selected="selected = $event"
+      />
       <Undo @undo-operation="undo()" />
     </div>
   </div>
@@ -39,12 +43,12 @@
 import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins";
 import MayasMixin, { itemType } from "@/components/mayas/Mayas";
-import NutsAndSticks from "@/components/mayas/NutsAndSticks.vue";
+import ItemSelection from "@/components/ItemSelection";
 import Undo from "@/components/Undo.vue";
 
 @Component<To>({
   components: {
-    NutsAndSticks,
+    ItemSelection,
     Undo,
   },
 })
@@ -57,7 +61,7 @@ export default class To extends Mixins(GameMixin, MayasMixin)
   limit = 19;
 
   isStarted(): boolean {
-    return this.number == null;
+    return this.number === null;
   }
 
   restartGame() {
@@ -80,7 +84,6 @@ export default class To extends Mixins(GameMixin, MayasMixin)
   }
 
   addItem() {
-    console.log("add item");
     if (this.selected === null) {
       return;
     }

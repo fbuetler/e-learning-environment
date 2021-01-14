@@ -4,12 +4,16 @@
     <div class="flex-item flex-center flex-col flex-flex card">
       <div>
         <div class="flex-item flex-center flex-row">
-          <div class="nut" v-for="index in items[nut]" :key="index">
+          <div class="nut" v-for="index in generatedItems[nut]" :key="index">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
         <div class="flex-item flex-center flex-col">
-          <div class="stick" v-for="index in items[stick]" :key="index">
+          <div
+            class="stick"
+            v-for="index in generatedItems[stick]"
+            :key="index"
+          >
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
         </div>
@@ -35,18 +39,18 @@ import MayasMixin from "@/components/mayas/Mayas";
 export default class From extends Mixins(GameMixin, MayasMixin)
   implements GameInterface {
   number: number = null;
-  items: Array<number> = null; // unfortunately Maps and Sets are not reactive in vue 2
+  generatedItems: Array<number> = null; // unfortunately Maps and Sets are not reactive in vue 2
 
   isStarted(): boolean {
-    return this.items === null;
+    return this.generatedItems === null;
   }
 
   restartGame() {
-    this.items = this.generateItems();
+    this.generatedItems = this.generateItems();
   }
 
   isCorrect(): boolean {
-    return this.number === this.sumItems(this.items);
+    return this.number === this.sumItems(this.generatedItems);
   }
 }
 </script>
