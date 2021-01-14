@@ -67,6 +67,8 @@ import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
 
+// TODO remove hack introduced in: reverse coin order (hack) - 2610ec49b17304ceade048cb94cacac793945b0a
+
 @Component<To>({
   components: {
     ItemSelection,
