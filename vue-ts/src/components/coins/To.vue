@@ -38,7 +38,7 @@
     >
       <ItemSelection
         :selected="selected"
-        :items="items(coinType)"
+        :items="items"
         @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
