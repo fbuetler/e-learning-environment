@@ -103,13 +103,13 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
   implements GameInterface {
   sum: number = null;
   summands: Array<Array<itemType>> = null; // unfortunately Maps and Sets are not reactive in vue 2
-  currentDifficultyLevel = 1;
   selected: itemType = null;
   selectedItems: Array<itemType> = null;
 
   limit = 19;
-
   numberOfSummands = 2;
+
+  currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
   isStarted(): boolean {

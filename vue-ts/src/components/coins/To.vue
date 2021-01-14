@@ -1,6 +1,17 @@
 <template>
   <div @dragend.prevent="selected = null">
-    <div class="number">Stell die folgende Zahl dar:</div>
+    <Difficulty
+      :selected="currentDifficultyLevel"
+      :difficultyLevels="difficultyLevels"
+      @difficulty-selected="currentDifficultyLevel = $event"
+      v-if="displayDifficulty"
+    />
+    <div class="number" v-if="currentDifficultyLevel === 1">
+      Stell die folgende Zahl dar:
+    </div>
+    <div class="number" v-else>
+      Stell die folgende Zahl <b>mit möglichst wenig Münzen</b> dar:
+    </div>
     <div class="big-text">{{ number }}</div>
     <div
       class="flex-item flex-center flex-col flex-flex dropzone"
@@ -21,11 +32,11 @@
               :key="`item-${i}`"
             >
               <div
-                :class="items(coinType)[i].class"
+                :class="items(type)[i].class"
                 v-for="j in amount"
                 :key="`amount-${j}`"
               >
-                <img :src="require(`@/assets/${items(coinType)[i].img}`)" />
+                <img :src="require(`@/assets/${items(type)[i].img}`)" />
               </div>
             </div>
           </div>
@@ -38,7 +49,7 @@
     >
       <ItemSelection
         :selected="selected"
-        :items="items"
+        :items="items(type)"
         @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
@@ -52,11 +63,13 @@ import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import CoinsMixin, { coinType } from "@/components/coins/CoinsMixin.vue";
 import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
+import Difficulty from "@/components/Difficulty.vue";
 
 @Component<To>({
   components: {
     ItemSelection,
     Undo,
+    Difficulty,
   },
 })
 export default class To extends Mixins(GameMixin, CoinsMixin)
@@ -64,13 +77,18 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
   @Prop({ required: true })
   args!: { coinType: coinType };
 
-  coinType = this.args.coinType;
+  type = this.args.coinType;
 
   selected: number = null;
   number: number = null;
   selectedItems: Array<number> = null;
 
   limit = 100;
+
+  // there are only difficulty levels for coinType.NORMAL:
+  // represent number with minimal amount of coints
+  currentDifficultyLevel = 1;
+  difficultyLevels = 2;
 
   isStarted(): boolean {
     return this.number === null;
@@ -79,23 +97,46 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
   restartGame() {
     this.number = Math.ceil(Math.random() * this.limit);
     this.selected = null;
-    this.selectedItems = new Array<number>(
-      this.items(this.coinType).length
-    ).fill(0);
+    this.selectedItems = new Array<number>(this.items(this.type).length).fill(
+      0
+    );
   }
 
   isCorrect(): boolean {
     if (
-      this.coinType === coinType.BINARY &&
+      this.type === coinType.BINARY &&
       this.selectedItems.some((el) => el > 1)
     ) {
       return false;
     }
     let sum = 0;
-    for (let i = 0; i < this.items(this.coinType).length; i++) {
-      sum += this.selectedItems[i] * this.items(this.coinType)[i].value;
+    for (let i = 0; i < this.items(this.type).length; i++) {
+      sum += this.selectedItems[i] * this.items(this.type)[i].value;
+    }
+    if (this.currentDifficultyLevel === 2 && this.type === coinType.NORMAL) {
+      return (
+        sum === this.number &&
+        JSON.stringify(this.selectedItems) ===
+          JSON.stringify(this.calcMinimalAmount(this.number))
+      );
     }
     return sum === this.number;
+  }
+
+  calcMinimalAmount(number: number): number[] {
+    const items = this.items(this.type);
+    let i = items.length - 1;
+    const minimalAmount = new Array<number>(items.length).fill(0);
+    while (number > 0 && i >= 0) {
+      const coinValue = items[i].value;
+      if (number >= coinValue) {
+        minimalAmount[i]++;
+        number -= coinValue;
+      } else {
+        i--;
+      }
+    }
+    return minimalAmount;
   }
 
   addItem() {
@@ -118,6 +159,10 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
 
   get nothingSelected(): boolean {
     return this.selectedItems.every((el) => el === 0);
+  }
+
+  get displayDifficulty(): boolean {
+    return this.type === coinType.NORMAL;
   }
 }
 </script>
