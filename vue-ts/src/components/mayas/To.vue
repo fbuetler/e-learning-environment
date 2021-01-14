@@ -1,6 +1,7 @@
 <template>
   <div @dragend.prevent="selected = null">
-    <div class="number">Stell die folgende Zahl dar: {{ number }}</div>
+    <div class="number">Stell die folgende Zahl dar:</div>
+    <div class="big-text">{{ number }}</div>
     <div
       class="flex-item flex-center flex-col flex-flex dropzone"
       @click="addItem()"
