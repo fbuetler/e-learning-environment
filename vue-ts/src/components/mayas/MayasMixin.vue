@@ -1,5 +1,5 @@
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
 import { item } from "@/components/ItemSelection.vue";
 
 export enum itemType {
@@ -62,3 +62,4 @@ export default class MayasMixin extends Vue {
     ];
   }
 }
+</script>

@@ -42,7 +42,7 @@
 <script lang="ts">
 import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins";
-import MayasMixin, { itemType } from "@/components/mayas/Mayas";
+import MayasMixin, { itemType } from "@/components/mayas/MayasMixin.vue";
 import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 
