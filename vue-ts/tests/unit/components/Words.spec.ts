@@ -67,7 +67,7 @@ describe("Add.vue", () => {
 
   for (let i = 0; i <= mockWord.length; i++) {
     it(`adding a char by click is possible at possition ${i}`, async () => {
-      await wrapper.setData({ selectedChar: "F" });
+      await wrapper.setData({ selected: "5" }); // 'F'
       wrapper
         .findAll("rect")
         .at(i)
@@ -83,10 +83,10 @@ describe("Add.vue", () => {
   });
 
   it("add a char twice", async () => {
-    await wrapper.setData({ selectedChar: "F" });
+    await wrapper.setData({ selected: "5" }); // 'F'
     wrapper.vm.addChar(0);
     const word = copy(wrapper.vm["word"]);
-    await wrapper.setData({ selectedChar: "F" });
+    await wrapper.setData({ selected: "5" }); // 'F'
     wrapper.vm.addChar(0);
     expect(copy(wrapper.vm["word"])).toEqual(word);
   });

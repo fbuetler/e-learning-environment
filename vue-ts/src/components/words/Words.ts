@@ -1,4 +1,5 @@
 import words from "@/assets/words/words.json";
+import { item } from "@/components/ItemSelection.vue";
 
 export type wordElement = {
   id: number;
@@ -28,3 +29,42 @@ export function LoadWords(
   }
   return [word, similarWords];
 }
+
+export const alphabet = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+
+export const items: item[] = alphabet.map((el, i) => {
+  return {
+    id: i,
+    type: i,
+    value: i,
+    img: el,
+    class: "word-char",
+  };
+});

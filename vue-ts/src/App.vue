@@ -73,6 +73,12 @@ button:focus {
   align-items: center;
   justify-content: center;
 }
+.flex-center-horizontally {
+  justify-content: center;
+}
+.flex-center-vertivally {
+  align-items: center;
+}
 .flex-stretch {
   align-items: stretch;
 }

@@ -9,14 +9,14 @@
           class="word-char card clickable"
           :class="{
             locked: element.locked,
-            selected: element.id === selectedChar,
+            selected: element.id === selected,
           }"
           v-if="element.char !== ''"
-          @click="selectedChar = element.id"
+          @click="selected = element.id"
           draggable
           @dragover.prevent
           @dragend.prevent
-          @dragstart="selectedChar = element.id"
+          @dragstart="selected = element.id"
         >
           {{ element.char }}
         </div>
@@ -48,7 +48,7 @@ import { LoadWords, wordElement } from "@/components/words/Words";
 export default class Remove extends Mixins(GameMixin) implements GameInterface {
   word: wordElement[] = null;
   similarWords: string[] = null;
-  selectedChar: number = null;
+  selected: number = null;
   charRemoved = false;
 
   isStarted(): boolean {
@@ -57,7 +57,7 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
 
   restartGame() {
     [this.word, this.similarWords] = LoadWords("remove", 1);
-    this.selectedChar = null;
+    this.selected = null;
     this.charRemoved = false;
   }
 
@@ -70,7 +70,7 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
       return;
     }
     this.word.forEach((el) => {
-      if (el.id === this.selectedChar) {
+      if (el.id === this.selected) {
         el.char = "";
       } else {
         el.locked = true;
@@ -84,7 +84,7 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
       el.char = el.initialChar;
       el.locked = false;
     });
-    this.selectedChar = null;
+    this.selected = null;
     this.charRemoved = false;
   }
 }

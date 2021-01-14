@@ -1,6 +1,10 @@
 <template>
-  <div class="flex-item flex-wrap flex-row">
+  <div
+    id="item-selection"
+    class="flex-item flex-wrap flex-center-horizontally flex-row"
+  >
     <div
+      :id="`item-selection-${item.id}`"
       class="flex-item flex-wrap flex-center card clickable"
       v-for="item in items"
       :key="item.id"
@@ -17,7 +21,8 @@
       @dragend.prevent
       @drop.prevent
     >
-      <img :src="require('@/assets/' + item.img)" />
+      <img :src="require('@/assets/' + item.img)" v-if="isPath(item.img)" />
+      <div v-else>{{ item.img }}</div>
     </div>
   </div>
 </template>
@@ -39,5 +44,9 @@ export default class ItemSelection extends Vue {
   selected: number;
   @Prop({ required: true })
   items: item[];
+
+  isPath(path: string): boolean {
+    return path.includes("/");
+  }
 }
 </script>

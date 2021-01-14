@@ -1,5 +1,5 @@
 <template>
-  <div @dragend="selectedChar = null">
+  <div @dragend="selected = null">
     <slot :animationSteps="animationSteps" />
     <div>
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
@@ -67,9 +67,10 @@
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
-      <Alphabet
-        :selectedChar="selectedChar"
-        @char-selected="selectedChar = $event"
+      <ItemSelection
+        :selected="selected"
+        :items="items"
+        @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
     </div>
@@ -79,20 +80,25 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import Alphabet from "@/components/words/Alphabet.vue";
+import ItemSelection, { item } from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
-import { LoadWords, wordElement } from "@/components/words/Words";
+import {
+  LoadWords,
+  wordElement,
+  alphabet,
+  items,
+} from "@/components/words/Words";
 
 @Component<Add>({
   components: {
-    Alphabet,
+    ItemSelection,
     Undo,
   },
 })
 export default class Add extends Mixins(GameMixin) implements GameInterface {
   word: wordElement[] = null;
   similarWords: string[] = null;
-  selectedChar: string = null;
+  selected: string = null;
   charAdded = false;
 
   animationSteps: Array<string> = null;
@@ -165,16 +171,16 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   }
 
   addChar(addBefore: number) {
-    if (this.selectedChar === null || this.charAdded) {
+    if (this.selected === null || this.charAdded) {
       return;
     }
     this.word.splice(addBefore, 0, {
       id: Math.max(...this.word.map((el) => el.id)) + 1,
-      char: this.selectedChar,
+      char: alphabet[this.selected],
       initialChar: "",
       locked: false,
     });
-    this.selectedChar = null;
+    this.selected = null;
     this.charAdded = true;
   }
 
@@ -223,6 +229,10 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
       arrows.push(i);
     }
     return arrows;
+  }
+
+  get items(): item[] {
+    return items;
   }
 }
 </script>

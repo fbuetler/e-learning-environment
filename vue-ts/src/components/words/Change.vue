@@ -1,5 +1,5 @@
 <template>
-  <div @dragend.prevent="selectedChar = null">
+  <div @dragend.prevent="selected = null">
     <div>
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben änderst.
     </div>
@@ -21,9 +21,10 @@
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
-      <Alphabet
-        :selectedChar="selectedChar"
-        @char-selected="selectedChar = $event"
+      <ItemSelection
+        :selected="selected"
+        :items="items"
+        @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
     </div>
@@ -33,20 +34,25 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import Alphabet from "@/components/words/Alphabet.vue";
+import ItemSelection, { item } from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
-import { LoadWords, wordElement } from "@/components/words/Words";
+import {
+  LoadWords,
+  wordElement,
+  alphabet,
+  items,
+} from "@/components/words/Words";
 
 @Component<Change>({
   components: {
-    Alphabet,
+    ItemSelection,
     Undo,
   },
 })
 export default class Change extends Mixins(GameMixin) implements GameInterface {
   word: wordElement[] = null;
   similarWords: string[] = null;
-  selectedChar: string = null;
+  selected: string = null;
 
   isStarted(): boolean {
     return this.word === null;
@@ -61,20 +67,20 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   }
 
   changeChar(id: number) {
-    if (this.selectedChar === null) {
+    if (this.selected === null) {
       return;
     }
     const element = this.word.find((el) => el.id === id);
     if (element.locked) {
       return;
     }
-    if (this.selectedChar === element.initialChar) {
+    if (alphabet[this.selected] === element.initialChar) {
       element.char = element.initialChar;
       this.word.map((el) => (el.locked = false));
       return;
     }
     this.word.filter((el) => el.id !== id).forEach((el) => (el.locked = true));
-    element.char = this.selectedChar;
+    element.char = alphabet[this.selected];
   }
 
   undo() {
@@ -82,7 +88,11 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       el.char = el.initialChar;
       el.locked = false;
     });
-    this.selectedChar = null;
+    this.selected = null;
+  }
+
+  get items(): item[] {
+    return items;
   }
 }
 </script>
