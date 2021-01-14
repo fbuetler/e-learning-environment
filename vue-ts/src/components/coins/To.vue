@@ -52,7 +52,7 @@ import GameMixin, { GameInterface } from "@/components/GameMixins";
 import CoinsMixin, {
   normalCoins,
   binaryCoins,
-} from "@/components/coins/CoinsMixin";
+} from "@/components/coins/CoinsMixin.vue";
 import ItemSelection, { item } from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 

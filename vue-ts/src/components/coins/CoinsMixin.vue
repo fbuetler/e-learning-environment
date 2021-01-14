@@ -1,3 +1,4 @@
+<script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 
 export enum normalCoins {
@@ -21,3 +22,5 @@ export enum binaryCoins {
 
 @Component
 export default class CoinsMixin extends Vue {}
+
+</script>
