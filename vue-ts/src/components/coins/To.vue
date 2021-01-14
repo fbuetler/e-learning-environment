@@ -21,11 +21,11 @@
               :key="`item-${i}`"
             >
               <div
-                :class="items[i].class"
+                :class="items(coinType)[i].class"
                 v-for="j in amount"
                 :key="`amount-${j}`"
               >
-                <img :src="require(`@/assets/${items[i].img}`)" />
+                <img :src="require(`@/assets/${items(coinType)[i].img}`)" />
               </div>
             </div>
           </div>
@@ -49,17 +49,9 @@
 <script lang="ts">
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import CoinsMixin, {
-  normalCoins,
-  binaryCoins,
-} from "@/components/coins/CoinsMixin.vue";
-import ItemSelection, { item } from "@/components/ItemSelection.vue";
+import CoinsMixin, { coinType } from "@/components/coins/CoinsMixin.vue";
+import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
-
-export enum coinType {
-  NORMAL,
-  BINARY,
-}
 
 @Component<To>({
   components: {
@@ -87,7 +79,9 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
   restartGame() {
     this.number = Math.ceil(Math.random() * this.limit);
     this.selected = null;
-    this.selectedItems = new Array<number>(this.items.length).fill(0);
+    this.selectedItems = new Array<number>(
+      this.items(this.coinType).length
+    ).fill(0);
   }
 
   isCorrect(): boolean {
@@ -98,8 +92,8 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
       return false;
     }
     let sum = 0;
-    for (let i = 0; i < this.items.length; i++) {
-      sum += this.selectedItems[i] * this.items[i].value;
+    for (let i = 0; i < this.items(this.coinType).length; i++) {
+      sum += this.selectedItems[i] * this.items(this.coinType)[i].value;
     }
     return sum === this.number;
   }
@@ -124,112 +118,6 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
 
   get nothingSelected(): boolean {
     return this.selectedItems.every((el) => el === 0);
-  }
-
-  get items(): item[] {
-    switch (this.coinType) {
-      case coinType.NORMAL: {
-        return [
-          {
-            id: 1,
-            type: normalCoins.ONE,
-            value: 1,
-            img: "coins/normal/one.png",
-            class: "coin",
-          },
-          {
-            id: 2,
-            type: normalCoins.TWO,
-            value: 2,
-            img: "coins/normal/two.png",
-            class: "coin",
-          },
-          {
-            id: 3,
-            type: normalCoins.FIFE,
-            value: 5,
-            img: "coins/normal/five.png",
-            class: "coin",
-          },
-          {
-            id: 4,
-            type: normalCoins.TEN,
-            value: 10,
-            img: "coins/normal/ten.png",
-            class: "coin",
-          },
-          {
-            id: 5,
-            type: normalCoins.TWENTY,
-            value: 20,
-            img: "coins/normal/twenty.png",
-            class: "coin",
-          },
-          {
-            id: 6,
-            type: normalCoins.FIFTY,
-            value: 50,
-            img: "coins/normal/fifty.png",
-            class: "coin",
-          },
-        ];
-      }
-      case coinType.BINARY: {
-        return [
-          {
-            id: 1,
-            type: binaryCoins.ONE,
-            value: 1,
-            img: "coins/binary/one.png",
-            class: "coin",
-          },
-          {
-            id: 2,
-            type: binaryCoins.TWO,
-            value: 2,
-            img: "coins/binary/two.png",
-            class: "coin",
-          },
-          {
-            id: 3,
-            type: binaryCoins.FOUR,
-            value: 4,
-            img: "coins/binary/four.png",
-            class: "coin",
-          },
-          {
-            id: 4,
-            type: binaryCoins.EIGHT,
-            value: 8,
-            img: "coins/binary/eight.png",
-            class: "coin",
-          },
-          {
-            id: 5,
-            type: binaryCoins.SIXTEEN,
-            value: 16,
-            img: "coins/binary/sixteen.png",
-            class: "coin",
-          },
-          {
-            id: 6,
-            type: binaryCoins.THIRTYTWO,
-            value: 32,
-            img: "coins/binary/thirtytwo.png",
-            class: "coin",
-          },
-          {
-            id: 7,
-            type: binaryCoins.SIXTYFOUR,
-            value: 64,
-            img: "coins/binary/sixtyfour.png",
-            class: "coin",
-          },
-        ];
-      }
-      default:
-        return [];
-    }
   }
 }
 </script>

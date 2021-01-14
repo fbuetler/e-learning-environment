@@ -1,25 +1,74 @@
 <template>
-  <div></div>
+  <div>
+    <div>Welche Zahl wird hier dargestellt?</div>
+    <div class="flex-item flex-center flex-col flex-flex card">
+      <slot>
+        <div class="flex-item flex-center flex-row">
+          <div
+            class="flex-item flex-center flex-col"
+            v-for="(amount, i) in generatedItems"
+            :key="`item-${i}`"
+          >
+            <div
+              :class="items(coinType)[i].class"
+              v-for="j in amount"
+              :key="`amount-${j}`"
+            >
+              <img :src="require(`@/assets/${items(coinType)[i].img}`)" />
+            </div>
+          </div>
+        </div>
+      </slot>
+    </div>
+    <hr />
+    <div>Lösung:</div>
+    <input
+      class="card big-text"
+      size="5"
+      v-model.number="number"
+      type="number"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from "vue-property-decorator";
+import { Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
+import CoinsMixin, { coinType } from "@/components/coins/CoinsMixin.vue";
 
 @Component<From>({})
-export default class From extends Mixins(GameMixin) implements GameInterface {
+export default class From extends Mixins(GameMixin, CoinsMixin)
+  implements GameInterface {
+  @Prop({ required: true })
+  args!: { coinType: coinType };
+
+  coinType = this.args.coinType;
+  number: number = null;
+  generatedItems: Array<number> = null;
+
   isStarted(): boolean {
-    return true;
+    return this.generatedItems === null;
   }
 
   restartGame() {
-    return;
+    const items = new Array<number>(this.items(this.coinType).length).fill(0);
+    for (let i = 0; i < items.length; i++) {
+      items[i] = Math.floor(
+        Math.random() * this.maxItems(this.coinType, i) + 0.5
+      );
+    }
+    if (items.every((el) => el === 0)) {
+      items[0] = 1; // ensure it is non empty
+    }
+    this.generatedItems = items;
   }
 
   isCorrect(): boolean {
-    return false;
+    let sum = 0;
+    for (let i = 0; i < this.items(this.coinType).length; i++) {
+      sum += this.generatedItems[i] * this.items(this.coinType)[i].value;
+    }
+    return this.number === sum;
   }
 }
 </script>
-
-<style scoped></style>
