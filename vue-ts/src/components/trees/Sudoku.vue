@@ -4,7 +4,10 @@
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="changeDifficultyLevel($event)"
+      @difficulty-selected="
+        currentDifficultyLevel = $event;
+        restartGame();
+      "
     />
     <div>
       Versuch das Baumsudoku zu lösen.
@@ -489,11 +492,6 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 
   gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
     return `grid-template-columns: 0.3fr repeat(${this.size}, 1fr) 0.3fr ; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
-  }
-
-  changeDifficultyLevel(level: number) {
-    this.currentDifficultyLevel = level;
-    this.restartGame();
   }
 
   getAnimationSteps(): Array<string> {

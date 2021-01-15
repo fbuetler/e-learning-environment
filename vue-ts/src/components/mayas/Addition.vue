@@ -8,7 +8,6 @@
         currentDifficultyLevel = $event;
         restartGame();
       "
-      v
     />
     <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
     <div class="flex-item flex-wrap flex-center flex-row">

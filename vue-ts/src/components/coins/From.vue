@@ -38,11 +38,6 @@ import { Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import CoinsMixin, { coinType } from "@/components/coins/CoinsMixin.vue";
 
-/*
-  TODO
-    - add tutorial animation
-*/
-
 @Component<From>({})
 export default class From extends Mixins(GameMixin, CoinsMixin)
   implements GameInterface {

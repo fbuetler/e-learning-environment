@@ -90,6 +90,7 @@ export enum GameType {
     - test that shit
     - multilingual (vue-i18n)
     - optional: union To, From from mayas and coins
+    - optional: move parts of number systems task into components
 */
 
 @Component({
