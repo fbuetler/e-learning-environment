@@ -43,6 +43,7 @@ import {
   CreatePattern,
   LoadRandomElement,
   PatternCanvas,
+  Swap,
 } from "@/components/ciphertexts/Ciphertext";
 
 /*
@@ -97,19 +98,7 @@ export default class PatternEncryption extends Mixins(GameMixin)
     if (this.encryptedText === null) {
       return false;
     }
-    return this.encryptText() === this.encryptedText.toUpperCase();
-  }
-
-  encryptText(): string {
-    const text = this.originalText.slice();
-    this.patternPerLevel
-      .get(this.currentDifficultyLevel)
-      .forEach(([left, right]) => {
-        const tmp = text[left];
-        text[left] = text[right];
-        text[right] = tmp;
-      });
-    return text.join("");
+    return this.encryptText === this.encryptedText.toUpperCase();
   }
 
   draw() {
@@ -122,13 +111,33 @@ export default class PatternEncryption extends Mixins(GameMixin)
   }
 
   getAnimationSteps(): Array<string> {
+    const correctAnswer = this.encryptText;
+    let pattern: [number, number][];
+    do {
+      pattern = CreatePattern(
+        correctAnswer.split(""),
+        this.currentDifficultyLevel
+      );
+    } while (
+      JSON.stringify(pattern) ===
+      JSON.stringify(this.patternPerLevel.get(this.currentDifficultyLevel))
+    );
+
+    const wrongAnswer = Swap(correctAnswer.split("").slice(), pattern).join("");
     return [
-      `answer-input:${-1}`,
+      `answer-input:${wrongAnswer}`,
       "button-menu-check",
-      `answer-input:${this.encryptText()}`,
+      `answer-input:${correctAnswer}`,
       "button-menu-check",
       "button-menu-next",
     ];
+  }
+
+  get encryptText(): string {
+    return Swap(
+      this.originalText.slice(),
+      this.patternPerLevel.get(this.currentDifficultyLevel)
+    ).join("");
   }
 
   get decryptedText(): string {

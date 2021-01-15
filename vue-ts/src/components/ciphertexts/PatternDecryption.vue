@@ -43,6 +43,7 @@ import {
   CreatePattern,
   LoadRandomElement,
   PatternCanvas,
+  Swap,
 } from "@/components/ciphertexts/Ciphertext";
 
 /*
@@ -110,25 +111,30 @@ export default class PatternDecryption extends Mixins(GameMixin)
   }
 
   getAnimationSteps(): Array<string> {
+    const correctAnswer = this.originalText;
+    let pattern: [number, number][];
+    do {
+      pattern = CreatePattern(correctAnswer, this.currentDifficultyLevel);
+    } while (
+      JSON.stringify(pattern) ===
+      JSON.stringify(this.patternPerLevel.get(this.currentDifficultyLevel))
+    );
+
+    const wrongAnswer = Swap(correctAnswer.slice(), pattern);
     return [
-      `answer-input:${-1}`,
+      `answer-input:${wrongAnswer.join("")}`,
       "button-menu-check",
-      `answer-input:${this.originalText.join("")}`,
+      `answer-input:${correctAnswer.join("")}`,
       "button-menu-check",
       "button-menu-next",
     ];
   }
 
   get encryptedText(): string {
-    const text = this.originalText.slice();
-    this.patternPerLevel
-      .get(this.currentDifficultyLevel)
-      .forEach(([left, right]) => {
-        const tmp = text[left];
-        text[left] = text[right];
-        text[right] = tmp;
-      });
-    return text.join("");
+    return Swap(
+      this.originalText.slice(),
+      this.patternPerLevel.get(this.currentDifficultyLevel)
+    ).join("");
   }
 }
 </script>

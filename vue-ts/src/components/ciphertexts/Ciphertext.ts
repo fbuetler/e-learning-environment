@@ -43,6 +43,15 @@ export function CreatePattern(
   return pattern;
 }
 
+export function Swap(str: string[], pattern: [number, number][]): string[] {
+  pattern.forEach(([left, right]) => {
+    const tmp = str[left];
+    str[left] = str[right];
+    str[right] = tmp;
+  });
+  return str;
+}
+
 export enum Type {
   NUMBER,
   LETTER,
