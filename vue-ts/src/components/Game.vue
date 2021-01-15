@@ -86,9 +86,11 @@ export enum GameType {
 
 /*
   TODO:
-    - add tutorial videos
+    - add descriptions
+    - add tutorial videos and then remove tutorial animation
     - test that shit
-    - multilingual (vue-i18n)
+    - tidy up templates as in https://vuejs.org/v2/style-guide/#Element-attribute-order-recommended
+    - optional: multilingual (vue-i18n)
     - optional: union To, From from mayas and coins
     - optional: move parts of number systems task into components
 */
