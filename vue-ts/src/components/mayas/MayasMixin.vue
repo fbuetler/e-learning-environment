@@ -14,6 +14,8 @@ export default class MayasMixin extends Vue {
     [itemType.STICK, 3],
   ]);
 
+  limit = 19;
+
   generateItems(): Array<number> {
     const items = new Array<number>(Object.keys(itemType).length / 2);
     for (const type in itemType) {
@@ -29,10 +31,38 @@ export default class MayasMixin extends Vue {
     return items;
   }
 
-  sumItems(items: Array<number>): number {
-    return Object.keys(itemType)
-      .filter((el) => !isNaN(Number(el)))
-      .reduce((acc, type) => acc + items[+type] * this.items[+type].value, 0);
+  sumItems(items: number[]): number {
+    let sum = 0;
+    for (let i = 0; i < items.length; i++) {
+      sum += items[i] * this.items[i].value;
+    }
+    return sum;
+  }
+
+  mapNumberToActions(number: number): string[] {
+    const coins = this.calcMinimalAmount(number);
+    return coins.flatMap((el, i) =>
+      Array.from({ length: el }, () => [
+        `item-selection-${i + 1}`, // item ids start with 1
+        "dropzone",
+      ]).flat()
+    );
+  }
+
+  calcMinimalAmount(number: number): number[] {
+    const items = this.items;
+    let i = items.length - 1;
+    const minimalAmount = new Array<number>(items.length).fill(0);
+    while (number > 0 && i >= 0) {
+      const coinValue = items[i].value;
+      if (number >= coinValue) {
+        minimalAmount[i]++;
+        number -= coinValue;
+      } else {
+        i--;
+      }
+    }
+    return minimalAmount;
   }
 
   get nut(): number {

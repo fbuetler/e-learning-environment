@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <div>Welche Zahl wird hier dargestellt?</div>
     <div class="flex-item flex-center flex-col flex-flex card">
       <div>
@@ -22,6 +23,7 @@
     <hr />
     <div>Lösung:</div>
     <input
+      id="answer-input"
       class="card big-text"
       size="5"
       v-model.number="number"
@@ -39,7 +41,9 @@ import MayasMixin from "@/components/mayas/MayasMixin.vue";
 export default class From extends Mixins(GameMixin, MayasMixin)
   implements GameInterface {
   number: number = null;
+  solution: number = null;
   generatedItems: Array<number> = null; // unfortunately Maps and Sets are not reactive in vue 2
+  animationSteps: Array<string> = null;
 
   isStarted(): boolean {
     return this.generatedItems === null;
@@ -47,10 +51,22 @@ export default class From extends Mixins(GameMixin, MayasMixin)
 
   restartGame() {
     this.generatedItems = this.generateItems();
+    this.solution = this.sumItems(this.generatedItems);
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
-    return this.number === this.sumItems(this.generatedItems);
+    return this.number === this.solution;
+  }
+
+  getAnimationSteps(): Array<string> {
+    return [
+      `answer-input:${Math.ceil(Math.random() * this.limit)}`,
+      "button-menu-check",
+      `answer-input:${this.solution}`,
+      "button-menu-check",
+      "button-menu-next",
+    ];
   }
 }
 </script>

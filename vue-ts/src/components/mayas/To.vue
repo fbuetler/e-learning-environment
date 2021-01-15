@@ -1,8 +1,10 @@
 <template>
   <div @dragend.prevent="selected = null">
+    <slot name="animation" :animationSteps="animationSteps" />
     <div class="number">Stell die folgende Zahl dar:</div>
     <div class="big-text">{{ number }}</div>
     <div
+      id="dropzone"
       class="flex-item flex-center flex-col flex-flex dropzone"
       @click="addItem()"
       @dragover.prevent
@@ -57,8 +59,7 @@ export default class To extends Mixins(GameMixin, MayasMixin)
   number: number = null;
   selected: itemType = null;
   selectedItems: Array<itemType> = null;
-
-  limit = 19;
+  animationSteps: Array<string> = null;
 
   isStarted(): boolean {
     return this.number === null;
@@ -70,17 +71,14 @@ export default class To extends Mixins(GameMixin, MayasMixin)
     this.selectedItems = new Array<number>(
       Object.keys(itemType).length / 2
     ).fill(0);
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
     if (this.selectedItems[itemType.NUT] > 4) {
       return false;
     }
-    let sum = 0;
-    for (let i = 0; i < this.items.length; i++) {
-      sum += this.selectedItems[i] * this.items[i].value;
-    }
-    return sum === this.number;
+    return this.sumItems(this.selectedItems) === this.number;
   }
 
   addItem() {
@@ -99,6 +97,16 @@ export default class To extends Mixins(GameMixin, MayasMixin)
     for (let i = 0; i < this.selectedItems.length; i++) {
       Vue.set(this.selectedItems, i, 0);
     }
+  }
+
+  getAnimationSteps(): Array<string> {
+    const correctNumber = this.number;
+    const wrongNumber = Math.ceil(Math.random() * this.limit);
+
+    return this.mapNumberToActions(wrongNumber)
+      .concat(["button-menu-check", "undo"])
+      .concat(this.mapNumberToActions(correctNumber))
+      .concat(["button-menu-check", "button-menu-next"]);
   }
 }
 </script>

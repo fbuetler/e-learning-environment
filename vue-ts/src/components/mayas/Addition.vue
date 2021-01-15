@@ -1,9 +1,13 @@
 <template>
   <div @dragend.prevent="selected = null">
+    <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="currentDifficultyLevel = $event"
+      @difficulty-selected="
+        currentDifficultyLevel = $event;
+        restartGame();
+      "
       v
     />
     <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
@@ -34,6 +38,7 @@
       </div>
       <div v-if="currentDifficultyLevel === 1">
         <input
+          id="answer-input"
           class="card big-text"
           size="5"
           v-model.number="sum"
@@ -41,6 +46,7 @@
         />
       </div>
       <div
+        id="dropzone"
         class="flex-item flex-center flex-col flex-flex dropzone input"
         v-else
         @click="addItem()"
@@ -102,9 +108,11 @@ import Undo from "@/components/Undo.vue";
 export default class Addition extends Mixins(GameMixin, MayasMixin)
   implements GameInterface {
   sum: number = null;
+  solution: number = null;
   summands: Array<Array<itemType>> = null; // unfortunately Maps and Sets are not reactive in vue 2
   selected: itemType = null;
   selectedItems: Array<itemType> = null;
+  animationSteps: Array<string> = null;
 
   limit = 19;
   numberOfSummands = 2;
@@ -118,6 +126,7 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
 
   restartGame() {
     this.selected = null;
+    this.sum = null;
     this.summands = new Array(this.numberOfSummands);
     let sum: number;
     do {
@@ -128,28 +137,22 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
         sum += this.sumItems(summand);
       }
     } while (sum > this.limit);
+    this.solution = sum;
     // level 2
     this.selectedItems = new Array<number>(
       Object.keys(itemType).length / 2
     ).fill(0);
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
-    const expectedSum = this.summands.reduce(
-      (sum, summand) => sum + this.sumItems(summand),
-      0
-    );
     if (this.currentDifficultyLevel === 1) {
-      return this.sum === expectedSum;
+      return this.sum === this.solution;
     } else {
       if (this.selectedItems[itemType.NUT] > 4) {
         return false;
       }
-      let sum = 0;
-      for (let i = 0; i < this.items.length; i++) {
-        sum += this.selectedItems[i] * this.items[i].value;
-      }
-      return sum === this.sum;
+      return this.sumItems(this.selectedItems) === this.solution;
     }
   }
 
@@ -168,6 +171,26 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
   undo() {
     for (let i = 0; i < this.selectedItems.length; i++) {
       Vue.set(this.selectedItems, i, 0);
+    }
+  }
+
+  getAnimationSteps(): Array<string> {
+    const correctNumber = this.solution;
+    const wrongNumber = Math.ceil(Math.random() * this.limit);
+
+    if (this.currentDifficultyLevel === 1) {
+      return [
+        `answer-input:${wrongNumber}`,
+        "button-menu-check",
+        `answer-input:${correctNumber}`,
+        "button-menu-check",
+        "button-menu-next",
+      ];
+    } else {
+      return this.mapNumberToActions(wrongNumber)
+        .concat(["button-menu-check", "undo"])
+        .concat(this.mapNumberToActions(correctNumber))
+        .concat(["button-menu-check", "button-menu-next"]);
     }
   }
 }
