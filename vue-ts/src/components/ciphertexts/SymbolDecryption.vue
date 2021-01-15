@@ -1,9 +1,13 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
-      @difficulty-selected="currentDifficultyLevel = $event"
+      @difficulty-selected="
+        currentDifficultyLevel = $event;
+        restartGame();
+      "
     />
     <div class="flex-item flex-col">
       <div>Entschlüssle den Text mit Hilfe der Tabelle!</div>
@@ -24,6 +28,7 @@
         <div class="flex-flex equal-space">
           Lösung:
           <input
+            id="answer-input"
             class="card big-text"
             size="5"
             v-model="decrypted"
@@ -71,6 +76,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
   originalNumbers: string[] = null;
   originalLetters: string[] = null;
   decrypted: string = null;
+  animationSteps: Array<string> = null;
 
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
@@ -94,6 +100,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
     this.originalLetters = LoadRandomElement(this.dataKey)
       .split("")
       .map((letter) => letter.toUpperCase());
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -112,6 +119,30 @@ export default class SymbolDecryption extends Mixins(GameMixin)
       );
       cvText.draw(this.lookup.get(part));
     });
+  }
+
+  getAnimationSteps(): Array<string> {
+    let wrongAnswer: string;
+    if (this.currentDifficultyLevel === 1) {
+      wrongAnswer = String(LoadRandomNumber());
+    } else {
+      wrongAnswer = Math.random()
+        .toString(36)
+        .replace(/[^a-z]+/g, "")
+        .substr(0, this.originalLetters.length)
+        .toUpperCase();
+    }
+    return [
+      `answer-input:${wrongAnswer}`,
+      "button-menu-check",
+      `answer-input:${
+        this.currentDifficultyLevel === 1
+          ? this.originalNumbers.join("")
+          : this.originalLetters.join("")
+      }`,
+      "button-menu-check",
+      "button-menu-next",
+    ];
   }
 
   get original(): string[] {
