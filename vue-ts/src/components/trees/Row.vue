@@ -1,11 +1,13 @@
 <template>
   <div @dragend="selected = null">
+    <slot name="animation" :animationSteps="animationSteps" />
     <div>
       Versuch das Baumreihenrätsel zu lösen.
     </div>
     <div class="flex-item flex-center flex-row flex-stretch flex-flex">
       <div class="flex-item flex-center card">{{ leftView }}</div>
       <div
+        :id="`field-${field.id}`"
         class="flex-item flex-center dropzone tree-dropzone"
         v-for="field in values"
         :key="field.id"
@@ -72,8 +74,10 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   values: row = null;
   leftView: number = null;
   rightView: number = null;
+  valuesSolution: row = null;
 
   selected = null;
+  animationSteps: Array<string> = null;
 
   isStarted(): boolean {
     return (
@@ -82,7 +86,13 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   }
 
   restartGame(): void {
-    [this.leftView, this.rightView, this.values] = this.generate();
+    [
+      this.leftView,
+      this.rightView,
+      this.values,
+      this.valuesSolution,
+    ] = this.generate();
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -113,20 +123,17 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     this.selected = null;
   }
 
-  generate(): [number, number, row] {
-    const values: number[] = [];
-    for (let i = 0; i < this.size; i++) {
-      values[i] = i + 1;
-    }
+  generate(): [number, number, row, row] {
+    const values = Array.from({ length: this.size }, (_, i) => i + 1);
     this.shuffle(values);
-    const row = new Array<rowField>(this.size);
-    for (let i = 0; i < row.length; i++) {
-      row[i] = this.createRowField(i, 0, false);
-    }
+    const row = Array.from({ length: this.size }, (el, i) =>
+      this.createRowField(i, 0, false)
+    );
     return [
       this.getVisibleTrees(values),
       this.getVisibleTrees(values.slice().reverse()),
       row,
+      values.map((el, i) => this.createRowField(i, el, false)),
     ];
   }
 
@@ -161,6 +168,26 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     this.values.forEach((el) => {
       el.value = el.initialValue;
     });
+  }
+
+  getAnimationSteps(): Array<string> {
+    const correctOrder = this.valuesSolution.map((el) => el.value);
+    let wrongOrder: number[];
+    do {
+      wrongOrder = correctOrder.slice();
+      this.shuffle(wrongOrder);
+    } while (
+      this.getVisibleTrees(wrongOrder) === this.leftView &&
+      this.getVisibleTrees(wrongOrder.slice().reverse()) === this.rightView
+    );
+
+    return wrongOrder
+      .flatMap((el, i) => [`item-selection-${el}`, `field-${i}`])
+      .concat(["button-menu-check", "undo"])
+      .concat(
+        correctOrder.flatMap((el, i) => [`item-selection-${el}`, `field-${i}`])
+      )
+      .concat(["button-menu-check", "button-menu-next"]);
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div @dragend="selected = null">
+    <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
@@ -46,10 +47,11 @@
         </div>
         <!-- values -->
         <div
+          :id="`field-${field.id}`"
           class="dropzone tree-dropzone"
           :class="{ locked: field.locked }"
           v-for="field in row"
-          :key="`row-col-${field.id}`"
+          :key="`field-${field.id}`"
           @click="putTree($event, field.id)"
           draggable
           @dragstart="startDrag($event, field.id)"
@@ -158,6 +160,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   valuesSolution: sudoku = null;
 
   selected = null;
+  animationSteps: Array<string> = null;
 
   currentDifficultyLevel = 1;
   difficultyLevels = 3;
@@ -192,6 +195,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     );
 
     this.values = this.guaranteeMinimalCoverage();
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -366,7 +370,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 
   guaranteeMinimalCoverage(): sudoku {
     const indexes = this.indexesInRandomOrder(this.size, this.size);
-    const values = JSON.parse(JSON.stringify(this.valuesSolution)) as sudoku;
+    const values = JSON.parse(JSON.stringify(this.valuesSolution));
     values.forEach((row) => row.forEach((col) => (col.locked = true)));
 
     while (indexes.length > 0) {
@@ -490,6 +494,47 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   changeDifficultyLevel(level: number) {
     this.currentDifficultyLevel = level;
     this.restartGame();
+  }
+
+  getAnimationSteps(): Array<string> {
+    const wrongOrder = new Array<sudokuField>();
+    const correctOrder = new Array<sudokuField>();
+    for (let i = 0; i < this.values.length; i++) {
+      for (let j = 0; j < this.values[i].length; j++) {
+        if (!this.values[i][j].locked) {
+          let value: number;
+          do {
+            value = Math.ceil(Math.random() * this.size);
+          } while (value === this.valuesSolution[i][j].value);
+          wrongOrder.push(this.createSudokuField(i, j, value, false));
+          correctOrder.push(
+            this.createSudokuField(i, j, this.valuesSolution[i][j].value, false)
+          );
+        }
+      }
+    }
+
+    for (let i = 0; i < wrongOrder.length; i++) {
+      let value: number;
+      do {
+        value = Math.ceil(Math.random() * this.size);
+      } while (value === correctOrder[i].value);
+      wrongOrder[i].value = value;
+    }
+
+    return wrongOrder
+      .flatMap((field) => [
+        `item-selection-${field.value}`,
+        `field-${field.id}`,
+      ])
+      .concat(["button-menu-check", "undo"])
+      .concat(
+        correctOrder.flatMap((field) => [
+          `item-selection-${field.value}`,
+          `field-${field.id}`,
+        ])
+      )
+      .concat(["button-menu-check", "button-menu-next"]);
   }
 
   get topView(): number[] {
