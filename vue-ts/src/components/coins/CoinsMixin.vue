@@ -37,6 +37,8 @@ export default class CoinsMixin extends Vue {
     [normalCoins.FIFTY, 2],
   ]);
 
+  limit = 100;
+
   generateItems(type: coinType): number[] {
     const items = new Array<number>(this.items(type).length).fill(0);
     for (let i = 0; i < items.length; i++) {
@@ -54,6 +56,32 @@ export default class CoinsMixin extends Vue {
       sum += items[i] * this.items(type)[i].value;
     }
     return sum;
+  }
+
+  calcMinimalAmount(number: number, type: coinType): number[] {
+    const items = this.items(type);
+    let i = items.length - 1;
+    const minimalAmount = new Array<number>(items.length).fill(0);
+    while (number > 0 && i >= 0) {
+      const coinValue = items[i].value;
+      if (number >= coinValue) {
+        minimalAmount[i]++;
+        number -= coinValue;
+      } else {
+        i--;
+      }
+    }
+    return minimalAmount;
+  }
+
+  mapNumberToActions(number: number, type: coinType): string[] {
+    const coins = this.calcMinimalAmount(number, type);
+    return coins.flatMap((el, i) =>
+      Array.from({ length: el }, () => [
+        `item-selection-${i + 1}`, // item ids start with 1
+        "dropzone",
+      ]).flat()
+    );
   }
 
   items(type: coinType): item[] {

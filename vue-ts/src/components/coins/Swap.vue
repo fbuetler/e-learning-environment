@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <div>Stelle die gleiche Zahl mit weniger Münzen dar</div>
     <div class="flex-item flex-center flex-col flex-flex card">
       <slot>
@@ -23,6 +24,7 @@
     <hr />
     <div>Lösung:</div>
     <div
+      id="dropzone"
       class="flex-item flex-center flex-col flex-flex dropzone"
       @click="addItem()"
       @dragover.prevent
@@ -91,6 +93,7 @@ export default class Swap extends Mixins(GameMixin, CoinsMixin)
   selected: number = null;
   selectedItems: Array<number> = null;
   generatedItems: Array<number> = null;
+  animationSteps: Array<string> = null;
 
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
@@ -105,17 +108,18 @@ export default class Swap extends Mixins(GameMixin, CoinsMixin)
     );
     // TODO ensure its reducable
     this.generatedItems = this.generateItems(this.type);
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
     return (
       this.sumItems(this.type, this.selectedItems) ===
         this.sumItems(this.type, this.generatedItems) &&
-      this.sumUp(this.selectedItems) < this.sumUp(this.generatedItems)
+      this.countCoins(this.selectedItems) < this.countCoins(this.generatedItems)
     );
   }
 
-  sumUp(arr: number[]): number {
+  countCoins(arr: number[]): number {
     return arr.reduce((sum, el) => (sum += el));
   }
 
@@ -135,6 +139,16 @@ export default class Swap extends Mixins(GameMixin, CoinsMixin)
     for (let i = 0; i < this.selectedItems.length; i++) {
       Vue.set(this.selectedItems, i, 0);
     }
+  }
+
+  getAnimationSteps(): Array<string> {
+    const correctSum = this.sumItems(this.type, this.generatedItems);
+    const wrongSum = Math.ceil(Math.random() * this.limit);
+
+    return this.mapNumberToActions(wrongSum, this.type)
+      .concat(["button-menu-check", "undo"])
+      .concat(this.mapNumberToActions(correctSum, this.type))
+      .concat(["button-menu-check", "button-menu-next"]);
   }
 
   get nothingSelected(): boolean {

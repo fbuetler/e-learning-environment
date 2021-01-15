@@ -1,5 +1,6 @@
 <template>
   <div @dragend.prevent="selected = null">
+    <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
@@ -14,6 +15,7 @@
     </div>
     <div class="big-text">{{ number }}</div>
     <div
+      id="dropzone"
       class="flex-item flex-center flex-col flex-flex dropzone"
       @click="addItem()"
       @dragover.prevent
@@ -86,8 +88,7 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
   selected: number = null;
   number: number = null;
   selectedItems: Array<number> = null;
-
-  limit = 100;
+  animationSteps: Array<string> = null;
 
   // there are only difficulty levels for coinType.NORMAL:
   // represent number with minimal amount of coints
@@ -104,6 +105,7 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
     this.selectedItems = new Array<number>(this.items(this.type).length).fill(
       0
     );
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -118,26 +120,10 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
       return (
         sum === this.number &&
         JSON.stringify(this.selectedItems) ===
-          JSON.stringify(this.calcMinimalAmount(this.number))
+          JSON.stringify(this.calcMinimalAmount(this.number, this.type))
       );
     }
     return sum === this.number;
-  }
-
-  calcMinimalAmount(number: number): number[] {
-    const items = this.items(this.type);
-    let i = items.length - 1;
-    const minimalAmount = new Array<number>(items.length).fill(0);
-    while (number > 0 && i >= 0) {
-      const coinValue = items[i].value;
-      if (number >= coinValue) {
-        minimalAmount[i]++;
-        number -= coinValue;
-      } else {
-        i--;
-      }
-    }
-    return minimalAmount;
   }
 
   addItem() {
@@ -156,6 +142,16 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
     for (let i = 0; i < this.selectedItems.length; i++) {
       Vue.set(this.selectedItems, i, 0);
     }
+  }
+
+  getAnimationSteps(): Array<string> {
+    const correctNumber = this.number;
+    const wrongNumber = Math.ceil(Math.random() * this.limit);
+
+    return this.mapNumberToActions(wrongNumber, this.type)
+      .concat(["button-menu-check", "undo"])
+      .concat(this.mapNumberToActions(correctNumber, this.type))
+      .concat(["button-menu-check", "button-menu-next"]);
   }
 
   get nothingSelected(): boolean {
