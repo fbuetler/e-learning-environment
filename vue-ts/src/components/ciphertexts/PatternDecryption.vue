@@ -106,7 +106,7 @@ export default class PatternDecryption extends Mixins(GameMixin)
   }
 
   get encryptedText(): string {
-    const text = JSON.parse(JSON.stringify(this.originalText)) as string[];
+    const text = this.originalText.slice();
     this.patternPerLevel
       .get(this.currentDifficultyLevel)
       .forEach(([left, right]) => {

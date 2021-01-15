@@ -36,7 +36,7 @@ jest.mock("@/components/words/Words", () => ({
   LoadWords() {
     return [
       JSON.parse(JSON.stringify(mockWord)),
-      JSON.parse(JSON.stringify(mockSimilarWords)),
+      JSON.stringify(mockSimilarWords).slice(),
     ];
   },
   get alphabet() {

@@ -156,7 +156,7 @@ export default class Swap extends Mixins(GameMixin, CoinsMixin)
   }
 
   get displaySelectedItems(): number[] {
-    return JSON.parse(JSON.stringify(this.selectedItems)).reverse();
+    return this.selectedItems.slice().reverse();
   }
 }
 </script>
