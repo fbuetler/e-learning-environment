@@ -14,6 +14,11 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
+/*
+  TODO:
+    - check why canvas coords are miscalculated 
+*/
+
 @Component<TutorialAnimation>({})
 export default class TutorialAnimation extends Vue {
   @Prop({ required: true })
@@ -48,14 +53,27 @@ export default class TutorialAnimation extends Vue {
       this.$emit("finished");
       return;
     }
-    const target = document.getElementById(this.steps[this.currentStep]);
+    const step = this.steps[this.currentStep];
+    let id: string;
+    let value: string;
+    if (step.includes(":")) {
+      id = step.split(":")[0];
+      value = step.split(":")[1];
+    } else {
+      id = step;
+    }
+    const target = document.getElementById(id);
     const [targetCenterX, targetCenterY] = this.calculateElementCenter(target);
     this.moveMouseTo(targetCenterX, targetCenterY);
 
-    setTimeout(
-      () => this.click(target),
-      this.transitionTimeMs + this.waitBeforeClickMs
-    );
+    setTimeout(() => {
+      this.click(target);
+
+      if (value) {
+        (target as HTMLInputElement).value = value;
+        target.dispatchEvent(new Event("input"));
+      }
+    }, this.transitionTimeMs + this.waitBeforeClickMs);
     setTimeout(
       () => requestAnimationFrame(this.animate),
       this.transitionTimeMs + this.waitBeforeClickMs + this.animationIntervalMs
