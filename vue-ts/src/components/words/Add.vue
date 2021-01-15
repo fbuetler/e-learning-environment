@@ -1,13 +1,13 @@
 <template>
   <div @dragend="selected = null">
-    <slot :animationSteps="animationSteps" />
+    <slot name="animation" :animationSteps="animationSteps" />
     <div>
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
     </div>
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
-      ref="word-container"
       id="word-container"
+      ref="word-container"
     >
       <div class="flex-item flex-row flex-center">
         <div
@@ -17,8 +17,8 @@
           :class="{
             locked: element.locked,
           }"
-          :ref="`word-char-${element.id}`"
           :id="`word-char-${element.id}`"
+          :ref="`word-char-${element.id}`"
         >
           {{ element.char }}
         </div>
@@ -42,8 +42,8 @@
           <line
             v-for="id in arrows"
             :key="`arrow-${id}`"
-            :ref="`arrow-${id}`"
             :id="`arrow-${id}`"
+            :ref="`arrow-${id}`"
             stroke="black"
             stroke-width="3"
             fill="transparent"
@@ -52,8 +52,8 @@
           <rect
             v-for="id in arrows"
             :key="`rect-around-arrow-${id}`"
-            :ref="`rect-around-arrow-${id}`"
             :id="`rect-around-arrow-${id}`"
+            :ref="`rect-around-arrow-${id}`"
             fill="transparent"
             @click="addChar(id)"
             @dragenter.prevent
@@ -87,6 +87,7 @@ import {
   wordElement,
   alphabet,
   items,
+  findCorrectAndWrongSolutions,
 } from "@/components/words/Words";
 
 @Component<Add>({
@@ -190,18 +191,15 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
   }
 
   getAnimationSteps(): Array<string> {
-    const [correctPos, correctChar] = this.findFirstDiffPos(
+    const [
+      correctPos,
+      correctChar,
+      wrongPos,
+      wrongChar,
+    ] = findCorrectAndWrongSolutions(
       this.word.map((el) => el.char).join(""),
       this.similarWords[0]
     );
-    let wrongChar: string;
-    let wrongPos: number;
-    do {
-      wrongChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-    } while (wrongChar === correctChar);
-    do {
-      wrongPos = Math.floor(Math.random() * this.word.length + 1);
-    } while (wrongPos === correctPos);
 
     return new Array<string>(
       `item-selection-${alphabet.findIndex((el) => el === wrongChar)}`,
@@ -213,14 +211,6 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
       "button-menu-check",
       "button-menu-next"
     );
-  }
-
-  findFirstDiffPos(a: string, b: string): [number, string] {
-    let i = 0;
-    while (a[i] === b[i]) {
-      i++;
-    }
-    return [i, b[i]];
   }
 
   get arrows(): number[] {

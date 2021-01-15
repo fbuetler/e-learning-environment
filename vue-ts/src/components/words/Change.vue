@@ -1,11 +1,13 @@
 <template>
   <div @dragend.prevent="selected = null">
+    <slot name="animation" :animationSteps="animationSteps" />
     <div>
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben änderst.
     </div>
     <div class="word-container flex-item flex-row flex-center">
       <div v-for="element in word" :key="element.id">
         <div
+          :id="`word-char-${element.id}`"
           class="word-char card"
           :class="{ locked: element.locked }"
           @click="changeChar(element.id)"
@@ -41,6 +43,7 @@ import {
   wordElement,
   alphabet,
   items,
+  findCorrectAndWrongSolutions,
 } from "@/components/words/Words";
 
 @Component<Change>({
@@ -53,6 +56,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   word: wordElement[] = null;
   similarWords: string[] = null;
   selected: string = null;
+  animationSteps: Array<string> = null;
 
   isStarted(): boolean {
     return this.word === null;
@@ -60,6 +64,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
 
   restartGame() {
     [this.word, this.similarWords] = LoadWords("change", 1);
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -81,6 +86,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     }
     this.word.filter((el) => el.id !== id).forEach((el) => (el.locked = true));
     element.char = alphabet[this.selected];
+    this.selected = null;
   }
 
   undo() {
@@ -89,6 +95,28 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       el.locked = false;
     });
     this.selected = null;
+  }
+
+  getAnimationSteps(): Array<string> {
+    const [
+      correctPos,
+      correctChar,
+      wrongPos,
+      wrongChar,
+    ] = findCorrectAndWrongSolutions(
+      this.word.map((el) => el.char).join(""),
+      this.similarWords[0]
+    );
+    return new Array<string>(
+      `item-selection-${alphabet.findIndex((el) => el === wrongChar)}`,
+      `word-char-${wrongPos}`,
+      "button-menu-check",
+      "undo",
+      `item-selection-${alphabet.findIndex((el) => el === correctChar)}`,
+      `word-char-${correctPos}`,
+      "button-menu-check",
+      "button-menu-next"
+    );
   }
 
   get items(): item[] {

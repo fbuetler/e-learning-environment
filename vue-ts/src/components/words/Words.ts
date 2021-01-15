@@ -30,6 +30,30 @@ export function LoadWords(
   return [word, similarWords];
 }
 
+function findFirstDiffPos(a: string, b: string): [number, string] {
+  let i = 0;
+  while (a[i] === b[i]) {
+    i++;
+  }
+  return [i, b[i]];
+}
+
+export function findCorrectAndWrongSolutions(
+  word: string,
+  similarWord: string
+): [number, string, number, string] {
+  const [correctPos, correctChar] = findFirstDiffPos(word, similarWord);
+  let wrongChar: string;
+  let wrongPos: number;
+  do {
+    wrongChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+  } while (wrongChar === correctChar);
+  do {
+    wrongPos = Math.floor(Math.random() * word.length + 1);
+  } while (wrongPos === correctPos);
+  return [correctPos, correctChar, wrongPos, wrongChar];
+}
+
 export const alphabet = [
   "A",
   "B",

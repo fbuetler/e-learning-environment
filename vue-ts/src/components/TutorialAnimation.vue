@@ -2,6 +2,7 @@
   <svg
     viewBox="11.8 9 16 22"
     id="mouse"
+    ref="mouse"
     class="mouse"
     :style="`transition: transform ${transitionTimeMs / 1000}s;`"
   >
@@ -29,7 +30,7 @@ export default class TutorialAnimation extends Vue {
       this.$emit("finished");
       return;
     }
-    this.mouse = document.getElementById("mouse") as HTMLElement;
+    this.mouse = this.$refs["mouse"] as HTMLElement;
     this.centerMouse();
     setTimeout(
       () => requestAnimationFrame(this.animate),

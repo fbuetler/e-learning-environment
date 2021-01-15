@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
@@ -10,6 +11,7 @@
     </div>
     <div
       class="word-container flex-item flex-col flex-center flex-flex"
+      id="word-container"
       ref="word-container"
     >
       <div class="flex-item flex-row flex-center">
@@ -61,6 +63,7 @@
           <rect
             v-for="[left, right] in arrows"
             :key="`rect-around-arrow-${left}-${right}`"
+            :id="`rect-around-arrow-${left}-${right}`"
             :ref="`rect-around-arrow-${left}-${right}`"
             fill="transparent"
             @click="swapChar(left, right)"
@@ -94,6 +97,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   word: wordElement[] = null;
   wordPerLevel = new Map<number, wordElement[]>();
   swapIndexesPerLevel = new Map<number, [number, number][]>();
+  animationSteps: Array<string> = null;
 
   difficultyLevels = 2;
   currentDifficultyLevel = 1;
@@ -134,6 +138,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       this.swapIndexesPerLevel.set(level, swapIndexes);
     }
     this.prepareWord();
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -242,6 +247,42 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       rect.setAttribute("width", `${width}`);
       rect.setAttribute("height", `${1.5 * height}`);
     });
+  }
+
+  getAnimationSteps(): Array<string> {
+    const correctSwapIndexes = this.swapIndexesPerLevel.get(
+      this.currentDifficultyLevel
+    );
+    let wrongSwapIndexes: Array<[number, number]>;
+    do {
+      wrongSwapIndexes = new Array<[number, number]>();
+      const available = Array.from(Array(this.word.length - 1).keys());
+      for (let i = 0; i < correctSwapIndexes.length; i++) {
+        const leftIndex = Math.floor(Math.random() * (available.length - 1));
+        const left = available[leftIndex];
+        available.splice(leftIndex, 1);
+        wrongSwapIndexes.push([left, left + 1]);
+      }
+
+      correctSwapIndexes.sort();
+      wrongSwapIndexes.sort();
+    } while (
+      JSON.stringify(correctSwapIndexes) === JSON.stringify(wrongSwapIndexes)
+    );
+
+    return wrongSwapIndexes
+      .map(
+        ([wrongLeft, wrongRight]) =>
+          `rect-around-arrow-${wrongLeft}-${wrongRight}`
+      )
+      .concat(["button-menu-check", "undo"])
+      .concat(
+        correctSwapIndexes.map(
+          ([correctLeft, correctRight]) =>
+            `rect-around-arrow-${correctLeft}-${correctRight}`
+        )
+      )
+      .concat(["button-menu-check", "button-menu-next"]);
   }
 
   get arrows(): [number, number][] {

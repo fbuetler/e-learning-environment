@@ -1,11 +1,13 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <div>
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
     </div>
     <div class="word-container flex-item flex-row flex-center">
       <div v-for="element in word" :key="element.id">
         <div
+          :id="`word-char-${element.id}`"
           class="word-char card clickable"
           :class="{
             locked: element.locked,
@@ -37,7 +39,11 @@ import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import Undo from "@/components/Undo.vue";
 import Trashcan from "@/components/Trashcan.vue";
-import { LoadWords, wordElement } from "@/components/words/Words";
+import {
+  LoadWords,
+  wordElement,
+  findCorrectAndWrongSolutions,
+} from "@/components/words/Words";
 
 @Component<Remove>({
   components: {
@@ -50,6 +56,7 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
   similarWords: string[] = null;
   selected: number = null;
   charRemoved = false;
+  animationSteps: Array<string> = null;
 
   isStarted(): boolean {
     return this.word === null;
@@ -59,6 +66,7 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
     [this.word, this.similarWords] = LoadWords("remove", 1);
     this.selected = null;
     this.charRemoved = false;
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -86,6 +94,23 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
     });
     this.selected = null;
     this.charRemoved = false;
+  }
+
+  getAnimationSteps(): Array<string> {
+    const [correctPos, , wrongPos, ,] = findCorrectAndWrongSolutions(
+      this.word.map((el) => el.char).join(""),
+      this.similarWords[0]
+    );
+    return new Array<string>(
+      `word-char-${wrongPos}`,
+      "trashcan",
+      "button-menu-check",
+      "undo",
+      `word-char-${correctPos}`,
+      "trashcan",
+      "button-menu-check",
+      "button-menu-next"
+    );
   }
 }
 </script>
