@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <div>Welche Zahl wird hier dargestellt?</div>
     <div class="flex-item flex-center flex-col flex-flex card">
       <slot>
@@ -23,6 +24,7 @@
     <hr />
     <div>Lösung:</div>
     <input
+      id="answer-input"
       class="card big-text"
       size="5"
       v-model.number="number"
@@ -48,19 +50,35 @@ export default class From extends Mixins(GameMixin, CoinsMixin)
   args!: { coinType: coinType };
 
   coinType = this.args.coinType;
+
   number: number = null;
+  solution: number = null;
   generatedItems: Array<number> = null;
+  animationSteps: Array<string> = null;
 
   isStarted(): boolean {
     return this.generatedItems === null;
   }
 
   restartGame() {
+    this.number = null;
     this.generatedItems = this.generateItems(this.coinType);
+    this.solution = this.sumItems(this.coinType, this.generatedItems);
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
-    return this.number === this.sumItems(this.coinType, this.generatedItems);
+    return this.number === this.solution;
+  }
+
+  getAnimationSteps(): Array<string> {
+    return [
+      `answer-input:${Math.ceil(Math.random() * this.limit)}`,
+      "button-menu-check",
+      `answer-input:${this.solution}`,
+      "button-menu-check",
+      "button-menu-next",
+    ];
   }
 }
 </script>
