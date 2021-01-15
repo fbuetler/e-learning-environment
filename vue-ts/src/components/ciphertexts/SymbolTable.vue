@@ -4,6 +4,7 @@
       <tbody>
         <tr v-for="(row, rowIndex) in table" :key="rowIndex">
           <td
+            :id="`field-${rowIndex}-${shapeIndex}`"
             v-for="(shape, shapeIndex) in row"
             :key="shapeIndex"
             :class="{ selected: isSelected(rowIndex, shapeIndex) }"
@@ -15,7 +16,7 @@
             @drop.prevent
           >
             <canvas
-              :id="'shape-' + rowIndex + '-' + shapeIndex"
+              :id="`shape-${rowIndex}-${shapeIndex}`"
               width="100"
               height="100"
               >Shape</canvas
@@ -33,7 +34,6 @@ import { Component, Prop } from "vue-property-decorator";
 import {
   GetNewCanvas,
   SymbolConfig,
-  Shape,
   Type,
 } from "@/components/ciphertexts/Ciphertext";
 
@@ -44,7 +44,7 @@ export default class SymbolTable extends Vue {
   @Prop({ required: true })
   type: Type;
   @Prop()
-  selected: [string, number, number];
+  selected: [number, number];
 
   mounted() {
     this.drawShapes();
@@ -70,11 +70,7 @@ export default class SymbolTable extends Vue {
 
   isSelected(rowIndex: number, shapeIndex: number): boolean {
     return (
-      JSON.stringify([
-        this.getSymboltext(rowIndex, shapeIndex),
-        rowIndex,
-        shapeIndex,
-      ]) == JSON.stringify(this.selected)
+      JSON.stringify([rowIndex, shapeIndex]) == JSON.stringify(this.selected)
     );
   }
 
@@ -82,19 +78,7 @@ export default class SymbolTable extends Vue {
     if (rowIndex === 0 || shapeIndex === 0) {
       return;
     }
-    this.$emit(
-      "symbol-selected",
-      this.getSymboltext(rowIndex, shapeIndex),
-      rowIndex,
-      shapeIndex
-    );
-  }
-
-  getSymboltext(rowIndex: number, shapeIndex: number): string {
-    const symbol = this.table[rowIndex][shapeIndex].find(
-      (shape) => shape[0] === Shape.TEXT
-    );
-    return symbol !== undefined ? (symbol[1].get("text") as string) : "";
+    this.$emit("symbol-selected", rowIndex, shapeIndex);
   }
 }
 </script>

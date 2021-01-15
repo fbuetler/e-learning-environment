@@ -43,6 +43,11 @@ import {
   PatternCanvas,
 } from "@/components/ciphertexts/Ciphertext";
 
+/*
+  TODO
+    - add tutorial animation
+*/
+
 @Component<PatternDecryption>({
   components: {
     Difficulty,

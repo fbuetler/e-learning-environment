@@ -53,6 +53,11 @@ import {
   Type,
 } from "@/components/ciphertexts/Ciphertext";
 
+/*
+  TODO
+    - add tutorial animation
+*/
+
 @Component<SymbolDecryption>({
   components: {
     Difficulty,
