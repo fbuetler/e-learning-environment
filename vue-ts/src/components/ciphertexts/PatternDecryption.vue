@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
@@ -17,6 +18,7 @@
         <div class="flex-item flex-row flex-center equal-space">
           <div>Lösung:</div>
           <input
+            id="answer-input"
             class="card big-text"
             size="5"
             v-model="decryptedText"
@@ -45,7 +47,7 @@ import {
 
 /*
   TODO
-    - add tutorial animation
+    - generate wrong input in tutorial animation
 */
 
 @Component<PatternDecryption>({
@@ -61,6 +63,7 @@ export default class PatternDecryption extends Mixins(GameMixin)
   decryptedText: string = null;
 
   patternPerLevel: Map<number, [number, number][]> = null;
+  animationSteps: Array<string> = null;
 
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
@@ -87,6 +90,7 @@ export default class PatternDecryption extends Mixins(GameMixin)
     for (let level = 1; level <= this.difficultyLevels; level++) {
       this.patternPerLevel.set(level, CreatePattern(this.originalText, level));
     }
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
@@ -103,6 +107,16 @@ export default class PatternDecryption extends Mixins(GameMixin)
       this.originalText.length,
       this.patternPerLevel.get(this.currentDifficultyLevel)
     );
+  }
+
+  getAnimationSteps(): Array<string> {
+    return [
+      `answer-input:${-1}`,
+      "button-menu-check",
+      `answer-input:${this.originalText.join("")}`,
+      "button-menu-check",
+      "button-menu-next",
+    ];
   }
 
   get encryptedText(): string {

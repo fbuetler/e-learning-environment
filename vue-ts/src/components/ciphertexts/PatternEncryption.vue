@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
@@ -17,6 +18,7 @@
         <div class="flex-item flex-row flex-center equal-space">
           <div>Lösung:</div>
           <input
+            id="answer-input"
             class="card big-text"
             size="5"
             v-model="encryptedText"
@@ -45,7 +47,7 @@ import {
 
 /*
   TODO
-    - add tutorial animation
+    - generate wrong input in tutorial animation
 */
 
 @Component<PatternEncryption>({
@@ -61,6 +63,7 @@ export default class PatternEncryption extends Mixins(GameMixin)
   encryptedText: string = null;
 
   patternPerLevel: Map<number, [number, number][]> = null;
+  animationSteps: Array<string> = null;
 
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
@@ -87,12 +90,17 @@ export default class PatternEncryption extends Mixins(GameMixin)
     for (let level = 1; level <= this.difficultyLevels; level++) {
       this.patternPerLevel.set(level, CreatePattern(this.originalText, level));
     }
+    this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
     if (this.encryptedText === null) {
       return false;
     }
+    return this.encryptText() === this.encryptedText.toUpperCase();
+  }
+
+  encryptText(): string {
     const text = this.originalText.slice();
     this.patternPerLevel
       .get(this.currentDifficultyLevel)
@@ -101,7 +109,7 @@ export default class PatternEncryption extends Mixins(GameMixin)
         text[left] = text[right];
         text[right] = tmp;
       });
-    return text.join("") === this.encryptedText.toUpperCase();
+    return text.join("");
   }
 
   draw() {
@@ -111,6 +119,16 @@ export default class PatternEncryption extends Mixins(GameMixin)
       this.originalText.length,
       this.patternPerLevel.get(this.currentDifficultyLevel)
     );
+  }
+
+  getAnimationSteps(): Array<string> {
+    return [
+      `answer-input:${-1}`,
+      "button-menu-check",
+      `answer-input:${this.encryptText()}`,
+      "button-menu-check",
+      "button-menu-next",
+    ];
   }
 
   get decryptedText(): string {
