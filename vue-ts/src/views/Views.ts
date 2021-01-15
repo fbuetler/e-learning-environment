@@ -80,14 +80,6 @@ const views: Array<{
   },
   {
     id: 18,
-    title: "Mit möglichst wenig Münzen bezahlen",
-    path: "/coins/normal/minimalamount",
-    img: "placeholder.jpg",
-    view: "NormalCoinsMinimalAmount",
-    component: "CoinsMinimalAmount",
-  },
-  {
-    id: 19,
     title: "Gleichwertige Münzen tauschen",
     path: "/coins/normal/swap",
     img: "placeholder.jpg",
@@ -95,7 +87,7 @@ const views: Array<{
     component: "CoinsSwap",
   },
   {
-    id: 20,
+    id: 19,
     title: "Bezahlen mit binären Münzen",
     path: "/coins/binary/to",
     img: "placeholder.jpg",
@@ -103,7 +95,7 @@ const views: Array<{
     component: "CoinsTo",
   },
   {
-    id: 21,
+    id: 20,
     title: "Binäre Münzbeträge ausrechnen",
     path: "/coins/binary/from",
     img: "placeholder.jpg",

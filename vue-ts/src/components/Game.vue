@@ -62,7 +62,6 @@ import SymbolDecryption from "@/components/ciphertexts/SymbolDecryption.vue";
 import PatternEncryption from "@/components/ciphertexts/PatternEncryption.vue";
 import PatternDecryption from "@/components/ciphertexts/PatternDecryption.vue";
 import CoinsFrom from "@/components/coins/From.vue";
-import CoinsMinimalAmount from "@/components/coins/MinimalAmount.vue";
 import CoinsSwap from "@/components/coins/Swap.vue";
 import CoinsTo from "@/components/coins/To.vue";
 
@@ -81,7 +80,6 @@ export enum GameType {
   PATTERNENCRYPTION = "PatternEncryption",
   PATTERNDECRYPTION = "PatternDecryption",
   COINSFROM = "CoinsFrom",
-  COINSMINIMALAMOUNT = "CoinsMinimalAmount",
   COINSSWAP = "CoinsSwap",
   COINSTO = "CoinsTo",
 }
@@ -114,7 +112,6 @@ export enum GameType {
     PatternEncryption,
     PatternDecryption,
     CoinsFrom,
-    CoinsMinimalAmount,
     CoinsSwap,
     CoinsTo,
   },
