@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
-    <div>Stelle die gleiche Zahl mit weniger Münzen dar</div>
+    <div>Stelle die gleiche Summe mit weniger Münzen dar</div>
     <div class="flex-item flex-center flex-col flex-flex card">
       <slot>
         <div class="flex-item flex-center flex-row">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
-    <div>Welche Zahl wird hier dargestellt?</div>
+    <div>Welche Summe wird hier dargestellt?</div>
     <div class="flex-item flex-center flex-col flex-flex card">
       <slot>
         <div class="flex-item flex-center flex-row">

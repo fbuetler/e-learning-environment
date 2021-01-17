@@ -7,11 +7,9 @@
       @difficulty-selected="currentDifficultyLevel = $event"
       v-if="displayDifficulty"
     />
-    <div class="number" v-if="currentDifficultyLevel === 1">
-      Stell die folgende Zahl dar:
-    </div>
-    <div class="number" v-else>
-      Stell die folgende Zahl <b>mit möglichst wenig Münzen</b> dar:
+    <div class="number">
+      Stell die folgende Summe
+      <b v-if="currentDifficultyLevel === 2">mit möglichst wenig Münzen</b> dar:
     </div>
     <div class="big-text">{{ number }}</div>
     <div
