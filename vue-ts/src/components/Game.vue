@@ -31,6 +31,7 @@
       >
         <TutorialAnimation
           id="tutorial-animation"
+          slot="animation"
           slot-scope="slotScope"
           :steps="slotScope.animationSteps"
           v-if="showAnimation"
@@ -86,7 +87,6 @@ export enum GameType {
 
 /*
   TODO:
-    - add descriptions
     - add tutorial videos and then remove tutorial animation
     - test that shit
     - tidy up templates as in https://vuejs.org/v2/style-guide/#Element-attribute-order-recommended

@@ -46,11 +46,6 @@ import {
   Swap,
 } from "@/components/ciphertexts/Ciphertext";
 
-/*
-  TODO
-    - generate wrong input in tutorial animation
-*/
-
 @Component<PatternEncryption>({
   components: {
     Difficulty,

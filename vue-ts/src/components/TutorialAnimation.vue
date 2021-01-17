@@ -14,11 +14,6 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
-/*
-  TODO:
-    - check why canvas coords are miscalculated 
-*/
-
 @Component<TutorialAnimation>({})
 export default class TutorialAnimation extends Vue {
   @Prop({ required: true })
@@ -95,12 +90,27 @@ export default class TutorialAnimation extends Vue {
         ];
       }
       default: {
+        const [offsetLeft, offsetTop] = this.offset(el);
         return [
-          el.offsetLeft + el.offsetWidth / 2,
-          el.offsetTop + el.offsetHeight / 2,
+          offsetLeft + el.offsetWidth / 2,
+          offsetTop + el.offsetHeight / 2,
         ];
       }
     }
+  }
+
+  offset(el: HTMLElement): [number, number] {
+    let x = el.offsetLeft;
+    let y = el.offsetTop;
+    el = el.offsetParent as HTMLElement;
+
+    while (el) {
+      x += el.offsetLeft;
+      y += el.offsetTop;
+      el = el.offsetParent as HTMLElement;
+    }
+
+    return [x, y];
   }
 
   moveMouseTo(x: number, y: number) {
