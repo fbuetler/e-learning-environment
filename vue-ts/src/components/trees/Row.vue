@@ -1,5 +1,5 @@
 <template>
-  <div @dragend="selected = null">
+  <div @dragend="itemToAdd = null">
     <slot name="animation" :animationSteps="animationSteps" />
     <div>
       Versuch das Baumreihenrätsel zu lösen.
@@ -9,14 +9,14 @@
       <div
         v-for="field in values"
         :id="`field-${field.id}`"
-        :key="field.id"
+        :key="`field-${field.id}`"
         class="flex-item flex-center dropzone tree-dropzone"
-        @click="putTree($event, field.id)"
+        @click="moveTree($event, field.id)"
         draggable
-        @dragstart="startDrag($event, field.id)"
+        @dragstart="moveTree($event, field.id)"
         @dragover.prevent
         @dragend.prevent
-        @drop.stop.prevent="putTree($event, field.id)"
+        @drop.stop.prevent="moveTree($event, field.id)"
       >
         <img
           v-if="field.value !== 0"
@@ -31,9 +31,9 @@
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
       <ItemSelection
-        :selected="selected"
+        :selected="itemToAdd"
         :items="items(size)"
-        @selected="selected = $event"
+        @selected="itemToAdd = $event"
       />
       <Trashcan @trashed-element="trashElement($event)" />
       <Undo @undo-operation="undo()" />
@@ -76,7 +76,8 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   rightView: number = null;
   valuesSolution: row = null;
 
-  selected = null;
+  itemToAdd = null;
+  fieldToClean = null;
   animationSteps: Array<string> = null;
 
   isStarted(): boolean {
@@ -92,6 +93,8 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
       this.values,
       this.valuesSolution,
     ] = this.generate();
+    this.itemToAdd = null;
+    this.fieldToClean = null;
     this.animationSteps = this.getAnimationSteps();
   }
 
@@ -100,27 +103,6 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     const visibleLeft = this.getVisibleTrees(row);
     const visibleRight = this.getVisibleTrees(row.slice().reverse());
     return !(visibleLeft !== this.leftView || visibleRight !== this.rightView);
-  }
-
-  putTree(event: Event, id: number): void {
-    const field = this.values.find((el) => el.id == id);
-    if (field.locked) {
-      return;
-    }
-    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
-      const oldID = +event.dataTransfer.getData("id");
-      const oldField = this.values.find((el) => el.id === oldID);
-      if (oldField.locked) {
-        return;
-      }
-      this.selected = oldField.value;
-      Vue.set(oldField, "value", 0);
-    }
-    if (this.selected === null) {
-      return;
-    }
-    Vue.set(field, "value", this.selected);
-    this.selected = null;
   }
 
   generate(): [number, number, row, row] {
@@ -146,22 +128,62 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     };
   }
 
-  startDrag(event: DragEvent, id: number) {
-    event.dataTransfer.setData("id", id.toString());
+  moveTree(event: Event, fieldID: number) {
+    const field = this.values.find((el) => el.id === fieldID);
+    if (field.locked) {
+      return;
+    }
+    if (field.value === 0) {
+      // empty field -> set tree
+      let oldFieldID: number;
+      if (
+        event instanceof DragEvent &&
+        event.dataTransfer.getData("id") !== ""
+      ) {
+        oldFieldID = +event.dataTransfer.getData("id");
+      } else if (this.fieldToClean !== null) {
+        oldFieldID = this.fieldToClean;
+        this.fieldToClean = null;
+      } else {
+        oldFieldID = null;
+      }
+      if (oldFieldID !== null) {
+        const oldField = this.values.find((el) => el.id === oldFieldID);
+        if (oldField.locked) {
+          return;
+        }
+        this.itemToAdd = oldField.value;
+        Vue.set(oldField, "value", 0);
+      }
+      if (this.itemToAdd === null) {
+        return;
+      }
+      Vue.set(field, "value", this.itemToAdd);
+      this.itemToAdd = null;
+    } else {
+      // occupied field -> move/remove tree
+      if (event instanceof DragEvent) {
+        event.dataTransfer.setData("id", fieldID.toString());
+      }
+      this.fieldToClean = fieldID;
+    }
   }
 
   trashElement(event: Event) {
-    if (
-      !(event instanceof DragEvent) ||
-      event.dataTransfer.getData("id") === ""
-    ) {
+    let fieldID: number;
+    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
+      fieldID = +event.dataTransfer.getData("id");
+    } else if (this.fieldToClean !== null) {
+      fieldID = this.fieldToClean;
+      this.fieldToClean = null;
+    } else {
       return;
     }
-    const id = +event.dataTransfer.getData("id");
-    if (this.values.find((el) => el.id === id).locked) {
+    const field = this.values.find((el) => el.id === fieldID);
+    if (field.locked) {
       return;
     }
-    Vue.set(this.values[id], "value", 0);
+    Vue.set(field, "value", 0);
   }
 
   undo() {

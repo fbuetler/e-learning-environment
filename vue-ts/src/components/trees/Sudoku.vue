@@ -1,5 +1,5 @@
 <template>
-  <div @dragend="selected = null">
+  <div @dragend="itemToAdd = null">
     <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
       :selected="currentDifficultyLevel"
@@ -55,12 +55,12 @@
           :key="`field-${field.id}`"
           :class="{ locked: field.locked }"
           class="dropzone tree-dropzone"
-          @click="putTree($event, field.id)"
+          @click="moveTree($event, field.id)"
           draggable
-          @dragstart="startDrag($event, field.id)"
+          @dragstart="moveTree($event, field.id)"
           @dragover.prevent
           @dragend.prevent
-          @drop.stop.prevent="putTree($event, field.id)"
+          @drop.stop.prevent="moveTree($event, field.id)"
         >
           <img
             v-if="field.value !== 0"
@@ -107,9 +107,9 @@
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
       <ItemSelection
-        :selected="selected"
+        :selected="itemToAdd"
         :items="items(size)"
-        @selected="selected = $event"
+        @selected="itemToAdd = $event"
       />
       <Trashcan @trashed-element="trashElement($event)" />
       <Undo @undo-operation="undo()" />
@@ -128,7 +128,6 @@ import Difficulty from "@/components/Difficulty.vue";
 
 /*
   TODO:
-    - click placed tree and then trashcan to delete
     - restyle grid, especially that it fits on one page
       (https://css-tricks.com/scaled-proportional-blocks-with-css-and-javascript/)
 
@@ -163,7 +162,8 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
 
   valuesSolution: sudoku = null;
 
-  selected = null;
+  itemToAdd = null;
+  fieldToClean = null;
   animationSteps: Array<string> = null;
 
   currentDifficultyLevel = 1;
@@ -199,6 +199,8 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     );
 
     this.values = this.guaranteeMinimalCoverage();
+    this.itemToAdd = null;
+    this.fieldToClean = null;
     this.animationSteps = this.getAnimationSteps();
   }
 
@@ -439,40 +441,65 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     return [rowIndex, colIndex];
   }
 
-  putTree(event: Event, id: number) {
-    const [rowIndex, colIndex] = this.findFieldByID(id);
+  /*
+    possible scenarios:
+      - add new item: event by ItemSelection then place it
+      - remove item: event by field then move it to Trashcan
+      - move item: event by field then move it to another one
+      - no locked field can be moved/removed
+  */
+  moveTree(event: Event, fieldID: number) {
+    const [rowIndex, colIndex] = this.findFieldByID(fieldID);
     if (this.values[rowIndex][colIndex].locked) {
       return;
     }
-    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
-      const oldID = +event.dataTransfer.getData("id");
-      const [oldRowIndex, oldColIndex] = this.findFieldByID(oldID);
-      if (this.values[oldRowIndex][oldColIndex].locked) {
+    if (this.values[rowIndex][colIndex].value === 0) {
+      // empty field -> set tree
+      let oldFieldID: number;
+      if (
+        event instanceof DragEvent &&
+        event.dataTransfer.getData("id") !== ""
+      ) {
+        oldFieldID = +event.dataTransfer.getData("id");
+      } else if (this.fieldToClean !== null) {
+        oldFieldID = this.fieldToClean;
+        this.fieldToClean = null;
+      } else {
+        oldFieldID = null;
+      }
+      if (oldFieldID !== null) {
+        const [oldRowIndex, oldColIndex] = this.findFieldByID(oldFieldID);
+        if (this.values[oldRowIndex][oldColIndex].locked) {
+          return;
+        }
+        this.itemToAdd = this.values[oldRowIndex][oldColIndex].value;
+        Vue.set(this.values[oldRowIndex][oldColIndex], "value", 0);
+      }
+      if (this.itemToAdd === null) {
         return;
       }
-      this.selected = this.values[oldRowIndex][oldColIndex].value;
-      Vue.set(this.values[oldRowIndex][oldColIndex], "value", 0);
+      Vue.set(this.values[rowIndex][colIndex], "value", this.itemToAdd);
+      this.itemToAdd = null;
+    } else {
+      // occupied field -> move/remove tree
+      if (event instanceof DragEvent) {
+        event.dataTransfer.setData("id", fieldID.toString());
+      }
+      this.fieldToClean = fieldID;
     }
-    if (this.selected === null) {
-      return;
-    }
-    Vue.set(this.values[rowIndex][colIndex], "value", this.selected);
-    this.selected = null;
-  }
-
-  startDrag(event: DragEvent, id: number) {
-    event.dataTransfer.setData("id", id.toString());
   }
 
   trashElement(event: Event) {
-    if (
-      !(event instanceof DragEvent) ||
-      event.dataTransfer.getData("id") === ""
-    ) {
+    let fieldID: number;
+    if (event instanceof DragEvent && event.dataTransfer.getData("id") !== "") {
+      fieldID = +event.dataTransfer.getData("id");
+    } else if (this.fieldToClean !== null) {
+      fieldID = this.fieldToClean;
+      this.fieldToClean = null;
+    } else {
       return;
     }
-    const id = +event.dataTransfer.getData("id");
-    const [rowIndex, colIndex] = this.findFieldByID(id);
+    const [rowIndex, colIndex] = this.findFieldByID(fieldID);
     if (this.values[rowIndex][colIndex].locked) {
       return;
     }
