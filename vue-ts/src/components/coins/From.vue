@@ -6,14 +6,14 @@
       <slot>
         <div class="flex-item flex-center flex-row">
           <div
-            class="flex-item flex-center flex-col"
             v-for="(amount, i) in generatedItems"
             :key="`item-${i}`"
+            class="flex-item flex-center flex-col"
           >
             <div
-              :class="items(coinType)[i].class"
               v-for="j in amount"
               :key="`amount-${j}`"
+              :class="items(coinType)[i].class"
             >
               <img :src="require(`@/assets/${items(coinType)[i].img}`)" />
             </div>
@@ -25,9 +25,9 @@
     <div>Lösung:</div>
     <input
       id="answer-input"
+      v-model.number="number"
       class="card big-text"
       size="5"
-      v-model.number="number"
       type="number"
     />
   </div>

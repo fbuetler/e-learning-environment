@@ -4,9 +4,8 @@
     class="flex-item flex-wrap flex-center-horizontally flex-row"
   >
     <div
-      :id="`item-selection-${item.id}`"
-      class="flex-item flex-wrap flex-center card clickable"
       v-for="item in items"
+      :id="`item-selection-${item.id}`"
       :key="item.id"
       :class="[
         {
@@ -14,6 +13,7 @@
         },
         item.class,
       ]"
+      class="flex-item flex-wrap flex-center card clickable"
       @click="$emit('selected', item.type)"
       draggable
       @dragstart="$emit('selected', item.type)"
@@ -21,7 +21,7 @@
       @dragend.prevent
       @drop.prevent
     >
-      <img :src="require('@/assets/' + item.img)" v-if="isPath(item.img)" />
+      <img v-if="isPath(item.img)" :src="require('@/assets/' + item.img)" />
       <div v-else>{{ item.img }}</div>
     </div>
   </div>

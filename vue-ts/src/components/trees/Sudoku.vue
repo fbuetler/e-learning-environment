@@ -12,18 +12,18 @@
     <div>
       Versuch das Baumsudoku zu lösen.
     </div>
-    <div class="tree-container" :style="gridSize()">
+    <div :style="gridSize()" class="tree-container">
       <div
-        class="tree-row"
         :style="gridRowSizeAndPosition(`1 / 1`, `1 / ${size + 3}`)"
+        class="tree-row"
       >
         <!-- placeholder -->
         <div></div>
         <!-- top view -->
         <div
-          class="card"
           v-for="(visible, topIndex) in topView"
           :key="`top-${topIndex}`"
+          class="card"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>
@@ -33,15 +33,15 @@
       </div>
 
       <div
-        class="tree-row"
+        v-for="(row, rowIndex) in values"
+        :key="`row-${rowIndex}`"
         :style="
           gridRowSizeAndPosition(
             `${rowIndex + 2} / ${rowIndex + 2}`,
             `1 / ${size + 3}`
           )
         "
-        v-for="(row, rowIndex) in values"
-        :key="`row-${rowIndex}`"
+        class="tree-row"
       >
         <!-- left view -->
         <div class="card">
@@ -50,11 +50,11 @@
         </div>
         <!-- values -->
         <div
-          :id="`field-${field.id}`"
-          class="dropzone tree-dropzone"
-          :class="{ locked: field.locked }"
           v-for="field in row"
+          :id="`field-${field.id}`"
           :key="`field-${field.id}`"
+          :class="{ locked: field.locked }"
+          class="dropzone tree-dropzone"
           @click="putTree($event, field.id)"
           draggable
           @dragstart="startDrag($event, field.id)"
@@ -83,18 +83,18 @@
       </div>
 
       <div
-        class="tree-row"
         :style="
           gridRowSizeAndPosition(`${size + 2} / ${size + 2}`, `1 / ${size + 3}`)
         "
+        class="tree-row"
       >
         <!-- placeholder -->
         <div></div>
         <!-- bottom view -->
         <div
-          class="card"
           v-for="(visible, bottomIndex) in bottomView"
           :key="`bottom-${bottomIndex}`"
+          class="card"
         >
           <span v-if="visible !== 0">{{ visible }}</span>
           <span v-else></span>
@@ -111,8 +111,8 @@
         :items="items(size)"
         @selected="selected = $event"
       />
-      <Trashcan @trashed-element="(event) => trashElement(event)" />
-      <Undo @undo-operation="undo($event)" />
+      <Trashcan @trashed-element="trashElement($event)" />
+      <Undo @undo-operation="undo()" />
     </div>
   </div>
 </template>
@@ -131,7 +131,6 @@ import Difficulty from "@/components/Difficulty.vue";
     - click placed tree and then trashcan to delete
     - restyle grid, especially that it fits on one page
       (https://css-tricks.com/scaled-proportional-blocks-with-css-and-javascript/)
-    - optional: union sudoku 3 and 4 into one view and use difficulty levels
 
 */
 

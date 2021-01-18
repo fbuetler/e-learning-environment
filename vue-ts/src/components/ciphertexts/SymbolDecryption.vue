@@ -17,8 +17,8 @@
           <div class="canvas-container card">
             <canvas
               v-for="(part, index) in original"
-              :key="index"
               :id="'encrypted-' + index"
+              :key="index"
               width="75"
               height="75"
               >{{ part }}</canvas
@@ -29,9 +29,9 @@
           Lösung:
           <input
             id="answer-input"
+            v-model="decrypted"
             class="card big-text"
             size="5"
-            v-model="decrypted"
             type="text"
           />
         </div>

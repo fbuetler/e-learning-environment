@@ -16,12 +16,12 @@
       </div>
       <div v-else>
         <div class="flex-item flex-center flex-row">
-          <div class="nut" v-for="index in selectedItems[nut]" :key="index">
+          <div v-for="index in selectedItems[nut]" :key="index" class="nut">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
         <div class="flex-item flex-center flex-col">
-          <div class="stick" v-for="index in selectedItems[stick]" :key="index">
+          <div v-for="index in selectedItems[stick]" :key="index" class="stick">
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
         </div>

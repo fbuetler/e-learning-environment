@@ -5,26 +5,26 @@
       Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
     </div>
     <div
-      class="word-container flex-item flex-col flex-center flex-flex"
       id="word-container"
       ref="word-container"
+      class="word-container flex-item flex-col flex-center flex-flex"
     >
       <div class="flex-item flex-row flex-center">
         <div
           v-for="element in word"
+          :id="`word-char-${element.id}`"
+          :ref="`word-char-${element.id}`"
           :key="element.id"
-          class="word-char card"
           :class="{
             locked: element.locked,
           }"
-          :id="`word-char-${element.id}`"
-          :ref="`word-char-${element.id}`"
+          class="word-char card"
         >
           {{ element.char }}
         </div>
         <div :ref="`word-char-${word.length}`"></div>
       </div>
-      <div class="svg-container" v-if="!charAdded">
+      <div v-if="!charAdded" class="svg-container">
         <svg class="svg-item">
           <defs>
             <marker
@@ -41,9 +41,9 @@
           </defs>
           <line
             v-for="id in arrows"
-            :key="`arrow-${id}`"
             :id="`arrow-${id}`"
             :ref="`arrow-${id}`"
+            :key="`arrow-${id}`"
             stroke="black"
             stroke-width="3"
             fill="transparent"
@@ -51,9 +51,9 @@
           />
           <rect
             v-for="id in arrows"
-            :key="`rect-around-arrow-${id}`"
             :id="`rect-around-arrow-${id}`"
             :ref="`rect-around-arrow-${id}`"
+            :key="`rect-around-arrow-${id}`"
             fill="transparent"
             @click="addChar(id)"
             @dragenter.prevent

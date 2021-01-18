@@ -5,15 +5,15 @@
     <div class="flex-item flex-center flex-col flex-flex card">
       <div>
         <div class="flex-item flex-center flex-row">
-          <div class="nut" v-for="index in generatedItems[nut]" :key="index">
+          <div v-for="index in generatedItems[nut]" :key="index" class="nut">
             <img :src="require('@/assets/mayas/nut.png')" />
           </div>
         </div>
         <div class="flex-item flex-center flex-col">
           <div
-            class="stick"
             v-for="index in generatedItems[stick]"
             :key="index"
+            class="stick"
           >
             <img :src="require('@/assets/mayas/stick.png')" />
           </div>
@@ -24,9 +24,9 @@
     <div>Lösung:</div>
     <input
       id="answer-input"
+      v-model.number="number"
       class="card big-text"
       size="5"
-      v-model.number="number"
       type="number"
     />
   </div>

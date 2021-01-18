@@ -19,15 +19,15 @@
           <div>Lösung:</div>
           <input
             id="answer-input"
+            v-model="encryptedText"
             class="card big-text"
             size="5"
-            v-model="encryptedText"
             type="text"
           />
         </div>
       </div>
       <div>
-        <canvas class="card" id="pattern-canvas" width="500" height="150"
+        <canvas id="pattern-canvas" class="card" width="500" height="150"
           >Das Muster ist nicht verfügbar</canvas
         >
       </div>

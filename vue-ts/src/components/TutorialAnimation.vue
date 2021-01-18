@@ -3,8 +3,8 @@
     viewBox="11.8 9 16 22"
     id="mouse"
     ref="mouse"
-    class="mouse"
     :style="`transition: transform ${transitionTimeMs / 1000}s;`"
+    class="mouse"
   >
     <path d="M20,21l4.5,8l-3.4,2l-4.6-8.1L12,29V9l16,12H20z"></path>
   </svg>

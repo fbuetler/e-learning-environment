@@ -4,8 +4,8 @@
       <tbody>
         <tr v-for="(row, rowIndex) in table" :key="rowIndex">
           <td
-            :id="`field-${rowIndex}-${shapeIndex}`"
             v-for="(shape, shapeIndex) in row"
+            :id="`field-${rowIndex}-${shapeIndex}`"
             :key="shapeIndex"
             :class="{ selected: isSelected(rowIndex, shapeIndex) }"
             @click="selectSymbol(rowIndex, shapeIndex)"

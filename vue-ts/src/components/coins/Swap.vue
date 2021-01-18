@@ -6,14 +6,14 @@
       <slot>
         <div class="flex-item flex-center flex-row">
           <div
-            class="flex-item flex-center flex-col"
             v-for="(amount, i) in generatedItems"
             :key="`item-${i}`"
+            class="flex-item flex-center flex-col"
           >
             <div
-              :class="items(type)[i].class"
               v-for="j in amount"
               :key="`amount-${j}`"
+              :class="items(type)[i].class"
             >
               <img :src="require(`@/assets/${items(type)[i].img}`)" />
             </div>
@@ -38,14 +38,14 @@
         <slot>
           <div class="flex-item flex-center flex-row">
             <div
-              class="flex-item flex-center flex-col"
               v-for="(amount, i) in displaySelectedItems"
               :key="`item-${i}`"
+              class="flex-item flex-center flex-col"
             >
               <div
-                :class="items(type).reverse()[i].class"
                 v-for="j in amount"
                 :key="`amount-${j}`"
+                :class="items(type).reverse()[i].class"
               >
                 <img
                   :src="require(`@/assets/${items(type).reverse()[i].img}`)"

@@ -7,13 +7,13 @@
     <div class="word-container flex-item flex-row flex-center">
       <div v-for="element in word" :key="element.id">
         <div
+          v-if="element.char !== ''"
           :id="`word-char-${element.id}`"
-          class="word-char card clickable"
           :class="{
             locked: element.locked,
             selected: element.id === selected,
           }"
-          v-if="element.char !== ''"
+          class="word-char card clickable"
           @click="selected = element.id"
           draggable
           @dragover.prevent
@@ -28,8 +28,8 @@
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
-      <Trashcan @trashed-element="trashElement()" @click="trashElement()" />
-      <Undo @undo-operation="undo($event)" />
+      <Trashcan @trashed-element="trashElement()" />
+      <Undo @undo-operation="undo()" />
     </div>
   </div>
 </template>

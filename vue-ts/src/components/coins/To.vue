@@ -2,10 +2,10 @@
   <div @dragend.prevent="selected = null">
     <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
+      v-if="displayDifficulty"
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
       @difficulty-selected="currentDifficultyLevel = $event"
-      v-if="displayDifficulty"
     />
     <div class="number">
       Stell die folgende Summe
@@ -27,14 +27,14 @@
         <slot>
           <div class="flex-item flex-center flex-row">
             <div
-              class="flex-item flex-center flex-col"
               v-for="(amount, i) in displaySelectedItems"
               :key="`item-${i}`"
+              class="flex-item flex-center flex-col"
             >
               <div
-                :class="items(type).reverse()[i].class"
                 v-for="j in amount"
                 :key="`amount-${j}`"
+                :class="items(type).reverse()[i].class"
               >
                 <img
                   :src="require(`@/assets/${items(type).reverse()[i].img}`)"

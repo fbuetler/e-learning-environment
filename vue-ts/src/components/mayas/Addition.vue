@@ -12,21 +12,21 @@
     <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
     <div class="flex-item flex-wrap flex-center flex-row">
       <div
-        class="flex-item flex-wrap flex-center flex-row flex-flex"
         v-for="(summand, index) in summands"
         :key="index"
+        class="flex-item flex-wrap flex-center flex-row flex-flex"
       >
         <div class="flex-item flex-center flex-col flex-flex card">
           <div class="flex-item flex-center flex-row">
-            <div class="nut" v-for="nutIndex in summand[nut]" :key="nutIndex">
+            <div v-for="nutIndex in summand[nut]" :key="nutIndex" class="nut">
               <img :src="require('@/assets/mayas/nut.png')" />
             </div>
           </div>
           <div class="flex-item flex-center flex-col">
             <div
-              class="stick"
               v-for="stickIndex in summand[stick]"
               :key="stickIndex"
+              class="stick"
             >
               <img :src="require('@/assets/mayas/stick.png')" />
             </div>
@@ -38,16 +38,16 @@
       <div v-if="currentDifficultyLevel === 1">
         <input
           id="answer-input"
+          v-model.number="sum"
           class="card big-text"
           size="5"
-          v-model.number="sum"
           type="number"
         />
       </div>
       <div
+        v-else
         id="dropzone"
         class="flex-item flex-center flex-col flex-flex dropzone input"
-        v-else
         @click="addItem()"
         @dragover.prevent
         @dragend.prevent
@@ -58,15 +58,15 @@
         </div>
         <div v-else>
           <div class="flex-item flex-center flex-row">
-            <div class="nut" v-for="index in selectedItems[nut]" :key="index">
+            <div v-for="index in selectedItems[nut]" :key="index" class="nut">
               <img :src="require('@/assets/mayas/nut.png')" />
             </div>
           </div>
           <div class="flex-item flex-center flex-col">
             <div
-              class="stick"
               v-for="index in selectedItems[stick]"
               :key="index"
+              class="stick"
             >
               <img :src="require('@/assets/mayas/stick.png')" />
             </div>
@@ -76,8 +76,8 @@
     </div>
     <hr />
     <div
-      class="interaction-container flex-item flex-row flex-center flex-stretch"
       v-if="currentDifficultyLevel === 2"
+      class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
       <ItemSelection
         :selected="selected"

@@ -1,19 +1,19 @@
 <template>
   <div class="difficulty flex-item flex-center flex-row">
     <div
+      v-for="level in displayDifficultyLevels"
       :id="`difficulty-${level}`"
-      class="card clickable"
-      :class="{
-        selected: level === selected,
-        locked: level > difficultyLevels,
-      }"
+      :key="level"
       :title="
         `Schwierigkeitsgrad: ${getDifficultyDescription(
           level
         )} ${getLockedDescription(level > difficultyLevels)}`
       "
-      v-for="level in displayDifficultyLevels"
-      :key="level"
+      :class="{
+        selected: level === selected,
+        locked: level > difficultyLevels,
+      }"
+      class="card clickable"
       @click="selectDifficulty(level)"
     >
       <img :src="require(`@/assets/difficulty/difficulty_${level}.png`)" />

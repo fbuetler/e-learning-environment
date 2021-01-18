@@ -7,10 +7,10 @@
     <div class="flex-item flex-center flex-row flex-stretch flex-flex">
       <div class="flex-item flex-center card">{{ leftView }}</div>
       <div
-        :id="`field-${field.id}`"
-        class="flex-item flex-center dropzone tree-dropzone"
         v-for="field in values"
+        :id="`field-${field.id}`"
         :key="field.id"
+        class="flex-item flex-center dropzone tree-dropzone"
         @click="putTree($event, field.id)"
         draggable
         @dragstart="startDrag($event, field.id)"
@@ -35,8 +35,8 @@
         :items="items(size)"
         @selected="selected = $event"
       />
-      <Trashcan @trashed-element="(event) => trashElement(event)" />
-      <Undo @undo-operation="undo($event)" />
+      <Trashcan @trashed-element="trashElement($event)" />
+      <Undo @undo-operation="undo()" />
     </div>
   </div>
 </template>
@@ -56,11 +56,6 @@ type rowField = {
   locked: boolean;
 };
 type row = rowField[];
-
-/*
-  TODO
-    - optional: union treerow 3 and 4 into one view and use difficulty levels
-*/
 
 @Component<Row>({
   components: {

@@ -10,16 +10,16 @@
       Versuch ein neues Wort zu bilden, indem du zwei Buchstaben vertauschst.
     </div>
     <div
-      class="word-container flex-item flex-col flex-center flex-flex"
       id="word-container"
       ref="word-container"
+      class="word-container flex-item flex-col flex-center flex-flex"
     >
       <div class="flex-item flex-row flex-center">
         <div
           v-for="element in word"
           :key="element.id"
-          class="word-char card"
           :ref="'word-char-' + element.id"
+          class="word-char card"
         >
           {{ element.char }}
         </div>
@@ -52,8 +52,8 @@
           </defs>
           <path
             v-for="[left, right] in arrows"
-            :key="`arrow-${left}-${right}`"
             :ref="`arrow-${left}-${right}`"
+            :key="`arrow-${left}-${right}`"
             stroke="black"
             stroke-width="2"
             fill="transparent"
@@ -62,9 +62,9 @@
           />
           <rect
             v-for="[left, right] in arrows"
-            :key="`rect-around-arrow-${left}-${right}`"
             :id="`rect-around-arrow-${left}-${right}`"
             :ref="`rect-around-arrow-${left}-${right}`"
+            :key="`rect-around-arrow-${left}-${right}`"
             fill="transparent"
             @click="swapChar(left, right)"
           />

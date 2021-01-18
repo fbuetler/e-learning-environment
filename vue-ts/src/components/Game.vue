@@ -7,14 +7,14 @@
         <slot name="video" slot="video" />
       </Tutorial>
     </div>
-    <Modal id="result" v-if="showResult" @close="showResult = false">
+    <Modal v-if="showResult" id="result" @close="showResult = false">
       <div slot="body" class="flex-item flex-center flex-col">
         <div>
           <img
-            :src="require('@/assets/beavers/correct.png')"
             v-if="isCorrect"
+            :src="require('@/assets/beavers/correct.png')"
           />
-          <img :src="require('@/assets/beavers/wrong.png')" v-else />
+          <img v-else :src="require('@/assets/beavers/wrong.png')" />
         </div>
         <div>
           <h3>{{ resultText }}</h3>
@@ -24,17 +24,17 @@
     <div>
       <Buttonmenu />
       <component
-        id="task"
         :is="currentGameComponent"
+        id="task"
         :args="args"
         @evaluated-game="(correct) => evaluatedGame(correct)"
       >
         <TutorialAnimation
+          v-if="showAnimation"
           id="tutorial-animation"
           slot="animation"
           slot-scope="slotScope"
           :steps="slotScope.animationSteps"
-          v-if="showAnimation"
           @finished="showAnimation = false"
         />
       </component>
@@ -88,7 +88,6 @@ export enum GameType {
 /*
   TODO:
     - test that shit
-    - tidy up templates as in https://vuejs.org/v2/style-guide/#Element-attribute-order-recommended
     - optional: multilingual (vue-i18n)
     - optional: union To, From from mayas and coins
     - optional: move parts of number systems task into components
