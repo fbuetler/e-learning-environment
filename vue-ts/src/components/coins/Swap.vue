@@ -77,7 +77,7 @@ import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
 
-// TODO: less coins or minimal number of coins? -> both: difficulties
+// TODO: (optional) less coins or minimal number of coins? -> both: difficulties
 
 @Component<Swap>({
   components: {
@@ -106,8 +106,17 @@ export default class Swap extends Mixins(GameMixin, CoinsMixin)
     this.selectedItems = new Array<number>(this.items(this.type).length).fill(
       0
     );
-    // TODO ensure its reducable
-    this.generatedItems = this.generateItems(this.type);
+    do {
+      this.generatedItems = this.generateItems(this.type);
+    } while (
+      this.countCoins(this.generatedItems) ===
+      this.countCoins(
+        this.calcMinimalAmount(
+          this.sumItems(this.type, this.generatedItems),
+          this.type
+        )
+      )
+    );
     this.animationSteps = this.getAnimationSteps();
   }
 
