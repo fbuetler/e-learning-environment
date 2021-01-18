@@ -60,6 +60,7 @@ export default class CoinsMixin extends Vue {
 
   calcMinimalAmount(number: number, type: coinType): number[] {
     const items = this.items(type);
+    items.sort((a, b) => a.value - b.value);
     let i = items.length - 1;
     const minimalAmount = new Array<number>(items.length).fill(0);
     while (number > 0 && i >= 0) {

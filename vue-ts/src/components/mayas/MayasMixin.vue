@@ -51,6 +51,7 @@ export default class MayasMixin extends Vue {
 
   calcMinimalAmount(number: number): number[] {
     const items = this.items;
+    items.sort((a, b) => a.value - b.value);
     let i = items.length - 1;
     const minimalAmount = new Array<number>(items.length).fill(0);
     while (number > 0 && i >= 0) {
