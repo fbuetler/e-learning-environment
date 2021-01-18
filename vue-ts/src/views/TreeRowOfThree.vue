@@ -43,6 +43,6 @@ export default class TreeRowOfThree extends Vue {
   type: GameType = GameType.TREEROW;
   title = views.find((el) => el.component === "TreeRowOfThree").title;
   args = { size: 3 };
-  video = "treerow.mp4";
+  video = "treerow3.mp4";
 }
 </script>

@@ -38,6 +38,6 @@ export default class TreeSudokuOfThree extends Vue {
   size = 3;
   title = views.find((el) => el.component === "TreeSudokuOfThree").title;
   args = { size: this.size };
-  video = "treesudoku.mp4";
+  video = "treesudoku3.mp4";
 }
 </script>

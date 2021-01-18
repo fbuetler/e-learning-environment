@@ -47,6 +47,6 @@ export default class TreeRowOfFour extends Vue {
   size = 4;
   title = views.find((el) => el.component === "TreeRowOfFour").title;
   args = { size: this.size };
-  video = "placeholder.mp4";
+  video = "treerow4.mp4";
 }
 </script>
