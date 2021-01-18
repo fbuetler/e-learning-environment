@@ -90,27 +90,13 @@ export default class TutorialAnimation extends Vue {
         ];
       }
       default: {
-        const [offsetLeft, offsetTop] = this.offset(el);
+        const viewportOffset = el.getBoundingClientRect();
         return [
-          offsetLeft + el.offsetWidth / 2,
-          offsetTop + el.offsetHeight / 2,
+          viewportOffset.left + el.offsetWidth / 2,
+          viewportOffset.top + el.offsetHeight / 2,
         ];
       }
     }
-  }
-
-  offset(el: HTMLElement): [number, number] {
-    let x = el.offsetLeft;
-    let y = el.offsetTop;
-    el = el.offsetParent as HTMLElement;
-
-    while (el) {
-      x += el.offsetLeft;
-      y += el.offsetTop;
-      el = el.offsetParent as HTMLElement;
-    }
-
-    return [x, y];
   }
 
   moveMouseTo(x: number, y: number) {
