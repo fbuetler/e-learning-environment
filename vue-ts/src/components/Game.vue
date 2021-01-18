@@ -87,7 +87,6 @@ export enum GameType {
 
 /*
   TODO:
-    - add tutorial videos and then remove tutorial animation
     - test that shit
     - tidy up templates as in https://vuejs.org/v2/style-guide/#Element-attribute-order-recommended
     - optional: multilingual (vue-i18n)

@@ -22,6 +22,9 @@
             <slot name="video">Unintentionally empty!</slot>
           </div>
         </div>
+        <!-- 
+        Uncomment the following code to show a button in the tutorial to start
+        the tutorial animation. This is used to create the tutorial videos.
         <div>
           <button
             class="card clickable"
@@ -32,7 +35,8 @@
           >
             Live Demo!
           </button>
-        </div>
+        </div> 
+        -->
       </div>
     </modal>
   </div>
