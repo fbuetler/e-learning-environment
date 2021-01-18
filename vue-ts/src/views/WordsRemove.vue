@@ -25,6 +25,6 @@ import views from "@/views/Views";
 export default class WordsRemove extends Vue {
   type: GameType = GameType.WORDSREMOVE;
   title = views.find((el) => el.component === GameType.WORDSREMOVE).title;
-  video = "placeholder.mp4";
+  video = "wordsremove.mp4";
 }
 </script>

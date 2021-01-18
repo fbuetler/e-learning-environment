@@ -27,6 +27,6 @@ import views from "@/views/Views";
 export default class SymbolDecryption extends Vue {
   type: GameType = GameType.SYMBOLDECRYPTION;
   title = views.find((el) => el.component === GameType.SYMBOLDECRYPTION).title;
-  video = "placeholder.mp4";
+  video = "symboldecryption.mp4";
 }
 </script>

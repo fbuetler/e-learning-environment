@@ -28,6 +28,6 @@ import views from "@/views/Views";
 export default class MayasTo extends Vue {
   type: GameType = GameType.MAYASTO;
   title = views.find((el) => el.component === GameType.MAYASTO).title;
-  video = "placeholder.mp4";
+  video = "mayasto.mp4";
 }
 </script>

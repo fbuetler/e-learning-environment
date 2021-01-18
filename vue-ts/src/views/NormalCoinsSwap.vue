@@ -27,6 +27,10 @@
         Münzen auszutauschen, bis er mit der kleinsten Anzahl Münzen bezahlt?
       </p>
     </div>
+    <video loop controls muted slot="video">
+      <source :src="require('@/assets/tutorials/' + video)" />
+      Your browser does not support the video tag.
+    </video>
   </Game>
 </template>
 
@@ -44,7 +48,7 @@ import views from "@/views/Views";
 export default class NormalSwap extends Vue {
   type: GameType = GameType.COINSSWAP;
   title = views.find((el) => el.component === GameType.COINSSWAP).title;
-  video = "placeholder.mp4";
+  video = "normalswap.mp4";
   description = "";
 }
 </script>

@@ -18,6 +18,10 @@
         Welche Summe ergeben die bereitgelegten Münzen?
       </p>
     </div>
+    <video loop controls muted slot="video">
+      <source :src="require('@/assets/tutorials/' + video)" />
+      Your browser does not support the video tag.
+    </video>
   </Game>
 </template>
 
@@ -37,7 +41,7 @@ export default class NormalCoinsFrom extends Vue {
   type: GameType = GameType.COINSFROM;
   title = views.find((el) => el.component === GameType.COINSFROM).title;
   args = { coinType: coinType.NORMAL };
-  video = "placeholder.mp4";
+  video = "normalfrom.mp4";
   description = ``;
 }
 </script>

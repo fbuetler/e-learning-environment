@@ -30,6 +30,6 @@ export const symbolEncryptionTitle = "Sätze mit Zeichen chiffrieren";
 export default class SymbolEncryption extends Vue {
   type: GameType = GameType.SYMBOLENCRYPTION;
   title = views.find((el) => el.component === GameType.SYMBOLENCRYPTION).title;
-  video = "placeholder.mp4";
+  video = "symbolencryption.mp4";
 }
 </script>

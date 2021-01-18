@@ -26,6 +26,6 @@ import views from "@/views/Views";
 export default class PatternEncryption extends Vue {
   type: GameType = GameType.PATTERNENCRYPTION;
   title = views.find((el) => el.component === GameType.PATTERNENCRYPTION).title;
-  video = "placeholder.mp4";
+  video = "patternencryption.mp4";
 }
 </script>

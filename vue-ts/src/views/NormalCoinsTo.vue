@@ -26,6 +26,10 @@
         gegebene Summer mit <b>möglichst wenig</b> Münzen.
       </p>
     </div>
+    <video loop controls muted slot="video">
+      <source :src="require('@/assets/tutorials/' + video)" />
+      Your browser does not support the video tag.
+    </video>
   </Game>
 </template>
 
@@ -45,7 +49,7 @@ export default class NormalCoinsTo extends Vue {
   type: GameType = GameType.COINSTO;
   title = views.find((el) => el.component === GameType.COINSTO).title;
   args = { coinType: coinType.NORMAL };
-  video = "placeholder.mp4";
+  video = "normalto.mp4";
   description = "";
 }
 </script>

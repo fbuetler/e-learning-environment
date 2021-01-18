@@ -22,6 +22,10 @@
         Münzen?
       </p>
     </div>
+    <video loop controls muted slot="video">
+      <source :src="require('@/assets/tutorials/' + video)" />
+      Your browser does not support the video tag.
+    </video>
   </Game>
 </template>
 
@@ -41,7 +45,7 @@ export default class BinaryCoinsFrom extends Vue {
   type: GameType = GameType.COINSFROM;
   title = views.find((el) => el.component === GameType.COINSFROM).title;
   args = { coinType: coinType.BINARY };
-  video = "placeholder.mp4";
+  video = "binaryfrom.mp4";
   description = ``;
 }
 </script>

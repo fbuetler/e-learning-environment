@@ -25,6 +25,6 @@ import views from "@/views/Views";
 export default class WordsChange extends Vue {
   type: GameType = GameType.WORDSCHANGE;
   title = views.find((el) => el.component === GameType.WORDSCHANGE).title;
-  video = "placeholder.mp4";
+  video = "wordschange.mp4";
 }
 </script>
