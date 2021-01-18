@@ -131,6 +131,8 @@ import Difficulty from "@/components/Difficulty.vue";
     - click placed tree and then trashcan to delete
     - restyle grid, especially that it fits on one page
       (https://css-tricks.com/scaled-proportional-blocks-with-css-and-javascript/)
+    - optional: union sudoku 3 and 4 into one view and use difficulty levels
+
 */
 
 type sudokuField = {

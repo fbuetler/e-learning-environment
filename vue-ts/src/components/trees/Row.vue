@@ -57,6 +57,11 @@ type rowField = {
 };
 type row = rowField[];
 
+/*
+  TODO
+    - optional: union treerow 3 and 4 into one view and use difficulty levels
+*/
+
 @Component<Row>({
   components: {
     ItemSelection,

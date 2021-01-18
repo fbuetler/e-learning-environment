@@ -53,6 +53,7 @@ export default class From extends Mixins(GameMixin, MayasMixin)
     this.generatedItems = this.generateItems();
     this.solution = this.sumItems(this.generatedItems);
     this.animationSteps = this.getAnimationSteps();
+    this.number = null;
   }
 
   isCorrect(): boolean {
