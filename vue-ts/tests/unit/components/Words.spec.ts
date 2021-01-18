@@ -39,6 +39,12 @@ jest.mock("@/components/words/Words", () => ({
       JSON.stringify(mockSimilarWords).slice(),
     ];
   },
+  findCorrectAndWrongSolutions(
+    word: string,
+    similarWord: string
+  ): [number, string, number, string] {
+    return [0, "", 0, ""];
+  },
   get alphabet() {
     return ["A", "B", "C"];
   },

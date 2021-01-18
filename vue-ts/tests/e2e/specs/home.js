@@ -10,6 +10,6 @@ module.exports = {
     browser.checkLayoutVisibility(app);
 
     app.expect.element("@views").to.be.visible;
-    app.assert.elementCount("@views", 21);
+    app.assert.elementCount("@views", 20);
   },
 };

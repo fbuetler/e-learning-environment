@@ -217,6 +217,7 @@ exports[`Add.vue renders correctly 1`] = `
 
 exports[`Change.vue renders correctly 1`] = `
 <div>
+   
   <div>
     
     Versuch ein neues Wort zu bilden, indem du einen Buchstaben änderst.
@@ -229,6 +230,7 @@ exports[`Change.vue renders correctly 1`] = `
     <div>
       <div
         class="word-char card locked"
+        id="word-char-0"
       >
         
         A
@@ -238,6 +240,7 @@ exports[`Change.vue renders correctly 1`] = `
     <div>
       <div
         class="word-char card locked"
+        id="word-char-1"
       >
         
         D
@@ -247,6 +250,7 @@ exports[`Change.vue renders correctly 1`] = `
     <div>
       <div
         class="word-char card locked"
+        id="word-char-2"
       >
         
         L
@@ -256,6 +260,7 @@ exports[`Change.vue renders correctly 1`] = `
     <div>
       <div
         class="word-char card locked"
+        id="word-char-3"
       >
         
         E
@@ -265,6 +270,7 @@ exports[`Change.vue renders correctly 1`] = `
     <div>
       <div
         class="word-char card locked"
+        id="word-char-4"
       >
         
         R
@@ -289,6 +295,7 @@ exports[`Change.vue renders correctly 1`] = `
 
 exports[`Remove.vue renders correctly 1`] = `
 <div>
+   
   <div>
     
     Versuch ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
@@ -302,6 +309,7 @@ exports[`Remove.vue renders correctly 1`] = `
       <div
         class="word-char card clickable locked"
         draggable="true"
+        id="word-char-0"
       >
         
         A
@@ -312,6 +320,7 @@ exports[`Remove.vue renders correctly 1`] = `
       <div
         class="word-char card clickable locked"
         draggable="true"
+        id="word-char-1"
       >
         
         D
@@ -322,6 +331,7 @@ exports[`Remove.vue renders correctly 1`] = `
       <div
         class="word-char card clickable locked"
         draggable="true"
+        id="word-char-2"
       >
         
         L
@@ -332,6 +342,7 @@ exports[`Remove.vue renders correctly 1`] = `
       <div
         class="word-char card clickable locked"
         draggable="true"
+        id="word-char-3"
       >
         
         E
@@ -342,6 +353,7 @@ exports[`Remove.vue renders correctly 1`] = `
       <div
         class="word-char card clickable locked"
         draggable="true"
+        id="word-char-4"
       >
         
         R
