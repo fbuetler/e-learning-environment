@@ -12,96 +12,80 @@
     <div>
       Versuch das Baumsudoku zu lösen.
     </div>
-    <div :style="gridSize()" class="tree-container">
-      <div
-        :style="gridRowSizeAndPosition(`1 / 1`, `1 / ${size + 3}`)"
-        class="tree-row"
-      >
-        <!-- placeholder -->
-        <div></div>
-        <!-- top view -->
-        <div
-          v-for="(visible, topIndex) in topView"
-          :key="`top-${topIndex}`"
-          class="card"
-        >
-          <span v-if="visible !== 0">{{ visible }}</span>
-          <span v-else></span>
-        </div>
-        <!-- placeholder -->
-        <div></div>
-      </div>
+    <div class="flex-item flex-center">
+      <table>
+        <tbody>
+          <tr>
+            <!-- placeholder (top-left) -->
+            <td></td>
+            <!-- top view -->
+            <td
+              v-for="(visible, topIndex) in topView"
+              :key="`top-${topIndex}`"
+              class="card tree-view "
+            >
+              <span v-if="visible !== 0">{{ visible }}</span>
+            </td>
+            <!-- placeholder (top-right) -->
+            <td></td>
+          </tr>
 
-      <div
-        v-for="(row, rowIndex) in values"
-        :key="`row-${rowIndex}`"
-        :style="
-          gridRowSizeAndPosition(
-            `${rowIndex + 2} / ${rowIndex + 2}`,
-            `1 / ${size + 3}`
-          )
-        "
-        class="tree-row"
-      >
-        <!-- left view -->
-        <div class="card">
-          <span v-if="leftView[rowIndex] !== 0">{{ leftView[rowIndex] }}</span>
-          <span v-else></span>
-        </div>
-        <!-- values -->
-        <div
-          v-for="field in row"
-          :id="`field-${field.id}`"
-          :key="`field-${field.id}`"
-          :class="{ locked: field.locked }"
-          class="dropzone tree-dropzone"
-          @click="moveTree($event, field.id)"
-          draggable
-          @dragstart="moveTree($event, field.id)"
-          @dragover.prevent
-          @dragend.prevent
-          @drop.stop.prevent="moveTree($event, field.id)"
-        >
-          <img
-            v-if="field.value !== 0"
-            :src="
-              require('@/assets/trees/tree_' +
-                field.value +
-                '_' +
-                size +
-                '.png')
-            "
-          />
-        </div>
-        <!-- right view -->
-        <div class="card">
-          <span v-if="rightView[rowIndex] !== 0">{{
-            rightView[rowIndex]
-          }}</span>
-          <span v-else></span>
-        </div>
-      </div>
+          <tr v-for="(row, rowIndex) in values" :key="`row-${rowIndex}`">
+            <!-- left view -->
+            <td class="card tree-view ">
+              <span v-if="leftView[rowIndex] !== 0">{{
+                leftView[rowIndex]
+              }}</span>
+            </td>
+            <!-- values -->
+            <td
+              v-for="field in row"
+              :id="`field-${field.id}`"
+              :key="`field-${field.id}`"
+              :class="{ locked: field.locked }"
+              class="dropzone tree-field"
+              @click="moveTree($event, field.id)"
+              draggable
+              @dragstart="moveTree($event, field.id)"
+              @dragover.prevent
+              @dragend.prevent
+              @drop.stop.prevent="moveTree($event, field.id)"
+            >
+              <img
+                v-if="field.value !== 0"
+                :src="
+                  require('@/assets/trees/tree_' +
+                    field.value +
+                    '_' +
+                    size +
+                    '.png')
+                "
+              />
+            </td>
+            <!-- right view -->
+            <td class="card tree-view">
+              <span v-if="rightView[rowIndex] !== 0">{{
+                rightView[rowIndex]
+              }}</span>
+            </td>
+          </tr>
 
-      <div
-        :style="
-          gridRowSizeAndPosition(`${size + 2} / ${size + 2}`, `1 / ${size + 3}`)
-        "
-        class="tree-row"
-      >
-        <!-- placeholder -->
-        <div></div>
-        <!-- bottom view -->
-        <div
-          v-for="(visible, bottomIndex) in bottomView"
-          :key="`bottom-${bottomIndex}`"
-          class="card"
-        >
-          <span v-if="visible !== 0">{{ visible }}</span>
-          <span v-else></span>
-        </div>
-        <!-- placeholder -->
-        <div></div>
-      </div>
+          <tr>
+            <!-- placeholder (bottom-left) -->
+            <td></td>
+            <!-- bottom view -->
+            <td
+              v-for="(visible, bottomIndex) in bottomView"
+              :key="`bottom-${bottomIndex}`"
+              class="card tree-view"
+            >
+              <span v-if="visible !== 0">{{ visible }}</span>
+            </td>
+            <!-- placeholder (bottom-right) -->
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
@@ -125,13 +109,6 @@ import ItemSelection from "@/components/ItemSelection.vue";
 import Trashcan from "@/components/Trashcan.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
-
-/*
-  TODO:
-    - restyle grid, especially that it fits on one page
-      (https://css-tricks.com/scaled-proportional-blocks-with-css-and-javascript/)
-
-*/
 
 type sudokuField = {
   id: number;
@@ -580,23 +557,3 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   }
 }
 </script>
-
-<style scoped>
-.tree-container {
-  display: grid;
-}
-.tree-row {
-  display: grid;
-}
-.tree-row > div {
-  display: flex;
-  justify-content: center;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  -ms-flex-align: center;
-}
-.card {
-  align-items: center;
-  min-height: 1em;
-}
-</style>

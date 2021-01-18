@@ -179,11 +179,15 @@ export default class Game extends Vue {
 .interaction-container > div {
   margin: 1em;
 }
-.tree-dropzone {
+.tree-field {
   align-items: flex-end;
-  min-height: 9em;
-  min-width: 5em;
+  height: 5.5em;
+  width: 5.5em;
   margin: 0.1em;
+}
+.tree-view {
+  width: 1em;
+  height: 1em;
 }
 .nut > img {
   max-width: 64px;

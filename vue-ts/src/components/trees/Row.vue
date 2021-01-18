@@ -4,28 +4,45 @@
     <div>
       Versuch das Baumreihenrätsel zu lösen.
     </div>
-    <div class="flex-item flex-center flex-row flex-stretch flex-flex">
-      <div class="flex-item flex-center card">{{ leftView }}</div>
-      <div
-        v-for="field in values"
-        :id="`field-${field.id}`"
-        :key="`field-${field.id}`"
-        class="flex-item flex-center dropzone tree-dropzone"
-        @click="moveTree($event, field.id)"
-        draggable
-        @dragstart="moveTree($event, field.id)"
-        @dragover.prevent
-        @dragend.prevent
-        @drop.stop.prevent="moveTree($event, field.id)"
-      >
-        <img
-          v-if="field.value !== 0"
-          :src="
-            require('@/assets/trees/tree_' + field.value + '_' + size + '.png')
-          "
-        />
-      </div>
-      <div class="flex-item flex-center card">{{ rightView }}</div>
+    <div class="flex-item flex-center">
+      <table>
+        <tbody>
+          <tr>
+            <!-- left view -->
+            <td class="card tree-view ">
+              {{ leftView }}
+            </td>
+            <!-- values -->
+            <td
+              v-for="field in values"
+              :id="`field-${field.id}`"
+              :key="`field-${field.id}`"
+              class="dropzone tree-field"
+              @click="moveTree($event, field.id)"
+              draggable
+              @dragstart="moveTree($event, field.id)"
+              @dragover.prevent
+              @dragend.prevent
+              @drop.stop.prevent="moveTree($event, field.id)"
+            >
+              <img
+                v-if="field.value !== 0"
+                :src="
+                  require('@/assets/trees/tree_' +
+                    field.value +
+                    '_' +
+                    size +
+                    '.png')
+                "
+              />
+            </td>
+            <!-- right view -->
+            <td class="card tree-view ">
+              {{ rightView }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
