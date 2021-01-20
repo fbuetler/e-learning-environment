@@ -128,6 +128,20 @@ describe("Add.vue", () => {
       expect(wrapper.vm["charAdded"]).toBeFalsy();
     });
   }
+
+  it("start next task restores initial conditions", async () => {
+    await wrapper.setData({ selected: 1 });
+    wrapper
+      .findAll("rect")
+      .at(0)
+      .trigger("click");
+    await wrapper.setData({ selected: 1 });
+    wrapper.vm.restartGame();
+    console.log(wrapper.vm["selected"]);
+    expect(wrapper.vm["word"]).toEqual(prepareWord(rawWord));
+    expect(wrapper.vm["selected"]).toBeNull();
+    expect(wrapper.vm["charAdded"]).toBeFalsy();
+  });
 });
 
 describe("Change.vue", () => {
@@ -144,7 +158,17 @@ describe("Change.vue", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  // TODO: add more tests
+  /*
+    TODO
+      - initial conditions hold
+      - next task restores initial conditions
+      - undo works
+      - correct result is evaluated as correct
+      - wrong results is evaluated as wrong
+      - change operations is done correctly
+      - if no char selected  then nothing is added
+      - cannot change twice
+  */
 });
 
 describe("Remove.vue", () => {
@@ -161,7 +185,18 @@ describe("Remove.vue", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  // TODO: add more tests
+  /*
+    TODO
+      - initial conditions hold
+      - next task restores initial conditions
+      - undo works
+      - trashcan works
+      - correct result is evaluated as correct
+      - wrong results is evaluated as wrong
+      - remove operations is done correctly
+      - if no char selected  then nothing is removed 
+      - cannot remove twice
+  */
 });
 
 describe("Swap.vue", () => {
@@ -178,5 +213,15 @@ describe("Swap.vue", () => {
     // TODO: problems with mocking multiple functions in Words
   });
 
-  // TODO: add more tests
+  /*
+    TODO
+      - initial conditions hold
+      - next task restores initial conditions
+      - undo works
+      - change difficulty works
+      - correct result is evaluated as correct
+      - wrong results is evaluated as wrong
+      - swap operations is done correctly
+      - can swap multipe times 
+  */
 });
