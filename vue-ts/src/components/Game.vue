@@ -88,6 +88,7 @@ export enum GameType {
 /*
   TODO:
     - test that shit
+    - create icons for all tasks
     - optional: multilingual (vue-i18n)
     - optional: union To, From from mayas and coins
     - optional: move parts of number systems task into components
