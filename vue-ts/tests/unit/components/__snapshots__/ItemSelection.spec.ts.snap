@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemSelection.vue renders correctly 1`] = `
+<div
+  class="flex-item flex-wrap flex-center-horizontally flex-row"
+  id="item-selection"
+>
+  <div
+    class="flex-item flex-wrap flex-center card clickable selected"
+    draggable="true"
+    id="item-selection-1"
+  >
+    <img
+      src=""
+    />
+  </div>
+  <div
+    class="flex-item flex-wrap flex-center card clickable duda"
+    draggable="true"
+    id="item-selection-2"
+  >
+    <div>
+      text
+    </div>
+  </div>
+</div>
+`;
