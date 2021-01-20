@@ -7,11 +7,11 @@ import { wordElement } from "@/components/words/Words";
 
 function prepareWord(word: string): wordElement[] {
   return word.split("").map((el, i) => {
-    return { id: i, char: el, initialChar: el, locked: true };
+    return { id: i, char: el, initialChar: el, locked: false };
   });
 }
 
-function addToWord(
+function addChar(
   word: wordElement[],
   char: string,
   pos: number
@@ -22,6 +22,32 @@ function addToWord(
     initialChar: "",
     locked: false,
   });
+  return word;
+}
+
+function changeChar(
+  word: wordElement[],
+  char: string,
+  pos: number
+): wordElement[] {
+  word.forEach((el, idx) => (el.locked = idx !== pos));
+  word[pos].char = char;
+  return word;
+}
+
+function removeChar(word: wordElement[], pos: number): wordElement[] {
+  word[pos].char = "";
+  word.forEach((el) => (el.locked = true));
+  return word;
+}
+
+function swapChar(
+  word: wordElement[],
+  leftPos: number,
+  rightPos: number
+): wordElement[] {
+  word[leftPos].char = word[rightPos].initialChar;
+  word[rightPos].char = word[leftPos].initialChar;
   return word;
 }
 
@@ -91,7 +117,7 @@ describe("Add.vue", () => {
         .findAll("rect")
         .at(i)
         .trigger("click");
-      const newWord = addToWord(copy(mockWord), "B", i);
+      const newWord = addChar(copy(mockWord), "B", i);
       expect(wrapper.vm["word"]).toEqual(newWord);
     });
   }
@@ -122,7 +148,7 @@ describe("Add.vue", () => {
 
   for (let i = 0; i <= mockWord.length; i++) {
     it(`undo is handled correctly at position ${i}`, async () => {
-      await wrapper.setData({ word: addToWord(copy(mockWord), "B", i) });
+      await wrapper.setData({ word: addChar(copy(mockWord), "B", i) });
       wrapper.vm.undo();
       expect(copy(wrapper.vm["word"])).toEqual(mockWord);
       expect(wrapper.vm["charAdded"]).toBeFalsy();
@@ -158,17 +184,76 @@ describe("Change.vue", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  /*
-    TODO
-      - initial conditions hold
-      - next task restores initial conditions
-      - undo works
-      - correct result is evaluated as correct
-      - wrong results is evaluated as wrong
-      - change operations is done correctly
-      - if no char selected  then nothing is added
-      - cannot change twice
-  */
+  it("initially all chars are unlocked", () => {
+    expect(wrapper.vm["word"].every((el) => !el.locked)).toBeTruthy();
+  });
+
+  it("initially nothing is selected", () => {
+    expect(wrapper.vm["selected"]).toBeNull();
+  });
+
+  for (let i = 0; i < mockWord.length; i++) {
+    it(`change char at position ${i}`, async () => {
+      await wrapper.setData({ selected: 1 }); // 'B'
+      await wrapper.find(`#word-char-${mockWord[i].id}`).trigger("click");
+      const newWord = changeChar(copy(mockWord), "B", i);
+      expect(wrapper.vm["word"]).toEqual(newWord);
+    });
+  }
+
+  it("change same char twice", async () => {
+    const pos = 0;
+    await wrapper.setData({ selected: 1 }); // 'B'
+    await wrapper.find(`#word-char-${mockWord[pos].id}`).trigger("click");
+    await wrapper.setData({ selected: 2 }); // 'C'
+    await wrapper.find(`#word-char-${mockWord[pos].id}`).trigger("click");
+    const newWord = changeChar(copy(mockWord), "C", pos);
+    expect(wrapper.vm["word"]).toEqual(newWord);
+  });
+
+  it("change two different chars", async () => {
+    const pos = 0;
+    await wrapper.setData({ selected: 1 }); // 'B'
+    await wrapper.find(`#word-char-${mockWord[pos].id}`).trigger("click");
+    await wrapper.setData({ selected: 2 }); // 'C'
+    await wrapper.find(`#word-char-${mockWord[pos + 1].id}`).trigger("click");
+    const newWord = changeChar(copy(mockWord), "B", pos);
+    expect(wrapper.vm["word"]).toEqual(newWord);
+  });
+
+  it("no char selected", async () => {
+    await wrapper.setData({ selected: null });
+    await wrapper.find(`#word-char-${mockWord[0].id}`).trigger("click");
+    expect(wrapper.vm["word"]).toEqual(mockWord);
+  });
+
+  for (let i = 0; i < mockWord.length; i++) {
+    it(`undo after changing position ${i}`, async () => {
+      await wrapper.setData({ selected: 1 }); // 'B'
+      await wrapper.find(`#word-char-${mockWord[i].id}`).trigger("click");
+      wrapper.vm.undo();
+      expect(wrapper.vm["word"]).toEqual(mockWord);
+    });
+  }
+
+  it("start next task restores initial conditions", async () => {
+    await wrapper.setData({ selected: 1 }); // 'B'
+    await wrapper.find(`#word-char-${mockWord[0].id}`).trigger("click");
+    await wrapper.setData({ selected: 1 }); // 'B'
+    wrapper.vm.restartGame();
+    expect(wrapper.vm["word"]).toEqual(mockWord);
+    expect(wrapper.vm["selected"]).toBeNull();
+  });
+
+  it("correct answer is accepted", async () => {
+    await wrapper.setData({ word: prepareWord(mockSimilarWords[0]) });
+    expect(wrapper.vm.isCorrect()).toBeTruthy();
+  });
+
+  it("incorrect answer is rejected", async () => {
+    await wrapper.setData({ word: prepareWord("TESTTEST") });
+    expect(wrapper.vm.isCorrect()).toBeFalsy();
+  });
 });
 
 describe("Remove.vue", () => {
@@ -185,18 +270,58 @@ describe("Remove.vue", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  /*
-    TODO
-      - initial conditions hold
-      - next task restores initial conditions
-      - undo works
-      - trashcan works
-      - correct result is evaluated as correct
-      - wrong results is evaluated as wrong
-      - remove operations is done correctly
-      - if no char selected  then nothing is removed 
-      - cannot remove twice
-  */
+  it("initially all chars are unlocked", () => {
+    expect(wrapper.vm["word"].every((el) => !el.locked)).toBeTruthy();
+  });
+
+  for (let i = 0; i < mockWord.length; i++) {
+    it(`remove char at position ${i}`, async () => {
+      await wrapper.find(`#word-char-${mockWord[i].id}`).trigger("click");
+      wrapper.vm.trashElement();
+      const newWord = removeChar(copy(mockWord), i);
+      expect(wrapper.vm["word"]).toEqual(newWord);
+    });
+  }
+
+  it("remove two chars", async () => {
+    const fstPos = 1;
+    const sndPos = 2;
+    await wrapper.find(`#word-char-${mockWord[fstPos].id}`).trigger("click");
+    wrapper.vm.trashElement();
+    await wrapper.find(`#word-char-${mockWord[sndPos].id}`).trigger("click");
+    wrapper.vm.trashElement();
+    const newWord = removeChar(copy(mockWord), fstPos);
+    expect(wrapper.vm["word"]).toEqual(newWord);
+  });
+
+  for (let i = 0; i < mockWord.length; i++) {
+    it(`undo after removing position ${i}`, async () => {
+      await wrapper.find(`#word-char-${mockWord[i].id}`).trigger("click");
+      wrapper.vm.trashElement();
+      wrapper.vm.undo();
+      expect(wrapper.vm["word"]).toEqual(mockWord);
+    });
+  }
+
+  it("start next task restores initial conditions", async () => {
+    await wrapper.find(`#word-char-${mockWord[0].id}`).trigger("click");
+    wrapper.vm.trashElement();
+    await wrapper.find(`#word-char-${mockWord[1].id}`).trigger("click");
+    wrapper.vm.restartGame();
+    expect(wrapper.vm["selected"]).toBeNull();
+    expect(wrapper.vm["charRemoved"]).toBeFalsy();
+    expect(wrapper.vm["word"]).toEqual(mockWord);
+  });
+
+  it("correct answer is accepted", async () => {
+    await wrapper.setData({ word: prepareWord(mockSimilarWords[0]) });
+    expect(wrapper.vm.isCorrect()).toBeTruthy();
+  });
+
+  it("incorrect answer is rejected", async () => {
+    await wrapper.setData({ word: prepareWord("TESTTEST") });
+    expect(wrapper.vm.isCorrect()).toBeFalsy();
+  });
 });
 
 describe("Swap.vue", () => {
@@ -213,15 +338,71 @@ describe("Swap.vue", () => {
     // TODO: problems with mocking multiple functions in Words
   });
 
-  /*
-    TODO
-      - initial conditions hold
-      - next task restores initial conditions
-      - undo works
-      - change difficulty works
-      - correct result is evaluated as correct
-      - wrong results is evaluated as wrong
-      - swap operations is done correctly
-      - can swap multipe times 
-  */
+  it("initially all chars are unlocked", () => {
+    expect(wrapper.vm["word"].every((el) => !el.locked)).toBeTruthy();
+  });
+
+  for (let i = 0; i < mockWord.length - 1; i++) {
+    it(`swap char at position ${i} with ${i + 1}`, async () => {
+      await wrapper.setData({ word: copy(mockWord) });
+      await wrapper
+        .find(`#rect-around-arrow-${mockWord[i].id}-${mockWord[i + 1].id}`)
+        .trigger("click");
+      const newWord = swapChar(copy(mockWord), i, i + 1);
+      expect(wrapper.vm["word"]).toEqual(newWord);
+    });
+  }
+
+  it("swap the same char pair", async () => {
+    const pos = 2;
+    const arrow = wrapper.find(
+      `#rect-around-arrow-${mockWord[pos].id}-${mockWord[pos + 1].id}`
+    );
+    await wrapper.setData({ word: copy(mockWord) });
+    await arrow.trigger("click");
+    await arrow.trigger("click");
+    expect(wrapper.vm["word"]).toEqual(mockWord);
+  });
+
+  it("swap two different char pairs", async () => {
+    await wrapper.setData({ word: copy(mockWord) });
+    await wrapper
+      .find(`#rect-around-arrow-${mockWord[0].id}-${mockWord[1].id}`)
+      .trigger("click");
+    await wrapper
+      .find(`#rect-around-arrow-${mockWord[2].id}-${mockWord[3].id}`)
+      .trigger("click");
+    const newWord = swapChar(swapChar(copy(mockWord), 0, 1), 2, 3);
+    expect(wrapper.vm["word"]).toEqual(newWord);
+  });
+
+  for (let i = 0; i < mockWord.length - 1; i++) {
+    it(`undo after swapping position ${i} with ${i + 1}`, async () => {
+      // TODO check on how to mock getSwapPairs
+      // await wrapper.setData({ word: copy(mockWord) });
+      // await wrapper
+      //   .find(`#rect-around-arrow-${mockWord[i].id}-${mockWord[i + 1].id}`)
+      //   .trigger("click");
+      // wrapper.vm.undo();
+      // expect(wrapper.vm["word"]).toEqual(mockWord);
+      expect(true).toBeTruthy();
+    });
+  }
+
+  it("start next task restores initial conditions", () => {
+    // TODO check on how to mock getSwapPairs
+    expect(true).toBeTruthy();
+  });
+
+  it("correct answer is accepted", async () => {
+    // TODO check on how to mock getSwapPairs
+    // await wrapper.setData({ word: prepareWord(mockSimilarWords[0]) });
+    // expect(wrapper.vm.isCorrect()).toBeTruthy();
+    expect(true).toBeTruthy();
+  });
+
+  it("incorrect answer is rejected", async () => {
+    await wrapper.setData({ word: prepareWord("TESTTEST") });
+    expect(wrapper.vm.isCorrect()).toBeFalsy();
+  });
 });

@@ -229,7 +229,7 @@ exports[`Change.vue renders correctly 1`] = `
   >
     <div>
       <div
-        class="word-char card locked"
+        class="word-char card"
         id="word-char-0"
       >
         
@@ -239,7 +239,7 @@ exports[`Change.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card locked"
+        class="word-char card"
         id="word-char-1"
       >
         
@@ -249,7 +249,7 @@ exports[`Change.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card locked"
+        class="word-char card"
         id="word-char-2"
       >
         
@@ -259,7 +259,7 @@ exports[`Change.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card locked"
+        class="word-char card"
         id="word-char-3"
       >
         
@@ -269,7 +269,7 @@ exports[`Change.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card locked"
+        class="word-char card"
         id="word-char-4"
       >
         
@@ -307,7 +307,7 @@ exports[`Remove.vue renders correctly 1`] = `
   >
     <div>
       <div
-        class="word-char card clickable locked"
+        class="word-char card clickable"
         draggable="true"
         id="word-char-0"
       >
@@ -318,7 +318,7 @@ exports[`Remove.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card clickable locked"
+        class="word-char card clickable"
         draggable="true"
         id="word-char-1"
       >
@@ -329,7 +329,7 @@ exports[`Remove.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card clickable locked"
+        class="word-char card clickable"
         draggable="true"
         id="word-char-2"
       >
@@ -340,7 +340,7 @@ exports[`Remove.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card clickable locked"
+        class="word-char card clickable"
         draggable="true"
         id="word-char-3"
       >
@@ -351,7 +351,7 @@ exports[`Remove.vue renders correctly 1`] = `
     </div>
     <div>
       <div
-        class="word-char card clickable locked"
+        class="word-char card clickable"
         draggable="true"
         id="word-char-4"
       >

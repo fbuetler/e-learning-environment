@@ -80,9 +80,8 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
     this.word.forEach((el) => {
       if (el.id === this.selected) {
         el.char = "";
-      } else {
-        el.locked = true;
       }
+      el.locked = true;
     });
     this.charRemoved = true;
   }
