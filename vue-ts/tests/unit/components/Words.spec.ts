@@ -117,14 +117,18 @@ describe("Add.vue", () => {
         .findAll("rect")
         .at(i)
         .trigger("click");
-      const newWord = addChar(copy(mockWord), "B", i);
+      let newWord = copy(mockWord);
+      newWord.forEach((el) => (el.locked = true));
+      newWord = addChar(newWord, "B", i);
       expect(wrapper.vm["word"]).toEqual(newWord);
     });
   }
 
   it("no char selected", () => {
+    const newWord = copy(mockWord);
+    newWord.forEach((el) => (el.locked = true));
     wrapper.vm.addChar(0);
-    expect(copy(wrapper.vm["word"])).toEqual(copy(mockWord));
+    expect(copy(wrapper.vm["word"])).toEqual(newWord);
   });
 
   it("add a char twice", async () => {
@@ -148,23 +152,24 @@ describe("Add.vue", () => {
 
   for (let i = 0; i <= mockWord.length; i++) {
     it(`undo is handled correctly at position ${i}`, async () => {
-      await wrapper.setData({ word: addChar(copy(mockWord), "B", i) });
+      await wrapper.setData({ selected: 1 });
+      wrapper.find(`#rect-around-arrow-${1}`).trigger("click");
       wrapper.vm.undo();
-      expect(copy(wrapper.vm["word"])).toEqual(mockWord);
+      const newWord = copy(mockWord);
+      newWord.forEach((el) => (el.locked = true));
+      expect(wrapper.vm["word"]).toEqual(newWord);
       expect(wrapper.vm["charAdded"]).toBeFalsy();
     });
   }
 
   it("start next task restores initial conditions", async () => {
     await wrapper.setData({ selected: 1 });
-    wrapper
-      .findAll("rect")
-      .at(0)
-      .trigger("click");
+    wrapper.find(`#rect-around-arrow-${1}`).trigger("click");
     await wrapper.setData({ selected: 1 });
     wrapper.vm.restartGame();
-    console.log(wrapper.vm["selected"]);
-    expect(wrapper.vm["word"]).toEqual(prepareWord(rawWord));
+    const newWord = copy(mockWord);
+    newWord.forEach((el) => (el.locked = true));
+    expect(wrapper.vm["word"]).toEqual(newWord);
     expect(wrapper.vm["selected"]).toBeNull();
     expect(wrapper.vm["charAdded"]).toBeFalsy();
   });

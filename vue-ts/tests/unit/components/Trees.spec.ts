@@ -5,7 +5,13 @@ import Sudoku from "@/components/trees/Sudoku.vue";
 describe("Row.vue", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(Row, {});
+    wrapper = shallowMount(Row, {
+      propsData: {
+        args: {
+          size: 3,
+        },
+      },
+    });
   });
 
   it("is a Vue instance", () => {
@@ -30,7 +36,13 @@ describe("Row.vue", () => {
 describe("Sudoku.vue", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(Sudoku, {});
+    wrapper = shallowMount(Sudoku, {
+      propsData: {
+        args: {
+          size: 3,
+        },
+      },
+    });
   });
 
   it("is a Vue instance", () => {
