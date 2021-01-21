@@ -69,7 +69,6 @@ import Trashcan from "@/components/Trashcan.vue";
 type rowField = {
   id: number;
   value: number;
-  initialValue: number;
   locked: boolean;
 };
 type row = rowField[];
@@ -140,7 +139,6 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     return {
       id: index,
       value: value,
-      initialValue: value,
       locked: locked,
     };
   }
@@ -179,7 +177,7 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
       this.itemToAdd = null;
     } else {
       // occupied field -> move/remove tree
-      if (event instanceof DragEvent) {
+      if (event instanceof DragEvent && event.type === "dragstart") {
         event.dataTransfer.setData("id", fieldID.toString());
       }
       this.fieldToClean = fieldID;
@@ -205,8 +203,10 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
 
   undo() {
     this.values.forEach((el) => {
-      el.value = el.initialValue;
+      el.value = 0;
     });
+    this.itemToAdd = null;
+    this.fieldToClean = null;
   }
 
   getAnimationSteps(): Array<string> {

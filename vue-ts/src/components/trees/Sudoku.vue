@@ -459,7 +459,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       this.itemToAdd = null;
     } else {
       // occupied field -> move/remove tree
-      if (event instanceof DragEvent) {
+      if (event instanceof DragEvent && event.type === "dragstart") {
         event.dataTransfer.setData("id", fieldID.toString());
       }
       this.fieldToClean = fieldID;
@@ -489,6 +489,8 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
         el.value = el.initialValue;
       });
     });
+    this.itemToAdd = null;
+    this.fieldToClean = null;
   }
 
   gridSize(): string {
