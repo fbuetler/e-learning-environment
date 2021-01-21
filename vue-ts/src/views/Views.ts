@@ -137,7 +137,7 @@ const views: Array<{
   {
     id: 8,
     title: "Reihe aus 3 Bäumen",
-    path: "/tree/row/3",
+    path: "/trees/row/3",
     img: "trees/trees_3.png",
     view: "TreeRowOfThree",
     component: "TreeRowOfThree",
@@ -145,7 +145,7 @@ const views: Array<{
   {
     id: 9,
     title: "3x3 Baumsudoku",
-    path: "/tree/sudoku/3",
+    path: "/trees/sudoku/3",
     img: "trees/sudoku_explanation_3.png",
     view: "TreeSudokuOfThree",
     component: "TreeSudokuOfThree",
@@ -153,7 +153,7 @@ const views: Array<{
   {
     id: 10,
     title: "Reihe aus 4 Bäumen",
-    path: "/tree/row/4",
+    path: "/trees/row/4",
     img: "trees/trees_4.png",
     view: "TreeRowOfFour",
     component: "TreeRowOfFour",
@@ -161,7 +161,7 @@ const views: Array<{
   {
     id: 11,
     title: "4x4 Baumsudoku",
-    path: "/tree/sudoku/4",
+    path: "/trees/sudoku/4",
     img: "trees/sudoku_explanation_4.png",
     view: "TreeSudokuOfFour",
     component: "TreeSudokuOfFour",
