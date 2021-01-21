@@ -1,0 +1,272 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Row.vue renders correctly 1`] = `
+<div>
+   
+  <div>
+    
+    Versuch das Baumreihenrätsel zu lösen.
+  
+  </div>
+   
+  <div
+    class="flex-item flex-center"
+  >
+    <table>
+      <tbody>
+        <tr>
+          <td
+            class="card tree-view "
+          >
+            
+            3
+          
+          </td>
+           
+          <td
+            class="dropzone tree-field"
+            draggable="true"
+            id="field-0"
+          >
+            <!---->
+          </td>
+          <td
+            class="dropzone tree-field"
+            draggable="true"
+            id="field-1"
+          >
+            <!---->
+          </td>
+          <td
+            class="dropzone tree-field"
+            draggable="true"
+            id="field-2"
+          >
+            <!---->
+          </td>
+           
+          <td
+            class="card tree-view "
+          >
+            
+            1
+          
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <itemselection-stub
+      items="[object Object],[object Object],[object Object]"
+    />
+     
+    <trashcan-stub />
+     
+    <undo-stub />
+  </div>
+</div>
+`;
+
+exports[`Sudoku.vue renders correctly 1`] = `
+<div>
+   
+  <difficulty-stub
+    difficultylevels="3"
+    selected="1"
+  />
+   
+  <div>
+    
+    Versuch das Baumsudoku zu lösen.
+  
+  </div>
+   
+  <div
+    class="flex-item flex-center"
+  >
+    <table>
+      <tbody>
+        <tr>
+          <td />
+           
+          <td
+            class="card tree-view "
+          >
+            <!---->
+          </td>
+          <td
+            class="card tree-view "
+          >
+            <!---->
+          </td>
+          <td
+            class="card tree-view "
+          >
+            <!---->
+          </td>
+           
+          <td />
+        </tr>
+         
+        <tr>
+          <td
+            class="card tree-view "
+          >
+            <!---->
+          </td>
+           
+          <td
+            class="dropzone tree-field"
+            draggable="true"
+            id="field-0"
+          >
+            <!---->
+          </td>
+          <td
+            class="dropzone tree-field"
+            draggable="true"
+            id="field-1"
+          >
+            <!---->
+          </td>
+          <td
+            class="dropzone tree-field locked"
+            draggable="true"
+            id="field-2"
+          >
+            <img
+              src=""
+            />
+          </td>
+           
+          <td
+            class="card tree-view"
+          >
+            <!---->
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="card tree-view "
+          >
+            <!---->
+          </td>
+           
+          <td
+            class="dropzone tree-field locked"
+            draggable="true"
+            id="field-3"
+          >
+            <img
+              src=""
+            />
+          </td>
+          <td
+            class="dropzone tree-field locked"
+            draggable="true"
+            id="field-4"
+          >
+            <img
+              src=""
+            />
+          </td>
+          <td
+            class="dropzone tree-field locked"
+            draggable="true"
+            id="field-5"
+          >
+            <img
+              src=""
+            />
+          </td>
+           
+          <td
+            class="card tree-view"
+          >
+            <!---->
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="card tree-view "
+          >
+            <!---->
+          </td>
+           
+          <td
+            class="dropzone tree-field locked"
+            draggable="true"
+            id="field-6"
+          >
+            <img
+              src=""
+            />
+          </td>
+          <td
+            class="dropzone tree-field locked"
+            draggable="true"
+            id="field-7"
+          >
+            <img
+              src=""
+            />
+          </td>
+          <td
+            class="dropzone tree-field locked"
+            draggable="true"
+            id="field-8"
+          >
+            <img
+              src=""
+            />
+          </td>
+           
+          <td
+            class="card tree-view"
+          >
+            <!---->
+          </td>
+        </tr>
+         
+        <tr>
+          <td />
+           
+          <td
+            class="card tree-view"
+          >
+            <!---->
+          </td>
+          <td
+            class="card tree-view"
+          >
+            <!---->
+          </td>
+          <td
+            class="card tree-view"
+          >
+            <!---->
+          </td>
+           
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <itemselection-stub
+      items="[object Object],[object Object],[object Object]"
+    />
+     
+    <trashcan-stub />
+     
+    <undo-stub />
+  </div>
+</div>
+`;
