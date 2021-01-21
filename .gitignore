@@ -16,6 +16,8 @@ pnpm-debug.log*
 chromedriver.log*
 geckodriver.log*
 
+coverage/
+
 # Editor directories and files
 .idea
 .vscode
