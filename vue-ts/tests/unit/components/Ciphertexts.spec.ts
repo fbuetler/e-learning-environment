@@ -33,10 +33,10 @@ jest.mock("@/components/ciphertexts/Ciphertext", () => ({
 describe("PatternEncryption.vue", () => {
   let wrapper;
   const mockDraw = jest.fn();
+  const mockGetAnimationSteps = jest.fn();
   beforeEach(() => {
-    console.log("mount");
     wrapper = shallowMount(PatternEncryption, {
-      methods: { draw: mockDraw },
+      methods: { draw: mockDraw, getAnimationSteps: mockGetAnimationSteps },
     });
   });
 
@@ -44,9 +44,9 @@ describe("PatternEncryption.vue", () => {
     expect(wrapper.vm).toBeTruthy();
   });
 
-  // it("renders correctly", () => {
-  //   expect(wrapper.element).toMatchSnapshot();
-  // });
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
 
   /*
     TODO
