@@ -13,12 +13,9 @@ describe("To.vue", () => {
     expect(wrapper.vm).toBeTruthy();
   });
 
-  it("renders correctly", () => {
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
   /*
     TODO
+      - renders correctly
       - initial conditions hold
       - next task restores initial conditions
       - undo works
@@ -39,12 +36,9 @@ describe("From.vue", () => {
     expect(wrapper.vm).toBeTruthy();
   });
 
-  it("renders correctly", () => {
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
   /*
     TODO
+      - renders correctly
       - initial conditions hold
       - next task restores initial conditions
       - undo works
@@ -65,12 +59,9 @@ describe("Addition.vue", () => {
     expect(wrapper.vm).toBeTruthy();
   });
 
-  it("renders correctly", () => {
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
   /*
     TODO
+      - renders correctly
       - initial conditions hold
       - next task restores initial conditions
       - undo works
