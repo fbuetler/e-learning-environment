@@ -84,7 +84,7 @@ describe("Row.vue", () => {
     expect(wrapper.vm["valuesSolution"]).toEqual(valuesSolution);
   });
 
-  it("initiall conditions hold", () => {
+  it("initial conditions hold", () => {
     expect(wrapper.vm["itemToAdd"]).toBeNull();
     expect(wrapper.vm["fieldToClean"]).toBeNull();
     expect(wrapper.vm["values"].every((el) => el.value === 0)).toBeTruthy();

@@ -1,21 +1,31 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, config } from "@vue/test-utils";
 import PatternEncryption from "@/components/ciphertexts/PatternEncryption.vue";
 import PatternDecryption from "@/components/ciphertexts/PatternDecryption.vue";
 import SymbolEncryption from "@/components/ciphertexts/SymbolEncryption.vue";
 import SymbolDecryption from "@/components/ciphertexts/SymbolDecryption.vue";
 
+config.showDeprecationWarnings = false;
+
+const mockText = "Test";
+const mockPatternOne = [[1, 2]] as [number, number][];
+const mockPatternTwo = [
+  [0, 1],
+  [2, 3],
+] as [number, number][];
+const mockEncryptedTextOne = "TSET";
+const mockEncryptedTextTwo = "ETTS";
+
+const mockDraw = jest.fn();
+const mockGetAnimationSteps = jest.fn();
 jest.mock("@/components/ciphertexts/Ciphertext", () => ({
   LoadRandomElement(key: string): string {
-    return "TEST";
+    return mockText;
   },
   CreatePattern(text: string[], swapAmount: number): Array<[number, number]> {
     if (swapAmount === 1) {
-      return [[1, 2]];
+      return mockPatternOne;
     } else if (swapAmount === 2) {
-      return [
-        [0, 1],
-        [2, 3],
-      ];
+      return mockPatternTwo;
     } else {
       return [];
     }
@@ -32,8 +42,6 @@ jest.mock("@/components/ciphertexts/Ciphertext", () => ({
 
 describe("PatternEncryption.vue", () => {
   let wrapper;
-  const mockDraw = jest.fn();
-  const mockGetAnimationSteps = jest.fn();
   beforeEach(() => {
     wrapper = shallowMount(PatternEncryption, {
       methods: { draw: mockDraw, getAnimationSteps: mockGetAnimationSteps },
@@ -48,24 +56,33 @@ describe("PatternEncryption.vue", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  /*
-    TODO
-      - initial conditions hold
-      - next task restores initial conditions
-      - undo works
-      - change difficulty works
-      - correct result is evaluated as correct
-      - wrong results is evaluated as wrong
-      - 
-  */
+  it("initial conditions hold", () => {
+    expect(wrapper.vm["decryptedText"]).toBe(mockText.toUpperCase());
+    expect(wrapper.vm["encryptedText"]).toBeNull();
+  });
+
+  it("next task restores initial conditions", async () => {
+    await wrapper.setData({ encryptedText: "ABC" });
+    wrapper.vm.restartGame();
+    expect(wrapper.vm["encryptedText"]).toBeNull();
+  });
+
+  it("correct answer is accepted", async () => {
+    await wrapper.setData({ encryptedText: mockEncryptedTextOne });
+    expect(wrapper.vm.isCorrect()).toBeTruthy();
+  });
+
+  it("incorrect answer is rejected", async () => {
+    await wrapper.setData({ encryptedText: "ABC" });
+    expect(wrapper.vm.isCorrect()).toBeFalsy();
+  });
 });
 
 describe("PatternDecryption.vue", () => {
   let wrapper;
-  const mockDraw = jest.fn();
   beforeEach(() => {
     wrapper = shallowMount(PatternDecryption, {
-      methods: { draw: mockDraw },
+      methods: { draw: mockDraw, getAnimationSteps: mockGetAnimationSteps },
     });
   });
 
@@ -77,72 +94,33 @@ describe("PatternDecryption.vue", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  /*
-    TODO
-      - initial conditions hold
-      - next task restores initial conditions
-      - undo works
-      - change difficulty works
-      - correct result is evaluated as correct
-      - wrong results is evaluated as wrong
-      - 
-  */
+  it("initial conditions hold", () => {
+    expect(wrapper.vm["decryptedText"]).toBeNull();
+    expect(wrapper.vm["encryptedText"]).toBe(mockEncryptedTextOne);
+  });
+
+  it("next task restores initial conditions", async () => {
+    await wrapper.setData({ decryptedText: "ABC " });
+    wrapper.vm.restartGame();
+    expect(wrapper.vm["decryptedText"]).toBeNull();
+    expect(wrapper.vm["encryptedText"]).toBe(mockEncryptedTextOne);
+  });
+
+  it("correct answer is accepted", async () => {
+    await wrapper.setData({ decryptedText: mockText });
+    expect(wrapper.vm.isCorrect()).toBeTruthy();
+  });
+
+  it("incorrect answer is rejected", async () => {
+    await wrapper.setData({ decryptedText: "ABC " });
+    expect(wrapper.vm.isCorrect()).toBeFalsy();
+  });
 });
 
 describe("SymbolEncryption.vue", () => {
-  let wrapper;
-  const mockDraw = jest.fn();
-  beforeEach(() => {
-    wrapper = shallowMount(SymbolEncryption, {
-      methods: { draw: mockDraw },
-    });
-  });
-
-  it("is a Vue instance", () => {
-    expect(wrapper.vm).toBeTruthy();
-  });
-
-  it("renders correctly", () => {
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  /*
-    TODO
-      - initial conditions hold
-      - next task restores initial conditions
-      - undo works
-      - change difficulty works
-      - correct result is evaluated as correct
-      - wrong results is evaluated as wrong
-      - 
-  */
+  // importing enum and classes is broken in ts-jest
 });
 
 describe("SymbolDecryption.vue", () => {
-  let wrapper;
-  const mockDraw = jest.fn();
-  beforeEach(() => {
-    wrapper = shallowMount(SymbolDecryption, {
-      methods: { draw: mockDraw },
-    });
-  });
-
-  it("is a Vue instance", () => {
-    expect(wrapper.vm).toBeTruthy();
-  });
-
-  it("renders correctly", () => {
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  /*
-    TODO
-      - initial conditions hold
-      - next task restores initial conditions
-      - undo works
-      - change difficulty works
-      - correct result is evaluated as correct
-      - wrong results is evaluated as wrong
-      - 
-  */
+  // importing enum and classes is broken in ts-jest
 });

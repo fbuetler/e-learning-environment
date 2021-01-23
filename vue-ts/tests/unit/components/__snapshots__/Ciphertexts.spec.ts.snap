@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatternDecryption.vue renders correctly 1`] = `
+<div>
+   
+  <difficulty-stub
+    difficultylevels="2"
+    selected="1"
+  />
+   
+  <div
+    class="flex-item flex-col"
+  >
+    <div>
+      Entschlüssle den Text mit Hilfe des Musters!
+    </div>
+     
+    <div
+      class="flex-item flex-row flex-center"
+    >
+      <div
+        class="flex-item flex-row flex-center equal-space"
+      >
+        <div>
+          Text:
+        </div>
+         
+        <div
+          class="canvas-container card big-text"
+        >
+          
+          TSET
+        
+        </div>
+      </div>
+       
+      <div
+        class="flex-item flex-row flex-center equal-space"
+      >
+        <div>
+          Lösung:
+        </div>
+         
+        <input
+          class="card big-text"
+          id="answer-input"
+          size="5"
+          type="text"
+        />
+      </div>
+    </div>
+     
+    <div>
+      <canvas
+        class="card"
+        height="150"
+        id="pattern-canvas"
+        width="500"
+      >
+        Das Muster ist nicht verfügbar
+      </canvas>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PatternEncryption.vue renders correctly 1`] = `
+<div>
+   
+  <difficulty-stub
+    difficultylevels="2"
+    selected="1"
+  />
+   
+  <div
+    class="flex-item flex-col"
+  >
+    <div>
+      Verschlüssle den Text mit Hilfe des Musters!
+    </div>
+     
+    <div
+      class="flex-item flex-row flex-center"
+    >
+      <div
+        class="flex-item flex-row flex-center equal-space"
+      >
+        <div>
+          Text:
+        </div>
+         
+        <div
+          class="canvas-container card big-text"
+        >
+          
+          TEST
+        
+        </div>
+      </div>
+       
+      <div
+        class="flex-item flex-row flex-center equal-space"
+      >
+        <div>
+          Lösung:
+        </div>
+         
+        <input
+          class="card big-text"
+          id="answer-input"
+          size="5"
+          type="text"
+        />
+      </div>
+    </div>
+     
+    <div>
+      <canvas
+        class="card"
+        height="150"
+        id="pattern-canvas"
+        width="500"
+      >
+        Das Muster ist nicht verfügbar
+      </canvas>
+    </div>
+  </div>
+</div>
+`;
