@@ -2,7 +2,7 @@
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
     <div>Welche Summe wird hier dargestellt?</div>
-    <div class="flex-item flex-center flex-col flex-flex card">
+    <div id="coins" class="flex-item flex-center flex-col flex-flex card">
       <slot>
         <div class="flex-item flex-center flex-row">
           <div
@@ -23,13 +23,15 @@
     </div>
     <hr />
     <div>Lösung:</div>
-    <input
-      id="answer-input"
-      v-model.number="number"
-      class="card big-text"
-      size="5"
-      type="number"
-    />
+    <div id="answer">
+      <input
+        id="answer-input"
+        v-model.number="number"
+        class="card big-text"
+        size="5"
+        type="number"
+      />
+    </div>
   </div>
 </template>
 

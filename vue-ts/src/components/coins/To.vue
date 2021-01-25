@@ -11,7 +11,7 @@
       Stell die folgende Summe
       <b v-if="currentDifficultyLevel === 2">mit möglichst wenig Münzen</b> dar:
     </div>
-    <div class="big-text">{{ number }}</div>
+    <div id="number" class="big-text">{{ number }}</div>
     <div
       id="dropzone"
       class="flex-item flex-center flex-col flex-flex dropzone"

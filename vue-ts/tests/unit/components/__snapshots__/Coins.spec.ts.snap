@@ -9,6 +9,7 @@ exports[`From.vue renders correctly 1`] = `
    
   <div
     class="flex-item flex-center flex-col flex-flex card"
+    id="coins"
   >
     <div
       class="flex-item flex-center flex-row"
@@ -107,12 +108,16 @@ exports[`From.vue renders correctly 1`] = `
     Lösung:
   </div>
    
-  <input
-    class="card big-text"
-    id="answer-input"
-    size="5"
-    type="number"
-  />
+  <div
+    id="answer"
+  >
+    <input
+      class="card big-text"
+      id="answer-input"
+      size="5"
+      type="number"
+    />
+  </div>
 </div>
 `;
 
@@ -127,6 +132,7 @@ exports[`Swap.vue renders correctly 1`] = `
    
   <div
     class="flex-item flex-center flex-col flex-flex card"
+    id="coins"
   >
     <div
       class="flex-item flex-center flex-row"
@@ -269,6 +275,7 @@ exports[`To.vue renders correctly 1`] = `
    
   <div
     class="big-text"
+    id="number"
   >
     27
   </div>
