@@ -103,6 +103,7 @@ export default class Swap extends Mixins(GameMixin, CoinsMixin)
   }
 
   restartGame() {
+    this.selected = null;
     this.selectedItems = new Array<number>(this.items(this.type).length).fill(
       0
     );

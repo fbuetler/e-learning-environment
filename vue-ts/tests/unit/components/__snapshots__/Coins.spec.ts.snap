@@ -1,0 +1,299 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`From.vue renders correctly 1`] = `
+<div>
+   
+  <div>
+    Welche Summe wird hier dargestellt?
+  </div>
+   
+  <div
+    class="flex-item flex-center flex-col flex-flex card"
+  >
+    <div
+      class="flex-item flex-center flex-row"
+    >
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      />
+      <div
+        class="flex-item flex-center flex-col"
+      />
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div>
+    Lösung:
+  </div>
+   
+  <input
+    class="card big-text"
+    id="answer-input"
+    size="5"
+    type="number"
+  />
+</div>
+`;
+
+exports[`Swap.vue renders correctly 1`] = `
+<div
+  args="[object Object]"
+>
+   
+  <div>
+    Stelle die gleiche Summe mit weniger Münzen dar
+  </div>
+   
+  <div
+    class="flex-item flex-center flex-col flex-flex card"
+  >
+    <div
+      class="flex-item flex-center flex-row"
+    >
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      >
+        <div
+          class="coin"
+        >
+          <img
+            src=""
+          />
+        </div>
+      </div>
+      <div
+        class="flex-item flex-center flex-col"
+      />
+      <div
+        class="flex-item flex-center flex-col"
+      />
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div>
+    Lösung:
+  </div>
+   
+  <div
+    class="flex-item flex-center flex-col flex-flex dropzone"
+    id="dropzone"
+  >
+    <div>
+      
+      Platziere hier die Münzen
+    
+    </div>
+  </div>
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <itemselection-stub
+      items="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+    />
+     
+    <undo-stub />
+  </div>
+</div>
+`;
+
+exports[`To.vue renders correctly 1`] = `
+<div>
+   
+  <difficulty-stub
+    difficultylevels="2"
+    selected="1"
+  />
+   
+  <div
+    class="number"
+  >
+    
+    Stell die folgende Summe
+    
+    <!---->
+     dar:
+  
+  </div>
+   
+  <div
+    class="big-text"
+  >
+    27
+  </div>
+   
+  <div
+    class="flex-item flex-center flex-col flex-flex dropzone"
+    id="dropzone"
+  >
+    <div>
+      
+      Platziere hier die Münzen
+    
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <itemselection-stub
+      items="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+    />
+     
+    <undo-stub />
+  </div>
+</div>
+`;
