@@ -4,6 +4,11 @@ stages:
   - unit-tests
   - e2e-tests
 
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
 before_script:
   - yarn install --cache-folder .yarn
 
@@ -14,28 +19,13 @@ unit-tests:
   artifacts:
     when: always
     paths:
-      - unit-tests/
-    reports:
-      junit:
-        - junit.xml
+      - coverage
     expire_in: 1 hour
-  cache:
-    paths:
-      - node_modules/
-      - .yarn
 
 e2e-tests:
   stage: e2e-tests
   services:
-    - selenium/standalone-chrome
+    - name: selenium/standalone-chrome
+      alias: chrome
   script:
     - yarn test:e2e
-  artifacts:
-    when: always
-    paths:
-      - e2e-tests/
-    expire_in: 1 hour
-  cache:
-    paths:
-      - node_modules/
-      - .yarn

@@ -5,5 +5,14 @@
     "tests/e2e/page-objects/coins",
     "tests/e2e/page-objects/ciphertexts",
     "tests/e2e/page-objects/trees"
-  ]
+  ],
+  "selenium": {
+    "start_process": false
+  },
+  "test_settings": {
+    "default": {
+      "selenium_port": 4444,
+      "selenium_host": "127.0.0.1"
+    }
+  }
 }
