@@ -1,15 +1,35 @@
-image: node:15.6-buster
+default:
+  image: node:15.6-buster
 
-before_script:
-  - yarn install --cache-folder .yarn
+  # Validate that the repository contains a package.json and extract a few values from it.
+  before_script:
+    - ls
+    - cd vue-ts
+    - |
+      if [[ ! -f package.json ]]; then
+        echo "No package.json found! A package.json file is required to publish a package to GitLab's NPM registry."
+        echo 'For more information, see https://docs.gitlab.com/ee/user/packages/npm_registry/#creating-a-project'
+        exit 1
+      fi
+    - NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")
+    - NPM_PACKAGE_VERSION=$(node -p "require('./package.json').version")
 
-stages:
-  - unit-tests
-  - e2e-tests
+# Validate that the package name is properly scoped to the project's root namespace.
+# For more information, see https://docs.gitlab.com/ee/user/packages/npm_registry/#package-naming-convention
+validate_package_scope:
+  stage: build
+  script:
+    - |
+      if [[ ! $NPM_PACKAGE_NAME =~ ^@$CI_PROJECT_ROOT_NAMESPACE/ ]]; then
+        echo "Invalid package scope! Packages must be scoped in the root namespace of the project, e.g. \"@${CI_PROJECT_ROOT_NAMESPACE}/${CI_PROJECT_NAME}\""
+        echo 'For more information, see https://docs.gitlab.com/ee/user/packages/npm_registry/#package-naming-convention'
+        exit 1
+      fi
 
 unit-tests:
   stage: unit-tests
   script:
+    - yarn install --cache-folder .yarn
     - yarn test:unit --coverage --ci --reporters=default --reporters=jest-junit
   artifacts:
     when: always
@@ -25,15 +45,22 @@ unit-tests:
       - .yarn
 
 e2e-tests:
+  image: node:15.6-buster
   stage: e2e-tests
   services:
     - selenium/standalone-chrome
   variables:
     SELENIUM_HOST: selenium__standalone-chrome
   script:
-    - yarn test:e2e --env firefox
+    - cd vue-ts
+    - yarn install --cache-folder .yarn
+    - yarn test:e2e
   artifacts:
     when: always
     paths:
       - e2e-tests/
     expire_in: 1 hour
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
