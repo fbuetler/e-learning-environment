@@ -3,6 +3,7 @@
     "tests/e2e/page-objects",
     "tests/e2e/page-objects/words",
     "tests/e2e/page-objects/coins",
+    "tests/e2e/page-objects/ciphertexts",
     "tests/e2e/page-objects/trees"
   ]
 }

@@ -11,7 +11,7 @@
       <div class="flex-item flex-row flex-center">
         <div class="flex-item flex-row flex-center equal-space">
           <div>Text:</div>
-          <div class="canvas-container card big-text">
+          <div id="text" class="canvas-container card big-text">
             {{ decryptedText }}
           </div>
         </div>

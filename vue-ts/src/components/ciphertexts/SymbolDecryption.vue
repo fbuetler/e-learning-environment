@@ -14,7 +14,7 @@
       <div class="flex-item flex-row flex-center">
         <div class="flex-item flex-row flex-center equal-space">
           Text:
-          <div class="canvas-container card">
+          <div id="text" class="canvas-container card">
             <canvas
               v-for="(part, index) in original"
               :id="'encrypted-' + index"

@@ -27,6 +27,7 @@ exports[`PatternDecryption.vue renders correctly 1`] = `
          
         <div
           class="canvas-container card big-text"
+          id="text"
         >
           
           TSET
@@ -91,6 +92,7 @@ exports[`PatternEncryption.vue renders correctly 1`] = `
          
         <div
           class="canvas-container card big-text"
+          id="text"
         >
           
           TEST
