@@ -10,7 +10,7 @@ before_script:
 unit-tests:
   stage: unit-tests
   script:
-    - yarn test:unit --coverage --ci --reporters=default --reporters=jest-junit
+    - yarn test:unit --coverage --ci
   artifacts:
     when: always
     paths:
