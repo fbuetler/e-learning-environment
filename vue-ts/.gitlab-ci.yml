@@ -10,6 +10,7 @@ stages:
 unit-tests:
   stage: unit-tests
   script:
+    - cd vue-ts
     - yarn test:unit --coverage --ci --reporters=default --reporters=jest-junit
   artifacts:
     when: always
@@ -31,6 +32,7 @@ e2e-tests:
   variables:
     SELENIUM_HOST: selenium__standalone-chrome
   script:
+    - cd vue-ts
     - yarn test:e2e
   artifacts:
     when: always
