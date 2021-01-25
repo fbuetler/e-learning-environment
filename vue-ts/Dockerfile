@@ -1,4 +1,4 @@
-FROM node:12.13-buster as build
+FROM node:15.6-buster as build
 WORKDIR /app
 COPY ./package*.json ./
 RUN yarn

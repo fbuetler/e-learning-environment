@@ -1,0 +1,21 @@
+image: node:15.6-buster
+
+before_script:
+  - yarn install --cache-folder .yarn
+
+stages:
+  - unit-tests
+
+unit-tests:
+  stage: unit-tests
+  script:
+    - yarn test:unit --coverage --ci --reporters=default --reporters=jest-junit
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - junit.xml
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
