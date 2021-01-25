@@ -1,5 +1,5 @@
 module.exports = {
-  url: "/words/add",
+  url: "/words/change",
 
   elements: {
     app: "#app",
@@ -27,12 +27,6 @@ module.exports = {
                   elements: {
                     letters: {
                       selector: "[id^='word-char-']",
-                    },
-                    arrows: {
-                      selector: "[id^='arrow-']",
-                    },
-                    addArea: {
-                      selector: "[id^='rect-around-arrow-']",
                     },
                   },
                 },

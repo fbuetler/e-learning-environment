@@ -18,6 +18,7 @@
         <div
           v-for="element in word"
           :key="element.id"
+          :id="'word-char-' + element.id"
           :ref="'word-char-' + element.id"
           class="word-char card"
         >
@@ -52,6 +53,7 @@
           </defs>
           <path
             v-for="[left, right] in arrows"
+            :id="`arrow-${left}-${right}`"
             :ref="`arrow-${left}-${right}`"
             :key="`arrow-${left}-${right}`"
             stroke="black"

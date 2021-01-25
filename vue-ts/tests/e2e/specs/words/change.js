@@ -1,9 +1,9 @@
 module.exports = {
   beforeEach: (browser) => browser.init(),
-  tags: ["game", "words", "add"],
+  tags: ["game", "words", "change"],
 
-  "check if all elements are visible in word/add": (browser) => {
-    const page = browser.page.add();
+  "check if all elements are visible in word/change": (browser) => {
+    const page = browser.page.change();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));
 
@@ -11,7 +11,7 @@ module.exports = {
 
     game.expect
       .section("@title")
-      .text.to.match(/^Ähnliche Wörter - Buchstabe hinzufügen$/);
+      .text.to.match(/^Ähnliche Wörter - Buchstabe austauschen$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;
@@ -20,10 +20,6 @@ module.exports = {
     const word = task.section.word;
 
     word.expect.element("@letters").to.be.visible;
-
-    word.expect.element("@arrows").to.be.visible;
-
-    word.expect.element("@addArea").to.be.visible;
 
     task.expect.section("@interaction").to.be.visible;
     const interaction = task.section.interaction;

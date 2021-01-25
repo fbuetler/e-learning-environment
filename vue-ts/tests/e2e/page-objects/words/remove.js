@@ -1,5 +1,5 @@
 module.exports = {
-  url: "/words/add",
+  url: "/words/remove",
 
   elements: {
     app: "#app",
@@ -28,12 +28,6 @@ module.exports = {
                     letters: {
                       selector: "[id^='word-char-']",
                     },
-                    arrows: {
-                      selector: "[id^='arrow-']",
-                    },
-                    addArea: {
-                      selector: "[id^='rect-around-arrow-']",
-                    },
                   },
                 },
 
@@ -44,17 +38,8 @@ module.exports = {
                     undo: {
                       selector: "#undo",
                     },
-                  },
-
-                  sections: {
-                    alphabet: {
-                      selector: "#item-selection",
-
-                      elements: {
-                        letters: {
-                          selector: "[id^='item-selection-']",
-                        },
-                      },
+                    trashcan: {
+                      selector: "#trashcan",
                     },
                   },
                 },

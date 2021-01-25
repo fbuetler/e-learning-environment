@@ -1,5 +1,5 @@
 module.exports = {
-  url: "/words/add",
+  url: "/words/swap",
 
   elements: {
     app: "#app",
@@ -31,7 +31,7 @@ module.exports = {
                     arrows: {
                       selector: "[id^='arrow-']",
                     },
-                    addArea: {
+                    swapArea: {
                       selector: "[id^='rect-around-arrow-']",
                     },
                   },
@@ -43,18 +43,6 @@ module.exports = {
                   elements: {
                     undo: {
                       selector: "#undo",
-                    },
-                  },
-
-                  sections: {
-                    alphabet: {
-                      selector: "#item-selection",
-
-                      elements: {
-                        letters: {
-                          selector: "[id^='item-selection-']",
-                        },
-                      },
                     },
                   },
                 },
