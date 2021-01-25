@@ -1,10 +1,5 @@
 image: node:15.6-buster
 
-before_script:
-  - ls
-  - cd vue-ts
-  - yarn install --cache-folder .yarn
-
 stages:
   - unit-tests
   - e2e-tests
@@ -12,7 +7,9 @@ stages:
 unit-tests:
   stage: unit-tests
   script:
-    - yarn test:unit --coverage --ci --reporters=default --reporters=jest-junit
+    - cd vue-ts
+    - yarn install --cache-folder .yarn
+      - yarn test:unit --coverage --ci --reporters=default --reporters=jest-junit
   artifacts:
     when: always
     paths:
@@ -33,7 +30,9 @@ e2e-tests:
   variables:
     SELENIUM_HOST: selenium__standalone-chrome
   script:
-    - yarn test:e2e
+    - cd vue-ts
+    - yarn install --cache-folder .yarn
+      - yarn test:e2e
   artifacts:
     when: always
     paths:
