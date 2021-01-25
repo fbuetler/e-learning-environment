@@ -1,0 +1,39 @@
+image: node:15.6-buster
+
+before_script:
+  - yarn install --cache-folder .yarn
+
+stages:
+  - unit-tests
+  - e2e-tests
+
+unit-tests:
+  stage: unit-tests
+  script:
+    - yarn test:unit --coverage --ci --reporters=default --reporters=jest-junit
+  artifacts:
+    when: always
+    paths:
+      - unit-tests/
+    reports:
+      junit:
+        - junit.xml
+    expire_in: 1 hour
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
+
+e2e-tests:
+  stage: e2e-tests
+  services:
+    - selenium/standalone-chrome
+  variables:
+    SELENIUM_HOST: selenium__standalone-chrome
+  script:
+    - yarn test:e2e
+  artifacts:
+    when: always
+    paths:
+      - e2e-tests/
+    expire_in: 1 hour
