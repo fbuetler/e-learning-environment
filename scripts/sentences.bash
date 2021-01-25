@@ -7,10 +7,10 @@ for i in {1..1000}; do
     if [[ ${#sentence} > 30 || "${sentence: -1}" == "?" ]]; then
         continue
     fi
-    echo $sentence >>/home/florian/Documents/01_Ausbildung/ETH/Sem7/thesis/vue-ts/src/assets/ciphertexts/ciphertexts.json
+    echo $sentence >>/home/florian/Documents/01_Ausbildung/ETH/Sem7/bsc-thesis/src/assets/ciphertexts/ciphertexts.json
 done
 
 # nouns
 for i in {1..200}; do
-    curl -s https://alex-riedel.de/randV2.php\?anz\=1 | jq '.[]' >>/home/florian/Documents/01_Ausbildung/ETH/Sem7/thesis/vue-ts/src/assets/ciphertexts/ciphertexts.json
+    curl -s https://alex-riedel.de/randV2.php\?anz\=1 | jq '.[]' >>/home/florian/Documents/01_Ausbildung/ETH/Sem7/bsc-thesis/src/assets/ciphertexts/ciphertexts.json
 done

@@ -1,4 +1,4 @@
-# vue-ts
+# bsc-thesis
 
 ## Project setup
 
@@ -53,11 +53,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Build
 
 ```
-docker build . -t thesis
+docker build . -t bsc-thesis
 ```
 
 ### Run
 
 ```
-docker run -p 8081:80 thesis
+docker run -p 8081:80 bsc-thesis
 ```
