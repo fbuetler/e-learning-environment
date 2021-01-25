@@ -1,6 +1,7 @@
 image: node:15.6-buster
 
 before_script:
+  - ls
   - cd vue-ts
   - yarn install --cache-folder .yarn
 
