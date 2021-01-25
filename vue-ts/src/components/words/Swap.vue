@@ -161,7 +161,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
         ) {
           return pairs;
         }
-        index = Math.floor(Math.random() * length - 1);
+        index = Math.floor(this.randomNumber(length - 1));
       } while (!free[index] || !free[index + 1]);
       free[index] = false;
       free[index + 1] = false;
@@ -258,7 +258,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
       wrongSwapIndexes = new Array<[number, number]>();
       const available = Array.from(Array(this.word.length - 1).keys());
       for (let i = 0; i < correctSwapIndexes.length; i++) {
-        const leftIndex = Math.floor(Math.random() * (available.length - 1));
+        const leftIndex = Math.floor(this.randomNumber(available.length - 1));
         const left = available[leftIndex];
         available.splice(leftIndex, 1);
         wrongSwapIndexes.push([left, left + 1]);

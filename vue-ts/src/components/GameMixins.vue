@@ -36,5 +36,9 @@ export default class GameMixin extends Vue {
   isCorrect(): boolean {
     throw Error(this.notOverwrittenMsg);
   }
+
+  randomNumber(limit: number): number {
+    return Math.random() * limit;
+  }
 }
 </script>

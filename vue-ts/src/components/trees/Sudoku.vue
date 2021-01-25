@@ -204,7 +204,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     this.shuffle(numbers);
     for (let i = 0; i < numbers.length; i++) {
       if (
-        Math.random() <= 0.5 ||
+        this.randomNumber(1) <= 0.5 ||
         this.LevelsWithNoViews.includes(this.currentDifficultyLevel)
       ) {
         values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
@@ -509,7 +509,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
         if (!this.values[i][j].locked) {
           let value: number;
           do {
-            value = Math.ceil(Math.random() * this.size);
+            value = Math.ceil(this.randomNumber(this.size));
           } while (value === this.valuesSolution[i][j].value);
           wrongOrder.push(this.createSudokuField(i, j, value, false));
           correctOrder.push(
@@ -522,7 +522,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     for (let i = 0; i < wrongOrder.length; i++) {
       let value: number;
       do {
-        value = Math.ceil(Math.random() * this.size);
+        value = Math.ceil(this.randomNumber(this.size));
       } while (value === correctOrder[i].value);
       wrongOrder[i].value = value;
     }

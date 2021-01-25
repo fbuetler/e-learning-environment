@@ -96,7 +96,7 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
   }
 
   restartGame() {
-    this.number = Math.ceil(Math.random() * this.limit);
+    this.number = Math.ceil(this.randomNumber(this.limit));
     this.selected = null;
     this.selectedItems = new Array<number>(this.items(this.type).length).fill(
       0
@@ -142,7 +142,7 @@ export default class To extends Mixins(GameMixin, CoinsMixin)
 
   getAnimationSteps(): Array<string> {
     const correctNumber = this.number;
-    const wrongNumber = Math.ceil(Math.random() * this.limit);
+    const wrongNumber = Math.ceil(this.randomNumber(this.limit));
 
     return this.mapNumberToActions(wrongNumber, this.type)
       .concat(["button-menu-check", "undo"])

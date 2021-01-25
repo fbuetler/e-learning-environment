@@ -66,7 +66,7 @@ export default class To extends Mixins(GameMixin, MayasMixin)
   }
 
   restartGame() {
-    this.number = Math.ceil(Math.random() * this.limit);
+    this.number = Math.ceil(this.randomNumber(this.limit));
     this.selected = null;
     this.selectedItems = new Array<number>(
       Object.keys(itemType).length / 2
