@@ -2,7 +2,7 @@ module.exports = {
   beforeEach: (browser) => browser.init(),
   tags: ["game", "coins", "normal", "from"],
 
-  "check if all elements are visible in coins/normal/from": (browser) => {
+  "check if all elements are visible": (browser) => {
     const page = browser.page.from();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));

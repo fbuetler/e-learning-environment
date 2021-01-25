@@ -2,7 +2,7 @@ module.exports = {
   beforeEach: (browser) => browser.init(),
   tags: ["game", "trees", "row"],
 
-  "check if all elements are visible in trees/row": (browser) => {
+  "check if all elements are visible": (browser) => {
     const page = browser.page.row();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));

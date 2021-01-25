@@ -2,7 +2,7 @@ module.exports = {
   beforeEach: (browser) => browser.init(),
   tags: ["game", "ciphertexts", "symbol", "encryption"],
 
-  "check if all elements are visible in ciphertexts/symbol/encryption": (
+  "check if all elements are visible": (
     browser
   ) => {
     const page = browser.page.symbolEncryption();

@@ -2,7 +2,7 @@ module.exports = {
   beforeEach: (browser) => browser.init(),
   tags: ["game", "trees", "sudoku"],
 
-  "check if all elements are visible in trees/sudoku": (browser) => {
+  "check if all elements are visible": (browser) => {
     const page = browser.page.sudoku();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));
