@@ -226,6 +226,7 @@ exports[`Change.vue renders correctly 1`] = `
    
   <div
     class="word-container flex-item flex-row flex-center"
+    id="word-container"
   >
     <div>
       <div
@@ -304,6 +305,7 @@ exports[`Remove.vue renders correctly 1`] = `
    
   <div
     class="word-container flex-item flex-row flex-center"
+    id="word-container"
   >
     <div>
       <div

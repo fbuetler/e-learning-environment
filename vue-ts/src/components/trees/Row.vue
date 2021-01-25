@@ -4,12 +4,12 @@
     <div>
       Versuch das Baumreihenrätsel zu lösen.
     </div>
-    <div class="flex-item flex-center">
+    <div id="row" class="flex-item flex-center">
       <table>
         <tbody>
           <tr>
             <!-- left view -->
-            <td class="card tree-view ">
+            <td id="left-view" class="card tree-view ">
               {{ leftView }}
             </td>
             <!-- values -->
@@ -37,7 +37,7 @@
               />
             </td>
             <!-- right view -->
-            <td class="card tree-view ">
+            <td id="right-view" class="card tree-view ">
               {{ rightView }}
             </td>
           </tr>

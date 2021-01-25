@@ -11,12 +11,14 @@ exports[`Row.vue renders correctly 1`] = `
    
   <div
     class="flex-item flex-center"
+    id="row"
   >
     <table>
       <tbody>
         <tr>
           <td
             class="card tree-view "
+            id="left-view"
           >
             
             3
@@ -47,6 +49,7 @@ exports[`Row.vue renders correctly 1`] = `
            
           <td
             class="card tree-view "
+            id="right-view"
           >
             
             1
@@ -87,6 +90,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
    
   <div
     class="flex-item flex-center"
+    id="sudoku"
   >
     <table>
       <tbody>
@@ -95,16 +99,19 @@ exports[`Sudoku.vue renders correctly 1`] = `
            
           <td
             class="card tree-view "
+            id="top-view-0"
           >
             <!---->
           </td>
           <td
             class="card tree-view "
+            id="top-view-1"
           >
             <!---->
           </td>
           <td
             class="card tree-view "
+            id="top-view-2"
           >
             <!---->
           </td>
@@ -115,6 +122,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
         <tr>
           <td
             class="card tree-view "
+            id="left-view-0"
           >
             <!---->
           </td>
@@ -145,6 +153,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
            
           <td
             class="card tree-view"
+            id="right-view-0"
           >
             <!---->
           </td>
@@ -152,6 +161,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
         <tr>
           <td
             class="card tree-view "
+            id="left-view-1"
           >
             <!---->
           </td>
@@ -186,6 +196,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
            
           <td
             class="card tree-view"
+            id="right-view-1"
           >
             <!---->
           </td>
@@ -193,6 +204,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
         <tr>
           <td
             class="card tree-view "
+            id="left-view-2"
           >
             <!---->
           </td>
@@ -227,6 +239,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
            
           <td
             class="card tree-view"
+            id="right-view-2"
           >
             <!---->
           </td>
@@ -237,16 +250,19 @@ exports[`Sudoku.vue renders correctly 1`] = `
            
           <td
             class="card tree-view"
+            id="bottom-view-0"
           >
             <!---->
           </td>
           <td
             class="card tree-view"
+            id="bottom-view-1"
           >
             <!---->
           </td>
           <td
             class="card tree-view"
+            id="bottom-view-2"
           >
             <!---->
           </td>

@@ -12,7 +12,7 @@
     <div>
       Versuch das Baumsudoku zu lösen.
     </div>
-    <div class="flex-item flex-center">
+    <div id="sudoku" class="flex-item flex-center">
       <table>
         <tbody>
           <tr>
@@ -21,7 +21,8 @@
             <!-- top view -->
             <td
               v-for="(visible, topIndex) in topView"
-              :key="`top-${topIndex}`"
+              :id="`top-view-${topIndex}`"
+              :key="`top-view-${topIndex}`"
               class="card tree-view "
             >
               <span v-if="visible !== 0">{{ visible }}</span>
@@ -32,7 +33,7 @@
 
           <tr v-for="(row, rowIndex) in values" :key="`row-${rowIndex}`">
             <!-- left view -->
-            <td class="card tree-view ">
+            <td :id="`left-view-${rowIndex}`" class="card tree-view ">
               <span v-if="leftView[rowIndex] !== 0">{{
                 leftView[rowIndex]
               }}</span>
@@ -63,7 +64,7 @@
               />
             </td>
             <!-- right view -->
-            <td class="card tree-view">
+            <td :id="`right-view-${rowIndex}`" class="card tree-view">
               <span v-if="rightView[rowIndex] !== 0">{{
                 rightView[rowIndex]
               }}</span>
@@ -76,7 +77,8 @@
             <!-- bottom view -->
             <td
               v-for="(visible, bottomIndex) in bottomView"
-              :key="`bottom-${bottomIndex}`"
+              :id="`bottom-view-${bottomIndex}`"
+              :key="`bottom-view-${bottomIndex}`"
               class="card tree-view"
             >
               <span v-if="visible !== 0">{{ visible }}</span>

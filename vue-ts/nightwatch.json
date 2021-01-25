@@ -1,6 +1,7 @@
 {
   "page_objects_path": [
     "tests/e2e/page-objects",
-    "tests/e2e/page-objects/words"
+    "tests/e2e/page-objects/words",
+    "tests/e2e/page-objects/trees"
   ]
 }
