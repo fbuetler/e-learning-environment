@@ -1,9 +1,9 @@
 module.exports = {
   beforeEach: (browser) => browser.init(),
-  tags: ["game", "words", "change"],
+  tags: ["game", "coins", "normal", "to"],
 
   "check if all elements are visible": (browser) => {
-    const page = browser.page.change();
+    const page = browser.page.coinsTo();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));
 
@@ -11,26 +11,24 @@ module.exports = {
 
     game.expect
       .section("@title")
-      .text.to.match(/^Ähnliche Wörter - Buchstabe austauschen$/);
+      .text.to.match(/^Zahlen mit Münzen und Geldscheinen$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;
 
-    task.expect.section("@word").to.be.visible;
-    const word = task.section.word;
-
-    word.expect.element("@letters").to.be.visible;
+    task.expect.element("@number").to.be.visible;
+    task.expect.element("@dropzone").to.be.visible;
 
     task.expect.section("@interaction").to.be.visible;
     const interaction = task.section.interaction;
 
     interaction.expect.element("@undo").to.be.visible;
 
-    interaction.expect.section("@alphabet").to.be.visible;
-    const alphabet = interaction.section.alphabet;
+    interaction.expect.section("@itemSelection").to.be.visible;
+    const itemSelection = interaction.section.itemSelection;
 
-    alphabet.expect.element("@letters").to.be.visible;
-    alphabet.assert.elementCount("@letters", 26);
+    itemSelection.expect.element("@items").to.be.visible;
+    itemSelection.assert.elementCount("@items", 6);
 
     browser.end();
   },

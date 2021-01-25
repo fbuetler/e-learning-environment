@@ -3,7 +3,7 @@ module.exports = {
   tags: ["game", "coins", "normal", "swap"],
 
   "check if all elements are visible": (browser) => {
-    const page = browser.page.swap();
+    const page = browser.page.coinsSwap();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));
 
