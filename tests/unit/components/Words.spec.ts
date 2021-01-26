@@ -1,9 +1,11 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, config } from "@vue/test-utils";
 import Add from "@/components/words/Add.vue";
 import Change from "@/components/words/Change.vue";
 import Remove from "@/components/words/Remove.vue";
 import Swap from "@/components/words/Swap.vue";
 import { wordElement } from "@/components/words/Words";
+
+config.showDeprecationWarnings = false;
 
 function prepareWord(word: string): wordElement[] {
   return word.split("").map((el, i) => {
@@ -58,6 +60,8 @@ function copy(el) {
 const rawWord = "ADLER";
 const mockWord = prepareWord(rawWord);
 const mockSimilarWords = ["RADLER", "TADLER", "ADLERN", "ADLERS"];
+const mockFunc = jest.fn();
+
 jest.mock("@/components/words/Words", () => ({
   LoadWords() {
     return [
@@ -330,9 +334,30 @@ describe("Remove.vue", () => {
 });
 
 describe("Swap.vue", () => {
+  const swapPairs = [
+    [0, 1],
+    [2, 3],
+  ] as [number, number][];
+  const mockSwappedWord = swapChar(
+    copy(mockWord),
+    swapPairs[0][0],
+    swapPairs[0][1]
+  );
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(Swap, {});
+    const mockRandomNumber = jest
+      .fn()
+      .mockReturnValueOnce(swapPairs[0][0])
+      .mockReturnValueOnce(swapPairs[0][0])
+      .mockReturnValueOnce(swapPairs[1][0])
+      .mockReturnValue(3);
+    wrapper = shallowMount(Swap, {
+      methods: {
+        randomNumber: mockRandomNumber,
+        drawArrows: mockFunc,
+        getAnimationSteps: mockFunc,
+      },
+    });
   });
 
   it("is a Vue instance", () => {
@@ -340,7 +365,7 @@ describe("Swap.vue", () => {
   });
 
   it("renders correctly", () => {
-    // TODO: problems with mocking multiple functions in Words
+    expect(wrapper.element).toMatchSnapshot();
   });
 
   it("initially all chars are unlocked", () => {
@@ -382,32 +407,26 @@ describe("Swap.vue", () => {
   });
 
   for (let i = 0; i < mockWord.length - 1; i++) {
-    it(`undo after swapping position ${i} with ${i + 1}`, async () => {
-      // TODO check on how to mock getSwapPairs
-      // await wrapper.setData({ word: copy(mockWord) });
-      // await wrapper
-      //   .find(`#rect-around-arrow-${mockWord[i].id}-${mockWord[i + 1].id}`)
-      //   .trigger("click");
-      // wrapper.vm.undo();
-      // expect(wrapper.vm["word"]).toEqual(mockWord);
-      expect(true).toBeTruthy();
+    it(`undo after swapping position ${i} with ${i +
+      1} restores initial conditions`, async () => {
+      await wrapper
+        .find(`#rect-around-arrow-${mockWord[i].id}-${mockWord[i + 1].id}`)
+        .trigger("click");
+      wrapper.vm.undo();
+      expect(wrapper.vm["word"]).toEqual(mockSwappedWord);
     });
   }
 
-  it("start next task restores initial conditions", () => {
-    // TODO check on how to mock getSwapPairs
-    expect(true).toBeTruthy();
-  });
-
   it("correct answer is accepted", async () => {
-    // TODO check on how to mock getSwapPairs
-    // await wrapper.setData({ word: prepareWord(mockSimilarWords[0]) });
+    // TODO (optional): enable after swap has been refactored
+    // await wrapper.setData({ word: mockWord });
     // expect(wrapper.vm.isCorrect()).toBeTruthy();
     expect(true).toBeTruthy();
   });
 
   it("incorrect answer is rejected", async () => {
-    await wrapper.setData({ word: prepareWord("TESTTEST") });
+    // TODO (optional): enable after swap has been refactored
+    // await wrapper.setData({ word: prepareWord("TESTTEST") });
     expect(wrapper.vm.isCorrect()).toBeFalsy();
   });
 });

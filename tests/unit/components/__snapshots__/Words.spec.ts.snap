@@ -375,3 +375,165 @@ exports[`Remove.vue renders correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`Swap.vue renders correctly 1`] = `
+<div>
+   
+  <difficulty-stub
+    difficultylevels="2"
+    selected="1"
+  />
+   
+  <div>
+    
+    Versuch ein neues Wort zu bilden, indem du zwei Buchstaben vertauschst.
+  
+  </div>
+   
+  <div
+    class="word-container flex-item flex-col flex-center flex-flex"
+    id="word-container"
+  >
+    <div
+      class="flex-item flex-row flex-center"
+    >
+      <div
+        class="word-char card"
+        id="word-char-0"
+      >
+        
+        D
+      
+      </div>
+      <div
+        class="word-char card"
+        id="word-char-1"
+      >
+        
+        A
+      
+      </div>
+      <div
+        class="word-char card"
+        id="word-char-2"
+      >
+        
+        L
+      
+      </div>
+      <div
+        class="word-char card"
+        id="word-char-3"
+      >
+        
+        E
+      
+      </div>
+      <div
+        class="word-char card"
+        id="word-char-4"
+      >
+        
+        R
+      
+      </div>
+    </div>
+     
+    <div
+      class="svg-container"
+    >
+      <svg
+        class="svg-item"
+      >
+        <defs>
+          <marker
+            id="arrowhead"
+            markerHeight="6"
+            markerWidth="6"
+            orient="auto"
+            refX="0"
+            refY="5"
+            viewBox="0 0 10 10"
+          >
+            <path
+              d="M 10 0 L 0 5 L 10 10 z"
+            />
+          </marker>
+           
+          <marker
+            id="arrowtail"
+            markerHeight="6"
+            markerWidth="6"
+            orient="auto"
+            refX="9"
+            refY="5"
+            viewBox="0 0 10 10"
+          >
+            <path
+              d="M 0 0 L 10 5 L 0 10 z"
+            />
+          </marker>
+        </defs>
+         
+        <path
+          fill="transparent"
+          id="arrow-0-1"
+          marker-end="url(#arrowtail)"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="2"
+        />
+        <path
+          fill="transparent"
+          id="arrow-1-2"
+          marker-end="url(#arrowtail)"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="2"
+        />
+        <path
+          fill="transparent"
+          id="arrow-2-3"
+          marker-end="url(#arrowtail)"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="2"
+        />
+        <path
+          fill="transparent"
+          id="arrow-3-4"
+          marker-end="url(#arrowtail)"
+          marker-start="url(#arrowhead)"
+          stroke="black"
+          stroke-width="2"
+        />
+         
+        <rect
+          fill="transparent"
+          id="rect-around-arrow-0-1"
+        />
+        <rect
+          fill="transparent"
+          id="rect-around-arrow-1-2"
+        />
+        <rect
+          fill="transparent"
+          id="rect-around-arrow-2-3"
+        />
+        <rect
+          fill="transparent"
+          id="rect-around-arrow-3-4"
+        />
+      </svg>
+    </div>
+  </div>
+   
+  <hr />
+   
+  <div
+    class="interaction-container flex-item flex-row flex-center flex-stretch"
+  >
+    <undo-stub />
+  </div>
+</div>
+`;
