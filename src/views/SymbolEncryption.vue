@@ -20,8 +20,6 @@ import { Component } from "vue-property-decorator";
 import Game, { GameType } from "@/components/Game.vue";
 import views from "@/views/Views";
 
-export const symbolEncryptionTitle = "Sätze mit Zeichen chiffrieren";
-
 @Component<SymbolEncryption>({
   components: {
     Game,

@@ -2,7 +2,7 @@
   <Game :type="type">
     <h2 slot="title">{{ title }}</h2>
     <p slot="description">
-      Du möchtest nun deine eigene Nachricht chiffrieren. Schaffst du es die
+      Du möchtest nun deine eigene Nachricht verschlüsseln. Schaffst du es die
       Nachricht mit Hilfe des Musters korrekt zu verschlüsseln?
     </p>
     <video loop controls muted slot="video">

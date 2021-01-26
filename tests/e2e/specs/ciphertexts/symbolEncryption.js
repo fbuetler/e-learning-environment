@@ -2,16 +2,14 @@ module.exports = {
   beforeEach: (browser) => browser.init(),
   tags: ["game", "ciphertexts", "symbol", "encryption"],
 
-  "check if all elements are visible": (
-    browser
-  ) => {
+  "check if all elements are visible": (browser) => {
     const page = browser.page.symbolEncryption();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));
 
     const game = page.section.app.section.game;
 
-    game.expect.section("@title").text.to.match(/^mit Zeichen chiffrieren$/);
+    game.expect.section("@title").text.to.match(/^mit Zeichen verschlüsseln$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;

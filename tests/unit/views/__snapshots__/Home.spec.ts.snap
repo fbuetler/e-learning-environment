@@ -167,7 +167,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Zahlen mit Münzen und Geldscheinen
+        Zahlen mit Münzen
       
       </div>
     </a>
@@ -272,7 +272,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Muster dechiffrieren
+        mit Muster entschlüsseln
       
       </div>
     </a>
@@ -293,7 +293,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Muster chiffrieren
+        mit Muster verschlüsseln
       
       </div>
     </a>
@@ -314,7 +314,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Zeichen dechiffrieren
+        mit Zeichen entschlüsseln
       
       </div>
     </a>
@@ -335,7 +335,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Zeichen chiffrieren
+        mit Zeichen verschlüsseln
       
       </div>
     </a>
