@@ -31,7 +31,6 @@ coverage/
 # auxiliary tex files
 __*_temp.tex
 *.aux
-*.pdf
 *.ps
 *.log
 *.dvi
