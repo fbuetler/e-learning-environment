@@ -41,7 +41,7 @@ yarn test:e2e --url http://localhost:8080 --headless
 else
 
 ```
-est:e2e --headless
+yarn test:e2e --headless
 ```
 
 ### Customize configuration
