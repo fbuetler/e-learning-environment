@@ -28,5 +28,18 @@ coverage/
 *.sw?
 *.docx#
 
-# tex files
+# auxiliary tex files
 __*_temp.tex
+*.aux
+*.pdf
+*.ps
+*.log
+*.dvi
+*.tex~
+*.bbl
+*.blg
+*.fls
+*.out
+*.toc
+*.fdb_latexmk
+*.synctex.gz
