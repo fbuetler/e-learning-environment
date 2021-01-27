@@ -54,7 +54,7 @@
 %%   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %%   Right brace   \}     Tilde         \~}
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{discothesis}
+\ProvidesClass{thesis}
               [2005/09/16 v1.4f.a Modified from Standard LaTeX document
               class book.cls by Khaireel A. Mohamed April 2007
               and by Tobias Langner November 2009 and June 2011]
