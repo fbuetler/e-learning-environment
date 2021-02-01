@@ -22,7 +22,7 @@ module.exports = {
 
               elements: {
                 coins: {
-                  selector: "#coins",
+                  selector: "#items",
                 },
                 dropzone: {
                   selector: "#dropzone",

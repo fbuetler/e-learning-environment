@@ -73,8 +73,7 @@ export default class NumbersystemsMixin extends Vue {
   }
 
   mapNumberToActions(type: numbersystemType, number: number): string[] {
-    const coins = this.calcMinimalAmount(number, type);
-    return coins.flatMap((el, i) =>
+    return this.calcMinimalAmount(number, type).flatMap((el, i) =>
       Array.from({ length: el }, () => [
         `item-selection-${i + 1}`, // item ids start with 1
         "dropzone",
@@ -91,7 +90,7 @@ export default class NumbersystemsMixin extends Vue {
             type: decimal.ONE,
             value: 1,
             max: 5,
-            img: "coins/normal/one.png",
+            img: "numbersystems/decimal/one.png",
             class: "coin",
           },
           {
@@ -99,7 +98,7 @@ export default class NumbersystemsMixin extends Vue {
             type: decimal.TWO,
             value: 2,
             max: 5,
-            img: "coins/normal/two.png",
+            img: "numbersystems/decimal/two.png",
             class: "coin",
           },
           {
@@ -107,7 +106,7 @@ export default class NumbersystemsMixin extends Vue {
             type: decimal.FIVE,
             value: 5,
             max: 3,
-            img: "coins/normal/five.png",
+            img: "numbersystems/decimal/five.png",
             class: "coin",
           },
           {
@@ -115,7 +114,7 @@ export default class NumbersystemsMixin extends Vue {
             type: decimal.TEN,
             value: 10,
             max: 3,
-            img: "coins/normal/ten.png",
+            img: "numbersystems/decimal/ten.png",
             class: "coin",
           },
           {
@@ -123,7 +122,7 @@ export default class NumbersystemsMixin extends Vue {
             type: decimal.TWENTY,
             value: 20,
             max: 2,
-            img: "coins/normal/twenty.png",
+            img: "numbersystems/decimal/twenty.png",
             class: "coin",
           },
           {
@@ -131,7 +130,7 @@ export default class NumbersystemsMixin extends Vue {
             type: decimal.FIFTY,
             value: 50,
             max: 2,
-            img: "coins/normal/fifty.png",
+            img: "numbersystems/decimal/fifty.png",
             class: "coin",
           },
         ];
@@ -143,7 +142,7 @@ export default class NumbersystemsMixin extends Vue {
             type: binary.ONE,
             value: 1,
             max: 1,
-            img: "coins/binary/one.png",
+            img: "numbersystems/binary/one.png",
             class: "coin",
           },
           {
@@ -151,7 +150,7 @@ export default class NumbersystemsMixin extends Vue {
             type: binary.TWO,
             value: 2,
             max: 1,
-            img: "coins/binary/two.png",
+            img: "numbersystems/binary/two.png",
             class: "coin",
           },
           {
@@ -159,7 +158,7 @@ export default class NumbersystemsMixin extends Vue {
             type: binary.FOUR,
             value: 4,
             max: 1,
-            img: "coins/binary/four.png",
+            img: "numbersystems/binary/four.png",
             class: "coin",
           },
           {
@@ -167,7 +166,7 @@ export default class NumbersystemsMixin extends Vue {
             type: binary.EIGHT,
             value: 8,
             max: 1,
-            img: "coins/binary/eight.png",
+            img: "numbersystems/binary/eight.png",
             class: "coin",
           },
           {
@@ -175,7 +174,7 @@ export default class NumbersystemsMixin extends Vue {
             type: binary.SIXTEEN,
             value: 16,
             max: 1,
-            img: "coins/binary/sixteen.png",
+            img: "numbersystems/binary/sixteen.png",
             class: "coin",
           },
           {
@@ -183,7 +182,7 @@ export default class NumbersystemsMixin extends Vue {
             type: binary.THIRTYTWO,
             value: 32,
             max: 1,
-            img: "coins/binary/thirtytwo.png",
+            img: "numbersystems/binary/thirtytwo.png",
             class: "coin",
           },
           {
@@ -191,7 +190,7 @@ export default class NumbersystemsMixin extends Vue {
             type: binary.SIXTYFOUR,
             value: 64,
             max: 1,
-            img: "coins/binary/sixtyfour.png",
+            img: "numbersystems/binary/sixtyfour.png",
             class: "coin",
           },
         ];
@@ -203,7 +202,7 @@ export default class NumbersystemsMixin extends Vue {
             type: maya.ONE,
             value: 1,
             max: 4,
-            img: "mayas/nut.png",
+            img: "numbersystems/mayas/nut.png",
             class: "nut",
           },
           {
@@ -211,7 +210,7 @@ export default class NumbersystemsMixin extends Vue {
             type: maya.FIVE,
             value: 5,
             max: 3,
-            img: "mayas/stick.png",
+            img: "numbersystems/mayas/stick.png",
             class: "stick",
           },
         ];

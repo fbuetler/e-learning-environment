@@ -1,5 +1,5 @@
 <template>
-  <Game :type="type">
+  <Game :type="type" :args="args">
     <h2 slot="title">{{ title }}</h2>
     <div slot="description">
       <p>
@@ -7,12 +7,24 @@
         50.
       </p>
       <div class="flex-item flex-center flex-row">
-        <div><img :src="require('@/assets/coins/normal/fifty.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/twenty.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/ten.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/five.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/two.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/one.png')" /></div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/fifty.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/twenty.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/ten.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/five.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/two.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/one.png')" />
+        </div>
       </div>
       <p>
         Die Einwohner und Einwohnerinnen von Unterbiberland streben an, jede
@@ -39,6 +51,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Game, { GameType } from "@/components/Game.vue";
 import views from "@/views/Views";
+import { numbersystemType } from "@/components/numbersystems/NumbersystemsMixin.vue";
 
 @Component<NormalSwap>({
   components: {
@@ -46,8 +59,9 @@ import views from "@/views/Views";
   },
 })
 export default class NormalSwap extends Vue {
-  type: GameType = GameType.COINSSWAP;
-  title = views.find((el) => el.component === GameType.COINSSWAP).title;
+  type: GameType = GameType.NUMBERSYSTEMSSWAP;
+  title = views.find((el) => el.component === GameType.NUMBERSYSTEMSSWAP).title;
+  args = { numbersystemType: numbersystemType.DECIMAL };
   video = "normalswap.mp4";
   description = "";
 }

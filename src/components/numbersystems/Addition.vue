@@ -19,7 +19,7 @@
         <div class="flex-item flex-center flex-col flex-flex card">
           <div class="flex-item flex-center flex-row">
             <div v-for="nutIndex in summand[nut]" :key="nutIndex" class="nut">
-              <img :src="require('@/assets/mayas/nut.png')" />
+              <img :src="require('@/assets/numbersystems/mayas/nut.png')" />
             </div>
           </div>
           <div class="flex-item flex-center flex-col">
@@ -28,7 +28,7 @@
               :key="stickIndex"
               class="stick"
             >
-              <img :src="require('@/assets/mayas/stick.png')" />
+              <img :src="require('@/assets/numbersystems/mayas/stick.png')" />
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
         <div v-else>
           <div class="flex-item flex-center flex-row">
             <div v-for="index in selectedItems[nut]" :key="index" class="nut">
-              <img :src="require('@/assets/mayas/nut.png')" />
+              <img :src="require('@/assets/numbersystems/mayas/nut.png')" />
             </div>
           </div>
           <div class="flex-item flex-center flex-col">
@@ -68,7 +68,7 @@
               :key="index"
               class="stick"
             >
-              <img :src="require('@/assets/mayas/stick.png')" />
+              <img :src="require('@/assets/numbersystems/mayas/stick.png')" />
             </div>
           </div>
         </div>

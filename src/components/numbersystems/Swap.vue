@@ -2,7 +2,7 @@
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
     <div>Stelle die gleiche Summe mit weniger Münzen dar</div>
-    <div id="coins" class="flex-item flex-center flex-col flex-flex card">
+    <div id="items" class="flex-item flex-center flex-col flex-flex card">
       <slot>
         <div class="flex-item flex-center flex-row">
           <div
@@ -108,8 +108,8 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
     do {
       this.generatedItems = this.generateItems(this.type);
     } while (
-      this.countCoins(this.generatedItems) ===
-      this.countCoins(
+      this.sum(this.generatedItems) ===
+      this.sum(
         this.calcMinimalAmount(
           this.sumItems(this.type, this.generatedItems),
           this.type
@@ -123,11 +123,11 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
     return (
       this.sumItems(this.type, this.selectedItems) ===
         this.sumItems(this.type, this.generatedItems) &&
-      this.countCoins(this.selectedItems) < this.countCoins(this.generatedItems)
+      this.sum(this.selectedItems) < this.sum(this.generatedItems)
     );
   }
 
-  countCoins(arr: number[]): number {
+  sum(arr: number[]): number {
     return arr.reduce((sum, el) => (sum += el));
   }
 

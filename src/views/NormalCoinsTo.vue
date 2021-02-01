@@ -7,12 +7,24 @@
         50.
       </p>
       <div class="flex-item flex-center flex-row">
-        <div><img :src="require('@/assets/coins/normal/fifty.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/twenty.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/ten.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/five.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/two.png')" /></div>
-        <div><img :src="require('@/assets/coins/normal/one.png')" /></div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/fifty.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/twenty.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/ten.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/five.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/two.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/decimal/one.png')" />
+        </div>
       </div>
       <h4>Schwierigkeitsgrad <u>leicht</u>:</h4>
       <p>

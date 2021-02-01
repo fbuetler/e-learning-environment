@@ -2,7 +2,7 @@
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
     <div>Welche Summe wird hier dargestellt?</div>
-    <div id="coins" class="flex-item flex-center flex-col flex-flex card">
+    <div id="items" class="flex-item flex-center flex-col flex-flex card">
       <slot>
         <div class="flex-item flex-center flex-row">
           <div

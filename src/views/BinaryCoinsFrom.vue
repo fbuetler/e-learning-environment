@@ -6,13 +6,27 @@
         In Oberbiberland verwendet man die Bibercoins der folgenden Grösse
       </p>
       <div class="flex-item flex-center flex-row">
-        <div><img :src="require('@/assets/coins/binary/sixtyfour.png')" /></div>
-        <div><img :src="require('@/assets/coins/binary/thirtytwo.png')" /></div>
-        <div><img :src="require('@/assets/coins/binary/sixteen.png')" /></div>
-        <div><img :src="require('@/assets/coins/binary/eight.png')" /></div>
-        <div><img :src="require('@/assets/coins/binary/four.png')" /></div>
-        <div><img :src="require('@/assets/coins/binary/two.png')" /></div>
-        <div><img :src="require('@/assets/coins/binary/one.png')" /></div>
+        <div>
+          <img :src="require('@/assets/numbersystems/binary/sixtyfour.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/binary/thirtytwo.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/binary/sixteen.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/binary/eight.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/binary/four.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/binary/two.png')" />
+        </div>
+        <div>
+          <img :src="require('@/assets/numbersystems/binary/one.png')" />
+        </div>
       </div>
       <p>
         Alle Bewohner und Bewohnerinnen von Oberbiberland halten sich an die
