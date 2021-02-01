@@ -29,7 +29,7 @@ import { numbersystemType } from "@/components/numbersystems/NumbersystemsMixin.
 export default class MayasTo extends Vue {
   type: GameType = GameType.NUMBERSYSTEMSTO;
   args = { numbersystemType: numbersystemType.MAYA };
-  title = views.find((el) => el.component === GameType.NUMBERSYSTEMSTO).title;
+  title = views.find((el) => el.component === "MayasTo").title;
   video = "mayasto.mp4";
 }
 </script>

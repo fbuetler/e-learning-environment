@@ -51,7 +51,7 @@ import { numbersystemType } from "@/components/numbersystems/NumbersystemsMixin.
 })
 export default class NormalCoinsFrom extends Vue {
   type: GameType = GameType.NUMBERSYSTEMSFROM;
-  title = views.find((el) => el.component === GameType.NUMBERSYSTEMSFROM).title;
+  title = views.find((el) => el.component === "NormalCoinsFrom").title;
   args = { numbersystemType: numbersystemType.DECIMAL };
   video = "normalfrom.mp4";
   description = ``;

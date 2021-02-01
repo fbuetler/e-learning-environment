@@ -57,7 +57,7 @@ import { numbersystemType } from "@/components/numbersystems/NumbersystemsMixin.
 })
 export default class BinaryCoinsFrom extends Vue {
   type: GameType = GameType.NUMBERSYSTEMSFROM;
-  title = views.find((el) => el.component === GameType.NUMBERSYSTEMSFROM).title;
+  title = views.find((el) => el.component === "BinaryCoinsFrom").title;
   args = { numbersystemType: numbersystemType.BINARY };
   video = "binaryfrom.mp4";
   description = ``;

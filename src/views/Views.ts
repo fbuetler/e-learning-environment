@@ -44,7 +44,7 @@ const views: Array<{
     path: "/mayas/to",
     img: "numbersystems/mayas/mayas_to.png",
     view: "MayasTo",
-    component: "NumberSystemsTo",
+    component: "MayasTo",
   },
   {
     id: 6,
@@ -52,7 +52,7 @@ const views: Array<{
     path: "/mayas/from",
     img: "numbersystems/mayas/mayas_from.png",
     view: "MayasFrom",
-    component: "NumberSystemsFrom",
+    component: "MayasFrom",
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ const views: Array<{
     path: "/mayas/addition",
     img: "numbersystems/mayas/mayas_addition.png",
     view: "MayasAddition",
-    component: "NumberSystemsAddition",
+    component: "MayasAddition",
   },
   {
     id: 16,
@@ -68,7 +68,7 @@ const views: Array<{
     path: "/coins/normal/to",
     img: "numbersystems/decimal/decimal_to.png",
     view: "NormalCoinsTo",
-    component: "NumberSystemsTo",
+    component: "NormalCoinsTo",
   },
   {
     id: 17,
@@ -76,7 +76,7 @@ const views: Array<{
     path: "/coins/normal/from",
     img: "numbersystems/decimal/decimal_from.png",
     view: "NormalCoinsFrom",
-    component: "NumberSystemsFrom",
+    component: "NormalCoinsFrom",
   },
   {
     id: 18,
@@ -84,7 +84,7 @@ const views: Array<{
     path: "/coins/normal/swap",
     img: "numbersystems/decimal/decimal_swap.png",
     view: "NormalCoinsSwap",
-    component: "NumberSystemsSwap",
+    component: "NormalCoinsSwap",
   },
   {
     id: 19,
@@ -92,7 +92,7 @@ const views: Array<{
     path: "/coins/binary/to",
     img: "numbersystems/binary/binary_to.png",
     view: "BinaryCoinsTo",
-    component: "NumberSystemsTo",
+    component: "BinaryCoinsTo",
   },
   {
     id: 20,
@@ -100,7 +100,7 @@ const views: Array<{
     path: "/coins/binary/from",
     img: "numbersystems/binary/binary_from.png",
     view: "BinaryCoinsFrom",
-    component: "NumberSystemsFrom",
+    component: "BinaryCoinsFrom",
   },
   {
     id: 15,
