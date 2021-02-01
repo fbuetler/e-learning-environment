@@ -75,8 +75,6 @@ import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
 
-// TODO: (optional) less coins or minimal number of coins? -> both: difficulties
-
 @Component<Swap>({
   components: {
     ItemSelection,

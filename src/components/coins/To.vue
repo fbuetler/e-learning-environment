@@ -65,8 +65,6 @@ import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
 
-// TODO (optional) reverse coin order
-
 @Component<To>({
   components: {
     ItemSelection,

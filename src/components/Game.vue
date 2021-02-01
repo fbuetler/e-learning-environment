@@ -87,10 +87,16 @@ export enum GameType {
 
 /*
   TODO:
+    - reverse coins/mayas order
+    - reorder buttons: next, check, difficulty, undo, trashcan, tutorial
+    - visual feedback for wrong input e.g in binary coins/to
+    - rework words i.e words are not recognized
     - union To, From from mayas and coins
+    - symbol/encryption does not provide content: what to do?
     - optional: unit tests for each function
     - optional: multilingual (vue-i18n)
     - optional: move parts of number systems task into components
+    - optional: add dificulty level to coins/swap: minimal coins
 */
 
 @Component({
