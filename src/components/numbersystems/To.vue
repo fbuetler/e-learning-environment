@@ -34,7 +34,7 @@
               <div
                 v-for="j in amount"
                 :key="`amount-${j}`"
-                :class="items(type)[j].class"
+                :class="items(type)[i].class"
               >
                 <img :src="require(`@/assets/${items(type)[i].img}`)" />
               </div>
@@ -78,7 +78,6 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
   implements GameInterface {
   @Prop({ required: true })
   args!: { numbersystemType: numbersystemType };
-
   type = this.args.numbersystemType;
 
   selected: number = null;
@@ -96,7 +95,7 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
   }
 
   restartGame() {
-    this.number = Math.ceil(this.randomNumber(this.limit));
+    this.number = Math.ceil(this.randomNumber(this.limit(this.type)));
     this.selected = null;
     this.selectedItems = new Array<number>(this.items(this.type).length).fill(
       0
@@ -145,7 +144,7 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
 
   getAnimationSteps(): Array<string> {
     const correctNumber = this.number;
-    const wrongNumber = Math.ceil(this.randomNumber(this.limit));
+    const wrongNumber = Math.ceil(this.randomNumber(this.limit(this.type)));
 
     return this.mapNumberToActions(wrongNumber, this.type)
       .concat(["button-menu-check", "undo"])

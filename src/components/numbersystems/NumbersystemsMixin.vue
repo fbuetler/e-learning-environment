@@ -34,8 +34,6 @@ export enum numbersystemType {
 
 @Component
 export default class NumbersystemsMixin extends Vue {
-  limit = 100;
-
   generateItems(type: numbersystemType): number[] {
     const items = new Array<number>(this.items(type).length).fill(0);
     for (let i = 0; i < items.length; i++) {
@@ -79,6 +77,23 @@ export default class NumbersystemsMixin extends Vue {
         "dropzone",
       ]).flat()
     );
+  }
+
+  limit(type: numbersystemType): number {
+    switch (type) {
+      case numbersystemType.DECIMAL: {
+        return 100;
+      }
+      case numbersystemType.BINARY: {
+        return 100;
+      }
+      case numbersystemType.MAYA: {
+        return 19;
+      }
+      default: {
+        return 100;
+      }
+    }
   }
 
   items(type: numbersystemType): item[] {

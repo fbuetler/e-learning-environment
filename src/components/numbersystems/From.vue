@@ -13,11 +13,9 @@
             <div
               v-for="j in amount"
               :key="`amount-${j}`"
-              :class="items(numbersystemType)[i].class"
+              :class="items(type)[i].class"
             >
-              <img
-                :src="require(`@/assets/${items(numbersystemType)[i].img}`)"
-              />
+              <img :src="require(`@/assets/${items(type)[i].img}`)" />
             </div>
           </div>
         </div>
@@ -49,8 +47,7 @@ export default class From extends Mixins(GameMixin, NumbersystemsMixin)
   implements GameInterface {
   @Prop({ required: true })
   args!: { numbersystemType: numbersystemType };
-
-  numbersystemType = this.args.numbersystemType;
+  type = this.args.numbersystemType;
 
   number: number = null;
   solution: number = null;
@@ -63,8 +60,8 @@ export default class From extends Mixins(GameMixin, NumbersystemsMixin)
 
   restartGame() {
     this.number = null;
-    this.generatedItems = this.generateItems(this.numbersystemType);
-    this.solution = this.sumItems(this.numbersystemType, this.generatedItems);
+    this.generatedItems = this.generateItems(this.type);
+    this.solution = this.sumItems(this.type, this.generatedItems);
     this.animationSteps = this.getAnimationSteps();
   }
 
@@ -74,7 +71,7 @@ export default class From extends Mixins(GameMixin, NumbersystemsMixin)
 
   getAnimationSteps(): Array<string> {
     return [
-      `answer-input:${Math.ceil(Math.random() * this.limit)}`,
+      `answer-input:${Math.ceil(Math.random() * this.limit(this.type))}`,
       "button-menu-check",
       `answer-input:${this.solution}`,
       "button-menu-check",

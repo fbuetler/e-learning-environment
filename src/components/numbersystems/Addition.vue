@@ -18,13 +18,13 @@
       >
         <div class="flex-item flex-center flex-col flex-flex card">
           <div class="flex-item flex-center flex-row">
-            <div v-for="nutIndex in summand[nut]" :key="nutIndex" class="nut">
+            <div v-for="nutIndex in summand[0]" :key="nutIndex" class="nut">
               <img :src="require('@/assets/numbersystems/mayas/nut.png')" />
             </div>
           </div>
           <div class="flex-item flex-center flex-col">
             <div
-              v-for="stickIndex in summand[stick]"
+              v-for="stickIndex in summand[1]"
               :key="stickIndex"
               class="stick"
             >
@@ -53,21 +53,17 @@
         @dragend.prevent
         @drop.stop.prevent="addItem()"
       >
-        <div v-if="selectedItems[nut] === 0 && selectedItems[stick] === 0">
+        <div v-if="selectedItems[0] === 0 && selectedItems[1] === 0">
           Platziere hier die Nüsse und Stöcke
         </div>
         <div v-else>
           <div class="flex-item flex-center flex-row">
-            <div v-for="index in selectedItems[nut]" :key="index" class="nut">
+            <div v-for="index in selectedItems[0]" :key="index" class="nut">
               <img :src="require('@/assets/numbersystems/mayas/nut.png')" />
             </div>
           </div>
           <div class="flex-item flex-center flex-col">
-            <div
-              v-for="index in selectedItems[stick]"
-              :key="index"
-              class="stick"
-            >
+            <div v-for="index in selectedItems[1]" :key="index" class="stick">
               <img :src="require('@/assets/numbersystems/mayas/stick.png')" />
             </div>
           </div>
@@ -81,7 +77,7 @@
     >
       <ItemSelection
         :selected="selected"
-        :items="items"
+        :items="items(type)"
         @selected="selected = $event"
       />
       <Undo @undo-operation="undo()" />
@@ -90,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Mixins } from "vue-property-decorator";
+import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import NumbersystemsMixin, {
   maya,
@@ -109,6 +105,10 @@ import Undo from "@/components/Undo.vue";
 })
 export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
   implements GameInterface {
+  @Prop({ required: true })
+  args!: { numbersystemType: numbersystemType };
+  type = this.args.numbersystemType;
+
   sum: number = null;
   solution: number = null;
   summands: Array<Array<maya>> = null; // unfortunately Maps and Sets are not reactive in vue 2
@@ -116,7 +116,6 @@ export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
   selectedItems: Array<maya> = null;
   animationSteps: Array<string> = null;
 
-  limit = 19;
   numberOfSummands = 2;
 
   currentDifficultyLevel = 1;
@@ -138,7 +137,7 @@ export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
         this.summands[i] = summand;
         sum += this.sumItems(numbersystemType.MAYA, summand);
       }
-    } while (sum > this.limit);
+    } while (sum > this.limit(this.type));
     this.solution = sum;
     // level 2
     this.selectedItems = new Array<number>(Object.keys(maya).length / 2).fill(
@@ -181,7 +180,7 @@ export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
 
   getAnimationSteps(): Array<string> {
     const correctNumber = this.solution;
-    const wrongNumber = Math.ceil(Math.random() * this.limit);
+    const wrongNumber = Math.ceil(Math.random() * this.limit(this.type));
 
     if (this.currentDifficultyLevel === 1) {
       return [

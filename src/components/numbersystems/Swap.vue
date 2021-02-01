@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Mixins } from "vue-property-decorator";
+import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import NumbersystemsMixin, {
   numbersystemType,
@@ -86,7 +86,9 @@ import Difficulty from "@/components/Difficulty.vue";
 })
 export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
   implements GameInterface {
-  type = numbersystemType.DECIMAL;
+  @Prop({ required: true })
+  args!: { numbersystemType: numbersystemType };
+  type = this.args.numbersystemType;
 
   selected: number = null;
   selectedItems: Array<number> = null;
@@ -111,8 +113,8 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
       this.sum(this.generatedItems) ===
       this.sum(
         this.calcMinimalAmount(
-          this.sumItems(this.type, this.generatedItems),
-          this.type
+          this.type,
+          this.sumItems(this.type, this.generatedItems)
         )
       )
     );
@@ -151,7 +153,7 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
 
   getAnimationSteps(): Array<string> {
     const correctSum = this.sumItems(this.type, this.generatedItems);
-    const wrongSum = Math.ceil(Math.random() * this.limit);
+    const wrongSum = Math.ceil(Math.random() * this.limit(this.type));
 
     return this.mapNumberToActions(wrongSum, this.type)
       .concat(["button-menu-check", "undo"])
