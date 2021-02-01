@@ -7,11 +7,16 @@
       jede Baumhöhe einmal vor. Die Zahlen rund um das Feld geben an, wie viele
       Bäume man sieht, wenn man die Baumreihe aus dieser Position anschaut.
       <img
-        src="require('@/assets/trees/sudoku_explanation_4.png')"
-        style="max-width: 100%; margin: 1em"
+        :src="require('@/assets/trees/sudoku_explanation_4.png')"
+        class="center"
       />
       Auf den Feldern in dieser Aufgabe sind nur wenige Informationen vorhanden.
-      Kannst du die Baumreihen trotzdem bilden?
+      Kannst du die Baumreihen trotzdem bilden? <br />
+      Die Schwierigkeitsgrade unterscheiden sich indem auf "leicht" keine Zahlen
+      rund um das Feld und die meisten Bäume im Feld sind bereits gesetzt, auf
+      "mittelschwer" und "schwer" werden einige Zahlen rund um das Feld und
+      einige Bäume im Feld angezeigt, wobei die Anzahl Bäume im Feld auf
+      "schwer" verringert ist.
     </p>
     <video loop controls muted slot="video">
       <source :src="require('@/assets/tutorials/' + video)" />
@@ -39,3 +44,12 @@ export default class TreeSudokuOfFour extends Vue {
   video = "treesudoku4.mp4";
 }
 </script>
+
+<style scoped>
+.center {
+  display: block;
+  width: 50%;
+  max-height: 300px;
+  margin: 1em auto;
+}
+</style>
