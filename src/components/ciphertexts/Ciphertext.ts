@@ -91,7 +91,7 @@ abstract class Canvas {
     this.width = canvas.width;
     this.height = canvas.height;
 
-    this.lineWidth = 6;
+    this.lineWidth = 4;
     this.ctx.lineWidth = this.lineWidth;
     this.ctx.strokeStyle = "#000000";
     this.ctx.lineCap = "butt";
@@ -193,7 +193,7 @@ class NumberCanvas extends Canvas implements SymbolCanvasInterface {
       this.ctx.arc(
         centerX,
         centerY,
-        Math.min(this.width, this.height) / 20,
+        Math.min(this.width, this.height) / 15,
         0,
         2 * Math.PI,
         false
@@ -221,9 +221,11 @@ class NumberCanvas extends Canvas implements SymbolCanvasInterface {
   }
 
   private drawText(text: string) {
-    this.ctx.font = "30px Arial";
+    const fontSize = 30;
+    this.ctx.font = `${fontSize}px Arial`;
     this.ctx.textAlign = "center";
-    this.ctx.fillText(text, this.height / 2, this.width / 2);
+    this.ctx.textBaseline = "middle";
+    this.ctx.fillText(text, this.width / 2, this.height / 2);
   }
 }
 
@@ -350,9 +352,11 @@ class LetterCanvas extends Canvas implements SymbolCanvasInterface {
   }
 
   private drawText(text: string) {
-    this.ctx.font = "30px Arial";
+    const fontSize = 30;
+    this.ctx.font = `${fontSize}px Arial`;
     this.ctx.textAlign = "center";
-    this.ctx.fillText(text, this.height / 2, this.width / 2);
+    this.ctx.textBaseline = "middle";
+    this.ctx.fillText(text, this.width / 2, this.height / 2);
   }
 }
 

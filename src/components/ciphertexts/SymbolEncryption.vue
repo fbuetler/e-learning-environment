@@ -110,8 +110,8 @@ export default class SymbolEncryption extends Mixins(GameMixin)
     const id = container.childElementCount;
     const canvas = document.createElement("canvas") as HTMLCanvasElement;
     canvas.setAttribute("id", `encrypted-${id}`);
-    canvas.setAttribute("width", "75");
-    canvas.setAttribute("height", "75");
+    canvas.setAttribute("width", "50");
+    canvas.setAttribute("height", "50");
     canvas.innerText = "encrypted symbol";
     container.appendChild(canvas);
   }

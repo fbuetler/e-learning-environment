@@ -1,6 +1,6 @@
 <template>
-  <div id="symbol-table" class="card">
-    <table>
+  <div id="symbol-table">
+    <table class="card">
       <tbody>
         <tr v-for="(row, rowIndex) in table" :key="rowIndex">
           <td
@@ -17,8 +17,8 @@
           >
             <canvas
               :id="`shape-${rowIndex}-${shapeIndex}`"
-              width="100"
-              height="100"
+              :width="`${50}`"
+              :height="`${50}`"
               >Shape</canvas
             >
           </td>
