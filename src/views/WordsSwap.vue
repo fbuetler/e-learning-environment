@@ -2,7 +2,10 @@
   <Game :type="type">
     <h2 slot="title">{{ title }}</h2>
     <p slot="description">
-      Versuche neue Wörter zu bilden, indem du zwei Buchstaben vertauschst.
+      Versuche ein sinnvolles Wort zu bilden, indem du zwei Buchstaben
+      vertauschst. Für den Schwierigkeitsgrad "leicht" muss nur ein
+      Buchstabenpaar vertauscht werden. Für den Schwierigkeitsgrad
+      "mittelschwer" sind zwei Tausche notwendig.
     </p>
     <video loop controls muted slot="video">
       <source :src="require('@/assets/tutorials/' + video)" />
