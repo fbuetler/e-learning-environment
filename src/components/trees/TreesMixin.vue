@@ -38,6 +38,7 @@ export default class TreesMixin extends Vue {
         id: i,
         type: i,
         value: i,
+        max: 0,
         img: `trees/tree_${i}_${size}.png`,
         class: "",
       });

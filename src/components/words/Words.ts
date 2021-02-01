@@ -88,6 +88,7 @@ export const items: item[] = alphabet.map((el, i) => {
     id: i,
     type: i,
     value: i,
+    max: 0,
     img: el,
     class: "word-char",
   };
