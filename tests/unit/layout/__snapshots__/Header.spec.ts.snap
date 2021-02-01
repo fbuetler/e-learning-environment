@@ -5,6 +5,7 @@ exports[`Header.vue renders correctly 1`] = `
   <a>
     <img
       src=""
+      title="Zurück zur Hauptseite"
     />
   </a>
 </header>

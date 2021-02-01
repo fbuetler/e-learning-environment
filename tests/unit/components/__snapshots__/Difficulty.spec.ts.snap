@@ -2,25 +2,33 @@
 
 exports[`Difficulty.vue renders correctly 1`] = `
 <div
-  class="difficulty flex-item flex-center flex-row"
+  class="flex-item flex-center flex-col"
 >
-  <div
-    class="card clickable selected"
-    id="difficulty-1"
-    title="Schwierigkeitsgrad: leicht "
-  >
-    <img
-      src=""
-    />
+  <div>
+    Ändere den Schwierigkeitsgrad:
   </div>
+   
   <div
-    class="card clickable"
-    id="difficulty-2"
-    title="Schwierigkeitsgrad: mittelschwer "
+    class="difficulty flex-item flex-center flex-row"
   >
-    <img
-      src=""
-    />
+    <div
+      class="card clickable selected"
+      id="difficulty-1"
+      title="Schwierigkeitsgrad: leicht "
+    >
+      <img
+        src=""
+      />
+    </div>
+    <div
+      class="card clickable"
+      id="difficulty-2"
+      title="Schwierigkeitsgrad: mittelschwer "
+    >
+      <img
+        src=""
+      />
+    </div>
   </div>
 </div>
 `;
