@@ -1,22 +1,25 @@
 <template>
-  <div class="difficulty flex-item flex-center flex-row">
-    <div
-      v-for="level in displayDifficultyLevels"
-      :id="`difficulty-${level}`"
-      :key="level"
-      :title="
-        `Schwierigkeitsgrad: ${getDifficultyDescription(
-          level
-        )} ${getLockedDescription(level > difficultyLevels)}`
-      "
-      :class="{
-        selected: level === selected,
-        locked: level > difficultyLevels,
-      }"
-      class="card clickable"
-      @click="selectDifficulty(level)"
-    >
-      <img :src="require(`@/assets/difficulty/difficulty_${level}.png`)" />
+  <div class="flex-item flex-center flex-col">
+    <div>Ändere den Schwierigkeitsgrad:</div>
+    <div class="difficulty flex-item flex-center flex-row">
+      <div
+        v-for="level in displayDifficultyLevels"
+        :id="`difficulty-${level}`"
+        :key="level"
+        :title="
+          `Schwierigkeitsgrad: ${getDifficultyDescription(
+            level
+          )} ${getLockedDescription(level > difficultyLevels)}`
+        "
+        :class="{
+          selected: level === selected,
+          locked: level > difficultyLevels,
+        }"
+        class="card clickable"
+        @click="selectDifficulty(level)"
+      >
+        <img :src="require(`@/assets/difficulty/difficulty_${level}.png`)" />
+      </div>
     </div>
   </div>
 </template>
