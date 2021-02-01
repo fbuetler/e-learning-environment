@@ -1,28 +1,17 @@
 <template>
-  <div>
+  <div @dragend.prevent="selected = null">
     <slot name="animation" :animationSteps="animationSteps" />
-    <div>Stelle die gleiche Summe mit weniger Münzen dar</div>
-    <div id="coins" class="flex-item flex-center flex-col flex-flex card">
-      <slot>
-        <div class="flex-item flex-center flex-row">
-          <div
-            v-for="(amount, i) in generatedItems"
-            :key="`item-${i}`"
-            class="flex-item flex-center flex-col"
-          >
-            <div
-              v-for="j in amount"
-              :key="`amount-${j}`"
-              :class="items(type)[i].class"
-            >
-              <img :src="require(`@/assets/${items(type)[i].img}`)" />
-            </div>
-          </div>
-        </div>
-      </slot>
+    <Difficulty
+      v-if="displayDifficulty"
+      :selected="currentDifficultyLevel"
+      :difficultyLevels="difficultyLevels"
+      @difficulty-selected="currentDifficultyLevel = $event"
+    />
+    <div class="number">
+      Stell die folgende Summe
+      <b v-if="currentDifficultyLevel === 2">mit möglichst wenig Münzen</b> dar:
     </div>
-    <hr />
-    <div>Lösung:</div>
+    <div id="number" class="big-text">{{ number }}</div>
     <div
       id="dropzone"
       class="flex-item flex-center flex-col flex-flex dropzone"
@@ -45,7 +34,7 @@
               <div
                 v-for="j in amount"
                 :key="`amount-${j}`"
-                :class="items(type)[i].class"
+                :class="items(type)[j].class"
               >
                 <img :src="require(`@/assets/${items(type)[i].img}`)" />
               </div>
@@ -54,6 +43,7 @@
         </slot>
       </div>
     </div>
+    <hr />
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
@@ -68,65 +58,71 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Mixins } from "vue-property-decorator";
+import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import CoinsMixin, { coinType } from "@/components/coins/CoinsMixin.vue";
+import NumbersystemsMixin, {
+  numbersystemType,
+} from "@/components/numbersystems/NumbersystemsMixin.vue";
 import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
 
-@Component<Swap>({
+@Component<To>({
   components: {
     ItemSelection,
     Undo,
     Difficulty,
   },
 })
-export default class Swap extends Mixins(GameMixin, CoinsMixin)
+export default class To extends Mixins(GameMixin, NumbersystemsMixin)
   implements GameInterface {
-  type = coinType.NORMAL;
+  @Prop({ required: true })
+  args!: { numbersystemType: numbersystemType };
+
+  type = this.args.numbersystemType;
 
   selected: number = null;
+  number: number = null;
   selectedItems: Array<number> = null;
-  generatedItems: Array<number> = null;
   animationSteps: Array<string> = null;
 
+  // there are only difficulty levels for numbersystemType.DECIMAL:
+  // represent number with minimal amount of coints
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
   isStarted(): boolean {
-    return this.generatedItems === null;
+    return this.number === null;
   }
 
   restartGame() {
+    this.number = Math.ceil(this.randomNumber(this.limit));
     this.selected = null;
     this.selectedItems = new Array<number>(this.items(this.type).length).fill(
       0
-    );
-    do {
-      this.generatedItems = this.generateItems(this.type);
-    } while (
-      this.countCoins(this.generatedItems) ===
-      this.countCoins(
-        this.calcMinimalAmount(
-          this.sumItems(this.type, this.generatedItems),
-          this.type
-        )
-      )
     );
     this.animationSteps = this.getAnimationSteps();
   }
 
   isCorrect(): boolean {
-    return (
-      this.sumItems(this.type, this.selectedItems) ===
-        this.sumItems(this.type, this.generatedItems) &&
-      this.countCoins(this.selectedItems) < this.countCoins(this.generatedItems)
-    );
-  }
-
-  countCoins(arr: number[]): number {
-    return arr.reduce((sum, el) => (sum += el));
+    if (
+      this.type === numbersystemType.BINARY &&
+      this.selectedItems.some((el) => el > 1)
+    ) {
+      return false;
+    }
+    const sum = this.sumItems(this.type, this.selectedItems);
+    if (
+      this.currentDifficultyLevel === 2 &&
+      this.type === numbersystemType.DECIMAL
+    ) {
+      return (
+        sum === this.number &&
+        JSON.stringify(this.selectedItems) ===
+          JSON.stringify(this.calcMinimalAmount(this.number, this.type))
+      );
+    }
+    return sum === this.number;
   }
 
   addItem() {
@@ -148,22 +144,29 @@ export default class Swap extends Mixins(GameMixin, CoinsMixin)
   }
 
   getAnimationSteps(): Array<string> {
-    const correctSum = this.sumItems(this.type, this.generatedItems);
-    const wrongSum = Math.ceil(Math.random() * this.limit);
+    const correctNumber = this.number;
+    const wrongNumber = Math.ceil(this.randomNumber(this.limit));
 
-    return this.mapNumberToActions(wrongSum, this.type)
+    return this.mapNumberToActions(wrongNumber, this.type)
       .concat(["button-menu-check", "undo"])
-      .concat(this.mapNumberToActions(correctSum, this.type))
+      .concat(this.mapNumberToActions(correctNumber, this.type))
       .concat(["button-menu-check", "button-menu-next"]);
   }
 
   get nothingSelected(): boolean {
     return this.selectedItems.every((el) => el === 0);
   }
+
+  get displayDifficulty(): boolean {
+    return this.type === numbersystemType.DECIMAL;
+  }
 }
 </script>
 
 <style scoped>
+.number {
+  margin: 1em;
+}
 .dropzone {
   min-height: 5em;
 }

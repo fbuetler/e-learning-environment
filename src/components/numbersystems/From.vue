@@ -13,9 +13,11 @@
             <div
               v-for="j in amount"
               :key="`amount-${j}`"
-              :class="items(coinType)[i].class"
+              :class="items(numbersystemType)[i].class"
             >
-              <img :src="require(`@/assets/${items(coinType)[i].img}`)" />
+              <img
+                :src="require(`@/assets/${items(numbersystemType)[i].img}`)"
+              />
             </div>
           </div>
         </div>
@@ -38,15 +40,17 @@
 <script lang="ts">
 import { Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import CoinsMixin, { coinType } from "@/components/coins/CoinsMixin.vue";
+import NumbersystemsMixin, {
+  numbersystemType,
+} from "@/components/numbersystems/NumbersystemsMixin.vue";
 
 @Component<From>({})
-export default class From extends Mixins(GameMixin, CoinsMixin)
+export default class From extends Mixins(GameMixin, NumbersystemsMixin)
   implements GameInterface {
   @Prop({ required: true })
-  args!: { coinType: coinType };
+  args!: { numbersystemType: numbersystemType };
 
-  coinType = this.args.coinType;
+  numbersystemType = this.args.numbersystemType;
 
   number: number = null;
   solution: number = null;
@@ -59,8 +63,8 @@ export default class From extends Mixins(GameMixin, CoinsMixin)
 
   restartGame() {
     this.number = null;
-    this.generatedItems = this.generateItems(this.coinType);
-    this.solution = this.sumItems(this.coinType, this.generatedItems);
+    this.generatedItems = this.generateItems(this.numbersystemType);
+    this.solution = this.sumItems(this.numbersystemType, this.generatedItems);
     this.animationSteps = this.getAnimationSteps();
   }
 

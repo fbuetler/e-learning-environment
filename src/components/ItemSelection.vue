@@ -34,6 +34,7 @@ export type item = {
   id: number;
   type: number;
   value: number;
+  max: number;
   img: string;
   class: string;
 };

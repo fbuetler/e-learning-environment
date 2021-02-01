@@ -30,7 +30,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Game, { GameType } from "@/components/Game.vue";
 import views from "@/views/Views";
-import { coinType } from "@/components/coins/CoinsMixin.vue";
+import { numbersystemType } from "@/components/numbersystems/NumbersystemsMixin.vue";
 
 @Component<NormalCoinsFrom>({
   components: {
@@ -38,9 +38,9 @@ import { coinType } from "@/components/coins/CoinsMixin.vue";
   },
 })
 export default class NormalCoinsFrom extends Vue {
-  type: GameType = GameType.COINSFROM;
-  title = views.find((el) => el.component === GameType.COINSFROM).title;
-  args = { coinType: coinType.NORMAL };
+  type: GameType = GameType.NUMBERSYSTEMSFROM;
+  title = views.find((el) => el.component === GameType.NUMBERSYSTEMSFROM).title;
+  args = { numbersystemType: numbersystemType.DECIMAL };
   video = "normalfrom.mp4";
   description = ``;
 }

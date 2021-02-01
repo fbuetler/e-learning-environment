@@ -34,7 +34,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Game, { GameType } from "@/components/Game.vue";
 import views from "@/views/Views";
-import { coinType } from "@/components/coins/CoinsMixin.vue";
+import { numbersystemType } from "@/components/numbersystems/NumbersystemsMixin.vue";
 
 @Component<BinaryCoinsTo>({
   components: {
@@ -42,9 +42,9 @@ import { coinType } from "@/components/coins/CoinsMixin.vue";
   },
 })
 export default class BinaryCoinsTo extends Vue {
-  type: GameType = GameType.COINSTO;
-  title = views.find((el) => el.component === GameType.COINSTO).title;
-  args = { coinType: coinType.BINARY };
+  type: GameType = GameType.NUMBERSYSTEMSTO;
+  title = views.find((el) => el.component === GameType.NUMBERSYSTEMSTO).title;
+  args = { numbersystemType: numbersystemType.BINARY };
   video = "binaryto.mp4";
   description = ``;
 }

@@ -1,5 +1,5 @@
 <template>
-  <Game :type="type">
+  <Game :type="type" :args="args">
     <h2 slot="title">{{ title }}</h2>
     <p slot="description">
       Der Maya‐Stamm der Biber verwendet Nüsse und Hölzchen, um Zahlen
@@ -20,6 +20,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Game, { GameType } from "@/components/Game.vue";
 import views from "@/views/Views";
+import { numbersystemType } from "@/components/numbersystems/NumbersystemsMixin.vue";
 
 @Component<MayasAddition>({
   components: {
@@ -27,8 +28,10 @@ import views from "@/views/Views";
   },
 })
 export default class MayasAddition extends Vue {
-  type: GameType = GameType.MAYASADDITION;
-  title = views.find((el) => el.component === GameType.MAYASADDITION).title;
+  type: GameType = GameType.NUMBERSYSTEMSADDITION;
+  args = { numbersystemType: numbersystemType.MAYA };
+  title = views.find((el) => el.component === GameType.NUMBERSYSTEMSADDITION)
+    .title;
   video = "mayasaddition.mp4";
 }
 </script>

@@ -55,16 +55,14 @@ import WordsAdd from "@/components/words/Add.vue";
 import WordsChange from "@/components/words/Change.vue";
 import WordsRemove from "@/components/words/Remove.vue";
 import WordsSwap from "@/components/words/Swap.vue";
-import MayasTo from "@/components/mayas/To.vue";
-import MayasFrom from "@/components/mayas/From.vue";
-import MayasAddition from "@/components/mayas/Addition.vue";
 import SymbolEncryption from "@/components/ciphertexts/SymbolEncryption.vue";
 import SymbolDecryption from "@/components/ciphertexts/SymbolDecryption.vue";
 import PatternEncryption from "@/components/ciphertexts/PatternEncryption.vue";
 import PatternDecryption from "@/components/ciphertexts/PatternDecryption.vue";
-import CoinsFrom from "@/components/coins/From.vue";
-import CoinsSwap from "@/components/coins/Swap.vue";
-import CoinsTo from "@/components/coins/To.vue";
+import NumberSystemsTo from "@/components/numbersystems/To.vue";
+import NumberSystemsFrom from "@/components/numbersystems/From.vue";
+import NumberSystemsSwap from "@/components/numbersystems/Swap.vue";
+import NumberSystemsAddition from "@/components/numbersystems/Addition.vue";
 
 export enum GameType {
   TREEROW = "TreeRow",
@@ -73,25 +71,23 @@ export enum GameType {
   WORDSCHANGE = "WordsChange",
   WORDSREMOVE = "WordsRemove",
   WORDSSWAP = "WordsSwap",
-  MAYASTO = "MayasTo",
-  MAYASFROM = "MayasFrom",
-  MAYASADDITION = "MayasAddition",
   SYMBOLENCRYPTION = "SymbolEncryption",
   SYMBOLDECRYPTION = "SymbolDecryption",
   PATTERNENCRYPTION = "PatternEncryption",
   PATTERNDECRYPTION = "PatternDecryption",
-  COINSFROM = "CoinsFrom",
-  COINSSWAP = "CoinsSwap",
-  COINSTO = "CoinsTo",
+  NUMBERSYSTEMSTO = "NumberSystemsTo",
+  NUMBERSYSTEMSFROM = "NumberSystemsFrom",
+  NUMBERSYSTEMSSWAP = "NumberSystemsSwap",
+  NUMBERSYSTEMSADDITION = "NumberSystemsAddition",
 }
 
 /*
   TODO:
     - reverse coins/mayas order
+    - union To, From from mayas and coins
     - reorder buttons: next, check, difficulty, undo, trashcan, tutorial
     - visual feedback for wrong input e.g in binary coins/to
     - rework words i.e words are not recognized
-    - union To, From from mayas and coins
     - symbol/encryption does not provide content: what to do?
     - optional: unit tests for each function
     - optional: multilingual (vue-i18n)
@@ -111,16 +107,14 @@ export enum GameType {
     WordsChange,
     WordsRemove,
     WordsSwap,
-    MayasTo,
-    MayasFrom,
-    MayasAddition,
     SymbolEncryption,
     SymbolDecryption,
     PatternEncryption,
     PatternDecryption,
-    CoinsFrom,
-    CoinsSwap,
-    CoinsTo,
+    NumberSystemsTo,
+    NumberSystemsFrom,
+    NumberSystemsSwap,
+    NumberSystemsAddition,
   },
 })
 export default class Game extends Vue {

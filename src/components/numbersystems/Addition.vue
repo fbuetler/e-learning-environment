@@ -92,7 +92,10 @@
 <script lang="ts">
 import { Vue, Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import MayasMixin, { itemType } from "@/components/mayas/MayasMixin.vue";
+import NumbersystemsMixin, {
+  maya,
+  numbersystemType,
+} from "@/components/numbersystems/NumbersystemsMixin.vue";
 import Difficulty from "@/components/Difficulty.vue";
 import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
@@ -104,13 +107,13 @@ import Undo from "@/components/Undo.vue";
     Undo,
   },
 })
-export default class Addition extends Mixins(GameMixin, MayasMixin)
+export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
   implements GameInterface {
   sum: number = null;
   solution: number = null;
-  summands: Array<Array<itemType>> = null; // unfortunately Maps and Sets are not reactive in vue 2
-  selected: itemType = null;
-  selectedItems: Array<itemType> = null;
+  summands: Array<Array<maya>> = null; // unfortunately Maps and Sets are not reactive in vue 2
+  selected: maya = null;
+  selectedItems: Array<maya> = null;
   animationSteps: Array<string> = null;
 
   limit = 19;
@@ -131,16 +134,16 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
     do {
       sum = 0;
       for (let i = 0; i < this.summands.length; i++) {
-        const summand = this.generateItems();
+        const summand = this.generateItems(numbersystemType.MAYA);
         this.summands[i] = summand;
-        sum += this.sumItems(summand);
+        sum += this.sumItems(numbersystemType.MAYA, summand);
       }
     } while (sum > this.limit);
     this.solution = sum;
     // level 2
-    this.selectedItems = new Array<number>(
-      Object.keys(itemType).length / 2
-    ).fill(0);
+    this.selectedItems = new Array<number>(Object.keys(maya).length / 2).fill(
+      0
+    );
     this.animationSteps = this.getAnimationSteps();
   }
 
@@ -148,10 +151,13 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
     if (this.currentDifficultyLevel === 1) {
       return this.sum === this.solution;
     } else {
-      if (this.selectedItems[itemType.NUT] > 4) {
+      if (this.selectedItems[maya.ONE] > 4) {
         return false;
       }
-      return this.sumItems(this.selectedItems) === this.solution;
+      return (
+        this.sumItems(numbersystemType.MAYA, this.selectedItems) ===
+        this.solution
+      );
     }
   }
 
@@ -186,9 +192,9 @@ export default class Addition extends Mixins(GameMixin, MayasMixin)
         "button-menu-next",
       ];
     } else {
-      return this.mapNumberToActions(wrongNumber)
+      return this.mapNumberToActions(numbersystemType.MAYA, wrongNumber)
         .concat(["button-menu-check", "undo"])
-        .concat(this.mapNumberToActions(correctNumber))
+        .concat(this.mapNumberToActions(numbersystemType.MAYA, correctNumber))
         .concat(["button-menu-check", "button-menu-next"]);
     }
   }
