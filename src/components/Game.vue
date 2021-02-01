@@ -84,7 +84,6 @@ export enum GameType {
 /*
   TODO:
     - reverse coins/mayas order
-    - union To, From from mayas and coins
     - reorder buttons: next, check, difficulty, undo, trashcan, tutorial
     - visual feedback for wrong input e.g in binary coins/to
     - rework words i.e words are not recognized
