@@ -1,7 +1,10 @@
 <template>
   <header>
     <router-link to="/">
-      <img :src="require('@/assets/beavers/beavers.png')" />
+      <img
+        :src="require('@/assets/beavers/beavers.png')"
+        title="Zurück zur Hauptseite"
+      />
     </router-link>
   </header>
 </template>
