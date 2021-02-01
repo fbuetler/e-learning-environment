@@ -29,7 +29,7 @@ coverage/
 *.docx#
 
 # auxiliary tex files
-__*_temp.tex
+*temp.*
 *.aux
 *.ps
 *.log
