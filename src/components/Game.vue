@@ -180,7 +180,7 @@ export default class Game extends Vue {
   margin: 1em;
 }
 .tree-field {
-  align-items: flex-end;
+  vertical-align: bottom;
   height: 5.5em;
   width: 5.5em;
   margin: 0.1em;
