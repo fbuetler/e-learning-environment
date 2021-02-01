@@ -60,6 +60,8 @@ export default class Modal extends Vue {}
 
 .modal-body {
   margin: 20px 0;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 }
 
 .modal-default-button {
