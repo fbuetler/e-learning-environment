@@ -21,7 +21,7 @@ module.exports = {
               selector: "#task",
 
               elements: {
-                coins: {
+                items: {
                   selector: "#items",
                 },
                 dropzone: {

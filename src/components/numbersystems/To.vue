@@ -86,7 +86,7 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
   animationSteps: Array<string> = null;
 
   // there are only difficulty levels for numbersystemType.DECIMAL:
-  // represent number with minimal amount of coints
+  // represent number with minimal amount of items
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
@@ -110,18 +110,19 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
     ) {
       return false;
     }
-    const sum = this.sumItems(this.type, this.selectedItems);
+    const isCorrectSum =
+      this.sumItems(this.type, this.selectedItems) === this.number;
     if (
       this.currentDifficultyLevel === 2 &&
-      this.type === numbersystemType.DECIMAL
+      this.type === numbersystemType.DECIMAL &&
+      isCorrectSum
     ) {
       return (
-        sum === this.number &&
         JSON.stringify(this.selectedItems) ===
-          JSON.stringify(this.calcMinimalAmount(this.number, this.type))
+        JSON.stringify(this.calcMinimalAmount(this.type, this.number))
       );
     }
-    return sum === this.number;
+    return isCorrectSum;
   }
 
   addItem() {

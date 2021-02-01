@@ -1,17 +1,18 @@
 import { shallowMount, config } from "@vue/test-utils";
-import To from "@/components/coins/To.vue";
-import From from "@/components/coins/From.vue";
-import Swap from "@/components/coins/Swap.vue";
+import To from "@/components/numbersystems/To.vue";
+import From from "@/components/numbersystems/From.vue";
+import Swap from "@/components/numbersystems/Swap.vue";
 
 config.showDeprecationWarnings = false;
 
-enum coinType {
-  NORMAL,
+enum numbersystemsType {
+  DECIMAL,
   BINARY,
+  MAYA,
 }
 
 const mockNumber = 27;
-const mockNormalCoinsSolution = [0, 1, 1, 0, 1, 0]; // 2 + 5 + 20 = 27
+const mockDecimalSolution = [0, 1, 1, 0, 1, 0]; // 2 + 5 + 20 = 27
 const mockRandomNumber = jest.fn((x) => mockNumber);
 const mockItems = [2, 5, 1, 1, 0, 0]; // 2*1 + 5*2 + 1*5 + 1*10 = 27
 const mockGenerateItems = jest.fn((x) => mockItems);
@@ -22,7 +23,7 @@ describe("To.vue", () => {
     wrapper = shallowMount(To, {
       propsData: {
         args: {
-          coinType: coinType.NORMAL,
+          numbersystemType: numbersystemsType.DECIMAL,
         },
       },
       methods: {
@@ -64,8 +65,8 @@ describe("To.vue", () => {
   });
 
   it("correct result is accepted", async () => {
-    for (let i = 0; i < mockNormalCoinsSolution.length; i++) {
-      for (let j = 0; j < mockNormalCoinsSolution[i]; j++) {
+    for (let i = 0; i < mockDecimalSolution.length; i++) {
+      for (let j = 0; j < mockDecimalSolution[i]; j++) {
         wrapper.setData({ selected: i });
         await wrapper.find("#dropzone").trigger("click");
       }
@@ -86,7 +87,7 @@ describe("From.vue", () => {
     wrapper = shallowMount(From, {
       propsData: {
         args: {
-          coinType: coinType.NORMAL,
+          numbersystemType: numbersystemsType.DECIMAL,
         },
       },
       methods: {
@@ -134,7 +135,7 @@ describe("Swap.vue", () => {
     wrapper = shallowMount(Swap, {
       propsData: {
         args: {
-          coinType: coinType.NORMAL,
+          numbersystemType: numbersystemsType.DECIMAL,
         },
       },
       methods: {
@@ -176,8 +177,8 @@ describe("Swap.vue", () => {
   });
 
   it("correct result is accepted", async () => {
-    for (let i = 0; i < mockNormalCoinsSolution.length; i++) {
-      for (let j = 0; j < mockNormalCoinsSolution[i]; j++) {
+    for (let i = 0; i < mockDecimalSolution.length; i++) {
+      for (let j = 0; j < mockDecimalSolution[i]; j++) {
         wrapper.setData({ selected: i });
         await wrapper.find("#dropzone").trigger("click");
       }
@@ -185,7 +186,7 @@ describe("Swap.vue", () => {
     expect(wrapper.vm.isCorrect()).toBeTruthy();
   });
 
-  it("incorrect result is rejected (correct sum, but not less coins)", async () => {
+  it("incorrect result is rejected (correct sum, but not less items)", async () => {
     for (let i = 0; i < mockItems.length; i++) {
       for (let j = 0; j < mockItems[i]; j++) {
         wrapper.setData({ selected: i });
@@ -200,4 +201,8 @@ describe("Swap.vue", () => {
     await wrapper.find("#dropzone").trigger("click");
     expect(wrapper.vm.isCorrect()).toBeFalsy();
   });
+});
+
+describe("Addition.vue", () => {
+  // TODO add tests
 });

@@ -1,20 +1,22 @@
 module.exports = {
   beforeEach: (browser) => browser.init(),
-  tags: ["game", "coins", "normal", "to"],
+  tags: ["game", "numbersystems", "swap"],
 
   "check if all elements are visible": (browser) => {
-    const page = browser.page.coinsTo();
+    const page = browser.page.swap();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));
 
     const game = page.section.app.section.game;
 
-    game.expect.section("@title").text.to.match(/^Zahlen mit Münzen$/);
+    game.expect
+      .section("@title")
+      .text.to.match(/^Gleichwertige Münzen tauschen$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;
 
-    task.expect.element("@number").to.be.visible;
+    task.expect.element("@items").to.be.visible;
     task.expect.element("@dropzone").to.be.visible;
 
     task.expect.section("@interaction").to.be.visible;

@@ -47,6 +47,9 @@ export default class NumbersystemsMixin extends Vue {
 
   sumItems(type: numbersystemType, items: number[]): number {
     let sum = 0;
+    if (items.length !== this.items(type).length) {
+      throw Error(`array length to not match  ${items} ${this.items(type)}`);
+    }
     for (let i = 0; i < this.items(type).length; i++) {
       sum += items[i] * this.items(type)[i].value;
     }
@@ -59,10 +62,10 @@ export default class NumbersystemsMixin extends Vue {
     let i = items.length - 1;
     const minimalAmount = new Array<number>(items.length).fill(0);
     while (number > 0 && i >= 0) {
-      const coinValue = items[i].value;
-      if (number >= coinValue) {
+      const value = items[i].value;
+      if (number >= value) {
         minimalAmount[i]++;
-        number -= coinValue;
+        number -= value;
       } else {
         i--;
       }

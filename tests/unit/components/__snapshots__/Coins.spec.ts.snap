@@ -9,7 +9,7 @@ exports[`From.vue renders correctly 1`] = `
    
   <div
     class="flex-item flex-center flex-col flex-flex card"
-    id="coins"
+    id="items"
   >
     <div
       class="flex-item flex-center flex-row"
@@ -122,9 +122,7 @@ exports[`From.vue renders correctly 1`] = `
 `;
 
 exports[`Swap.vue renders correctly 1`] = `
-<div
-  args="[object Object]"
->
+<div>
    
   <div>
     Stelle die gleiche Summe mit weniger Münzen dar
@@ -132,7 +130,7 @@ exports[`Swap.vue renders correctly 1`] = `
    
   <div
     class="flex-item flex-center flex-col flex-flex card"
-    id="coins"
+    id="items"
   >
     <div
       class="flex-item flex-center flex-row"

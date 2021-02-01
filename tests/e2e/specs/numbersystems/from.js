@@ -1,9 +1,9 @@
 module.exports = {
   beforeEach: (browser) => browser.init(),
-  tags: ["game", "coins", "normal", "from"],
+  tags: ["game", "numbersystems", "from"],
 
   "check if all elements are visible": (browser) => {
-    const page = browser.page.coinsFrom();
+    const page = browser.page.from();
     browser.openPage(page);
     // browser.source((result) => console.log(result.value));
 
@@ -14,7 +14,7 @@ module.exports = {
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;
 
-    task.expect.element("@coins").to.be.visible;
+    task.expect.element("@items").to.be.visible;
     task.expect.element("@answer").to.be.visible;
 
     browser.end();

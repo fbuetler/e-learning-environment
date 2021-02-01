@@ -89,6 +89,7 @@ export enum GameType {
     - visual feedback for wrong input e.g in binary coins/to
     - rework words i.e words are not recognized
     - symbol/encryption does not provide content: what to do?
+    - optional: rename isStarted()
     - optional: unit tests for each function
     - optional: multilingual (vue-i18n)
     - optional: move parts of number systems task into components
