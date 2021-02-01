@@ -40,5 +40,13 @@ export default class GameMixin extends Vue {
   randomNumber(limit: number): number {
     return Math.random() * limit;
   }
+
+  shake(id: string) {
+    const el = document.getElementById(id);
+    el.style.animation = "shake 0.5s";
+    setTimeout(() => {
+      el.style.animation = "unset";
+    }, 500);
+  }
 }
 </script>
