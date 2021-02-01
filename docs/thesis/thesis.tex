@@ -3,6 +3,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+%for including full pdf pages
+\usepackage[]{pdfpages} 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT METADATA
 
@@ -61,5 +64,7 @@ ETH Zürich}
 % This creates an appendix chapter, comment if not needed.
 \appendix
 \input{appendix/example}
+
+\includepdf[pages={1-},scale=1]{pdf/originality.pdf}
 
 \end{document}
