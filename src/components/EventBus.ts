@@ -1,7 +1,7 @@
 import Vue from "vue";
 
 export enum EventBusEvents {
-  RestartGame = "restart-game",
+  Restart = "restart-game",
   EvaluateGame = "eval-game",
 }
 

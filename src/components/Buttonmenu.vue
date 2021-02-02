@@ -3,7 +3,7 @@
     <button
       id="button-menu-next"
       class="card clickable"
-      @click="emitRestartGameEvent()"
+      @click="emitRestartEvent()"
     >
       Nächstes Rätsel!
     </button>
@@ -24,8 +24,8 @@ import { EventBus, EventBusEvents } from "@/components/EventBus";
 
 @Component
 export default class Buttonmenu extends Vue {
-  emitRestartGameEvent() {
-    EventBus.$emit(EventBusEvents.RestartGame);
+  emitRestartEvent() {
+    EventBus.$emit(EventBusEvents.Restart);
   }
   emitEvalGameEvent() {
     EventBus.$emit(EventBusEvents.EvaluateGame);

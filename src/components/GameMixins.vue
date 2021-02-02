@@ -17,7 +17,7 @@ export default class GameMixin extends Vue {
     if (this.isStarted()) {
       this.restart();
     }
-    EventBus.$on(EventBusEvents.RestartGame, () => this.restart());
+    EventBus.$on(EventBusEvents.Restart, () => this.restart());
     EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluate());
   }
 
