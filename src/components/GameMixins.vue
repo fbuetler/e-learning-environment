@@ -18,7 +18,7 @@ export default class GameMixin extends Vue {
       this.restart();
     }
     EventBus.$on(EventBusEvents.RestartGame, () => this.restart());
-    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluateGame());
+    EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluate());
   }
 
   isStarted(): boolean {
@@ -29,7 +29,7 @@ export default class GameMixin extends Vue {
     throw Error(this.notOverwrittenMsg);
   }
 
-  evaluateGame() {
+  evaluate() {
     this.$emit("evaluated-game", this.isCorrect());
   }
 
