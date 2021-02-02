@@ -6,7 +6,7 @@
       :difficultyLevels="difficultyLevels"
       @difficulty-selected="
         currentDifficultyLevel = $event;
-        restartGame();
+        restart();
       "
     />
     <div>
@@ -159,7 +159,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     return this.values === null || this.views === null;
   }
 
-  restartGame(): void {
+  restart(): void {
     const v = new Array<sudokuField>(this.size)
       .fill(null)
       .map(() => new Array<sudokuField>(this.size).fill(null));

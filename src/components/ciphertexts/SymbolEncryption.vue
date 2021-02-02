@@ -76,7 +76,7 @@ export default class SymbolEncryption extends Mixins(GameMixin)
     return this.originalText === null;
   }
 
-  restartGame() {
+  restart() {
     this.originalText = LoadRandomElement(this.dataKey).toUpperCase();
     this.encryptedText = new Array<string>();
     this.deleteAllChildren(document.getElementById("encrypted-container"));

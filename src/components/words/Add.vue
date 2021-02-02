@@ -124,7 +124,7 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     return this.word === null;
   }
 
-  restartGame() {
+  restart() {
     [this.word, this.similarWords] = LoadWords("add", 1);
     this.word.forEach((el) => (el.locked = true));
     this.selected = null;

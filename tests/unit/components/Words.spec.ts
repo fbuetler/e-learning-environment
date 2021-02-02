@@ -170,7 +170,7 @@ describe("Add.vue", () => {
     await wrapper.setData({ selected: 1 });
     wrapper.find(`#rect-around-arrow-${1}`).trigger("click");
     await wrapper.setData({ selected: 1 });
-    wrapper.vm.restartGame();
+    wrapper.vm.restart();
     const newWord = copy(mockWord);
     newWord.forEach((el) => (el.locked = true));
     expect(wrapper.vm["word"]).toEqual(newWord);
@@ -249,7 +249,7 @@ describe("Change.vue", () => {
     await wrapper.setData({ selected: 1 }); // 'B'
     await wrapper.find(`#word-char-${mockWord[0].id}`).trigger("click");
     await wrapper.setData({ selected: 1 }); // 'B'
-    wrapper.vm.restartGame();
+    wrapper.vm.restart();
     expect(wrapper.vm["word"]).toEqual(mockWord);
     expect(wrapper.vm["selected"]).toBeNull();
   });
@@ -316,7 +316,7 @@ describe("Remove.vue", () => {
     await wrapper.find(`#word-char-${mockWord[0].id}`).trigger("click");
     wrapper.vm.trashElement();
     await wrapper.find(`#word-char-${mockWord[1].id}`).trigger("click");
-    wrapper.vm.restartGame();
+    wrapper.vm.restart();
     expect(wrapper.vm["selected"]).toBeNull();
     expect(wrapper.vm["charRemoved"]).toBeFalsy();
     expect(wrapper.vm["word"]).toEqual(mockWord);

@@ -102,7 +102,7 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
     );
   }
 
-  restartGame(): void {
+  restart(): void {
     [
       this.leftView,
       this.rightView,

@@ -49,7 +49,7 @@ describe("To.vue", () => {
   it("next task restores initial conditions", async () => {
     wrapper.setData({ selected: 0 });
     await wrapper.find("#dropzone").trigger("click");
-    wrapper.vm.restartGame();
+    wrapper.vm.restart();
     expect(wrapper.vm["number"]).toBe(mockNumber);
     expect(wrapper.vm["selected"]).toBeNull();
     expect(wrapper.vm["selectedItems"].every((el) => el === 0)).toBeTruthy();
@@ -112,7 +112,7 @@ describe("From.vue", () => {
 
   it("next task restores initial conditions", () => {
     wrapper.setData({ number: 3 });
-    wrapper.vm.restartGame();
+    wrapper.vm.restart();
     expect(wrapper.vm["number"]).toBeNull();
     expect(wrapper.vm["generatedItems"]).toEqual(mockItems);
     expect(wrapper.vm["solution"]).toBe(mockNumber);
@@ -161,7 +161,7 @@ describe("Swap.vue", () => {
   it("next task restores initial conditions", async () => {
     wrapper.setData({ selected: 0 });
     await wrapper.find("#dropzone").trigger("click");
-    wrapper.vm.restartGame();
+    wrapper.vm.restart();
     expect(wrapper.vm["selected"]).toBeNull();
     expect(wrapper.vm["selectedItems"].every((el) => el === 0)).toBeTruthy();
     expect(wrapper.vm["generatedItems"]).toEqual(mockItems);
@@ -170,7 +170,7 @@ describe("Swap.vue", () => {
   it("undo restores initial conditions", async () => {
     wrapper.setData({ selected: 0 });
     await wrapper.find("#dropzone").trigger("click");
-    wrapper.vm.restartGame();
+    wrapper.vm.restart();
     expect(wrapper.vm["selected"]).toBeNull();
     expect(wrapper.vm["selectedItems"].every((el) => el === 0)).toBeTruthy();
     expect(wrapper.vm["generatedItems"]).toEqual(mockItems);

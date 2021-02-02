@@ -94,7 +94,7 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
     return this.number === null;
   }
 
-  restartGame() {
+  restart() {
     this.number = Math.ceil(this.randomNumber(this.limit(this.type)));
     this.selected = null;
     this.selectedItems = new Array<number>(this.items(this.type).length).fill(

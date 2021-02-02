@@ -6,7 +6,7 @@
       :difficultyLevels="difficultyLevels"
       @difficulty-selected="
         currentDifficultyLevel = $event;
-        restartGame();
+        restart();
       "
     />
     <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
@@ -125,7 +125,7 @@ export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
     return this.summands === null;
   }
 
-  restartGame() {
+  restart() {
     this.selected = null;
     this.sum = null;
     this.summands = new Array(this.numberOfSummands);

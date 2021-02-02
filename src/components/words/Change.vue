@@ -65,7 +65,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     return this.word === null;
   }
 
-  restartGame() {
+  restart() {
     [this.word, this.similarWords] = LoadWords("change", 1);
     this.selected = null;
     this.animationSteps = this.getAnimationSteps();
