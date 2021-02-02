@@ -63,7 +63,7 @@ describe("PatternEncryption.vue", () => {
 
   it("next task restores initial conditions", async () => {
     await wrapper.setData({ encryptedText: "ABC" });
-    wrapper.vm.restart();
+    wrapper.vm.start();
     expect(wrapper.vm["encryptedText"]).toBeNull();
   });
 
@@ -101,7 +101,7 @@ describe("PatternDecryption.vue", () => {
 
   it("next task restores initial conditions", async () => {
     await wrapper.setData({ decryptedText: "ABC " });
-    wrapper.vm.restart();
+    wrapper.vm.start();
     expect(wrapper.vm["decryptedText"]).toBeNull();
     expect(wrapper.vm["encryptedText"]).toBe(mockEncryptedTextOne);
   });

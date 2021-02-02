@@ -128,7 +128,7 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
     return this.word === null;
   }
 
-  restart() {
+  start() {
     this.wordPerLevel = new Map<number, wordElement[]>();
     for (let level = 1; level <= this.difficultyLevels; level++) {
       const word = LoadWords("change", level)[0];

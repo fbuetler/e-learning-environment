@@ -76,7 +76,7 @@ export default class PatternEncryption extends Mixins(GameMixin)
     return this.originalText === null;
   }
 
-  restart() {
+  start() {
     this.originalText = LoadRandomElement(this.dataKey)
       .split("")
       .map((letter) => letter.toUpperCase());

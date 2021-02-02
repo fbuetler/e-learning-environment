@@ -65,7 +65,7 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
     return this.word === null;
   }
 
-  restart() {
+  start() {
     [this.word, this.similarWords] = LoadWords("remove", 1);
     this.selected = null;
     this.charRemoved = false;

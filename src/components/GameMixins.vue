@@ -5,7 +5,7 @@ import { EventBus, EventBusEvents } from "@/components/EventBus";
 
 export interface GameInterface {
   isStarted(): boolean;
-  restart(): void;
+  start(): void;
   isCorrect(): boolean;
 }
 
@@ -15,9 +15,9 @@ export default class GameMixin extends Vue {
     "THIS SHOULD NOT BE EXECUTED! DID YOU FORGET TO OVERWRITE THIS FUNC?";
   created() {
     if (this.isStarted()) {
-      this.restart();
+      this.start();
     }
-    EventBus.$on(EventBusEvents.Restart, () => this.restart());
+    EventBus.$on(EventBusEvents.Start, () => this.start());
     EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluate());
   }
 
@@ -25,7 +25,7 @@ export default class GameMixin extends Vue {
     throw Error(this.notOverwrittenMsg);
   }
 
-  restart() {
+  start() {
     throw Error(this.notOverwrittenMsg);
   }
 

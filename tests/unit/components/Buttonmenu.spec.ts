@@ -15,7 +15,7 @@ describe("Buttonmenu.vue", () => {
     expect(wrapper.find("button").exists()).toBe(true);
   });
 
-  it("button click restart", async () => {
+  it("button click start", async () => {
     // TODO test eventBus events
     expect(true).toBeTruthy();
   });

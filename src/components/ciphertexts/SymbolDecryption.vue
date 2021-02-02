@@ -6,7 +6,7 @@
       :difficultyLevels="difficultyLevels"
       @difficulty-selected="
         currentDifficultyLevel = $event;
-        restart();
+        start();
       "
     />
     <div class="flex-item flex-col">
@@ -88,7 +88,7 @@ export default class SymbolDecryption extends Mixins(GameMixin)
     return this.originalNumbers === null || this.originalLetters === null;
   }
 
-  restart() {
+  start() {
     this.originalNumbers = String(LoadRandomNumber()).split("");
     this.decrypted = null;
 

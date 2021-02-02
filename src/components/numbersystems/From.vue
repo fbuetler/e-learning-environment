@@ -58,7 +58,7 @@ export default class From extends Mixins(GameMixin, NumbersystemsMixin)
     return this.generatedItems === null;
   }
 
-  restart() {
+  start() {
     this.number = null;
     this.generatedItems = this.generateItems(this.type);
     this.solution = this.sumItems(this.type, this.generatedItems);

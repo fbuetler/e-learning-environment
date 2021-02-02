@@ -164,7 +164,7 @@ describe("Row.vue", () => {
     await wrapper.setData({ itemToAdd: value });
     await wrapper.find(`#field-${ID}`).trigger("click");
     await wrapper.setData({ itemToAdd: value });
-    wrapper.vm.restart();
+    wrapper.vm.start();
     expect(wrapper.vm["itemToAdd"]).toBeNull();
     expect(wrapper.vm["fieldToClean"]).toBeNull();
     expect(wrapper.vm["values"].every((el) => el.value === 0)).toBeTruthy();
@@ -354,7 +354,7 @@ describe("Sudoku.vue", () => {
     await wrapper.setData({ itemToAdd: value });
     await wrapper.find(`#field-${ID}`).trigger("click");
     await wrapper.setData({ itemToAdd: value });
-    wrapper.vm.restart();
+    wrapper.vm.start();
     expect(wrapper.vm["itemToAdd"]).toBeNull();
     expect(wrapper.vm["fieldToClean"]).toBeNull();
   });

@@ -1,8 +1,8 @@
 import Vue from "vue";
 
 export enum EventBusEvents {
-  Restart = "restart-game",
-  EvaluateGame = "eval-game",
+  Start = "start-game",
+  EvaluateGame = "evaluate-game",
 }
 
 export const EventBus = new Vue();
