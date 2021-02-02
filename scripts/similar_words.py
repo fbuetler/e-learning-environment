@@ -1,5 +1,4 @@
 #!/bin/python
-import requests
 import string
 import json
 
@@ -39,11 +38,26 @@ def printProgressBar(
         print()
 
 
+def contains(arr, key):
+    left = 0
+    right = len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] < key:
+            left = mid + 1
+        elif arr[mid] > key:
+            right = mid - 1
+        else:
+            return True
+    return False
+
+
 with open("children_nouns.txt", "r") as f:
     children_words = list(map(lambda x: x.lower(), f.read().split("\n")))
 
-with open("scrabble_words.txt", "r") as f:
+with open("wordlist.txt", "r") as f:
     allowed_words = list(map(lambda x: x.lower(), f.read().split("\n")))
+allowed_words.sort()
 
 similar_words = {
     "add": {1: dict()},
@@ -58,30 +72,33 @@ for i, word in enumerate(children_words):
         for pos in range(len(word) + 1):
             for letter in ALPHABET:
                 w = word[:pos] + letter + word[pos:]
-                if w in allowed_words and not w in add:
-                    add.append(w)
+                if contains(allowed_words, w) and not w in add:
+                    add.append(w.upper())
         if len(add) >= MIN_SIMILAR_WORDS:
-            similar_words["add"][1][word] = add
+            add.sort()
+            similar_words["add"][1][word.upper()] = add
 
     # remove
     remove = list()
     if len(word) - 1 >= MIN_LENGTH:
         for pos in range(len(word)):
             w = word[:pos] + word[pos + 1 :]
-            if w in allowed_words and not w in remove:
-                remove.append(w)
+            if contains(allowed_words, w) and not w in remove:
+                remove.append(w.upper())
         if len(remove) >= MIN_SIMILAR_WORDS:
-            similar_words["remove"][1][word] = remove
+            remove.sort()
+            similar_words["remove"][1][word.upper()] = remove
 
     # change
     change = list()
     for pos in range(len(word)):
         for letter in ALPHABET:
             w = word[:pos] + letter + word[pos + 1 :]
-            if w != word and w in allowed_words and not w in change:
-                change.append(w)
+            if w != word and contains(allowed_words, w) and not w in change:
+                change.append(w.upper())
     if len(change) >= MIN_SIMILAR_WORDS:
-        similar_words["change"][1][word] = change
+        change.sort()
+        similar_words["change"][1][word.upper()] = change
 
     change = list()
     for left_pos in range(len(word)):
@@ -97,12 +114,13 @@ for i, word in enumerate(children_words):
                         + right_letter
                         + word[right_pos + 1 :]
                     )
-                    if w != word and w in allowed_words and not w in change:
-                        change.append(w)
+                    if w != word and contains(allowed_words, w) and not w in change:
+                        change.append(w.upper())
     if len(change) >= MIN_SIMILAR_WORDS:
-        similar_words["change"][2][word] = change
+        change.sort()
+        similar_words["change"][2][word.upper()] = change
 
     printProgressBar(i + 1, l, length=10)
 
 with open("similar_words.json", "w") as f:
-    f.write(json.dumps(similar_words))
+    f.write(json.dumps(similar_words, sort_keys=True))
