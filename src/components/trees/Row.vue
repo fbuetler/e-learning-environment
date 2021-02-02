@@ -96,9 +96,9 @@ export default class Row extends Mixins(GameMixin, TreesMixin)
   fieldToClean = null;
   animationSteps: Array<string> = null;
 
-  isStarted(): boolean {
+  isInitialized(): boolean {
     return (
-      this.values === null || this.leftView === null || this.rightView === null
+      this.values !== null && this.leftView !== null && this.rightView !== null
     );
   }
 

@@ -72,8 +72,8 @@ export default class PatternEncryption extends Mixins(GameMixin)
     this.draw();
   }
 
-  isStarted(): boolean {
-    return this.originalText === null;
+  isInitialized(): boolean {
+    return this.originalText !== null;
   }
 
   start() {

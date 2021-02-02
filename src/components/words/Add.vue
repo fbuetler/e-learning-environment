@@ -120,8 +120,8 @@ export default class Add extends Mixins(GameMixin) implements GameInterface {
     this.drawArrows();
   }
 
-  isStarted(): boolean {
-    return this.word === null;
+  isInitialized(): boolean {
+    return this.word !== null;
   }
 
   start() {

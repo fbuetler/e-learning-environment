@@ -4,7 +4,7 @@ import { Component } from "vue-property-decorator";
 import { EventBus, EventBusEvents } from "@/components/EventBus";
 
 export interface GameInterface {
-  isStarted(): boolean;
+  isInitialized(): boolean;
   start(): void;
   isCorrect(): boolean;
 }
@@ -14,14 +14,14 @@ export default class GameMixin extends Vue {
   private notOverwrittenMsg =
     "THIS SHOULD NOT BE EXECUTED! DID YOU FORGET TO OVERWRITE THIS FUNC?";
   created() {
-    if (this.isStarted()) {
+    if (!this.isInitialized()) {
       this.start();
     }
     EventBus.$on(EventBusEvents.Start, () => this.start());
     EventBus.$on(EventBusEvents.EvaluateGame, () => this.evaluate());
   }
 
-  isStarted(): boolean {
+  isInitialized(): boolean {
     throw Error(this.notOverwrittenMsg);
   }
 

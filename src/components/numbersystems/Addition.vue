@@ -121,8 +121,8 @@ export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
-  isStarted(): boolean {
-    return this.summands === null;
+  isInitialized(): boolean {
+    return this.summands !== null;
   }
 
   start() {

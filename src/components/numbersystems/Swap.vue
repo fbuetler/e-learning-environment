@@ -98,8 +98,8 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
-  isStarted(): boolean {
-    return this.generatedItems === null;
+  isInitialized(): boolean {
+    return this.generatedItems !== null;
   }
 
   start() {

@@ -61,8 +61,8 @@ export default class Change extends Mixins(GameMixin) implements GameInterface {
   selected: string = null;
   animationSteps: Array<string> = null;
 
-  isStarted(): boolean {
-    return this.word === null;
+  isInitialized(): boolean {
+    return this.word !== null;
   }
 
   start() {

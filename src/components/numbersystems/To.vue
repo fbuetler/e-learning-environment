@@ -90,8 +90,8 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
   currentDifficultyLevel = 1;
   difficultyLevels = 2;
 
-  isStarted(): boolean {
-    return this.number === null;
+  isInitialized(): boolean {
+    return this.number !== null;
   }
 
   start() {

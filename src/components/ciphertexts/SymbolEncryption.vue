@@ -72,8 +72,8 @@ export default class SymbolEncryption extends Mixins(GameMixin)
     this.drawShapes();
   }
 
-  isStarted(): boolean {
-    return this.originalText === null;
+  isInitialized(): boolean {
+    return this.originalText !== null;
   }
 
   start() {

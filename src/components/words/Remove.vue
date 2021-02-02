@@ -61,8 +61,8 @@ export default class Remove extends Mixins(GameMixin) implements GameInterface {
   charRemoved = false;
   animationSteps: Array<string> = null;
 
-  isStarted(): boolean {
-    return this.word === null;
+  isInitialized(): boolean {
+    return this.word !== null;
   }
 
   start() {

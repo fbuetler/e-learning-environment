@@ -54,8 +54,8 @@ export default class From extends Mixins(GameMixin, NumbersystemsMixin)
   generatedItems: Array<number> = null;
   animationSteps: Array<string> = null;
 
-  isStarted(): boolean {
-    return this.generatedItems === null;
+  isInitialized(): boolean {
+    return this.generatedItems !== null;
   }
 
   start() {

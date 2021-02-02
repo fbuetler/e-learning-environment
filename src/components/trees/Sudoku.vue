@@ -155,8 +155,8 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   ]);
   LevelsWithNoViews = [1]; // no view values, only trees
 
-  isStarted(): boolean {
-    return this.values === null || this.views === null;
+  isInitialized(): boolean {
+    return this.values !== null && this.views !== null;
   }
 
   start(): void {
