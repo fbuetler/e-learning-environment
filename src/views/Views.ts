@@ -65,7 +65,7 @@ const views: Array<{
   {
     id: 16,
     title: "Zahlen mit Münzen",
-    path: "/coins/normal/to",
+    path: "/coins/decimal/to",
     img: "numbersystems/decimal/decimal_to.png",
     view: "NormalCoinsTo",
     component: "NormalCoinsTo",
@@ -73,7 +73,7 @@ const views: Array<{
   {
     id: 17,
     title: "Münzbeträge ausrechnen",
-    path: "/coins/normal/from",
+    path: "/coins/decimal/from",
     img: "numbersystems/decimal/decimal_from.png",
     view: "NormalCoinsFrom",
     component: "NormalCoinsFrom",
@@ -81,7 +81,7 @@ const views: Array<{
   {
     id: 18,
     title: "Gleichwertige Münzen tauschen",
-    path: "/coins/normal/swap",
+    path: "/coins/decimal/swap",
     img: "numbersystems/decimal/decimal_swap.png",
     view: "NormalCoinsSwap",
     component: "NormalCoinsSwap",

@@ -1,5 +1,5 @@
 module.exports = {
-  url: "/coins/normal/swap",
+  url: "/coins/decimal/swap",
 
   elements: {
     app: "#app",
