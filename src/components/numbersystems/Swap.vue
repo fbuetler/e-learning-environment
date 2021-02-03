@@ -2,58 +2,14 @@
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
     <div>Stelle die gleiche Summe mit weniger Elementen dar</div>
-    <div id="items" class="flex-item flex-center flex-col flex-flex card">
-      <slot>
-        <div class="flex-item flex-center flex-row">
-          <div
-            v-for="(amount, i) in generatedItems"
-            :key="`item-${i}`"
-            class="flex-item flex-center flex-col"
-          >
-            <div
-              v-for="j in amount"
-              :key="`amount-${j}`"
-              :class="items(type)[i].class"
-            >
-              <img :src="require(`@/assets/${items(type)[i].img}`)" />
-            </div>
-          </div>
-        </div>
-      </slot>
-    </div>
+    <ItemGroup :items="generatedItems" :itemConfig="items(type)" />
     <hr />
     <div>Lösung:</div>
-    <div
-      id="dropzone"
-      class="flex-item flex-center flex-col flex-flex dropzone"
-      @click="addItem()"
-      @dragover.prevent
-      @dragend.prevent
-      @drop.stop.prevent="addItem()"
-    >
-      <div v-if="nothingSelected">
-        Platziere hier die Elemente
-      </div>
-      <div v-else>
-        <slot>
-          <div class="flex-item flex-center flex-row">
-            <div
-              v-for="(amount, i) in selectedItems"
-              :key="`item-${i}`"
-              class="flex-item flex-center flex-col"
-            >
-              <div
-                v-for="j in amount"
-                :key="`amount-${j}`"
-                :class="items(type)[i].class"
-              >
-                <img :src="require(`@/assets/${items(type)[i].img}`)" />
-              </div>
-            </div>
-          </div>
-        </slot>
-      </div>
-    </div>
+    <ItemDropzone
+      :items="selectedItems"
+      :itemConfig="items(type)"
+      @dropped="addItem()"
+    />
     <div
       class="interaction-container flex-item flex-row flex-center flex-stretch"
     >
@@ -73,15 +29,19 @@ import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import NumbersystemsMixin, {
   numbersystemType,
 } from "@/components/numbersystems/NumbersystemsMixin.vue";
-import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
 import Difficulty from "@/components/Difficulty.vue";
+import ItemSelection from "@/components/ItemSelection.vue";
+import ItemDropzone from "@/components/numbersystems/ItemDropzone.vue";
+import ItemGroup from "@/components/numbersystems/ItemGroup.vue";
 
 @Component<Swap>({
   components: {
-    ItemSelection,
     Undo,
     Difficulty,
+    ItemSelection,
+    ItemDropzone,
+    ItemGroup,
   },
 })
 export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
@@ -161,15 +121,7 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
       .concat(this.mapNumberToActions(correctSum, this.type))
       .concat(["button-menu-check", "button-menu-next"]);
   }
-
-  get nothingSelected(): boolean {
-    return this.selectedItems.every((el) => el === 0);
-  }
 }
 </script>
 
-<style scoped>
-.dropzone {
-  min-height: 5em;
-}
-</style>
+<style scoped></style>

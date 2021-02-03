@@ -17,21 +17,7 @@
         :key="index"
         class="flex-item flex-wrap flex-center flex-row flex-flex"
       >
-        <div id="items" class="flex-item flex-center flex-row card">
-          <div
-            v-for="(amount, i) in summand"
-            :key="`summand-${index}-item-${i}`"
-            class="flex-item flex-center flex-col"
-          >
-            <div
-              v-for="j in amount"
-              :key="`amount-${j}`"
-              :class="items(type)[i].class"
-            >
-              <img :src="require(`@/assets/${items(type)[i].img}`)" />
-            </div>
-          </div>
-        </div>
+        <ItemGroup :items="summand" :itemConfig="items(type)" />
         <div v-if="!(index === summands.length - 1)">+</div>
         <div v-else>=</div>
       </div>
@@ -44,36 +30,12 @@
           type="number"
         />
       </div>
-      <div
+      <ItemDropzone
         v-else
-        id="dropzone"
-        class="flex-item flex-center flex-col flex-flex dropzone"
-        @click="addItem()"
-        @dragover.prevent
-        @dragend.prevent
-        @drop.stop.prevent="addItem()"
-      >
-        <div v-if="nothingSelected">
-          Platziere hier die Elemente
-        </div>
-        <div v-else>
-          <div class="flex-item flex-center flex-row">
-            <div
-              v-for="(amount, i) in selectedItems"
-              :key="`item-${i}`"
-              class="flex-item flex-center flex-col"
-            >
-              <div
-                v-for="j in amount"
-                :key="`amount-${j}`"
-                :class="items(type)[i].class"
-              >
-                <img :src="require(`@/assets/${items(type)[i].img}`)" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        :items="selectedItems"
+        :itemConfig="items(type)"
+        @dropped="addItem()"
+      />
     </div>
     <hr />
     <div
@@ -98,14 +60,18 @@ import NumbersystemsMixin, {
   numbersystemType,
 } from "@/components/numbersystems/NumbersystemsMixin.vue";
 import Difficulty from "@/components/Difficulty.vue";
-import ItemSelection from "@/components/ItemSelection.vue";
 import Undo from "@/components/Undo.vue";
+import ItemSelection from "@/components/ItemSelection.vue";
+import ItemDropzone from "@/components/numbersystems/ItemDropzone.vue";
+import ItemGroup from "@/components/numbersystems/ItemGroup.vue";
 
 @Component<Addition>({
   components: {
     Difficulty,
-    ItemSelection,
     Undo,
+    ItemSelection,
+    ItemDropzone,
+    ItemGroup,
   },
 })
 export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
@@ -202,15 +168,7 @@ export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
         .concat(["button-menu-check", "button-menu-next"]);
     }
   }
-
-  get nothingSelected(): boolean {
-    return this.selectedItems.every((el) => el === 0);
-  }
 }
 </script>
 
-<style scoped>
-.dropzone {
-  min-height: 5em;
-}
-</style>
+<style scoped></style>
