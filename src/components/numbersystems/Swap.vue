@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
-    <div>Stelle die gleiche Summe mit weniger Münzen dar</div>
+    <div>Stelle die gleiche Summe mit weniger Elementen dar</div>
     <div id="items" class="flex-item flex-center flex-col flex-flex card">
       <slot>
         <div class="flex-item flex-center flex-row">
@@ -32,7 +32,7 @@
       @drop.stop.prevent="addItem()"
     >
       <div v-if="nothingSelected">
-        Platziere hier die Münzen
+        Platziere hier die Elemente
       </div>
       <div v-else>
         <slot>
@@ -110,13 +110,14 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
     do {
       this.generatedItems = this.generateItems(this.type);
     } while (
+      this.sumItems(this.type, this.generatedItems) >= this.limit(this.type) ||
       this.sum(this.generatedItems) ===
-      this.sum(
-        this.calcMinimalAmount(
-          this.type,
-          this.sumItems(this.type, this.generatedItems)
+        this.sum(
+          this.calcMinimalAmount(
+            this.type,
+            this.sumItems(this.type, this.generatedItems)
+          )
         )
-      )
     );
     this.animationSteps = this.getAnimationSteps();
   }

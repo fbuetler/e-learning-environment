@@ -9,7 +9,8 @@
     />
     <div class="number">
       Stell die folgende Summe
-      <b v-if="currentDifficultyLevel === 2">mit möglichst wenig Münzen</b> dar:
+      <b v-if="currentDifficultyLevel === 2">mit möglichst wenig Elementen</b>
+      dar:
     </div>
     <div id="number" class="big-text">{{ number }}</div>
     <div
@@ -21,7 +22,7 @@
       @drop.stop.prevent="addItem()"
     >
       <div v-if="nothingSelected">
-        Platziere hier die Münzen
+        Platziere hier die Elemente
       </div>
       <div v-else>
         <slot>

@@ -10,25 +10,25 @@
       "
     />
     <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
-    <div class="flex-item flex-wrap flex-center flex-row">
+    <div id="addition" class="flex-item flex-wrap flex-center flex-row">
       <div
         v-for="(summand, index) in summands"
+        id="summands"
         :key="index"
         class="flex-item flex-wrap flex-center flex-row flex-flex"
       >
-        <div class="flex-item flex-center flex-col flex-flex card">
-          <div class="flex-item flex-center flex-row">
-            <div v-for="nutIndex in summand[0]" :key="nutIndex" class="nut">
-              <img :src="require('@/assets/numbersystems/mayas/nut.png')" />
-            </div>
-          </div>
-          <div class="flex-item flex-center flex-col">
+        <div id="items" class="flex-item flex-center flex-row card">
+          <div
+            v-for="(amount, i) in summand"
+            :key="`summand-${index}-item-${i}`"
+            class="flex-item flex-center flex-col"
+          >
             <div
-              v-for="stickIndex in summand[1]"
-              :key="stickIndex"
-              class="stick"
+              v-for="j in amount"
+              :key="`amount-${j}`"
+              :class="items(type)[i].class"
             >
-              <img :src="require('@/assets/numbersystems/mayas/stick.png')" />
+              <img :src="require(`@/assets/${items(type)[i].img}`)" />
             </div>
           </div>
         </div>
@@ -47,24 +47,29 @@
       <div
         v-else
         id="dropzone"
-        class="flex-item flex-center flex-col flex-flex dropzone input"
+        class="flex-item flex-center flex-col flex-flex dropzone"
         @click="addItem()"
         @dragover.prevent
         @dragend.prevent
         @drop.stop.prevent="addItem()"
       >
-        <div v-if="selectedItems[0] === 0 && selectedItems[1] === 0">
-          Platziere hier die Nüsse und Stöcke
+        <div v-if="nothingSelected">
+          Platziere hier die Elemente
         </div>
         <div v-else>
           <div class="flex-item flex-center flex-row">
-            <div v-for="index in selectedItems[0]" :key="index" class="nut">
-              <img :src="require('@/assets/numbersystems/mayas/nut.png')" />
-            </div>
-          </div>
-          <div class="flex-item flex-center flex-col">
-            <div v-for="index in selectedItems[1]" :key="index" class="stick">
-              <img :src="require('@/assets/numbersystems/mayas/stick.png')" />
+            <div
+              v-for="(amount, i) in selectedItems"
+              :key="`item-${i}`"
+              class="flex-item flex-center flex-col"
+            >
+              <div
+                v-for="j in amount"
+                :key="`amount-${j}`"
+                :class="items(type)[i].class"
+              >
+                <img :src="require(`@/assets/${items(type)[i].img}`)" />
+              </div>
             </div>
           </div>
         </div>
@@ -197,11 +202,15 @@ export default class Addition extends Mixins(GameMixin, NumbersystemsMixin)
         .concat(["button-menu-check", "button-menu-next"]);
     }
   }
+
+  get nothingSelected(): boolean {
+    return this.selectedItems.every((el) => el === 0);
+  }
 }
 </script>
 
 <style scoped>
-.input {
+.dropzone {
   min-height: 5em;
 }
 </style>

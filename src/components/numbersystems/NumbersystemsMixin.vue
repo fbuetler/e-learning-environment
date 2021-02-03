@@ -3,27 +3,27 @@ import { Vue, Component } from "vue-property-decorator";
 import { item } from "@/components/ItemSelection.vue";
 
 export enum decimal {
-  ONE,
-  TWO,
-  FIVE,
-  TEN,
-  TWENTY,
   FIFTY,
+  TWENTY,
+  TEN,
+  FIVE,
+  TWO,
+  ONE,
 }
 
 export enum binary {
-  ONE,
-  TWO,
-  FOUR,
-  EIGHT,
-  SIXTEEN,
-  THIRTYTWO,
   SIXTYFOUR,
+  THIRTYTWO,
+  SIXTEEN,
+  EIGHT,
+  FOUR,
+  TWO,
+  ONE,
 }
 
 export enum maya {
-  ONE,
   FIVE,
+  ONE,
 }
 
 export enum numbersystemType {
@@ -58,16 +58,15 @@ export default class NumbersystemsMixin extends Vue {
 
   calcMinimalAmount(type: numbersystemType, number: number): number[] {
     const items = this.items(type);
-    items.sort((a, b) => a.value - b.value);
-    let i = items.length - 1;
+    let i = 0;
     const minimalAmount = new Array<number>(items.length).fill(0);
-    while (number > 0 && i >= 0) {
+    while (number > 0 && i < items.length) {
       const value = items[i].value;
       if (number >= value) {
         minimalAmount[i]++;
         number -= value;
       } else {
-        i--;
+        i++;
       }
     }
     return minimalAmount;
@@ -99,40 +98,21 @@ export default class NumbersystemsMixin extends Vue {
     }
   }
 
+  /*
+    The order of items is tightly coupled to the code where this mixins is used in.
+    The reason being is that vuejs 2 does not support reactive maps therefore
+    and array is used and each entry in this array corresponds to an item in the same order.
+  */
   items(type: numbersystemType): item[] {
     switch (type) {
       case numbersystemType.DECIMAL: {
         return [
           {
-            id: 1,
-            type: decimal.ONE,
-            value: 1,
-            max: 5,
-            img: "numbersystems/decimal/one.png",
-            class: "coin",
-          },
-          {
-            id: 2,
-            type: decimal.TWO,
-            value: 2,
-            max: 5,
-            img: "numbersystems/decimal/two.png",
-            class: "coin",
-          },
-          {
-            id: 3,
-            type: decimal.FIVE,
-            value: 5,
-            max: 3,
-            img: "numbersystems/decimal/five.png",
-            class: "coin",
-          },
-          {
-            id: 4,
-            type: decimal.TEN,
-            value: 10,
-            max: 3,
-            img: "numbersystems/decimal/ten.png",
+            id: 6,
+            type: decimal.FIFTY,
+            value: 50,
+            max: 2,
+            img: "numbersystems/decimal/fifty.png",
             class: "coin",
           },
           {
@@ -144,11 +124,35 @@ export default class NumbersystemsMixin extends Vue {
             class: "coin",
           },
           {
-            id: 6,
-            type: decimal.FIFTY,
-            value: 50,
-            max: 2,
-            img: "numbersystems/decimal/fifty.png",
+            id: 4,
+            type: decimal.TEN,
+            value: 10,
+            max: 3,
+            img: "numbersystems/decimal/ten.png",
+            class: "coin",
+          },
+          {
+            id: 3,
+            type: decimal.FIVE,
+            value: 5,
+            max: 3,
+            img: "numbersystems/decimal/five.png",
+            class: "coin",
+          },
+          {
+            id: 2,
+            type: decimal.TWO,
+            value: 2,
+            max: 5,
+            img: "numbersystems/decimal/two.png",
+            class: "coin",
+          },
+          {
+            id: 1,
+            type: decimal.ONE,
+            value: 1,
+            max: 5,
+            img: "numbersystems/decimal/one.png",
             class: "coin",
           },
         ];
@@ -156,43 +160,11 @@ export default class NumbersystemsMixin extends Vue {
       case numbersystemType.BINARY: {
         return [
           {
-            id: 1,
-            type: binary.ONE,
-            value: 1,
+            id: 7,
+            type: binary.SIXTYFOUR,
+            value: 64,
             max: 1,
-            img: "numbersystems/binary/one.png",
-            class: "coin",
-          },
-          {
-            id: 2,
-            type: binary.TWO,
-            value: 2,
-            max: 1,
-            img: "numbersystems/binary/two.png",
-            class: "coin",
-          },
-          {
-            id: 3,
-            type: binary.FOUR,
-            value: 4,
-            max: 1,
-            img: "numbersystems/binary/four.png",
-            class: "coin",
-          },
-          {
-            id: 4,
-            type: binary.EIGHT,
-            value: 8,
-            max: 1,
-            img: "numbersystems/binary/eight.png",
-            class: "coin",
-          },
-          {
-            id: 5,
-            type: binary.SIXTEEN,
-            value: 16,
-            max: 1,
-            img: "numbersystems/binary/sixteen.png",
+            img: "numbersystems/binary/sixtyfour.png",
             class: "coin",
           },
           {
@@ -204,11 +176,43 @@ export default class NumbersystemsMixin extends Vue {
             class: "coin",
           },
           {
-            id: 7,
-            type: binary.SIXTYFOUR,
-            value: 64,
+            id: 5,
+            type: binary.SIXTEEN,
+            value: 16,
             max: 1,
-            img: "numbersystems/binary/sixtyfour.png",
+            img: "numbersystems/binary/sixteen.png",
+            class: "coin",
+          },
+          {
+            id: 4,
+            type: binary.EIGHT,
+            value: 8,
+            max: 1,
+            img: "numbersystems/binary/eight.png",
+            class: "coin",
+          },
+          {
+            id: 3,
+            type: binary.FOUR,
+            value: 4,
+            max: 1,
+            img: "numbersystems/binary/four.png",
+            class: "coin",
+          },
+          {
+            id: 2,
+            type: binary.TWO,
+            value: 2,
+            max: 1,
+            img: "numbersystems/binary/two.png",
+            class: "coin",
+          },
+          {
+            id: 1,
+            type: binary.ONE,
+            value: 1,
+            max: 1,
+            img: "numbersystems/binary/one.png",
             class: "coin",
           },
         ];
@@ -216,20 +220,20 @@ export default class NumbersystemsMixin extends Vue {
       case numbersystemType.MAYA: {
         return [
           {
-            id: 1,
-            type: maya.ONE,
-            value: 1,
-            max: 4,
-            img: "numbersystems/mayas/nut.png",
-            class: "nut",
-          },
-          {
             id: 2,
             type: maya.FIVE,
             value: 5,
             max: 3,
             img: "numbersystems/mayas/stick.png",
             class: "stick",
+          },
+          {
+            id: 1,
+            type: maya.ONE,
+            value: 1,
+            max: 4,
+            img: "numbersystems/mayas/nut.png",
+            class: "nut",
           },
         ];
       }

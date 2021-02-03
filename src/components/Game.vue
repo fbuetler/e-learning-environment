@@ -83,7 +83,6 @@ export enum GameType {
 
 /*
   TODO:
-    - reverse coins/mayas order
     - reorder buttons: next, check, difficulty, undo, trashcan, tutorial
     - visual feedback for wrong input e.g in binary coins/to
     - symbol/encryption does not provide content: what to do?
