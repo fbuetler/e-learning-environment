@@ -59,9 +59,9 @@ import NumbersystemsMixin, {
   maya,
   numbersystemType,
 } from "@/components/numbersystems/NumbersystemsMixin.vue";
-import Difficulty from "@/components/Difficulty.vue";
-import Undo from "@/components/Undo.vue";
-import ItemSelection from "@/components/ItemSelection.vue";
+import Difficulty from "@/components/shared/Difficulty.vue";
+import Undo from "@/components/shared/Undo.vue";
+import ItemSelection from "@/components/shared/ItemSelection.vue";
 import ItemDropzone from "@/components/numbersystems/ItemDropzone.vue";
 import ItemGroup from "@/components/numbersystems/ItemGroup.vue";
 

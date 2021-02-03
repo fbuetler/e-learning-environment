@@ -1,5 +1,5 @@
 import words from "@/assets/words/words.json";
-import { item } from "@/components/ItemSelection.vue";
+import { item } from "@/components/shared/ItemSelection.vue";
 
 export type wordElement = {
   id: number;

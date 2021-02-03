@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Buttonmenu from "@/components/Buttonmenu.vue";
+import Buttonmenu from "@/components/shared/Buttonmenu.vue";
 
 describe("Buttonmenu.vue", () => {
   let wrapper;

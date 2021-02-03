@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Modal from "@/components/Modal.vue";
+import Modal from "@/components/shared/Modal.vue";
 
 describe("Modal.vue", () => {
   const headerSlot = "<div>Header</div>";

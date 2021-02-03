@@ -40,8 +40,8 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import Undo from "@/components/Undo.vue";
-import Trashcan from "@/components/Trashcan.vue";
+import Undo from "@/components/shared/Undo.vue";
+import Trashcan from "@/components/shared/Trashcan.vue";
 import {
   LoadWords,
   wordElement,

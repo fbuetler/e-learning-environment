@@ -39,8 +39,8 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import ItemSelection, { item } from "@/components/ItemSelection.vue";
-import Undo from "@/components/Undo.vue";
+import ItemSelection, { item } from "@/components/shared/ItemSelection.vue";
+import Undo from "@/components/shared/Undo.vue";
 import {
   LoadWords,
   wordElement,

@@ -29,9 +29,9 @@ import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import NumbersystemsMixin, {
   numbersystemType,
 } from "@/components/numbersystems/NumbersystemsMixin.vue";
-import Undo from "@/components/Undo.vue";
-import Difficulty from "@/components/Difficulty.vue";
-import ItemSelection from "@/components/ItemSelection.vue";
+import Undo from "@/components/shared/Undo.vue";
+import Difficulty from "@/components/shared/Difficulty.vue";
+import ItemSelection from "@/components/shared/ItemSelection.vue";
 import ItemDropzone from "@/components/numbersystems/ItemDropzone.vue";
 import ItemGroup from "@/components/numbersystems/ItemGroup.vue";
 

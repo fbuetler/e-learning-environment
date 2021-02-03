@@ -38,7 +38,7 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import Difficulty from "@/components/Difficulty.vue";
+import Difficulty from "@/components/shared/Difficulty.vue";
 import {
   CreatePattern,
   LoadRandomElement,

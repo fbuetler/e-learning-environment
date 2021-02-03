@@ -62,9 +62,9 @@
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import TreesMixin from "@/components/trees/TreesMixin.vue";
-import ItemSelection from "@/components/ItemSelection.vue";
-import Undo from "@/components/Undo.vue";
-import Trashcan from "@/components/Trashcan.vue";
+import ItemSelection from "@/components/shared/ItemSelection.vue";
+import Undo from "@/components/shared/Undo.vue";
+import Trashcan from "@/components/shared/Trashcan.vue";
 
 type rowField = {
   id: number;

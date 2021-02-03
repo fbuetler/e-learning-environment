@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Trashcan from "@/components/Trashcan.vue";
+import Trashcan from "@/components/shared/Trashcan.vue";
 
 describe("Trashcan.vue", () => {
   let wrapper;

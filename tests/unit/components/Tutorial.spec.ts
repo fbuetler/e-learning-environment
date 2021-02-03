@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import Tutorial from "@/components/Tutorial.vue";
+import Tutorial from "@/components/shared/Tutorial.vue";
 
 describe("Tutorial.vue", () => {
   let wrapper;

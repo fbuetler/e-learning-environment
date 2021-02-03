@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Undo from "@/components/Undo.vue";
+import Undo from "@/components/shared/Undo.vue";
 
 describe("Undo.vue", () => {
   let wrapper;

@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import ItemSelection from "@/components/ItemSelection.vue";
+import ItemSelection from "@/components/shared/ItemSelection.vue";
 
 describe("ItemSelection.vue", () => {
   let wrapper;

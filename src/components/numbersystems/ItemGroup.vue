@@ -21,7 +21,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { item } from "@/components/ItemSelection.vue";
+import { item } from "@/components/shared/ItemSelection.vue";
 
 @Component<ItemGroup>({})
 export default class ItemGroup extends Vue {

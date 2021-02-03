@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { item } from "@/components/ItemSelection.vue";
+import { item } from "@/components/shared/ItemSelection.vue";
 
 export enum decimal {
   FIFTY,

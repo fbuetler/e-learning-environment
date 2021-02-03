@@ -107,10 +107,10 @@
 import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
 import TreesMixin from "@/components/trees/TreesMixin.vue";
-import ItemSelection from "@/components/ItemSelection.vue";
-import Trashcan from "@/components/Trashcan.vue";
-import Undo from "@/components/Undo.vue";
-import Difficulty from "@/components/Difficulty.vue";
+import ItemSelection from "@/components/shared/ItemSelection.vue";
+import Trashcan from "@/components/shared/Trashcan.vue";
+import Undo from "@/components/shared/Undo.vue";
+import Difficulty from "@/components/shared/Difficulty.vue";
 
 type sudokuField = {
   id: number;

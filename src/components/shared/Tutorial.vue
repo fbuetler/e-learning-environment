@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Modal from "@/components/Modal.vue";
+import Modal from "@/components/shared/Modal.vue";
 
 @Component<Tutorial>({
   components: {

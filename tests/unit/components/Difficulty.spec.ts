@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Difficulty from "@/components/Difficulty.vue";
+import Difficulty from "@/components/shared/Difficulty.vue";
 
 describe("Difficulty.vue", () => {
   let wrapper;

@@ -35,7 +35,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { item } from "../ItemSelection.vue";
+import { item } from "@/components/shared/ItemSelection.vue";
 
 @Component<ItemDropzone>({})
 export default class ItemDropzone extends Vue {

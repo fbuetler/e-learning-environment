@@ -89,8 +89,8 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import GameMixin, { GameInterface } from "@/components/GameMixins.vue";
-import Undo from "@/components/Undo.vue";
-import Difficulty from "@/components/Difficulty.vue";
+import Undo from "@/components/shared/Undo.vue";
+import Difficulty from "@/components/shared/Difficulty.vue";
 import { LoadWords, wordElement } from "@/components/words/Words";
 
 @Component<Change>({

@@ -45,10 +45,10 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import Buttonmenu from "@/components/Buttonmenu.vue";
-import Tutorial from "@/components/Tutorial.vue";
-import TutorialAnimation from "@/components/TutorialAnimation.vue";
-import Modal from "@/components/Modal.vue";
+import Buttonmenu from "@/components/shared/Buttonmenu.vue";
+import Tutorial from "@/components/shared/Tutorial.vue";
+import TutorialAnimation from "@/components/shared/TutorialAnimation.vue";
+import Modal from "@/components/shared/Modal.vue";
 import TreeRow from "@/components/trees/Row.vue";
 import TreeSudoku from "@/components/trees/Sudoku.vue";
 import WordsAdd from "@/components/words/Add.vue";
