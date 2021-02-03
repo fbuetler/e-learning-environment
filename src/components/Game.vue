@@ -86,12 +86,10 @@ export enum GameType {
     - reverse coins/mayas order
     - reorder buttons: next, check, difficulty, undo, trashcan, tutorial
     - visual feedback for wrong input e.g in binary coins/to
-    - rework words i.e words are not recognized
     - symbol/encryption does not provide content: what to do?
     - optional: unit tests for each function
     - optional: multilingual (vue-i18n)
-    - optional: move parts of number systems task into components
-    - optional: add dificulty level to coins/swap: minimal coins
+    - optional: add difficulty level to numbersystems/swap: minimal items 
 */
 
 @Component({
@@ -202,7 +200,7 @@ export default class Game extends Vue {
   }
 }
 
-/* the special snowflakes */
+/* shared styles between multiple components */
 .word-container {
   margin: 1em;
 }
