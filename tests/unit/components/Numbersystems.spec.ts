@@ -12,9 +12,9 @@ enum numbersystemsType {
 }
 
 const mockNumber = 27;
-const mockDecimalSolution = [0, 1, 1, 0, 1, 0]; // 2 + 5 + 20 = 27
+const mockDecimalSolution = [0, 1, 0, 1, 1, 0]; // 20 + 5 + 2= 27
 const mockRandomNumber = jest.fn((x) => mockNumber);
-const mockItems = [2, 5, 1, 1, 0, 0]; // 2*1 + 5*2 + 1*5 + 1*10 = 27
+const mockItems = [0, 0, 1, 1, 5, 2]; //  + 1*10 + 1*5 + 5*2 + 2*1 = 27
 const mockGenerateItems = jest.fn((x) => mockItems);
 
 describe("To.vue", () => {
