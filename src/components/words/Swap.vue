@@ -7,11 +7,10 @@
       @difficulty-selected="changeDifficultyLevel($event)"
     />
     <div>
-      Versuche ein sinnvolles Wort zu bilden, indem du zwei Buchstaben
-      vertauschst.
-    </div>
-    <div v-if="currentDifficultyLevel === 2">
-      <b>Tipp: Es können mehrere Buchstabenpaare getauscht werden.</b>
+      Versuche ein sinnvolles Wort zu bilden, indem du
+      <b v-if="currentDifficultyLevel === 1">einmal</b>
+      <b v-if="currentDifficultyLevel === 2">zweimal</b>
+      zwei Buchstaben vertauschst.
     </div>
     <div
       id="word-container"
