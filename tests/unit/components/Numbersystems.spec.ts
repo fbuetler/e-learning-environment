@@ -1,4 +1,4 @@
-import { shallowMount, config } from "@vue/test-utils";
+import { mount, config } from "@vue/test-utils";
 import To from "@/components/numbersystems/To.vue";
 import From from "@/components/numbersystems/From.vue";
 import Swap from "@/components/numbersystems/Swap.vue";
@@ -20,7 +20,7 @@ const mockGenerateItems = jest.fn((x) => mockItems);
 describe("To.vue", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(To, {
+    wrapper = mount(To, {
       propsData: {
         args: {
           numbersystemType: numbersystemsType.DECIMAL,
@@ -84,7 +84,7 @@ describe("To.vue", () => {
 describe("From.vue", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(From, {
+    wrapper = mount(From, {
       propsData: {
         args: {
           numbersystemType: numbersystemsType.DECIMAL,
@@ -132,7 +132,7 @@ describe("From.vue", () => {
 describe("Swap.vue", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(Swap, {
+    wrapper = mount(Swap, {
       propsData: {
         args: {
           numbersystemType: numbersystemsType.DECIMAL,

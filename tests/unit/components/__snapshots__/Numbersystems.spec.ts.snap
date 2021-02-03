@@ -235,19 +235,83 @@ exports[`Swap.vue renders correctly 1`] = `
   >
     <div>
       
-      Platziere hier die Elemente
-    
+    Platziere hier die Elemente
+  
     </div>
   </div>
    
   <div
     class="interaction-container flex-item flex-row flex-center flex-stretch"
   >
-    <itemselection-stub
-      items="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
-    />
+    <div
+      class="flex-item flex-wrap flex-center-horizontally flex-row"
+      id="item-selection"
+    >
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-6"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-5"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-4"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-3"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-2"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-1"
+      >
+        <img
+          src=""
+        />
+      </div>
+    </div>
      
-    <undo-stub />
+    <div
+      class="undo flex-item flex-center card clickable"
+      id="undo"
+      title="Neu starten!"
+    >
+      <img
+        src=""
+      />
+    </div>
   </div>
 </div>
 `;
@@ -255,10 +319,36 @@ exports[`Swap.vue renders correctly 1`] = `
 exports[`To.vue renders correctly 1`] = `
 <div>
    
-  <difficulty-stub
-    difficultylevels="2"
-    selected="1"
-  />
+  <div
+    class="flex-item flex-center flex-col"
+  >
+    <div>
+      Ändere den Schwierigkeitsgrad:
+    </div>
+     
+    <div
+      class="difficulty flex-item flex-center flex-row"
+    >
+      <div
+        class="card clickable selected"
+        id="difficulty-1"
+        title="Schwierigkeitsgrad: leicht "
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="card clickable"
+        id="difficulty-2"
+        title="Schwierigkeitsgrad: mittelschwer "
+      >
+        <img
+          src=""
+        />
+      </div>
+    </div>
+  </div>
    
   <div
     class="number"
@@ -285,8 +375,8 @@ exports[`To.vue renders correctly 1`] = `
   >
     <div>
       
-      Platziere hier die Elemente
-    
+    Platziere hier die Elemente
+  
     </div>
   </div>
    
@@ -295,11 +385,75 @@ exports[`To.vue renders correctly 1`] = `
   <div
     class="interaction-container flex-item flex-row flex-center flex-stretch"
   >
-    <itemselection-stub
-      items="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
-    />
+    <div
+      class="flex-item flex-wrap flex-center-horizontally flex-row"
+      id="item-selection"
+    >
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-6"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-5"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-4"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-3"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-2"
+      >
+        <img
+          src=""
+        />
+      </div>
+      <div
+        class="flex-item flex-wrap flex-center card clickable coin"
+        draggable="true"
+        id="item-selection-1"
+      >
+        <img
+          src=""
+        />
+      </div>
+    </div>
      
-    <undo-stub />
+    <div
+      class="undo flex-item flex-center card clickable"
+      id="undo"
+      title="Neu starten!"
+    >
+      <img
+        src=""
+      />
+    </div>
   </div>
 </div>
 `;
