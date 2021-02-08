@@ -354,11 +354,13 @@ exports[`To.vue renders correctly 1`] = `
     class="number"
   >
     
-    Stell die folgende Summe
+    Zahle mit
     
     <!---->
+     
+    <!---->
     
-    dar:
+    Münzen die folgende Summe:
   
   </div>
    

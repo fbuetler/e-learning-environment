@@ -2,15 +2,16 @@
   <div @dragend.prevent="selected = null">
     <slot name="animation" :animationSteps="animationSteps" />
     <Difficulty
-      v-if="displayDifficulty"
+      v-if="isDecimal"
       :selected="currentDifficultyLevel"
       :difficultyLevels="difficultyLevels"
       @difficulty-selected="currentDifficultyLevel = $event"
     />
     <div class="number">
-      Stell die folgende Summe
-      <b v-if="currentDifficultyLevel === 2">mit möglichst wenig Elementen</b>
-      dar:
+      Zahle mit
+      <b v-if="currentDifficultyLevel === 2">möglichst wenig </b>
+      <span v-if="isBinary">binären </span>
+      Münzen die folgende Summe:
     </div>
     <div id="number" class="big-text">{{ number }}</div>
     <ItemDropzone
@@ -81,19 +82,12 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
   }
 
   isCorrect(): boolean {
-    if (
-      this.type === numbersystemType.BINARY &&
-      this.selectedItems.some((el) => el > 1)
-    ) {
+    if (this.isBinary && this.selectedItems.some((el) => el > 1)) {
       return false;
     }
     const isCorrectSum =
       this.sumItems(this.type, this.selectedItems) === this.number;
-    if (
-      this.currentDifficultyLevel === 2 &&
-      this.type === numbersystemType.DECIMAL &&
-      isCorrectSum
-    ) {
+    if (this.currentDifficultyLevel === 2 && this.isDecimal && isCorrectSum) {
       return (
         JSON.stringify(this.selectedItems) ===
         JSON.stringify(this.calcMinimalAmount(this.type, this.number))
@@ -130,7 +124,11 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
       .concat(["button-menu-check", "button-menu-next"]);
   }
 
-  get displayDifficulty(): boolean {
+  get isBinary(): boolean {
+    return this.type === numbersystemType.BINARY;
+  }
+
+  get isDecimal(): boolean {
     return this.type === numbersystemType.DECIMAL;
   }
 }

@@ -88,7 +88,7 @@ const views: Array<{
   },
   {
     id: 19,
-    title: "Bezahlen mit binären Münzen",
+    title: "Zahlen mit binären Münzen",
     path: "/coins/binary/to",
     img: "numbersystems/binary/binary_to.png",
     view: "BinaryCoinsTo",

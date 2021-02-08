@@ -230,7 +230,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Bezahlen mit binären Münzen
+        Zahlen mit binären Münzen
       
       </div>
     </a>
