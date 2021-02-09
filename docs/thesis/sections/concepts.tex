@@ -15,7 +15,7 @@ Transmitting information includes representing it in a message, sending it to th
 The editing distance is the amount of operations that need to be done to transform a message in another. Operations are deleting, inserting and changing a letter \TODO{add some TI explanation}. A cost function exists that defines the cost of each operation, and in our case each operation has a cost of 1 (unit cost model). The editing distance is then the minimal cost to transform a message into another one by a sequence of operations. In our case a message is a word.
 
 \begin{example}
-    The editing distance between \code{like} and \code{bike} is 1, since changing the first letter from an \code{l} to and \code{b} transforms the first word into the second.
+    The editing distance between \code{LIKE} and \code{BIKE} is 1, since changing the first letter from an \code{L} to and \code{B} transforms the first word into the second.
 \end{example}
 
 If sender and receiver agree to only transmit words with a minimal editing distance of e.g 3, then the receiver can still uniquely determine what word the sender has sent even when at most 1 spelling mistake has been made. The receiver calculates the minimal editing distance between the received word and each of the agreed words and chooses the word with the least editing distance.
@@ -27,19 +27,62 @@ The purpose of the \code{similar words} exercises is to learn these operations. 
 
 In the \code{adding a letter} exercise pupils are presented a word, the alphabet from A to Z and spaces between each letter of the word as well as at the beginnig and the end of the word, where a letter can be added. Pupils are supposed to choose a letter from the alphabet and add it to one of the mentioned spaces to form a new valid word.
 
+\begin{example}
+    The word \code{PACE} is given. By adding the letter \code{S} before the first letter, the valid word \code{SPACE} is formed.
+\end{example}
+
 \subsection*{Changing a letter}
 
 In this exercise there is again a word and the alphabet from A to Z shown. Again pupils should select a letter from the alphabet, but this time, instead of adding it to a space, the selected letter should be replace a letter from the word itself to create a new valid word.
+
+\begin{example}
+    The word \code{BIKE} is given. By changing the first letter from a \code{B} to a \code{L} the new valid word \code{LIKE} is formed.
+\end{example}
 
 \subsection*{Removing a letter}
 
 In this exercise pupils receive a word and they should select a character from within the word an move it to the trashcan to remove the letter from the word itself to form a new valid word.
 
+\begin{example}
+    The word \code{SPACE} is given. By removing the first letter the new valid word \code{PACE} is formed.
+\end{example}
+
 \subsection*{Swapping two adjacent letters}
 
 To learn to recognize typing mistakes in a word pupils are presented a word with swapped adjacent letters and they are supposed to identify those and swap them back to restore to original word. Here are multiple difficulty levels possible, where on the easy level only one pair of adjacent letters is swapped and on harder levels multiple pairs of adjacent letters are swapped.
 
+\begin{example}
+    The word \code{BKIE} is given. By swapping the second and third letter the original word \code{BIKE} is restored.
+\end{example}
+
 \subsection{Representing Numbers like the Maya}
+
+Today we are used to the decimal number system (base number 10), where we use 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.3 \columnwidth]{figures/maya_number_system.png}
+    \caption{Representation of the Maya numbers from 0 to 19} 
+    \label{fig:maya_numerals} 
+\end{figure}
+
+The following exercises are supposed to familiarize pupils with a new number system, the mayan number system. First converting numbers between the decimal number system and the mayan numbers is trained topped of an exercise about adding two mayan numbers.
+
+\subsection*{Representing mayan numbers}
+
+A decimal number is presented to the pupils and they need to choose the correct amount of dots and bars representing the decimal number. For the purpose of simplicity, only decimal numbers between 1 and 19 are chosen.
+
+\begin{example}
+    The decimal number \code{17} is writte as three bars and two dots.
+\end{example}
+
+\subsection*{Understanding mayan numbers}
+
+In this exercise the pupils learn to understand mayan numbers. Again only decimal numbers between 1 and 19 are used and the pupils need to understand what mayan number is shown and write down the decimal equivalent.
+
+\subsection*{Adding mayan numbers}
+
+To sum this section up, adding mayan numbers is learned. This exercises combines the previous two, since the pupils need to understand the summands given in the mayan number system, add them and write the sum down in either decimal number system or the mayan number system.
 
 \subsection{Representing Numbers with Coins}
 
