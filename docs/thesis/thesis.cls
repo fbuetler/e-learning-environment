@@ -1007,6 +1007,7 @@
 \else
   \onecolumn
 \fi
+\def\code#1{\texttt{#1}}
 
 \addtolength{\textwidth}{21.4pt}	%kai
 \endinput

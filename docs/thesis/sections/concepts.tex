@@ -4,9 +4,42 @@ This chapter is split into three parts. Each part discusses a basic concept of C
 
 \section{Representing Information with Symbols}
 
+Representing information with symbols is a fundamental concept of Computer Science as information should be represented clear and concisely. Words can be seen as a sequence of symbols, namely a sequence of letters.
+
 \subsection{Similar Words}
 
-\subsection{Representing Numbers like the Mayas}
+Transmitting information includes representing it in a message, sending it to the destination and the receiver being able to make sense of it even tough the message might contain errors such as a spelling mistake. To achieve this sender and receiver agree to only send messages with a minimal editing distance \cite{AnD} between each of them. 
+
+\subsection*{Editing distance}
+
+The editing distance is the amount of operations that need to be done to transform a message in another. Operations are deleting, inserting and changing a letter \TODO{add some TI explanation}. A cost function exists that defines the cost of each operation, and in our case each operation has a cost of 1 (unit cost model). The editing distance is then the minimal cost to transform a message into another one by a sequence of operations. In our case a message is a word.
+
+\begin{example}
+    The editing distance between \code{like} and \code{bike} is 1, since changing the first letter from an \code{l} to and \code{b} transforms the first word into the second.
+\end{example}
+
+If sender and receiver agree to only transmit words with a minimal editing distance of e.g 3, then the receiver can still uniquely determine what word the sender has sent even when at most 1 spelling mistake has been made. The receiver calculates the minimal editing distance between the received word and each of the agreed words and chooses the word with the least editing distance.
+The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a tradeoff. When chosing a bigger minimal distance for a fixed alphabet, the number of words we can use shrinks. To maintain the same amount of words we can choose to increase the size of the alphabet as well, resulting in longer words.
+
+The purpose of the \code{similar words} exercises is to learn these operations. Therefore we have an exercise dedicated to each opertion: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
+
+\subsection*{Adding a letter}
+
+In the \code{adding a letter} exercise pupils are presented a word, the alphabet from A to Z and spaces between each letter of the word as well as at the beginnig and the end of the word, where a letter can be added. Pupils are supposed to choose a letter from the alphabet and add it to one of the mentioned spaces to form a new valid word.
+
+\subsection*{Changing a letter}
+
+In this exercise there is again a word and the alphabet from A to Z shown. Again pupils should select a letter from the alphabet, but this time, instead of adding it to a space, the selected letter should be replace a letter from the word itself to create a new valid word.
+
+\subsection*{Removing a letter}
+
+In this exercise pupils receive a word and they should select a character from within the word an move it to the trashcan to remove the letter from the word itself to form a new valid word.
+
+\subsection*{Swapping two adjacent letters}
+
+To learn to recognize typing mistakes in a word pupils are presented a word with swapped adjacent letters and they are supposed to identify those and swap them back to restore to original word. Here are multiple difficulty levels possible, where on the easy level only one pair of adjacent letters is swapped and on harder levels multiple pairs of adjacent letters are swapped.
+
+\subsection{Representing Numbers like the Maya}
 
 \subsection{Representing Numbers with Coins}
 
