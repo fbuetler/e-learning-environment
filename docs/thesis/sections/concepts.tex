@@ -19,9 +19,9 @@ The editing distance is the amount of operations that need to be done to transfo
 \end{example}
 
 If sender and receiver agree to only transmit words with a minimal editing distance of e.g 3, then the receiver can still uniquely determine what word the sender has sent even when at most 1 spelling mistake has been made. The receiver calculates the minimal editing distance between the received word and each of the agreed words and chooses the word with the least editing distance.
-The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a tradeoff. When chosing a bigger minimal distance for a fixed alphabet, the number of words we can use shrinks. To maintain the same amount of words we can choose to increase the size of the alphabet as well, resulting in longer words.
+The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a tradeoff. When chosing a bigger minimal distance for a fixed alphabet, the number of words that can be used shrinks. To maintain the same amount of words the size of the lphabet can be increased too, resulting in longer words.
 
-The purpose of the \code{similar words} exercises is to learn these operations. Therefore we have an exercise dedicated to each opertion: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
+The purpose of the \code{similar words} exercises is to learn these operations. Therefore an exercise is dedicated to each opertion: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
 
 \subsection*{Adding a letter}
 
@@ -57,7 +57,7 @@ To learn to recognize typing mistakes in a word pupils are presented a word with
 
 \subsection{Representing Numbers like the Maya}
 
-Today we are used to the decimal number system (base number 10), where we use 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
+Today one is used to the decimal number system (base number 10), with 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
 
 \begin{figure} 
     \centering
@@ -86,7 +86,46 @@ To sum this section up, adding mayan numbers is learned. This exercises combines
 
 \subsection{Representing Numbers with Coins}
 
-\subsection{Representing Numbers with Binary Coins}
+The following exercises introduce a new number system and trains an already learned one: the binary number system and the decimal number system. Both number systems are praticed with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (Fig. \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (Fig. \ref{fig:decimal_coins}). 
+Overall, the same concepts are praticed for both number systems with the limitation that every binary coin can at most be used once. For both number systems the following exercises are given:
+\begin{itemize}
+    \item Conversion of a decimal number to its coin representation
+    \item Conversion of a number given in its coin representation to a decimal number
+\end{itemize}
+Additionally, for the decimal number system the following exercise is given:
+\begin{itemize}
+    \item Reducing the number of decimal coins in a given set of decimal coins
+\end{itemize}
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.5 \columnwidth]{figures/decimal_coins.png}
+    \caption{Representation of the decimal coins} 
+    \label{fig:decimal_coins} 
+\end{figure}
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.5 \columnwidth]{figures/binary_coins.png}
+    \caption{Representation of the binary coins} 
+    \label{fig:binary_coins} 
+\end{figure}
+
+\subsection*{Conversion of a decimal number to its coin representation}
+
+This exercise includes two difficulty levels:
+\begin{itemize}
+    \item Converting a decimal number to a coin representation, where the sum of all coins are equal to the decimal number
+    \item Converting a decimal number to a coin representation, where the sum of all coins are equal to the decimal number \textbf{and} the amount of used coins is minimal.
+\end{itemize}
+
+\subsection*{Conversion of a number given in its coin representation to a decimal number}
+
+This exercise is straigh forward. A number given in its coin representation, either binary or decimal coins, have to be converted to a decimal number. 
+
+\subsection*{Reducing the amount of decimal coins in a given set of decimal coins}
+
+Similar to the previous exercise, a number in its coin representation is given and pupils have to display the same number but with less coins.
 
 \section{Protecting Data and Keeping Information Secret}
 
@@ -96,6 +135,38 @@ To sum this section up, adding mayan numbers is learned. This exercises combines
 
 \section{Learning from Data}
 
+The following exercises are logic-based, combinatorial puzzles. The idea is that pupils need to complete a partially completed grid.
+
 \subsection{Row of Trees}
 
+The row of trees is a one dimensional grid i.e a row either of size 3 or 4. In every row there is exactly one tree of every height between 1 and 3 (Fig. \ref{fig:trees_3}) or 4 (Fig. \ref{fig:trees_4}) respectively. At both ends of the row the amount of tree visible from this end of the row is given.
+Pupils are given an empty row with only the number of trees seen from both ends of the row and need to place trees of different heights such the aforementioned rules are followed.
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.5 \columnwidth]{figures/trees_3.png}
+    \caption{Trees from height 1 to 3} 
+    \label{fig:trees_3} 
+\end{figure}
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.5 \columnwidth]{figures/trees_4.png}
+    \caption{Trees from height 1 to 4} 
+    \label{fig:trees_4} 
+\end{figure}
+
+\begin{example}
+    For a row size 3, if given the value 2 for both ends of the row, then one possible solution to the puzzle is shown in figure \ref{fig:tree_row_example}.
+\end{example}
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.8 \columnwidth]{figures/tree_row_example.png}
+    \caption{Visualization of the puzzle solution from the tree row example} 
+    \label{fig:tree_row_example} 
+\end{figure}
+
 \subsection{Tree Sudoku}
+
+% https://www.bowdoin.edu/~sbarker/teaching/courses/ds/18fall/files/lab4.pdf
