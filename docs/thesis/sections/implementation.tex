@@ -5,6 +5,7 @@
 \section{Vue.js}
 
 Vue.js is developed by a company, but by Evan You and was first published in 2014. It is an alternative to Angular and React and was supossed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, Javascript and CSS \cite{Vue}.
+Components are named resuable Vue.js instances and have the advantages that the structure, functionality and style of a page element is implemented once and can then easily be used multiple times. Therefore each component has a parent (except from the root component) and possibly multiple child components forming a tree structure. Communication between a parent and a child component happens from the parent to the child by Props and from child to parent by events. Props are custom attributes that pass data from the parent to the child component. Events are emitted by a child component, can carry data and a parent can listen and react upon receiving an event from a child component.
 
 \section{TypeScript}
 
@@ -12,6 +13,38 @@ JavaScript had its publication in 1996, is a scripting language and is intended 
 TypeScript extends JavaScript by adding types and can be used anywhere JavaScript runs, because TypeScript code is transformed to JavaScript code by the TypeScript compiler. It provides a way to describe what type a variable has and helps to catch errors before the code is run. Moreover, TypeScript adds among others the concept of method signatures, type interference, interfaces, enummerations and tuples. \cite{Typescript}.
 
 \section{Basic functionality}
+
+\subsection{Home Screen}
+
+The home screen is the first page seens when visiting the learning system. It has a simple structure: For each available exercise there is a card with an image to illustrate the exercise and its title. The basic ideas for the images are taken from the text book, but most of the time needed some simple photoshopping to make it represent the task reasonably.
+
+\subsection{General Purpose Components}
+
+The following presented components are components that are heavily reused. All exercises need some kind of user interaction elements.
+\TODO{images for each component}
+\TODO{maybe elaborate on technical details like passing events}
+
+\subsection*{Game}
+\TODO{image about component tree structure}
+
+\subsection*{Undo Button}
+The Undo button simply restores the current exercise initial conditions, so one can retry it again.
+
+\subsection*{Trashcan}
+The Trashcan is an area where elements can be dropped to remove them. For example when pupils are asked to remove a letter from a word, they can either move the letter to this area and drop it or first click the element and then the trashcan are to remove it.
+
+\subsection*{Difficulty Levels}
+Some exercises have multiple difficulty levels. For those exercise the Difficulty component is used to change the level. This component gives the possibility to choose to up to three different difficulty levels indicated by an increasing amount of beavers on the button and a title.
+
+\subsection*{Game Buttons}
+Every exercise needs a \textbf{check exercise} and a \textbf{next exercise} button to first check a given solution to an exercise and let the system check it and second to get to the next exercise.
+
+\subsection*{Tutorial}
+To introduce an exercise to the pupils the title of the exercise and a short instruction is not enough. Therefore for each exercise there is a detailed explanation of the background and purpose and a tutorial video. The tutorial video show an example run of first give a wrong solution, restart the exercise and finally give the correct solution.
+The tutorial video were recorded by a screen capture tool and the moves on how to solve the exercise are done programmatically. The reason for this is that moving the mouse by hand to solve the exercise introduces a jitter to the mouse movement. The tutorial on the other hand should show clearly and without any hesitation the way on how to solve the exercise. Since this cannot be done by an average human being, the mouse movement is done programmatically. Each graphical element part of the exercise has an ID and one can give a list of IDs that should be visited in a run. For some this is straight forward.
+\REMARK{possible to elaborate more on how to generate the ID list}
+
+\subsection{Game Interface}
 
 % move to architecture
 % basic functionality: click, drag&drop, undo, trashcan, difficulty, check, next
