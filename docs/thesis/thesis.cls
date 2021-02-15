@@ -869,8 +869,6 @@
 \newenvironment{table*}
                {\@dblfloat{table}}
                {\end@dblfloat}
-\newlength\abovecaptionskip
-\newlength\belowcaptionskip
 \setlength\abovecaptionskip{10\p@}
 \setlength\belowcaptionskip{0\p@}
 \long\def\@makecaption#1#2{%
