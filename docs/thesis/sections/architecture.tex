@@ -45,7 +45,7 @@ The following list represent the best practice that were followind in this proje
 
 \section{Structure}
 \label{section:structure}
-The code for the project is located in the \textbf{src} folder. The source folder has the following content: 
+The code for the project is located in the \textbf{src} folder. The \textbf{src} folder has the following content: 
 
 \begin{itemize}
     \item \textbf{assets} - all the images and videos used in components
@@ -53,6 +53,15 @@ The code for the project is located in the \textbf{src} folder. The source folde
     \item \textbf{router} - everything in Vue.js is a component, but not everything is page. A page needs a route e.g. \code{/settings} and this folder contains all routes of the project. Components with a route are called \textbf{routed}
     \item \textbf{views} - all routed components
 \end{itemize}
+
+The \textbf{tests} contains unit, snapshot and end-to-end tests for the project \ref{chapter:testingAndCI}. The \textbf{tests} contains the following:
+
+\begin{itemize}
+    \item \textbf{unit} - all unit and snapshot tests
+    \item \textbf{e2e} - all e2e tests
+\end{itemize}
+
+
 
 \section{Basic functionality}
 \label{section:basicFunctionality}
