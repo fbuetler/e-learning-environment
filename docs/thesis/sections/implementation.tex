@@ -2,30 +2,89 @@
 
 \section{Introduction}
 
-\section{Vue.js}
-
-Vue.js is developed by a company, but by Evan You and was first published in 2014. It is an alternative to Angular and React and was supossed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, Javascript and CSS \cite{Vue}.
-Components are named resuable Vue.js instances and have the advantages that the structure, functionality and style of a page element is implemented once and can then easily be used multiple times. Therefore each component has a parent (except from the root component) and possibly multiple child components forming a tree structure. Communication between a parent and a child component happens from the parent to the child by Props and from child to parent by events. Props are custom attributes that pass data from the parent to the child component. Events are emitted by a child component, can carry data and a parent can listen and react upon receiving an event from a child component.
-
 \section{TypeScript}
+JavaScript had its publication in 1996, is a scripting language and is intended to be used in browsers to extend the possibilities of HTML and CSS. It can dynamically manipulate HTML and CSS, validate user data, send and receive data without reloading the page and much more.
+TypeScript extends JavaScript by adding types and can be used anywhere JavaScript runs, because TypeScript code is transformed to JavaScript code by the TypeScript compiler. It provides a way to describe what type a variable has and helps to catch errors before the code is run. Moreover, TypeScript adds among others the concepts of method signatures, type interference, interfaces, enummerations and tuples. \cite{Typescript}.
 
-JavaScript had its publication in 1996, is a scripting language and is intended to be used in browser to extend the possibilities of HTML and CSS. It can dynamically manipulate HTML and CSS, validate user data, send and receive data without reloading the page and much more.
-TypeScript extends JavaScript by adding types and can be used anywhere JavaScript runs, because TypeScript code is transformed to JavaScript code by the TypeScript compiler. It provides a way to describe what type a variable has and helps to catch errors before the code is run. Moreover, TypeScript adds among others the concept of method signatures, type interference, interfaces, enummerations and tuples. \cite{Typescript}.
+\section{Vue.js}
+Vue.js is not developed by a company, but by Evan You and was first published in 2014. It is an alternative to Angular and React and was supossed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, Javascript and CSS.
+At the point the development of this project started, Vue.js version 3 was already published. However, Vue.js version 2 is used in this project, because the ecosystem has no caught up yet and many libraries only work with version 2 at the moment \cite{Vue}.
+
+\subsection{Components}
+Components are named resuable Vue.js instances and have the advantages that the structure, functionality and style of an element is implemented once and can then easily be used multiple times. Therefore each component has a parent (except from the root component) and possibly multiple child components forming a tree structure \cite{Vue}. 
+
+\subsection{Communication between Components}
+Communication between a parent and a child component happens from the parent to the child by properties and from child to parent by events. Properties are custom attributes that pass data from the parent to the child component. Events are emitted by a child component, can carry data and a parent can listen and react upon receiving an event from a child component \cite{Vue}.
+
+\subsection{Best Practices}
+The following list represent the best practice that were followind in this project. To see examples for each best pratice visit the Vue.js style guide  \cite{VueStyleGuide}.
+
+\begin{itemize}
+    \item Properties should be as detailed as possible and at least have a type.
+    \item Always use \code{key} with \code{v-for} to maintain the internal component state.
+    \item Avoid \code{v-if} with \code{v-for}
+    \item Only the top-level \code{App} component and layout components should have global styles. All other components should always have scoped styles i.e the styles is only used within the component.
+    \item Each component is in its own file.
+    \item Filenames are in Pascal-Case.
+    \item Components without any content should be self-closing e.g \code{<Component />} instead of \code{<Component><Component/>}.
+    \item Components name casing in templates is PascalCase.
+    \item Properties name casing is camelCase.
+    \item Elements with multiple attributes should span multiple lines, with one attribute on each line.
+    \item Component templates should only contain simple expressions. Complex expressions should be moved into computed properties or methods.
+    \item Element attribute values should be quoted.
+    \item Directive shorthands are always used.
+    \item Element attributes should be ordered consistently.
+    \item Components should be ordered like \code{<templates>}, \code{<script>} and \code{<style>}.
+    \item Element selectors should be avoided with \code{scoped}
+    \item Properties and events should be used for parent-child communication.
+\end{itemize}
+
+\section{Structure}
+The code for the project is located in the \textbf{src} folder. The source folder has the following content: 
+
+\begin{itemize}
+    \item \textbf{assets} - all the images and videos used in components
+    \item \textbf{components} - all components of the project that are not a view
+    \item \textbf{router} - everything in Vue.js is a component, but not everything is page. A page needs a route e.g. \code{/settings} and this folder contains all routes of the project. Components with a route are called \textbf{routed}
+    \item \textbf{views} - all routed components
+\end{itemize}
 
 \section{Basic functionality}
 
 \subsection{Home Screen}
+The home screen is a view and is the first page seens when visiting the learning environment. It has a simple structure: For each available exercise there is a card with an image to illustrate the exercise and its title. The basic ideas for the images are taken from the text book, but most of the time needed some simple photoshopping to make it represent the task reasonably.
 
-The home screen is the first page seens when visiting the learning system. It has a simple structure: For each available exercise there is a card with an image to illustrate the exercise and its title. The basic ideas for the images are taken from the text book, but most of the time needed some simple photoshopping to make it represent the task reasonably.
+\subsection{Game Mixin and Game Interface}
+
+\subsection*{Game Mixin}
+Mixins can be used to reuse functionality over different Vue components. When a component uses a mixin, all functionalities of the mixins are mixed into the component. All exercises use the \code{GameMixin} containing mostly the functionality on start and evaluate an exercises. Additionally, a function to generate a random number exists to mock random number generation in tests. More on that later.
+
+\subsection*{Game Interface}
+Each exercises implements the GameInterface. This ensures that exercise specific functionality like starting and evaluating the exercise is implemented and can be used in the \code{GameMixin}.
+
+\begin{lstlisting}[language=TypeScript,caption={GameInterface},label={lst:gameInterface}]
+interface GameInterface {
+    isInitialized(): boolean;
+    start(): void;
+    isCorrect(): boolean;
+}
+\end{lstlisting}
 
 \subsection{General Purpose Components}
-
-The following presented components are components that are heavily reused. All exercises need some kind of user interaction elements.
+The following presented components are components that are heavily reused. Most of them are part of the user interaction system since all exercises need some kind of user interaction elements.
 \TODO{images for each component}
 \TODO{maybe elaborate on technical details like passing events}
 
 \subsection*{Game}
+The Game component is an essential
 \TODO{image about component tree structure}
+
+\subsection{Event Bus}
+Sometimes components are not in a direct parent-child relationship and still need to communicate. This can still be achieved by passing properties and emitting events, but evolves quickly into an unclear structure. To tackle this problem one can use an event bus. 
+The event bus is a vue instance that allows to to emit an event in one component and listen for that event on another component. To use the event bus, a component simply needs to import the instance and can emit or listen for event on the usual way. This functionality is necessary between the game buttons and each exercise.
+
+\subsection*{Game Buttons}
+Every exercise needs a \textbf{check exercise} and a \textbf{next exercise} button to first check a given solution to an exercise and let the system check it and second to get to the next exercise.
 
 \subsection*{Undo Button}
 The Undo button simply restores the current exercise initial conditions, so one can retry it again.
@@ -36,21 +95,12 @@ The Trashcan is an area where elements can be dropped to remove them. For exampl
 \subsection*{Difficulty Levels}
 Some exercises have multiple difficulty levels. For those exercise the Difficulty component is used to change the level. This component gives the possibility to choose to up to three different difficulty levels indicated by an increasing amount of beavers on the button and a title.
 
-\subsection*{Game Buttons}
-Every exercise needs a \textbf{check exercise} and a \textbf{next exercise} button to first check a given solution to an exercise and let the system check it and second to get to the next exercise.
-
 \subsection*{Tutorial}
 To introduce an exercise to the pupils the title of the exercise and a short instruction is not enough. Therefore for each exercise there is a detailed explanation of the background and purpose and a tutorial video. The tutorial video show an example run of first give a wrong solution, restart the exercise and finally give the correct solution.
 The tutorial video were recorded by a screen capture tool and the moves on how to solve the exercise are done programmatically. The reason for this is that moving the mouse by hand to solve the exercise introduces a jitter to the mouse movement. The tutorial on the other hand should show clearly and without any hesitation the way on how to solve the exercise. Since this cannot be done by an average human being, the mouse movement is done programmatically. Each graphical element part of the exercise has an ID and one can give a list of IDs that should be visited in a run. For some this is straight forward.
 \REMARK{possible to elaborate more on how to generate the ID list}
 
-\subsection{Game Interface}
-
-% move to architecture
-% basic functionality: click, drag&drop, undo, trashcan, difficulty, check, next
-% tutorial with video
-% styling like highlighting, locked
-% game component and interface for games
+\section{Styles}
 
 \section{Representing Information with Symbols}
 
