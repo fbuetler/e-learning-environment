@@ -1,23 +1,116 @@
 \chapter{Testing and Continous Integration}
 \label{chapter:testingAndCI}
 
+Implemented funtionality should always be tested. Not only to ensure that is currently does what it is supposed to do, but also to avoid regression. Nothing is worse than introducing a bug by implementing a new feature with noticing it. Therefore in this project we use unit, snapshot and End-to-End test to avoid regression.
+Moreover, all tests are always run upon each commit to the GitLab repository.
+
 \section{Testing}
 \label{section:testing}
+For unit and snapshot testing Jest is used. Jest is a JavaScript testing framwork focusing on simplicity and is maintained by Facebook. It is supposed to require zero config and runs tests isolated and therefore can be paralellized \cite{Jest}. For End-to-End testing Nightwatch is used. Nighwatch is a Node.js powered End-to-End testing framework for web applications and websites. It supports testing in Chrome, Firefox and Edge, supports page object to easily abstract the content of a page and allows extending the framwork with custom commands \cite{Nightwatch}.
 
-% jest
-
-\subsection{Unit and Testing}
+\subsection{Unit Testing}
 \label{subsection:unitTesting}
+Unit tests are usually used to verify the functionality of functions and work with the following concept: the tester has an input to a function and knows what the function should output for this input. The tester then compares the actual ouput of the function and compares it to the expected output. If those are not the same the test is evaluated as failed, and succeeded otherwise.
+There are mainly two different categories of unit tests: black-box and white-box testing.
+
+\subsection*{Back-box and White-box Testing}
+Black-box testing is a testing method, where the tester does not know how a feature is implemented and has to think of cases by just using ones understanding of the feature. White-box testing on the other hand is a testing method, where the tester does know the implementation of the feature. Usually both kind of software testing is used. But since there are no software tester  (testers without any knowledge of the impelementation) involved in this project, only white-box testing is applied \cite{BlackBoxWhiteBoxTesting}.
+
+\subsection*{Test Plan}
+
+General purpose components are tested in its specialized functionality i.e wheter they react correctly on different user inputs. \TODO{maybe elaborate on that?}
+The components representing an exercises are tested for:
+
+\begin{itemize}
+    \item Initial conditions hold
+    \item Various exercise specific user inputs are handled correctly
+    \item Restarting the exercise works as expected
+    \item Starting next example restores the initial conditions
+    \item Correct answer is accepted
+    \item Incorrect answer is rejected
+\end{itemize}
+
+\subsection*{Code Coverage}
+As mentioned before, unit test usually test a feature on the function level. To catch as many possible code paths and corner cases, the same function is tested multiple times with different inputs. 
+A metric to judge the usefullness of a test suite is the code coverage. The code coverage shows how well a test suite covers the functionality. Usually, a coverage report includes:
+
+\begin{itemize}
+    \item \textbf{Statement coverage} - The percentage of statements that have been executed 
+    \item \textbf{Branch coverage} - The percentage of branches of the constrol structures (e.g. if and loop statements) that have been executed
+    \item \textbf{Function coverage} - The percentage of functions that have been called
+    \item \textbf{Lines coverage} - The percentage of line of the source code that have been tested
+\end{itemize}
+
+High coverage percentage does not imply that it is a good test suite. Some critical paths can still be untested. It is generally accecpted that a code coverage of 80\% is a desirable goal. Going above 80\% of code coverage is usually costly and does not provide any valuable benefit \cite{CodeCoverage}.
+
+The code coverage for the whole project and each component is given in table \ref{table:testCoverage}. Most of the components are well tested with a code coverage of above 80\% in most categories. Some percentages indicate bad code coverage 
+\TODO{elaborate on components with bad code coverage}
+ 
+\subsection*{Non-determinism}
+A problem that has to be tackled for testing is how to ensure determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used then the actual output may not be the same as the expected output and the test is evaluated as failed. To circumvent this issue, one can mock the function that is used to generate a random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
+\REMARK{maybe refer to game mixin}
+
+\begin{table}
+    \label{table:testCoverage}
+    \caption{Test coverage of all components}
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+        File & \% Stmts & \% Branch & \% Funcs & \% Lines \\ \hline
+        All files & 86.71 & 73.11 & 86.73 & 86.56 \\ \hline
+        App.vue & 100 & 100 & 100 & 100 \\ \hline
+        Footer.vue & 100 & 100 & 100 & 100 \\ \hline
+        Header.vue & 100 & 100 & 100 & 100 \\ \hline
+        Home.vue & 100 & 100 & 100 & 100 \\ \hline
+        GameMixins.vue & 55.56 & 100 & 27.27 & 55.56 \\ \hline
+        Buttonmenu.vue & 66.67 & 100 & 0 & 66.67 \\ \hline
+        Difficulty.vue & 87.5 & 62.5 & 100 & 87.5 \\ \hline
+        ItemSelection.vue & 100 & 100 & 100 & 100 \\ \hline
+        Modal.vue & 100 & 100 & 100 & 100 \\ \hline
+        Trashcan.vue & 100 & 100 & 100 & 100 \\ \hline
+        Tutorial.vue & 100 & 100 & 100 & 100 \\ \hline
+        Undo.vue & 100 & 100 & 100 & 100 \\ \hline
+        PatternDecryption.vue & 78.79 & 50 & 80 & 77.42 \\ \hline
+        PatternEncryption.vue & 79.41 & 50 & 81.82 & 78.13 \\ \hline
+        From.vue & 100 & 100 & 100 & 100 \\ \hline
+        ItemDropzone.vue & 100 & 100 & 100 & 100 \\ \hline
+        ItemGroup.vue & 100 & 100 & 100 & 100 \\ \hline
+        NumbersystemsMixin.vue & 75.41 & 62.5 & 84.62 & 77.59 \\ \hline
+        Swap.vue & 88.89 & 83.33 & 88.89 & 91.18 \\ \hline
+        To.vue & 90.24 & 45.45 & 90 & 92.11 \\ \hline
+        Row.vue & 89.04 & 65.71 & 100 & 88.89 \\ \hline
+        Sudoku.vue & 91.12 & 76.09 & 94.12 & 90.26 \\ \hline
+        TreesMixin.vue & 100 & 100 & 100 & 100 \\ \hline
+        Add.vue & 98.33 & 100 & 95.24 & 98.28 \\ \hline
+        Change.vue & 91.43 & 83.33 & 93.33 & 91.18 \\ \hline
+        Remove.vue & 100 & 100 & 100 & 100 \\ \hline
+        Swap.vue & 61.22 & 87.5 & 76 & 59.78 \\ \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Snapshot Testing}
 \label{subsection:snapshotTesting}
+Snapshot tests ensures correctness of the user interface and that it does not change unexpectedly. More precicely, snapshot tests renders the template of a component to a HTML, takes a snapshot and compares the snapshot with the previous saved reference snapshot. These two snapshots are compared and if they do not match, the test fails or succeds otherwise. If the changes made to the source code were intended to change the UI, the snapshot has to be updated. This requires an initial snapshot that is known to be correct. Hence snapshot should be commited to the repository as well \cite{Jest}.
 
-\subsection{End to End Testing}
+Every component in this project is snapshot tested and are therefore save from unintended UI changes.
+
+\subsection{End-to-End Testing}
 \label{subsection:e2e}
+End-to-End tests are used to to test the entire application flow through a software product. The main goal is to test it from a users perspective by simulating a user scenario \cite{EndToEndTests}. 
+\TODO{maybe elaborate a bit more on that}
 
-% nightwatch
+Nighwatch allows to run End-to-End tests for Chrome, Firefox and Edge to ensure the application works across browser-borders. The End-to-End tests for this project make use of page objects. A page object is an abstraction of a page represented as an object. The goal of a page object is to simplify the End-to-End test by showing the same one can see when one visites the page \cite{Nightwatch}.
+
+The End-to-End tests in this project only covers the visibilty of all parts of an exersise one needs to see to solve it. The reason behind this is that many exercises are based on non-determinism and since a user cannot influence that the End-to-End tests are not able to do that as well.
 
 \section{Continous Integration}
 \label{section:CI}
 
+This project make use of the GitLab Continous Integration (CI). When pushing a commit to the projects GitLab repository, the CI pipeline is run. The CI pipeline is specified in the \code{.gitlab-ci.yml} file in the projects root folder and specifies what jobs need to be done. Usually, these jobs build, test and validate changes made to the source code and allow to easily catch bugs and errors.
+The CI pipline of this project consists of two parts:
+
+\begin{itemize}
+    \item \textbf{Unit and Snapshot tests} - runs the unit and snapshot tests \ref{subsection:unitTesting} \ref{subsection:snapshotTesting}
+    \item \textbf{End-to-End tests} - runs the End-to-End tests in Firefox \ref{subsection:e2e}
+\end{itemize}
 % gitlab CI
