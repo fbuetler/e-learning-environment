@@ -47,7 +47,7 @@ The code coverage for the whole project and each component is given in table \re
 \TODO{elaborate on components with bad code coverage}
  
 \subsection*{Non-determinism}
-A problem that has to be tackled for testing is how to ensure determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used then the actual output may not be the same as the expected output and the test is evaluated as failed. To circumvent this issue, one can mock the function that is used to generate a random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
+A problem that has to be tackled for testing is how to handle determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used, then the actual output may not be the same as the expected output and the test is evaluated as failed. To circumvent this issue, one can mock the function that is used to generate a random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
 \REMARK{maybe refer to game mixin}
 
 \begin{table}
@@ -90,13 +90,13 @@ A problem that has to be tackled for testing is how to ensure determinism. Some 
 
 \subsection{Snapshot Testing}
 \label{subsection:snapshotTesting}
-Snapshot tests ensures correctness of the user interface and that it does not change unexpectedly. More precicely, snapshot tests renders the template of a component to a HTML, takes a snapshot and compares the snapshot with the previous saved reference snapshot. These two snapshots are compared and if they do not match, the test fails or succeds otherwise. If the changes made to the source code were intended to change the UI, the snapshot has to be updated. This requires an initial snapshot that is known to be correct. Hence snapshot should be commited to the repository as well \cite{Jest}.
+Snapshot tests ensures correctness of the user interface and that it does not change unexpectedly. More precicely, snapshot tests renders the template of a component to HTML, takes a snapshot and compares the snapshot with the previous saved reference snapshot. These two snapshots are compared and if they do not match, the test fails or succeds otherwise. If the changes made to the source code were intended to change the UI, the snapshot has to be updated. This requires an initial snapshot that is known to be correct. Hence snapshot should be commited to the repository as well \cite{Jest}.
 
-Every component in this project is snapshot tested and are therefore save from unintended UI changes.
+Every component in this project is snapshot tested and is therefore save from unintended UI changes.
 
 \subsection{End-to-End Testing}
 \label{subsection:e2e}
-End-to-End tests are used to to test the entire application flow through a software product. The main goal is to test it from a users perspective by simulating a user scenario \cite{EndToEndTests}. 
+End-to-End tests are used to test the entire application flow through an application. The main goal is to test it from a users perspective by simulating a user scenario \cite{EndToEndTests}. 
 \TODO{maybe elaborate a bit more on that}
 
 Nighwatch allows to run End-to-End tests for Chrome, Firefox and Edge to ensure the application works across browser-borders. The End-to-End tests for this project make use of page objects. A page object is an abstraction of a page represented as an object. The goal of a page object is to simplify the End-to-End test by showing the same one can see when one visites the page \cite{Nightwatch}.
