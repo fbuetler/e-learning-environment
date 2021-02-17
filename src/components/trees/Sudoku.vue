@@ -219,7 +219,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
         views[emptyViewSlotRow][emptyViewSlotCol] = numbers[i];
       }
       if (this.isValid(values, views, false)) {
-        const solutions = this.solve(values, views, 0);
+        const solutions = this.solve(values, views);
         if (solutions === 0) {
           values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
             emptyValueSlotRow,
@@ -247,25 +247,21 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     return [values, views];
   }
 
-  solve(values: sudoku, views: number[][], solutions: number): number {
+  solve(values: sudoku, views: number[][]): number {
     const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
       values.map((row) => row.map((col) => col.value))
     );
     if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
-      // this is possibly overwritten several times until a unique solution is found
+      // this is possibly overwritten several times until a instance with a unique solution is found
       this.valuesSolution = JSON.parse(JSON.stringify(values)) as sudoku; // deep copy
-      return solutions + 1;
+      return 1;
     }
 
-    const numbers: number[] = [];
-    for (let i = 0; i < this.size; i++) {
-      numbers[i] = i + 1;
-    }
-    this.shuffle(numbers);
-    for (let i = 0; i < numbers.length; i++) {
-      values[emptyValueSlotRow][emptyValueSlotCol].value = numbers[i];
+    let solutions = 0;
+    for (let i = 1; i <= this.size; i++) {
+      values[emptyValueSlotRow][emptyValueSlotCol].value = i;
       if (this.isValid(values, views, false)) {
-        solutions = this.solve(values, views, solutions);
+        solutions += this.solve(values, views);
         if (solutions > 1) {
           break;
         }
@@ -366,7 +362,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
       if (
         this.calculateValueCoverage(values) <
           this.minimalCoveragePerLevel.get(this.currentDifficultyLevel) ||
-        this.solve(values, this.views, 0) !== 1
+        this.solve(values, this.views) !== 1
       ) {
         values[row][col].value = tmpValue;
         break;
@@ -493,14 +489,6 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     });
     this.itemToAdd = null;
     this.fieldToClean = null;
-  }
-
-  gridSize(): string {
-    return `grid-template-rows: 0.5fr repeat(${this.size}, 1fr) 0.5fr;`;
-  }
-
-  gridRowSizeAndPosition(rowIndex: string, colIndex: string): string {
-    return `grid-template-columns: 0.3fr repeat(${this.size}, 1fr) 0.3fr ; grid-row: ${rowIndex}; grid-column: ${colIndex};`;
   }
 
   getAnimationSteps(): Array<string> {
