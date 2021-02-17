@@ -1,7 +1,7 @@
 <template>
   <div
     id="undo"
-    class="undo flex-item flex-center card clickable"
+    class="flex-item flex-center card clickable responsive"
     title="Neu starten!"
     @click="$emit('undo-operation', $event)"
   >
@@ -18,9 +18,7 @@ export default class Undo extends Vue {}
 </script>
 
 <style scoped>
-.undo > img {
-  width: 100%;
-  max-width: 80px;
+.card > img {
   margin: 1em;
 }
 </style>

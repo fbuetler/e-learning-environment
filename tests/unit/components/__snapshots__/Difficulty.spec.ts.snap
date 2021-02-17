@@ -9,10 +9,10 @@ exports[`Difficulty.vue renders correctly 1`] = `
   </div>
    
   <div
-    class="difficulty flex-item flex-center flex-row"
+    class="flex-item flex-center flex-row"
   >
     <div
-      class="card clickable selected"
+      class="card clickable responsive selected"
       id="difficulty-1"
       title="Schwierigkeitsgrad: leicht "
     >
@@ -21,7 +21,7 @@ exports[`Difficulty.vue renders correctly 1`] = `
       />
     </div>
     <div
-      class="card clickable"
+      class="card clickable responsive"
       id="difficulty-2"
       title="Schwierigkeitsgrad: mittelschwer "
     >

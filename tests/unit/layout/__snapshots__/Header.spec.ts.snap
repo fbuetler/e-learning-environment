@@ -3,10 +3,14 @@
 exports[`Header.vue renders correctly 1`] = `
 <header>
   <a>
-    <img
-      src=""
-      title="Zurück zur Hauptseite"
-    />
+    <div
+      class="responsive"
+    >
+      <img
+        src=""
+        title="Zurück zur Hauptseite"
+      />
+    </div>
   </a>
 </header>
 `;

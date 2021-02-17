@@ -1,10 +1,12 @@
 <template>
   <header>
     <router-link to="/">
-      <img
-        :src="require('@/assets/beavers/beavers.png')"
-        title="Zurück zur Hauptseite"
-      />
+      <div class="responsive">
+        <img
+          :src="require('@/assets/beavers/beavers.png')"
+          title="Zurück zur Hauptseite"
+        />
+      </div>
     </router-link>
   </header>
 </template>
@@ -21,8 +23,5 @@ export default class Header extends Vue {}
 a {
   text-decoration: none;
   color: black;
-}
-img {
-  max-width: 50%;
 }
 </style>

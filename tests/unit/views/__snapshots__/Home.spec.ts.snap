@@ -9,7 +9,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -30,7 +30,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -51,7 +51,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -72,7 +72,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -93,7 +93,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -114,7 +114,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -135,7 +135,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -156,7 +156,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -177,7 +177,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -198,7 +198,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -219,7 +219,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -240,7 +240,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -261,7 +261,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -282,7 +282,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -303,7 +303,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -324,7 +324,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -345,7 +345,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -366,7 +366,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -387,7 +387,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""
@@ -408,7 +408,7 @@ exports[`Home.vue renders correctly 1`] = `
   >
     <a>
       <div
-        class="card-image flex-item flex-center"
+        class="card-image flex-item flex-center responsive"
       >
         <img
           src=""

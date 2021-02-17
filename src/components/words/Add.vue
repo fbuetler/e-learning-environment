@@ -65,7 +65,7 @@
     </div>
     <hr />
     <div
-      class="interaction-container flex-item flex-row flex-center flex-stretch"
+      class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
     >
       <ItemSelection
         :selected="selected"

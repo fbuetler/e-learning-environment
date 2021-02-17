@@ -8,7 +8,7 @@
     />
     <div class="flex-item flex-col">
       <div>Entschlüssle den Text mit Hilfe des Musters!</div>
-      <div class="flex-item flex-row flex-center">
+      <div class="flex-item flex-row flex-center flex-wrap">
         <div class="flex-item flex-row flex-center equal-space">
           <div>Text:</div>
           <div id="text" class="canvas-container card big-text">

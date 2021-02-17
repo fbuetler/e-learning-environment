@@ -2,7 +2,7 @@
 
 exports[`Undo.vue renders correctly 1`] = `
 <div
-  class="undo flex-item flex-center card clickable"
+  class="flex-item flex-center card clickable responsive"
   id="undo"
   title="Neu starten!"
 >

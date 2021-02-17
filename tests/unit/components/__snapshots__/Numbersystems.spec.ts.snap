@@ -24,7 +24,7 @@ exports[`From.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -35,7 +35,7 @@ exports[`From.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -46,35 +46,35 @@ exports[`From.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -85,14 +85,14 @@ exports[`From.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -145,7 +145,7 @@ exports[`Swap.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -156,7 +156,7 @@ exports[`Swap.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -167,35 +167,35 @@ exports[`Swap.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -206,14 +206,14 @@ exports[`Swap.vue renders correctly 1`] = `
         class="flex-item flex-center flex-col"
       >
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
           />
         </div>
         <div
-          class="coin"
+          class="responsive"
         >
           <img
             src=""
@@ -241,14 +241,14 @@ exports[`Swap.vue renders correctly 1`] = `
   </div>
    
   <div
-    class="interaction-container flex-item flex-row flex-center flex-stretch"
+    class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
   >
     <div
       class="flex-item flex-wrap flex-center-horizontally flex-row"
       id="item-selection"
     >
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-6"
       >
@@ -257,7 +257,7 @@ exports[`Swap.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-5"
       >
@@ -266,7 +266,7 @@ exports[`Swap.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-4"
       >
@@ -275,7 +275,7 @@ exports[`Swap.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-3"
       >
@@ -284,7 +284,7 @@ exports[`Swap.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-2"
       >
@@ -293,7 +293,7 @@ exports[`Swap.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-1"
       >
@@ -304,7 +304,7 @@ exports[`Swap.vue renders correctly 1`] = `
     </div>
      
     <div
-      class="undo flex-item flex-center card clickable"
+      class="flex-item flex-center card clickable responsive"
       id="undo"
       title="Neu starten!"
     >
@@ -327,10 +327,10 @@ exports[`To.vue renders correctly 1`] = `
     </div>
      
     <div
-      class="difficulty flex-item flex-center flex-row"
+      class="flex-item flex-center flex-row"
     >
       <div
-        class="card clickable selected"
+        class="card clickable responsive selected"
         id="difficulty-1"
         title="Schwierigkeitsgrad: leicht "
       >
@@ -339,7 +339,7 @@ exports[`To.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="card clickable"
+        class="card clickable responsive"
         id="difficulty-2"
         title="Schwierigkeitsgrad: mittelschwer "
       >
@@ -385,14 +385,14 @@ exports[`To.vue renders correctly 1`] = `
   <hr />
    
   <div
-    class="interaction-container flex-item flex-row flex-center flex-stretch"
+    class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
   >
     <div
       class="flex-item flex-wrap flex-center-horizontally flex-row"
       id="item-selection"
     >
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-6"
       >
@@ -401,7 +401,7 @@ exports[`To.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-5"
       >
@@ -410,7 +410,7 @@ exports[`To.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-4"
       >
@@ -419,7 +419,7 @@ exports[`To.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-3"
       >
@@ -428,7 +428,7 @@ exports[`To.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-2"
       >
@@ -437,7 +437,7 @@ exports[`To.vue renders correctly 1`] = `
         />
       </div>
       <div
-        class="flex-item flex-wrap flex-center card clickable coin"
+        class="flex-item flex-wrap flex-center card clickable responsive"
         draggable="true"
         id="item-selection-1"
       >
@@ -448,7 +448,7 @@ exports[`To.vue renders correctly 1`] = `
     </div>
      
     <div
-      class="undo flex-item flex-center card clickable"
+      class="flex-item flex-center card clickable responsive"
       id="undo"
       title="Neu starten!"
     >

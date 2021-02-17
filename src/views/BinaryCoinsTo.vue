@@ -60,7 +60,6 @@ export default class BinaryCoinsTo extends Vue {
   title = views.find((el) => el.component === "BinaryCoinsTo").title;
   args = { numbersystemType: numbersystemType.BINARY };
   video = "binaryto.mp4";
-  description = ``;
 }
 </script>
 

@@ -3,7 +3,7 @@
     <slot name="animation" :animationSteps="animationSteps" />
     <div class="flex-item flex-col">
       <div>Verschlüssle den Text mit Hilfe der Tabelle!</div>
-      <div class="flex-item flex-row flex-center">
+      <div class="flex-item flex-row flex-center flex-wrap">
         <div class="flex-item flex-row flex-center">
           <div>Text:</div>
           <div id="text" class="canvas-container card big-text">
@@ -18,9 +18,9 @@
           @dragend.prevent
           @drop.stop.prevent="addSymbol()"
         >
-          <div v-if="encryptedText.length === 0">
+          <span v-if="encryptedText.length === 0">
             Platziere hier die Symbole
-          </div>
+          </span>
           <div id="encrypted-container" class="canvas-container"></div>
         </div>
         <Undo @undo-operation="undo()" />
@@ -197,5 +197,6 @@ export default class SymbolEncryption extends Mixins(GameMixin)
 <style scoped>
 .dropzone {
   min-height: 5em;
+  min-width: 10em;
 }
 </style>

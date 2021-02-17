@@ -62,7 +62,6 @@ export default class NormalCoinsTo extends Vue {
   title = views.find((el) => el.component === "NormalCoinsTo").title;
   args = { numbersystemType: numbersystemType.DECIMAL };
   video = "normalto.mp4";
-  description = "";
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div
     id="trashcan"
-    class="trashcan flex-item flex-center dropzone"
+    class="flex-item flex-center dropzone responsive"
     title="Element entfernen!"
     @click="$emit('trashed-element', $event)"
     @dragover.prevent
@@ -21,9 +21,7 @@ export default class Trashcan extends Vue {}
 </script>
 
 <style scoped>
-.trashcan > img {
-  width: 100%;
-  max-width: 80px;
+.dropzone > img {
   margin: 1em;
 }
 </style>

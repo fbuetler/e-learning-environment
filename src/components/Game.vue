@@ -9,7 +9,7 @@
     </div>
     <Modal v-if="showResult" id="result" @close="showResult = false">
       <div slot="body" class="flex-item flex-center flex-col">
-        <div>
+        <div class="responsive">
           <img
             v-if="isCorrect"
             :src="require('@/assets/beavers/correct.png')"
@@ -144,90 +144,4 @@ export default class Game extends Vue {
 }
 </script>
 
-<style>
-.selected {
-  background: #eeee4e !important;
-  border: 3px solid #dbdb47;
-}
-.locked {
-  background: lightgray !important;
-  border: 3px solid #cccccc;
-}
-
-.description > p {
-  margin: 1em;
-  text-align: justify;
-}
-.video > video {
-  max-height: 100%;
-  max-width: 100%;
-}
-
-@keyframes shake {
-  0% {
-    transform: translate(1px, 1px) rotate(0deg);
-  }
-  10% {
-    transform: translate(-1px, -2px) rotate(-1deg);
-  }
-  20% {
-    transform: translate(-3px, 0px) rotate(1deg);
-  }
-  30% {
-    transform: translate(3px, 2px) rotate(0deg);
-  }
-  40% {
-    transform: translate(1px, -1px) rotate(1deg);
-  }
-  50% {
-    transform: translate(-1px, 2px) rotate(-1deg);
-  }
-  60% {
-    transform: translate(-3px, 1px) rotate(0deg);
-  }
-  70% {
-    transform: translate(3px, 1px) rotate(-1deg);
-  }
-  80% {
-    transform: translate(-1px, -1px) rotate(1deg);
-  }
-  90% {
-    transform: translate(1px, 2px) rotate(0deg);
-  }
-  100% {
-    transform: translate(1px, -2px) rotate(-1deg);
-  }
-}
-
-/* shared styles between multiple components */
-.word-container {
-  margin: 1em;
-}
-.word-char {
-  padding: 0.3em;
-  margin: 0.2em;
-  font-size: 2em;
-}
-.interaction-container > div {
-  margin: 1em;
-}
-.tree-field {
-  vertical-align: bottom;
-  height: 5.5em;
-  width: 5.5em;
-  margin: 0.1em;
-}
-.tree-view {
-  width: 1em;
-  height: 1em;
-}
-.nut > img {
-  max-width: 64px;
-}
-.stick > img {
-  max-height: 96px;
-}
-.coin > img {
-  max-width: 64px;
-}
-</style>
+<style scoped></style>

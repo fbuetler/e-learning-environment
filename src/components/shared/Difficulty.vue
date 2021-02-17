@@ -1,7 +1,7 @@
 <template>
   <div class="flex-item flex-center flex-col">
     <div>Ändere den Schwierigkeitsgrad:</div>
-    <div class="difficulty flex-item flex-center flex-row">
+    <div class="flex-item flex-center flex-row">
       <div
         v-for="level in displayDifficultyLevels"
         :id="`difficulty-${level}`"
@@ -15,7 +15,7 @@
           selected: level === selected,
           locked: level > difficultyLevels,
         }"
-        class="card clickable"
+        class="card clickable responsive"
         @click="selectDifficulty(level)"
       >
         <img :src="require(`@/assets/difficulty/difficulty_${level}.png`)" />
@@ -70,8 +70,4 @@ export default class Difficulty extends Vue {
 }
 </script>
 
-<style scoped>
-.difficulty > div > img {
-  max-width: 100%;
-}
-</style>
+<style scoped></style>

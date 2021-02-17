@@ -5,7 +5,7 @@ exports[`Tutorial.vue renders correctly 1`] = `
   id="tutorial-wrapper"
 >
   <div
-    class="tutorial flex-item flex-center card clickable"
+    class="flex-item flex-center card clickable responsive"
     id="tutorial"
     title="Anleitung öffnen"
   >

@@ -2,7 +2,7 @@
   <div class="cards">
     <div v-for="item in items" :key="item.id" class="card clickable">
       <router-link :to="item.path">
-        <div class="card-image flex-item flex-center">
+        <div class="card-image flex-item flex-center responsive">
           <img :src="require('@/assets/' + item.img)" />
         </div>
         <div class="card-container">
@@ -37,8 +37,6 @@ export default class Home extends Vue {
   height: 8em;
 }
 .card-image > img {
-  max-width: 100%;
-  max-height: 8em;
   border-radius: 5px 5px 0 0;
 }
 .card-container {

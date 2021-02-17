@@ -2,7 +2,7 @@
 
 exports[`Trashcan.vue renders correctly 1`] = `
 <div
-  class="trashcan flex-item flex-center dropzone"
+  class="flex-item flex-center dropzone responsive"
   id="trashcan"
   title="Element entfernen!"
 >

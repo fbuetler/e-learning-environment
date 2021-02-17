@@ -26,21 +26,21 @@ exports[`Row.vue renders correctly 1`] = `
           </td>
            
           <td
-            class="dropzone tree-field"
+            class="dropzone tree-field responsive"
             draggable="true"
             id="field-0"
           >
             <!---->
           </td>
           <td
-            class="dropzone tree-field"
+            class="dropzone tree-field responsive"
             draggable="true"
             id="field-1"
           >
             <!---->
           </td>
           <td
-            class="dropzone tree-field"
+            class="dropzone tree-field responsive"
             draggable="true"
             id="field-2"
           >
@@ -61,7 +61,7 @@ exports[`Row.vue renders correctly 1`] = `
   </div>
    
   <div
-    class="interaction-container flex-item flex-row flex-center flex-stretch"
+    class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
   >
     <itemselection-stub
       items="[object Object],[object Object],[object Object]"
@@ -98,19 +98,19 @@ exports[`Sudoku.vue renders correctly 1`] = `
           <td />
            
           <td
-            class="card tree-view "
+            class="card tree-view"
             id="top-view-0"
           >
             <!---->
           </td>
           <td
-            class="card tree-view "
+            class="card tree-view"
             id="top-view-1"
           >
             <!---->
           </td>
           <td
-            class="card tree-view "
+            class="card tree-view"
             id="top-view-2"
           >
             <!---->
@@ -121,28 +121,28 @@ exports[`Sudoku.vue renders correctly 1`] = `
          
         <tr>
           <td
-            class="card tree-view "
+            class="card tree-view"
             id="left-view-0"
           >
             <!---->
           </td>
            
           <td
-            class="dropzone tree-field"
+            class="dropzone tree-field responsive"
             draggable="true"
             id="field-0"
           >
             <!---->
           </td>
           <td
-            class="dropzone tree-field"
+            class="dropzone tree-field responsive"
             draggable="true"
             id="field-1"
           >
             <!---->
           </td>
           <td
-            class="dropzone tree-field locked"
+            class="dropzone tree-field responsive locked"
             draggable="true"
             id="field-2"
           >
@@ -160,14 +160,14 @@ exports[`Sudoku.vue renders correctly 1`] = `
         </tr>
         <tr>
           <td
-            class="card tree-view "
+            class="card tree-view"
             id="left-view-1"
           >
             <!---->
           </td>
            
           <td
-            class="dropzone tree-field locked"
+            class="dropzone tree-field responsive locked"
             draggable="true"
             id="field-3"
           >
@@ -176,7 +176,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
             />
           </td>
           <td
-            class="dropzone tree-field locked"
+            class="dropzone tree-field responsive locked"
             draggable="true"
             id="field-4"
           >
@@ -185,7 +185,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
             />
           </td>
           <td
-            class="dropzone tree-field locked"
+            class="dropzone tree-field responsive locked"
             draggable="true"
             id="field-5"
           >
@@ -203,14 +203,14 @@ exports[`Sudoku.vue renders correctly 1`] = `
         </tr>
         <tr>
           <td
-            class="card tree-view "
+            class="card tree-view"
             id="left-view-2"
           >
             <!---->
           </td>
            
           <td
-            class="dropzone tree-field locked"
+            class="dropzone tree-field responsive locked"
             draggable="true"
             id="field-6"
           >
@@ -219,7 +219,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
             />
           </td>
           <td
-            class="dropzone tree-field locked"
+            class="dropzone tree-field responsive locked"
             draggable="true"
             id="field-7"
           >
@@ -228,7 +228,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
             />
           </td>
           <td
-            class="dropzone tree-field locked"
+            class="dropzone tree-field responsive locked"
             draggable="true"
             id="field-8"
           >
@@ -274,7 +274,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
   </div>
    
   <div
-    class="interaction-container flex-item flex-row flex-center flex-stretch"
+    class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
   >
     <itemselection-stub
       items="[object Object],[object Object],[object Object]"

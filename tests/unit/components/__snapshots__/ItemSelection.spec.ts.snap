@@ -6,7 +6,7 @@ exports[`ItemSelection.vue renders correctly 1`] = `
   id="item-selection"
 >
   <div
-    class="flex-item flex-wrap flex-center card clickable selected"
+    class="flex-item flex-wrap flex-center card clickable responsive selected"
     draggable="true"
     id="item-selection-1"
   >
@@ -15,7 +15,7 @@ exports[`ItemSelection.vue renders correctly 1`] = `
     />
   </div>
   <div
-    class="flex-item flex-wrap flex-center card clickable duda"
+    class="flex-item flex-wrap flex-center card clickable responsive duda"
     draggable="true"
     id="item-selection-2"
   >

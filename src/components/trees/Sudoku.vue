@@ -23,7 +23,7 @@
               v-for="(visible, topIndex) in topView"
               :id="`top-view-${topIndex}`"
               :key="`top-view-${topIndex}`"
-              class="card tree-view "
+              class="card tree-view"
             >
               <span v-if="visible !== 0">{{ visible }}</span>
             </td>
@@ -33,7 +33,7 @@
 
           <tr v-for="(row, rowIndex) in values" :key="`row-${rowIndex}`">
             <!-- left view -->
-            <td :id="`left-view-${rowIndex}`" class="card tree-view ">
+            <td :id="`left-view-${rowIndex}`" class="card tree-view">
               <span v-if="leftView[rowIndex] !== 0">{{
                 leftView[rowIndex]
               }}</span>
@@ -44,7 +44,7 @@
               :id="`field-${field.id}`"
               :key="`field-${field.id}`"
               :class="{ locked: field.locked }"
-              class="dropzone tree-field"
+              class="dropzone tree-field responsive"
               @click="moveTree($event, field.id)"
               draggable
               @dragstart="moveTree($event, field.id)"
@@ -90,7 +90,7 @@
       </table>
     </div>
     <div
-      class="interaction-container flex-item flex-row flex-center flex-stretch"
+      class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
     >
       <ItemSelection
         :selected="itemToAdd"

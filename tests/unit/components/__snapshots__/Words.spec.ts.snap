@@ -204,7 +204,7 @@ exports[`Add.vue renders correctly 1`] = `
   <hr />
    
   <div
-    class="interaction-container flex-item flex-row flex-center flex-stretch"
+    class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
   >
     <itemselection-stub
       items="[object Object],[object Object],[object Object]"
@@ -283,7 +283,7 @@ exports[`Change.vue renders correctly 1`] = `
   <hr />
    
   <div
-    class="interaction-container flex-item flex-row flex-center flex-stretch"
+    class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
   >
     <itemselection-stub
       items="[object Object],[object Object],[object Object]"

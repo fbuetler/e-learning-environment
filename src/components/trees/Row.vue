@@ -17,7 +17,7 @@
               v-for="field in values"
               :id="`field-${field.id}`"
               :key="`field-${field.id}`"
-              class="dropzone tree-field"
+              class="dropzone tree-field responsive"
               @click="moveTree($event, field.id)"
               draggable
               @dragstart="moveTree($event, field.id)"
@@ -45,7 +45,7 @@
       </table>
     </div>
     <div
-      class="interaction-container flex-item flex-row flex-center flex-stretch"
+      class="interaction-container flex-item flex-row flex-center flex-stretch flex-wrap"
     >
       <ItemSelection
         :selected="itemToAdd"

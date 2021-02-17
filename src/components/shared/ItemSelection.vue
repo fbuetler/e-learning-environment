@@ -13,7 +13,7 @@
         },
         item.class,
       ]"
-      class="flex-item flex-wrap flex-center card clickable"
+      class="flex-item flex-wrap flex-center card clickable responsive"
       @click="$emit('selected', item.type)"
       draggable
       @dragstart="$emit('selected', item.type)"
@@ -36,7 +36,6 @@ export type item = {
   value: number;
   max: number;
   img: string;
-  class: string;
 };
 
 @Component<ItemSelection>({})
@@ -51,3 +50,9 @@ export default class ItemSelection extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.flex-wrap {
+  max-width: 80%;
+}
+</style>

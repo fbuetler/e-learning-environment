@@ -18,11 +18,7 @@
             :key="`item-${i}`"
             class="flex-item flex-center flex-col"
           >
-            <div
-              v-for="j in amount"
-              :key="`amount-${j}`"
-              :class="itemConfig[i].class"
-            >
+            <div v-for="j in amount" :key="`amount-${j}`" class="responsive">
               <img :src="require(`@/assets/${itemConfig[i].img}`)" />
             </div>
           </div>

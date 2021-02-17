@@ -11,9 +11,9 @@
     />
     <div class="flex-item flex-col">
       <div>Entschlüssle den Text mit Hilfe der Tabelle!</div>
-      <div class="flex-item flex-row flex-center">
+      <div class="flex-item flex-row flex-center flex-wrap">
         <div class="flex-item flex-row flex-center equal-space">
-          Text:
+          <div>Text:</div>
           <div id="text" class="canvas-container card">
             <canvas
               v-for="(part, index) in original"
@@ -25,8 +25,8 @@
             >
           </div>
         </div>
-        <div class="flex-flex equal-space">
-          Lösung:
+        <div class="flex-item flex-row flex-center equal-space">
+          <div>Lösung:</div>
           <input
             id="answer-input"
             v-model="decrypted"

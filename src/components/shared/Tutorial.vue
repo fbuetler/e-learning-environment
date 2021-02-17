@@ -2,7 +2,7 @@
   <div id="tutorial-wrapper">
     <div
       id="tutorial"
-      class="tutorial flex-item flex-center card clickable"
+      class="flex-item flex-center card clickable responsive"
       title="Anleitung öffnen"
       @click="showModal = true"
     >
@@ -18,7 +18,7 @@
           <div class="description equal-space">
             <slot name="description">Unintentionally empty!</slot>
           </div>
-          <div class="video equal-space">
+          <div class="responsive equal-space">
             <slot name="video">Unintentionally empty!</slot>
           </div>
         </div>
@@ -57,8 +57,8 @@ export default class Tutorial extends Vue {
 </script>
 
 <style scoped>
-.tutorial > img {
-  width: 100%;
-  max-width: 30px;
+.description > p {
+  margin: 1em;
+  text-align: justify;
 }
 </style>

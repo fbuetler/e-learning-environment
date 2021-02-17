@@ -16,7 +16,7 @@ exports[`PatternDecryption.vue renders correctly 1`] = `
     </div>
      
     <div
-      class="flex-item flex-row flex-center"
+      class="flex-item flex-row flex-center flex-wrap"
     >
       <div
         class="flex-item flex-row flex-center equal-space"
@@ -81,7 +81,7 @@ exports[`PatternEncryption.vue renders correctly 1`] = `
     </div>
      
     <div
-      class="flex-item flex-row flex-center"
+      class="flex-item flex-row flex-center flex-wrap"
     >
       <div
         class="flex-item flex-row flex-center equal-space"
