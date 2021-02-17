@@ -387,93 +387,100 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
     const rectX = this.lineWidth / 2;
     const rectY = this.lineWidth / 2;
     const rectWidth = this.width - this.lineWidth;
-    const rectHeight = this.height / 2 - this.lineWidth;
-
-    // draw box
-    this.ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+    const cellHeight = this.height / 2 - this.lineWidth;
     const cellWidth = rectWidth / cells;
-    // draw walls
-    for (let i = 1; i < cells; i++) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(rectX + cellWidth * i, rectY);
-      this.ctx.lineTo(rectX + cellWidth * i, rectY + rectHeight);
-      this.ctx.stroke();
-    }
 
-    // sort to have it easier to draw the lines connecting the boxes on the right height
+    this.drawGrid(rectX, rectY, rectWidth, cellHeight, cells, cellWidth);
+
+    // sort to have it easier to draw the lines connecting the boxes on the correct height
     connectAndFill.sort(([a, b], [c, d]) => Math.abs(a - b) - Math.abs(c - d));
     const arrowLevelY = this.calculateArrowLevelY(connectAndFill);
     for (let i = 0; i < connectAndFill.length; i++) {
-      const [left, right] = connectAndFill[i];
+      const [leftBoxIndex, rightBoxIndex] = connectAndFill[i];
       if (
-        Math.min(left, right) < 0 ||
-        Math.max(left, right) >= cells ||
-        left === right
+        Math.min(leftBoxIndex, rightBoxIndex) < 0 ||
+        Math.max(leftBoxIndex, rightBoxIndex) >= cells ||
+        leftBoxIndex === rightBoxIndex
       ) {
         continue;
       }
       for (let j = 0; j < 2; j++) {
-        const box = connectAndFill[i][j];
-        const centerX = rectX + cellWidth * box + cellWidth / 2;
+        const boxIndex = connectAndFill[i][j];
 
-        // highlight boxes
         this.ctx.fillStyle = this.colors[i % this.colors.length];
-        this.ctx.beginPath();
-        this.ctx.moveTo(
-          rectX + cellWidth * box + this.lineWidth / 2,
-          rectY + this.lineWidth / 2
-        );
-        this.ctx.lineTo(
-          rectX + cellWidth * box + this.lineWidth / 2,
-          rectY + rectHeight - this.lineWidth / 2
-        );
-        this.ctx.lineTo(
-          rectX + cellWidth * (box + 1) - this.lineWidth / 2,
-          rectY + rectHeight - this.lineWidth / 2
-        );
-        this.ctx.lineTo(
-          rectX + cellWidth * (box + 1) - this.lineWidth / 2,
-          rectY + this.lineWidth / 2
-        );
-        this.ctx.lineTo(
-          rectX + cellWidth * box + this.lineWidth / 2,
-          rectY + this.lineWidth / 2
-        );
-        this.ctx.fill();
+        this.fillBox(rectX, rectY, cellHeight, cellWidth, boxIndex);
 
-        // draw arrow heads
+        const centerX = rectX + cellWidth * boxIndex + cellWidth / 2;
         this.ctx.fillStyle = "black";
         this.drawArrowHead(
           centerX,
-          rectY + rectHeight + 5,
+          rectY + cellHeight + 5,
           Math.min(30, cellWidth),
           10
         );
       }
 
-      const lineY =
-        rectHeight +
-        20 +
-        arrowLevelY.get(JSON.stringify(connectAndFill[i])) *
-          ((rectHeight + rectY + 20) / cells);
-      // connect arrows
-      this.ctx.beginPath();
-      this.ctx.moveTo(
-        rectX + cellWidth * left + cellWidth / 2,
-        rectY + rectHeight + 15
+      this.drawArrowLine(
+        cellHeight,
+        cellWidth,
+        rectY,
+        rectX,
+        leftBoxIndex,
+        rightBoxIndex,
+        arrowLevelY.get(JSON.stringify(connectAndFill[i])),
+        cells
       );
-      this.ctx.bezierCurveTo(
-        rectX + cellWidth * left + cellWidth / 2,
-        lineY,
-        rectX + cellWidth * right + cellWidth / 2,
-        lineY,
-        rectX + cellWidth * right + cellWidth / 2,
-        rectY + rectHeight + 15
-      );
-      this.ctx.lineWidth = this.lineWidth / 2;
-      this.ctx.stroke();
-      this.ctx.lineWidth = this.lineWidth;
     }
+  }
+
+  drawGrid(
+    rectX: number,
+    rectY: number,
+    rectWidth: number,
+    cellHeight: number,
+    cells: number,
+    cellWidth: number
+  ) {
+    // draw box
+    this.ctx.strokeRect(rectX, rectY, rectWidth, cellHeight);
+    // draw walls
+    for (let i = 1; i < cells; i++) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(rectX + cellWidth * i, rectY);
+      this.ctx.lineTo(rectX + cellWidth * i, rectY + cellHeight);
+      this.ctx.stroke();
+    }
+  }
+
+  fillBox(
+    rectX: number,
+    rectY: number,
+    cellHeight: number,
+    cellWidth: number,
+    boxIndex: number
+  ) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(
+      rectX + cellWidth * boxIndex + this.lineWidth / 2,
+      rectY + this.lineWidth / 2
+    );
+    this.ctx.lineTo(
+      rectX + cellWidth * boxIndex + this.lineWidth / 2,
+      rectY + cellHeight - this.lineWidth / 2
+    );
+    this.ctx.lineTo(
+      rectX + cellWidth * (boxIndex + 1) - this.lineWidth / 2,
+      rectY + cellHeight - this.lineWidth / 2
+    );
+    this.ctx.lineTo(
+      rectX + cellWidth * (boxIndex + 1) - this.lineWidth / 2,
+      rectY + this.lineWidth / 2
+    );
+    this.ctx.lineTo(
+      rectX + cellWidth * boxIndex + this.lineWidth / 2,
+      rectY + this.lineWidth / 2
+    );
+    this.ctx.fill();
   }
 
   drawArrowHead(
@@ -488,6 +495,37 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
     this.ctx.lineTo(headX + headWidth / 2, headY + headHeight);
     this.ctx.lineTo(headX, headY);
     this.ctx.fill();
+  }
+
+  drawArrowLine(
+    cellHeight: number,
+    cellWidth: number,
+    rectY: number,
+    rectX: number,
+    leftBoxIndex: number,
+    rightBoxIndex: number,
+    arrowY: number,
+    cells: number
+  ) {
+    const lineY =
+      cellHeight + 20 + arrowY * ((cellHeight + rectY + 20) / cells);
+    // connect arrows
+    this.ctx.beginPath();
+    this.ctx.moveTo(
+      rectX + cellWidth * leftBoxIndex + cellWidth / 2,
+      rectY + cellHeight + 15
+    );
+    this.ctx.bezierCurveTo(
+      rectX + cellWidth * leftBoxIndex + cellWidth / 2,
+      lineY,
+      rectX + cellWidth * rightBoxIndex + cellWidth / 2,
+      lineY,
+      rectX + cellWidth * rightBoxIndex + cellWidth / 2,
+      rectY + cellHeight + 15
+    );
+    this.ctx.lineWidth = this.lineWidth / 2;
+    this.ctx.stroke();
+    this.ctx.lineWidth = this.lineWidth;
   }
 
   calculateArrowLevelY(
