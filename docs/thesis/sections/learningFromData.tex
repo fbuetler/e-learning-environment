@@ -7,7 +7,7 @@ The following exercises are logic-based, combinatorial puzzles. The idea is that
 \label{section:treeRow}
 
 \subsection{Exercises}
-The row of trees is a one dimensional grid i.e a row either of size 3 or 4. In every row there is exactly one tree of every height between 1 and 3 (Fig. \ref{fig:trees_3}) or 4 (Fig. \ref{fig:trees_4}) respectively. At both ends of the row the amount of tree visible from this end of the row is given.
+The row of trees is a one dimensional grid i.e a row either of size 3 or 4. In every row there is exactly one tree of every height between 1 and 3 (Fig. \ref{fig:trees_3}) or 4 (Fig. \ref{fig:trees_4}) respectively. At both ends of the row, the amount of visible trees from this end of the row is given. In the following the amount of visible trees from one end is referred to as view.
 Pupils are given an empty row with only the number of trees seen from both ends of the row and need to place a tree of each height such the aforementioned rules are met.
 
 \begin{figure} 
@@ -37,16 +37,70 @@ Pupils are given an empty row with only the number of trees seen from both ends 
 
 \subsection{Implementation}
 
-% variable in size
-% enumerate possibilities
-% show example screenshot
-% how generation works
-%     array from 1 .. N
-%     shuffle
-%     calc left and right view 
-% how calc view works
-% how shuffle works
-% how validity check works
+The \code{Row.vue} component is implemented to work with any row size. However, since only images of trees for a row size of three and four are present, it makes only sense to use it for those row sizes.
+The internal representation of a tree is its height e.g a tree of height $2$ is represented as $2$ internally.
+All possible exercise instance are given by all permuations of a monotone increasing list of values of the given size starting with 1 e.g $1,2,3$ for size 3. Hence the approach taken here is to generate an array with these values, shuffle the array and calculate the the views from both end of the row. Listing \ref{lst:rowGeneration} shows this approach and returns the view from the left end and the view from the right end.
+
+\begin{lstlisting}[language=TypeScript,caption={Algorithm to generate a row of trees exercise instance of \code{this.size}},label={lst:rowGeneration}]
+generate(): [number, number] {
+  const values = Array.from({ length: this.size }, (_, i) => i + 1);
+  this.shuffle(values);
+  return [
+    this.getVisibleTrees(values),
+    this.getVisibleTrees(values.slice().reverse()),
+  ];
+}
+\end{lstlisting}
+
+Interesting functions in \ref{lst:rowGeneration} are \code{shuffle} and \code{getVisibleTrees}. Apprently, there exists no built-in function in TypeScript, that shuffles an array. Therefore, a own function needs to be implemented. This is not as easy as it seems since, naive approaches may result in different permutations having different probabilities to appear. An implementation that shuffles an array, where all permuatations are approximately equal is given in Listing \ref{lst:shuffle} \cite{JavaScriptShuffle}.
+Another crucial part of the implementation of this exercise is the calculation of the amount of trees one sees from one end of the row of trees. An algorithm for calculating this is given in Listing \ref{lst:getVisibleTrees}. To calculate the view from the other side, the same function can be used and only the input needs to be reversed as shown in Listing \ref{lst:rowGeneration}.
+
+\begin{lstlisting}[language=TypeScript,caption={Algorithm to shuffle an array},label={lst:shuffle}]
+shuffle(arr: number[]): void {
+  for (let i = arr.length; i >= 0; i--) {
+    const randomIndex = Math.floor(Math.random() * i);
+
+    const temp = arr[i];
+    arr[i] = arr[randomIndex];
+    arr[randomIndex] = temp;
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=TypeScript,caption={Algorithm to calculate the amount of visible tree from one end},label={lst:getVisibleTrees}]
+getVisibleTrees(values: number[]): number {
+  let min = 0;
+  let visible = 0;
+  for (let i = 0; i < values.length; i++) {
+    if (values[i] > min) {
+      visible++;
+      min = values[i];
+    }
+  }
+  return visible;
+}
+\end{lstlisting}
+
+You may have spotted the use of the custom type \code{row}. This custom type is the internal respresentation of the row and its definition is given in Listing \ref{lst:rowType}. A \code{row} is an array of the custom type \code{rowField} and the field \code{value} saves what tree was placed on this field.
+
+\begin{lstlisting}[language=TypeScript,caption={Definition of the custom row and rowField type},label={lst:rowType}]
+type rowField = {
+  id: number;
+  value: number;
+};
+type row = rowField[];
+\end{lstlisting}
+
+To determine wheter a given solution by a pupils is correct or incorrect, the amount of visible trees in the row of placed trees from both end is again calculated and compared to the indicated amount. If both are the same, then the solutions is evaluated as correct [\ref{lst:rowGeneration}].
+
+\begin{lstlisting}[language=TypeScript,caption={Correctness check of a row of tree exercise solution},label={lst:rowCorrectness}]
+isCorrect(): boolean {
+    const row = this.values.map((field) => field.value);
+    const visibleLeft = this.getVisibleTrees(row);
+    const visibleRight = this.getVisibleTrees(row.slice().reverse());
+    return !(visibleLeft !== this.leftView || visibleRight !== this.rightView);
+}
+\end{lstlisting}
 
 \begin{figure} 
     \centering
@@ -59,7 +113,7 @@ Pupils are given an empty row with only the number of trees seen from both ends 
 \label{section:treeSudoku}
 
 \subsection{Exercises}
-Tree sudoku is similar to the well known traditional sudoko with the difference that trees of different heights are placed instead of numbers, and for end of every row and collumn the number of visible trees is given. Otherwise, the puzzle follows the same rules as the row of trees and is either of size 3x3 or 4x4.
+Tree sudoku is similar to the well known traditional sudoku with the difference that trees of different heights are placed instead of numbers, and for both ends of every row and collumn the amount of visible trees is given. Again, the amount of visible trees from on end of a row or colums is referred to as a view. Otherwise, the puzzle follows the same rules as the row of trees and is either of size 3x3 or 4x4.
 
 \begin{example}
     An example of a 3x3 tree sudoku is shown in figure \ref{fig:tree_sudoku_example}
@@ -71,19 +125,183 @@ Tree sudoku is similar to the well known traditional sudoko with the difference 
     \caption{Example of an unsolved 3x3 tree sudoku} 
     \label{fig:tree_sudoku_example} 
 \end{figure}
-% https://www.bowdoin.edu/~sbarker/teaching/courses/ds/18fall/files/lab4.pdf
 
 \subsection{Implementation}
 
-% variable in size
-% show example screenshot
-% different difficulty levels
-% how generation works
-%     2D array of 1 .. N
-%     calc values and views
-%     solver
-%     guarantee of minimal coverage
-% how validity check works
+\begin{lstlisting}[language=TypeScript,caption={},label={lst:}]
+\end{lstlisting}
+
+Again the \code{Sudoku.vue} component is implement in a way such that it works with different sizes. In general, a similar approach for the tree sudoku exercise is taken like for the row of trees exercise \ref{section:treeRow}. The internal representation is of a tree of height e.g $2$ is $2$ and some custom types are used: \code{sudoku} and {sudokuField} [\ref{lst:sudokuType}]. The major difference between these two exercises is that the tree sudoku is two-dimensional. Therefore a two-dimensional array is used for the internal representation of the tree sudoku grid. A new field used in the \code{sudokuField} comapred to the \code{rowField} is \code{locked}. This field indicates that this sudoku field is part of the initial generation and when the same tree sudoku should be restarted, only not locked fields are erased.
+
+\begin{lstlisting}[language=TypeScript,caption={Definition of the custom sudoku and sudokuField type},label={lst:sudokuType}]
+type sudokuField = {
+    id: number;
+    value: number;
+    locked: boolean;
+};
+
+type sudoku = sudokuField[][];
+\end{lstlisting}
+
+The generation of an instance of the tree suduoku exercise is a bit more complicated, since the additional constraints of a sudoku have to be considered. The approach taken here is to first generate an empty tree sudoku. Then in each round, a random tree is placed at a random position or a random value of visible trees is placed at a random end of a row or column until a solvable configuration is found. 
+
+The most basic operation on a tree sudoku is to decide whether it is valid or invalid i.e whether in each row and column every tree height does appear exactly once and whether the views match the placed trees.
+To check the validity the tree heights placed in each row and each column are collected. If some height appear more than once in a row or colums it is evaluated as invalid. Additionally, since the same algorithm to check the validity of an instance during the generation and when a pupils hands its solution in should be used, one has to differentiate the handling of empty field in those scenarios. During the generation of an instance, the instance should not be evaluated as invalid, when there are still empty field. However, it has to be evaluated as invalid upon checking a solution from a pupil. 
+For each row and column the amount of visible trees is calculated for both ends and if these values match the views the instance is evaluated as valid. The algorithm to check the validity can be found in Listing \ref{lst:sudokuValidation}.
+
+\begin{lstlisting}[language=TypeScript,caption={Validation algorithm for a tree sudoku instance},label={lst:sudokuValidation}]
+isValid(values: sudoku, views: number[][], complete: boolean): boolean {
+  for (let i = 0; i < values.length; i++) {
+    const rowSeen = new Set<number>();
+    const colSeen = new Set<number>();
+    for (let j = 0; j < values[i].length; j++) {
+      const traversal: [number, Set<number>][] = [
+        [values[i][j].value, rowSeen],
+        [values[j][i].value, colSeen],
+      ];
+      for (let k = 0; k < traversal.length; k++) {
+        const [el, seen] = traversal[k];
+        if (seen.has(el)) {
+          return false;
+        } else if (el === 0) {
+          if (complete) {
+            return false;
+          }
+          continue;
+        } else {
+          seen.add(el);
+        }
+      }
+    }
+
+    if (rowSeen.size === this.size) {
+      const row = values[i].map((el) => el.value);
+      const visible = this.getVisibleTrees(row);
+      const visibleRev = this.getVisibleTrees(row.slice().reverse());
+      if (
+        (views[1][i] !== 0 && views[1][i] !== visible) ||
+        (views[2][i] !== 0 && views[2][i] !== visibleRev)
+      ) {
+        return false;
+      }
+    }
+    if (colSeen.size === this.size) {
+      const col: number[] = [];
+      for (let k = 0; k < values.length; k++) {
+        col[k] = values[k][i].value;
+      }
+      const visible = this.getVisibleTrees(col);
+      const visibleRev = this.getVisibleTrees(col.slice().reverse());
+      if (
+        (views[0][i] !== 0 && views[0][i] !== visible) ||
+        (views[3][i] !== 0 && views[3][i] !== visibleRev)
+      ) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+\end{lstlisting}
+
+A tree sudoku generator needs a tree sudoku solver to check whether an instance is actually solvable. Solving a tree sudoku means that one needs to place trees in fields such that the tree sudoku is still valid. First an empty field has to be found, then tree heights are placed in the empty field until a tree height is found such that the tree sudoku is still valid. This procedure is repeated until the tree sudoku is completed. This would already conclude a tree sudoku solver, but in the end this solver is going to be used to generate a tree sudoku. Therefore one needs to know how many solutions are available for a given tree sudoku solution. Hence the solving algorithm shown in \ref{lst:sudokuSolver} counts how many solutions exist and returns it.
+
+\begin{lstlisting}[language=TypeScript,caption={Solving algorithm for a tree sudoku instance},label={lst:sudokuSolver}]
+solve(values: sudoku, views: number[][]): number {
+  const [complete, emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
+    values.map((row) => row.map((col) => col.value))
+  );
+  if (complete) {
+    this.valuesSolution = JSON.parse(JSON.stringify(values)) as sudoku; // deep copy
+    return 1;
+  }
+
+  let solutions = 0;
+  for (let i = 1; i <= this.size; i++) {
+    values[emptyValueSlotRow][emptyValueSlotCol].value = i;
+    if (this.isValid(values, views, false)) {
+      solutions += this.solve(values, views);
+      if (solutions > 1) {
+        break;
+      }
+    }
+  }
+  values[emptyValueSlotRow][emptyValueSlotCol].value = 0;
+  return solutions;
+}
+\end{lstlisting}
+
+Generating a tree sudoku is now straigh forward. First a random empty field and a random empty view needs to be chosen, then with a probabilty of 0.5 either the empty field or the empty view is chosen and a random number is put in it. After that, the validity of the tree sudoku is checked and if it is valid, the amount of possible solutions for the tree sudoku is calculated. If no solution is found, a different number has to be tried. If more than one solutions are found, we start all over again by chosing a random empty field or view. If the tree sudoku has exactly one solution, the algorithm stops. An implementation of the here mentioned algorithm can be found in Listing \ref{lst:sudokuGenerator}.
+
+\begin{lstlisting}[language=TypeScript,caption={Generation algorithm for a tree sudoku instance},label={lst:sudokuGenerator}]
+generate(values: sudoku, views: number[][]): [sudoku, number[][]] {
+  const [
+    valuesComplete,
+    emptyValueSlotRow,
+    emptyValueSlotCol,
+  ] = this.findEmptySlot(values.map((row) => row.map((col) => col.value)));
+  if (valuesComplete) {
+    return [values, views];
+  }
+  const [
+    viewsComplete,
+    emptyViewSlotRow,
+    emptyViewSlotCol,
+  ] = this.findEmptySlot(views);
+  if (viewsComplete) {
+    return [values, views];
+  }
+
+  const numbers: number[] = [];
+  for (let i = 0; i < this.size; i++) {
+    numbers[i] = i + 1;
+  }
+  this.shuffle(numbers);
+  for (let i = 0; i < numbers.length; i++) {
+    if (
+      this.randomNumber(1) <= 0.5 ||
+      this.LevelsWithNoViews.includes(this.currentDifficultyLevel)
+    ) {
+      values[emptyValueSlotRow][emptyValueSlotCol].value = numbers[i];
+      values[emptyValueSlotRow][emptyValueSlotCol].locked = true;
+    } else {
+      views[emptyViewSlotRow][emptyViewSlotCol] = numbers[i];
+    }
+    if (this.isValid(values, views, false)) {
+      const solutions = this.solve(values, views);
+      if (solutions === 0) {
+        values[emptyValueSlotRow][emptyValueSlotCol].value = 0;
+        values[emptyValueSlotRow][emptyValueSlotCol].locked = false;
+        views[emptyViewSlotRow][emptyViewSlotCol] = 0;
+        continue;
+      } else if (solutions === 1) {
+        return [values, views];
+      } else {
+        return this.generate(values, views);
+      }
+    } else {
+      values[emptyValueSlotRow][emptyValueSlotCol].value = 0;
+      values[emptyValueSlotRow][emptyValueSlotCol].locked = false;
+      views[emptyViewSlotRow][emptyViewSlotCol] = 0;
+    }
+  }
+  return [values, views];
+}
+\end{lstlisting}
+
+Additionally, the tree sudoku exercise has three different difficulty levels. The difference between the levels is the amount of initially given information for an tree sudoku instance:
+
+\begin{itemize}
+    \item \textbf{easy} - no views are given and at least 75\% of the trees are placed
+    \item \textbf{medium} - some views are given and at least 50\% of the trees are placed
+    \item \textbf{hard} - some views are given and only the minimal amount of information to solve the tree sudoku instance is given
+\end{itemize}
+
+\TODO{explain coverage algorithm}
+% \begin{lstlisting}[language=TypeScript,caption={Algorithm to ensure that the % difficulty level specific amount of trees are placed},label={lst:}]
+% \end{lstlisting}
+
+To check whether a solution to tree sudoku exerise handed in by a pupils, the algorithm from Listing \ref{lst:sudokuValidation} can be reused without allowing empty fields.
 
 \begin{figure} 
     \centering
