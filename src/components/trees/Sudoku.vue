@@ -115,7 +115,6 @@ import Difficulty from "@/components/shared/Difficulty.vue";
 type sudokuField = {
   id: number;
   value: number;
-  initialValue: number;
   locked: boolean;
 };
 
@@ -188,14 +187,20 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   }
 
   generate(values: sudoku, views: number[][]): [sudoku, number[][]] {
-    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
-      values.map((row) => row.map((col) => col.value))
-    );
-    if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
+    const [
+      valuesComplete,
+      emptyValueSlotRow,
+      emptyValueSlotCol,
+    ] = this.findEmptySlot(values.map((row) => row.map((col) => col.value)));
+    if (valuesComplete) {
       return [values, views];
     }
-    const [emptyViewSlotRow, emptyViewSlotCol] = this.findEmptySlot(views);
-    if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
+    const [
+      viewsComplete,
+      emptyViewSlotRow,
+      emptyViewSlotCol,
+    ] = this.findEmptySlot(views);
+    if (viewsComplete) {
       return [values, views];
     }
 
@@ -209,24 +214,16 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
         this.randomNumber(1) <= 0.5 ||
         this.LevelsWithNoViews.includes(this.currentDifficultyLevel)
       ) {
-        values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
-          emptyValueSlotRow,
-          emptyValueSlotCol,
-          numbers[i],
-          true
-        );
+        values[emptyValueSlotRow][emptyValueSlotCol].value = numbers[i];
+        values[emptyValueSlotRow][emptyValueSlotCol].locked = true;
       } else {
         views[emptyViewSlotRow][emptyViewSlotCol] = numbers[i];
       }
       if (this.isValid(values, views, false)) {
         const solutions = this.solve(values, views);
         if (solutions === 0) {
-          values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
-            emptyValueSlotRow,
-            emptyValueSlotCol,
-            0,
-            false
-          );
+          values[emptyValueSlotRow][emptyValueSlotCol].value = 0;
+          values[emptyValueSlotRow][emptyValueSlotCol].locked = false;
           views[emptyViewSlotRow][emptyViewSlotCol] = 0;
           continue;
         } else if (solutions === 1) {
@@ -235,12 +232,8 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
           return this.generate(values, views);
         }
       } else {
-        values[emptyValueSlotRow][emptyValueSlotCol] = this.createSudokuField(
-          emptyValueSlotRow,
-          emptyValueSlotCol,
-          0,
-          false
-        );
+        values[emptyValueSlotRow][emptyValueSlotCol].value = 0;
+        values[emptyValueSlotRow][emptyValueSlotCol].locked = false;
         views[emptyViewSlotRow][emptyViewSlotCol] = 0;
       }
     }
@@ -248,11 +241,10 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   }
 
   solve(values: sudoku, views: number[][]): number {
-    const [emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
+    const [complete, emptyValueSlotRow, emptyValueSlotCol] = this.findEmptySlot(
       values.map((row) => row.map((col) => col.value))
     );
-    if (emptyValueSlotRow === null || emptyValueSlotCol === null) {
-      // this is possibly overwritten several times until a instance with a unique solution is found
+    if (complete) {
       this.valuesSolution = JSON.parse(JSON.stringify(values)) as sudoku; // deep copy
       return 1;
     }
@@ -271,7 +263,7 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     return solutions;
   }
 
-  findEmptySlot(slots: number[][]): [number, number] {
+  findEmptySlot(slots: number[][]): [boolean, number, number] {
     const indexes = this.indexesInRandomOrder(
       slots.length,
       (slots[0] || []).length
@@ -279,10 +271,10 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     for (let i = 0; i < indexes.length; i++) {
       const [row, col] = indexes[i];
       if (slots[row][col] === 0) {
-        return [row, col];
+        return [false, row, col];
       }
     }
-    return [null, null];
+    return [true, null, null];
   }
 
   indexesInRandomOrder(rows: number, cols: number): [number, number][] {
@@ -397,7 +389,6 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
     return {
       id: rowIndex * this.size + colIndex,
       value: value,
-      initialValue: value,
       locked: locked,
     };
   }
@@ -484,7 +475,9 @@ export default class Sudoku extends Mixins(GameMixin, TreesMixin)
   undo() {
     this.values.forEach((row) => {
       row.forEach((el) => {
-        el.value = el.initialValue;
+        if (!el.locked) {
+          el.value = 0;
+        }
       });
     });
     this.itemToAdd = null;
