@@ -13,7 +13,7 @@ export interface SymbolCanvasInterface {
 }
 
 export interface PatternCanvasInterface {
-  draw(cells: number, connectAndFill: [number, number][]): void;
+  draw(cells: number, pairs: [number, number][]): void;
 }
 
 export function LoadRandomElement(key: string): string {
@@ -378,12 +378,12 @@ export function GetNewCanvas(
 }
 
 export class PatternCanvas extends Canvas implements PatternCanvasInterface {
-  draw(cells: number, connectAndFill: [number, number][]) {
+  draw(cells: number, pairs: [number, number][]) {
     this.clear();
-    this.drawPattern(cells, connectAndFill);
+    this.drawPattern(cells, pairs);
   }
 
-  drawPattern(cells: number, connectAndFill: [number, number][]) {
+  drawPattern(cells: number, pairs: [number, number][]) {
     const rectX = this.lineWidth / 2;
     const rectY = this.lineWidth / 2;
     const rectWidth = this.width - this.lineWidth;
@@ -393,24 +393,24 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
     this.drawGrid(rectX, rectY, rectWidth, cellHeight, cells, cellWidth);
 
     // sort to have it easier to draw the lines connecting the boxes on the correct height
-    connectAndFill.sort(([a, b], [c, d]) => Math.abs(a - b) - Math.abs(c - d));
-    const arrowLevelY = this.calculateArrowLevelY(connectAndFill);
-    for (let i = 0; i < connectAndFill.length; i++) {
-      const [leftBoxIndex, rightBoxIndex] = connectAndFill[i];
+    pairs.sort(([a, b], [c, d]) => Math.abs(a - b) - Math.abs(c - d));
+    const arrowLevelY = this.calculateArrowLevelY(pairs);
+    for (let i = 0; i < pairs.length; i++) {
+      const [leftPairIndex, rightPairIndex] = pairs[i];
       if (
-        Math.min(leftBoxIndex, rightBoxIndex) < 0 ||
-        Math.max(leftBoxIndex, rightBoxIndex) >= cells ||
-        leftBoxIndex === rightBoxIndex
+        Math.min(leftPairIndex, rightPairIndex) < 0 ||
+        Math.max(leftPairIndex, rightPairIndex) >= cells ||
+        leftPairIndex === rightPairIndex
       ) {
         continue;
       }
       for (let j = 0; j < 2; j++) {
-        const boxIndex = connectAndFill[i][j];
+        const pairIndex = pairs[i][j];
 
         this.ctx.fillStyle = this.colors[i % this.colors.length];
-        this.fillBox(rectX, rectY, cellHeight, cellWidth, boxIndex);
+        this.fillBox(rectX, rectY, cellHeight, cellWidth, pairIndex);
 
-        const centerX = rectX + cellWidth * boxIndex + cellWidth / 2;
+        const centerX = rectX + cellWidth * pairIndex + cellWidth / 2;
         this.ctx.fillStyle = "black";
         this.drawArrowHead(
           centerX,
@@ -425,10 +425,9 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
         cellWidth,
         rectY,
         rectX,
-        leftBoxIndex,
-        rightBoxIndex,
-        arrowLevelY.get(JSON.stringify(connectAndFill[i])),
-        cells
+        arrowLevelY.get(JSON.stringify(pairs[i])),
+        cells,
+        pairs[i]
       );
     }
   }
@@ -502,11 +501,11 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
     cellWidth: number,
     rectY: number,
     rectX: number,
-    leftBoxIndex: number,
-    rightBoxIndex: number,
     arrowY: number,
-    cells: number
+    cells: number,
+    pair: [number, number]
   ) {
+    const [leftBoxIndex, rightBoxIndex] = pair;
     const lineY =
       cellHeight + 20 + arrowY * ((cellHeight + rectY + 20) / cells);
     // connect arrows
@@ -528,19 +527,17 @@ export class PatternCanvas extends Canvas implements PatternCanvasInterface {
     this.ctx.lineWidth = this.lineWidth;
   }
 
-  calculateArrowLevelY(
-    connectAndFill: [number, number][]
-  ): Map<string, number> {
+  calculateArrowLevelY(pairs: [number, number][]): Map<string, number> {
     const level = new Map<string, number>();
-    connectAndFill.forEach((el) => level.set(JSON.stringify(el), 1));
-    for (let i = 0; i < connectAndFill.length; i++) {
-      const [a, b] = connectAndFill[i];
-      for (let j = i + 1; j < connectAndFill.length; j++) {
-        const [c, d] = connectAndFill[j];
+    pairs.forEach((el) => level.set(JSON.stringify(el), 1));
+    for (let i = 0; i < pairs.length; i++) {
+      const [a, b] = pairs[i];
+      for (let j = i + 1; j < pairs.length; j++) {
+        const [c, d] = pairs[j];
         if (c < a && b < d) {
           level.set(
-            JSON.stringify(connectAndFill[j]),
-            level.get(JSON.stringify(connectAndFill[i])) + 1
+            JSON.stringify(pairs[j]),
+            level.get(JSON.stringify(pairs[i])) + 1
           );
         }
       }
