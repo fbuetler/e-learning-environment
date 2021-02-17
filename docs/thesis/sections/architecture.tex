@@ -78,6 +78,7 @@ Mixins can be used to reuse functionality over different Vue components. When a 
 \subsection*{Game Interface}
 Each exercises implements the GameInterface. This ensures that exercise specific functionality like starting and evaluating the exercise is implemented and can be used in the \code{GameMixin}.
 
+%TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={GameInterface},label={lst:gameInterface}]
 interface GameInterface {
     isInitialized(): boolean;
@@ -85,6 +86,7 @@ interface GameInterface {
     isCorrect(): boolean;
 }
 \end{lstlisting}
+%TC:endignore
 
 \subsection{General Purpose Components}
 The following presented components are components that are heavily reused. Most of them are part of the user interaction system since all exercises need some kind of user interaction elements.
