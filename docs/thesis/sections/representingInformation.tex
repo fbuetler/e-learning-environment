@@ -111,6 +111,15 @@ for word in children_words:
 \end{lstlisting}
 %TC:endignore
 
+\begin{example}
+  Examples of similar words for adding, changing and removeing a letter from a word
+  \begin{itemize}
+    \item \textbf{adding a letter} - arm: arme, arms, darm, farm, warm
+    \item \textbf{changing a letter} - buch: auch, bach, bush, euch, huch, such, tuch
+    \item \textbf{removing a letter} - bauch: auch, bach, buch
+  \end{itemize}
+\end{example}
+
 There is no need to generate a list of similar word for the \code{Swapping letters} exercise, since the letters can be swapped during the exercise creation.
 \TODO{maybe check for editing distances}
 
@@ -129,25 +138,16 @@ Collecting words from the Scrabble dictionary resulted in approximately thirty t
 
 Finally, the last approach was taken by generating a list of allowed word from a spell checker. However, spell checkers do not have a list of all allowed word, but rather of two files: the dictionary file and the affix file. The dictionary files contains a list of words and applicable rules for each word and the affix file contains a list explaining these rules. Each rule defines a prefix or suffix that can be applied to a word \cite{Hunspell}. 
 \TODO{example of dictionary and affix file}
-Luckily there exists a tool called \code{unmunch} in the hunspell ecosystem that generates a list of word from the dictionary file and the affix file as easy as \code{unmunch German_de_CH.dic German_de_CH.aff > wordlist.txt} \cite{HunspellGithub}.
+Luckily there exists a tool called \code{unmunch} in the hunspell ecosystem that generates a list of words from the dictionary file and the affix file as easy as shown in listing \ref{lst:unmunch} \cite{HunspellGithub}.
 In the end a list of about one million allowed words was generated (without any word length limits). However, a drawback is that the wordlist does not contain any names from people, cities or any other instances. 
 
-% add
-%     draw arrows
-%     insert at position 
-%     check validity
-% change
-%     change at positions
-%     check validity
-% remove
-%     remove at positions
-%     check validity
-% swap
-%     result of diff levels
-%     generate swap pairs
-%     draw arrows
-%     swap letters
-%     check validity
+%TC:ignore
+\begin{lstlisting}[language=Bash,caption={Bash command to unmunch a dictionary file and a affix file to a list of wird},label={lst:unmunch}]
+$ unmunch German_de_CH.dic German_de_CH.aff > wordlist.txt
+\end{lstlisting}
+%TC:endignore
+
+The actual implementation of these exercise types is now pretty straigh forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet and hence make use of the \code{ItemSelection.vue} component. The ''adding a letter'' exercise is implemented in the \code{Add.vue} component and shows arrow between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The ''change a letter'' exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet. In the ''remove a letter'' exercise pupils can move a letter to the trashcan to remove it and in the ''swap letters' exercise they can click on the arrows to change the order of the letters. Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
 
 \section{Number Systems}
 \label{section:numberSystems}
