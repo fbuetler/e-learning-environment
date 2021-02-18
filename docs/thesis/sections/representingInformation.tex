@@ -152,9 +152,8 @@ The actual implementation of these exercise types is now pretty straigh forward.
 \section{Number Systems}
 \label{section:numberSystems}
 
-\TODO{fix structure}
 \subsection{Exercises}
-\subsection{Representing Numbers like the Maya}
+\subsection*{Representing Numbers like the Maya}
 
 Today, one is used to the decimal number system (base number 10), with 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
 
@@ -167,7 +166,7 @@ Today, one is used to the decimal number system (base number 10), with 10 symbol
 
 The following exercises are supposed to familiarize pupils with a new number system, the mayan number system. First converting numbers between the decimal number system and the mayan numbers is trained topped of an exercise about adding two mayan numbers.
 
-\subsection*{Representing mayan numbers}
+\subsubsection*{Representing mayan numbers}
 
 A decimal number is presented to the pupils and they need to choose the correct amount of dots and bars representing the decimal number. For the purpose of simplicity, only decimal numbers between 1 and 19 are chosen.
 
@@ -175,15 +174,15 @@ A decimal number is presented to the pupils and they need to choose the correct 
     The decimal number \code{17} is writte as three bars and two dots.
 \end{example}
 
-\subsection*{Understanding mayan numbers}
+\subsubsection*{Understanding mayan numbers}
 
 In this exercise the pupils learn to understand mayan numbers. Again only decimal numbers between 1 and 19 are used and the pupils need to understand what mayan number is shown and write down the decimal equivalent.
 
-\subsection*{Adding mayan numbers}
+\subsubsection*{Adding mayan numbers}
 
 To sum this section up, adding mayan numbers is learned. This exercises combines the previous two, since the pupils need to understand the summands given in the mayan number system, add them and write the sum down in either decimal number system or the mayan number system.
 
-\subsection{Representing Numbers with Coins}
+\subsection*{Representing Numbers with Coins}
 
 The following exercises introduce a new number system and trains an already learned one: the binary number system and the decimal number system. Both number systems are praticed with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (Fig. \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (Fig. \ref{fig:decimal_coins}). 
 Overall, the same concepts are praticed for both number systems with the limitation that every binary coin can at most be used once. For both number systems the following exercises are given:
@@ -210,7 +209,7 @@ Additionally, for the decimal number system the following exercise is given:
     \label{fig:binary_coins} 
 \end{figure}
 
-\subsection*{Conversion of a decimal number to its coin representation}
+\subsubsection*{Conversion of a decimal number to its coin representation}
 
 This exercise includes two difficulty levels:
 \begin{itemize}
@@ -218,31 +217,94 @@ This exercise includes two difficulty levels:
     \item Converting a decimal number to a coin representation, where the sum of all coins are equal to the decimal number \textbf{and} the amount of used coins is minimal.
 \end{itemize}
 
-\subsection*{Conversion of a number given in its coin representation to a decimal number}
+\subsubsection*{Conversion of a number given in its coin representation to a decimal number}
 
 This exercise is straigh forward. A number given in its coin representation, either binary or decimal coins, have to be converted to a decimal number. 
 
-\subsection*{Reducing the amount of decimal coins in a given set of decimal coins}
+\subsubsection*{Reducing the amount of decimal coins in a given set of decimal coins}
 
 Similar to the previous exercise, a number in its coin representation is given and pupils have to display the same number but with less coins.
 
-
 \subsection{Implementation}
 
-% shared code
-% limit per number system 
-% calc minimal amount
-% array instead of map
-% difficulty level in addition
+The conversion exercises from the decimal number system \textbd{to} either the mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component.
+The same goes for the inverse direction (\code{From.vue} component).
+However, adding mayan numbers (\code{Addition.vue}) and reducing the amount of used coins (\code{Swap.vue}) have their own logic. 
+
+The \code{To.vue} component is simple. It shows a a random number between 1 and a number system specific limit:
+
+\begin{itemize}
+  \item \textbf{Mayan number system} - limit: 19
+  \item \textbf{Decimal coins} - limit: 100
+  \item \textbf{Binary coins} - limit: 100
+\end{itemize}
+
+The pupils need to select items (either nuts, sticks or coins) with the correct value and place it so these items sum up to the shown random number.
+Additionally for the the convertion to the decimal coins, there is another difficulty level asking to represent the shown random number with as few decimal coins as possible. To algorithm to calculate the minimal amount of items necessary for a certain sum is given in listing \ref{lst:calcMinimalAmount} 
+
 
 %TC:ignore
-% \begin{lstlisting}[language=TypeScript,caption={},label={lst:}]
-% \end{lstlisting}
+\begin{lstlisting}[language=TypeScript,caption={Calculate minimal amount of items needed to reach a certain number},label={lst:calcMinimalAmount}]
+calcMinimalAmount(type: numbersystemType, number: number): number[] {
+  const items = this.items(type);
+  let i = 0;
+  const minimalAmount = new Array<number>(items.length).fill(0);
+  while (number > 0 && i < items.length) {
+    const value = items[i].value;
+    if (number >= value) {
+      minimalAmount[i]++;
+      number -= value;
+    } else {
+      i++;
+    }
+  }
+  return minimalAmount;
+}
+\end{lstlisting}
 %TC:endignore
 
-% \begin{figure} 
-%     \centering
-%     \includegraphics[width=0.4 \columnwidth]{figures/}
-%     \caption{} 
-%     \label{fig:} 
-% \end{figure}
+The implementation for the \code{From.vue} component works in a similar fashion. This time a random amount of each item is generated. \TODO{maybe show these limits} The pupils finally need to add the values of these items up.
+
+Both of these components need at some point to sum the values items. It would be convenient to have a map where each item type maps to the amount of selected respectively shown item and a map where each item type maps to its value. However, due to Vue.js constraints this is not possible since maps are not reactive. \TODO{introduce reactivity}
+Arrays on the other hand are. Therefore an array is used, having the first element to be the highest item value, down to the last element being the item with the lowest value. This introduces some thight coupling between the array storing the amount of items and the array storing the value of each item. The implementation to sum item is shown in listing \ref{lst:sumItems}.
+
+%TC:ignore
+\begin{lstlisting}[language=TypeScript,caption={Sum up items},label={lst:sumItems}]
+sumItems(type: numbersystemType, items: number[]): number {
+  if (items.length !== this.items(type).length) {
+    throw Error(`array lengths do not match:  ${items} ${this.items(type)}`);
+  }
+  let sum = 0;
+  for (let i = 0; i < this.items(type).length; i++) {
+    sum += items[i] * this.items(type)[i].value;
+  }
+  return sum;
+}
+\end{lstlisting}
+%TC:endignore
+
+The \code{Swap.vue} component reuses some parts of the just mentioned components. It also generates a random amount of each item. The total amount of items is reducable and pupils are asked to represent the same sum over all items but with fewer items. How such a configuration is achieved, is shown in listing \ref{lst:reducableItems}.
+
+%TC:ignore
+\begin{lstlisting}[language=TypeScript,caption={Generate a reducable item configuration},label={lst:reducableItems}]
+do {
+  this.generatedItems = this.generateItems(this.type);
+} while (
+  this.sumItems(this.type, this.generatedItems) >= this.limit(this.type) ||
+  this.countItems(this.generatedItems) ===
+    this.countItems(
+      this.calcMinimalAmount(
+        this.type,
+        this.sumItems(this.type, this.generatedItems)
+      )
+    )
+);
+\end{lstlisting}
+%TC:endignore
+
+In the \code{Addition.vue} component all previously seen concepts come together. Two summands are generated, each having a random amount of items. The sum is guaranteed to not overshoot the limit of this number system. This exercise has two difficulty levels:
+
+\begin{itemize}
+  \item \textbf{easy} - the pupils have to calculate the sum as a number 
+  \item \textbf{medium} - the puils have to calculate the sum as a representation of items
+\end{itemize}
