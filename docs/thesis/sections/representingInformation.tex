@@ -59,11 +59,79 @@ To learn to recognize typing mistakes in a word pupils are presented a word with
 
 \subsection*{Word Generation}
 
-% word generation
-%     10k word list 
-%     list of children words and scrable
-%     list of children words and spell checker words
-%     draw backs: no names e.g of people and cities
+The foundation of these exercises is to have a list of words and for each word a list of similar words. A similar word is a word to which the original word can be transformed to by either adding, changing or removing a letter. Generating a list of words is the easy part. Basically any list of words will do the jobs, but they should be understable for pupils. So the first step is to collect a list of nouns for children provided by a online service \cite{}. 
+
+Not much more difficult, but much more expensive is the computation of similar word. Given the children nouns list and the allowed words list, one can brute force a list of similar word by simply applying each transformation to every children noun and checking whether the transformed word exists in the allowed word lists. The script to generate a list of similar words for each word and each operation is given in listing \ref{lst:similarWords}. To have multiple difficulty levels in the exercise \code{Changing Letters}, similar word with an editing distance of two are generated as well. All other operations only include words with an editing distance of one.
+
+%TC:ignore
+\begin{lstlisting}[language=Python,caption={Algorithm to generate a list of similar words},label={lst:similarWords}]
+for word in children_words:
+  add = list()
+  for pos in range(len(word) + 1):
+    for letter in ALPHABET:
+      w = word[:pos] + letter + word[pos:]
+      if contains(allowed_words, w) and not w in add:
+        add.append(w.upper())
+  similar_words["add"][1][word.upper()] = add
+
+  remove = list()
+  for pos in range(len(word)):
+      w = word[:pos] + word[pos + 1 :]
+      if contains(allowed_words, w) and not w in remove:
+          remove.append(w.upper())
+  similar_words["remove"][1][word.upper()] = remove
+
+  change = list()
+  for pos in range(len(word)):
+    for letter in ALPHABET:
+      w = word[:pos] + letter + word[pos + 1 :]
+      if w != word and contains(allowed_words, w) and not w in change:
+        change.append(w.upper())
+  similar_words["change"][1][word.upper()] = change
+
+  change = list()
+  for left_pos in range(len(word)):
+    for right_pos in range(left_pos + 1, len(word)):
+      for left_letter in ALPHABET:
+        for right_letter in ALPHABET:
+          if word[left_pos] == left_letter or word[right_pos] == right_letter:
+            continue
+          w = (
+            word[:left_pos]
+            + left_letter
+            + word[left_pos + 1 : right_pos]
+            + right_letter
+            + word[right_pos + 1 :]
+          )
+          if w != word and contains(allowed_words, w) and not w in change:
+            change.append(w.upper())
+  if len(change) >= MIN_SIMILAR_WORDS:
+    change.sort()
+    similar_words["change"][2][word.upper()] = change
+\end{lstlisting}
+%TC:endignore
+
+There is no need to generate a list of similar word for the \code{Swapping letters} exercise, since the letters can be swapped during the exercise creation.
+\TODO{maybe check for editing distances}
+
+Significantly more difficult is to generate a list of allowed words. Three different approaches were taken:
+
+\begin{itemize}
+  \item Using a list of approximately ten thousand nouns
+  \item Collecting a list from online dictionary of allowed words of the well known word game Scrabble \cite{Scrabble}
+  \item Generating a list from a spell checker
+\end{itemize}
+
+The first approach resulted in having a word list with which exercises could be generated. However, the word list obviously did not cover all possible word pupils could find. Therefore the word list needed to be extended.
+
+Hence the idea to collect Scrabble word came up. This seemed like a good idea until it showed that the online Scrabble dictionary did also not contain all valid words.
+Collecting words from the Scrabble dictionary resulted in approximately thirty thousand word between two and 8 charachters long.
+
+Finally, the last approach was taken by generating a list of allowed word from a spell checker. However, spell checkers do not have a list of all allowed word, but rather of two files: the dictionary file and the affix file. The dictionary files contains a list of words and applicable rules for each word and the affix file contains a list explaining these rules. Each rule defines a prefix or suffix that can be applied to a word \cite{Hunspell}. 
+\TODO{example of dictionary and affix file}
+Luckily there exists a tool called \code{unmunch} in the hunspell ecosystem that generates a list of word from the dictionary file and the affix file as easy as \code{unmunch German_de_CH.dic German_de_CH.aff > wordlist.txt} \cite{HunspellGithub}.
+In the end a list of about one million allowed words was generated (without any word length limits). However, a drawback is that the wordlist does not contain any names from people, cities or any other instances. 
+
 % add
 %     draw arrows
 %     insert at position 
