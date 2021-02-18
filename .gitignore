@@ -42,3 +42,5 @@ coverage/
 *.toc
 *.fdb_latexmk
 *.synctex.gz
+
+thesis.pdf
