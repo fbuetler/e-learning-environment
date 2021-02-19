@@ -10,7 +10,9 @@ Representing information with symbols is a fundamental concept of Computer Scien
 
 Transmitting information includes representing it in a message, sending it to the destination and the receiver being able to make sense of it even tough the message might contain errors such as a spelling mistake. To achieve this sender and receiver agree to only send messages with a minimal editing distance \cite{AnD} between each of them. 
 
-The editing distance is the amount of operations that need to be done to transform a message in another. Operations are deleting, inserting and changing a letter \TODO{add some TI explanation}. A cost function exists that defines the cost of each operation, and in our case each operation has a cost of 1 (unit cost model). The editing distance is then the minimal cost to transform a message into another one by a sequence of operations. In our case a message is a word.
+The editing distance is the amount of operations that needs to be done to transform a message in another. Operations are deleting, inserting and changing a letter. 
+\TODO{maybe add some proper definition}
+A cost function exists that defines the cost of each operation, and in our case each operation has a cost of 1 (unit cost model). The editing distance is then the minimal cost to transform a message into another one by a sequence of operations. In our case a message is a word.
 
 \begin{example}
     The editing distance between \code{LIKE} and \code{BIKE} is 1, since changing the first letter from an \code{L} to and \code{B} transforms the first word into the second.
@@ -138,8 +140,8 @@ The first approach resulted in having a word list with which exercises could be 
 Hence the idea to collect Scrabble words came up. This seemed like a good idea until it showed that the online Scrabble dictionary did also not contain all valid words.
 Collecting words from the Scrabble dictionary resulted in approximately thirty thousand word between two and 8 charachters long.
 
-Finally, the last approach was taken by generating a list of allowed word from a spell checker. However, spell checkers do not have a list of all allowed word, but rather of two files: the dictionary file and the affix file. The dictionary files contains a list of words and applicable rules for each word and the affix file contains a list explaining these rules. Each rule defines a prefix or suffix that can be applied to a word \cite{Hunspell}. 
-\TODO{example of dictionary and affix file}
+Finally, the last approach was taken by generating a list of allowed word from a spell checker. However, spell checkers do not have a list of all allowed word, but rather of two files: the dictionary file and the affix file. The dictionary files contains a list of root words and applicable rules for each root word and the affix file contains a list explaining these rules. Each rule defines an operation that can be applied to a root word. The spell checker evaluates a word as correct if it can construct the word by applying rules to a root word. \cite{Hunspell}.
+
 Luckily, there exists a tool called \code{unmunch} in the hunspell ecosystem that generates a list of words from the dictionary file and the affix file as easy as shown in listing \ref{lst:unmunch} \cite{HunspellGithub}.
 In the end a list of about one million allowed words was generated (without any word length limits). However, a drawback is that the wordlist does not contain any names from people, cities or any other instances. 
 
@@ -149,7 +151,6 @@ $ unmunch German_de_CH.dic German_de_CH.aff > wordlist.txt
 \end{lstlisting}
 %TC:endignore
 
-\TODO{add pictures}
 The actual implementation of these exercise types is now pretty straight forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet and hence make use of the \code{ItemSelection.vue} component. The \nameref{subsection:addingLetter} exercise is implemented in the \code{Add.vue} component (figure \ref{fig:addingLetter}) and shows arrow between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The \nameref{subsection:changingLetter} exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet (figure \ref{fig:changingLetter}). In the \nameref{subsection:removingLetters} exercise pupils can move a letter to the trashcan to remove it (figure \ref{fig:removingLetter}) and in the \nameref{subsection:swappingLetters} exercise they can click on the arrows to change the order of the lettersi(figure \ref{fig:swappingLetters}). Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
 
 \begin{figure} 
@@ -182,7 +183,6 @@ The actual implementation of these exercise types is now pretty straight forward
 
 \section{Number Systems}
 \label{section:numberSystems}
-\TODO{add pictures}
 
 \subsection{Exercises}
 \subsection*{Representing Numbers like the Maya}
@@ -323,9 +323,11 @@ calcMinimalAmount(type: numbersystemType, number: number): number[] {
 \end{lstlisting}
 %TC:endignore
 
-The implementation for the \code{From.vue} component works in a similar fashion. This time a random amount of each item is generated. \TODO{maybe show these limits} The pupils finally need to add the values of these items up.
+The implementation for the \code{From.vue} component works in a similar fashion. This time a random amount of each item is generated. 
+\TODO{maybe show these limits}
+The pupils finally need to add the values of these items up.
 
-Both of these components need at some point to sum the values items. It would be convenient to have a map where each item type maps to the amount of selected respectively shown item and a map where each item type maps to its value. However, due to Vue.js constraints this is not possible since maps are not reactive. \TODO{introduce reactivity}
+Both of these components need at some point to sum the values items. It would be convenient to have a map where each item type maps to the amount of selected respectively shown item and a map where each item type maps to its value. However, due to Vue.js constraints this is not possible since maps are not reactive. Reactivity simply means that changes made in to the application data is automaticall reflexted in the DOM.
 Arrays on the other hand are. Therefore an array is used, having the first element to be the highest item value, down to the last element being the item with the lowest value. This introduces some thight coupling between the array storing the amount of items and the array storing the value of each item. The implementation to sum item is shown in listing \ref{lst:sumItems}.
 
 %TC:ignore

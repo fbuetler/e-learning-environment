@@ -18,7 +18,8 @@ Black-box testing is a testing method, where the tester does not know how a feat
 
 \subsection*{Test Plan}
 
-General purpose components are tested in its specialized functionality i.e wheter they react correctly on different user inputs. \TODO{maybe elaborate on that?}
+General purpose components are tested in its specialized functionality i.e wheter they react correctly on different user inputs. 
+\TODO{maybe elaborate on that?}
 The components representing an exercises are tested for:
 
 \begin{itemize}
@@ -43,8 +44,7 @@ A metric to judge the usefullness of a test suite is the code coverage. The code
 
 High coverage percentage does not imply that it is a good test suite. Some critical paths can still be untested. It is generally accecpted that a code coverage of 80\% is a desirable goal. Going above 80\% of code coverage is usually costly and does not provide any valuable benefit \cite{CodeCoverage}.
 
-The code coverage for the whole project and each component is given in table \ref{table:testCoverage}. Most of the components are well tested with a code coverage of above 80\% in most categories. Some percentages indicate bad code coverage 
-\TODO{elaborate on components with bad code coverage}
+The code coverage for the whole project and each component is given in table \ref{table:testCoverage}. Most of the components are well tested with a code coverage of above 80\% in most categories. Some percentages indicate bad code coverage. Usually those components with bas code coverage have less than fourty lines and therefore not tested thoroughly. 
  
 \subsection*{Non-determinism}
 A problem that has to be tackled for testing is how to handle determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used, then the actual output may not be the same as the expected output and the test is evaluated as failed. To circumvent this issue, one can mock the function that is used to generate a random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
@@ -60,32 +60,32 @@ A problem that has to be tackled for testing is how to handle determinism. Some 
         File & \% Stmts & \% Branch & \% Funcs & \% Lines \\ \hline
         All files & 86.71 & 73.11 & 86.73 & 86.56 \\ \hline
         App.vue & 100 & 100 & 100 & 100 \\ \hline
-        Footer.vue & 100 & 100 & 100 & 100 \\ \hline
-        Header.vue & 100 & 100 & 100 & 100 \\ \hline
-        Home.vue & 100 & 100 & 100 & 100 \\ \hline
         GameMixins.vue & 55.56 & 100 & 27.27 & 55.56 \\ \hline
-        Buttonmenu.vue & 66.67 & 100 & 0 & 66.67 \\ \hline
-        Difficulty.vue & 87.5 & 62.5 & 100 & 87.5 \\ \hline
-        ItemSelection.vue & 100 & 100 & 100 & 100 \\ \hline
-        Modal.vue & 100 & 100 & 100 & 100 \\ \hline
-        Trashcan.vue & 100 & 100 & 100 & 100 \\ \hline
-        Tutorial.vue & 100 & 100 & 100 & 100 \\ \hline
-        Undo.vue & 100 & 100 & 100 & 100 \\ \hline
-        PatternDecryption.vue & 78.79 & 50 & 80 & 77.42 \\ \hline
-        PatternEncryption.vue & 79.41 & 50 & 81.82 & 78.13 \\ \hline
-        From.vue & 100 & 100 & 100 & 100 \\ \hline
-        ItemDropzone.vue & 100 & 100 & 100 & 100 \\ \hline
-        ItemGroup.vue & 100 & 100 & 100 & 100 \\ \hline
-        NumbersystemsMixin.vue & 75.41 & 62.5 & 84.62 & 77.59 \\ \hline
-        Swap.vue & 88.89 & 83.33 & 88.89 & 91.18 \\ \hline
-        To.vue & 90.24 & 45.45 & 90 & 92.11 \\ \hline
-        Row.vue & 89.04 & 65.71 & 100 & 88.89 \\ \hline
-        Sudoku.vue & 91.12 & 76.09 & 94.12 & 90.26 \\ \hline
-        TreesMixin.vue & 100 & 100 & 100 & 100 \\ \hline
-        Add.vue & 98.33 & 100 & 95.24 & 98.28 \\ \hline
-        Change.vue & 91.43 & 83.33 & 93.33 & 91.18 \\ \hline
-        Remove.vue & 100 & 100 & 100 & 100 \\ \hline
-        Swap.vue & 61.22 & 87.5 & 76 & 59.78 \\ \hline
+        Home.vue & 100 & 100 & 100 & 100 \\ \hline
+        ciphertexts/PatternEncryption.vue & 79.41 & 50 & 81.82 & 78.13 \\ \hline
+        ciphertexts/PatternDecryption.vue & 78.79 & 50 & 80 & 77.42 \\ \hline
+        layout/Footer.vue & 100 & 100 & 100 & 100 \\ \hline
+        layout/Header.vue & 100 & 100 & 100 & 100 \\ \hline
+        numbersystems/From.vue & 100 & 100 & 100 & 100 \\ \hline
+        numbersystems/ItemDropzone.vue & 100 & 100 & 100 & 100 \\ \hline
+        numbersystems/ItemGroup.vue & 100 & 100 & 100 & 100 \\ \hline
+        numbersystems/NumbersystemsMixin.vue & 75.41 & 62.5 & 84.62 & 77.59 \\ \hline
+        numbersystems/Swap.vue & 88.89 & 83.33 & 88.89 & 91.18 \\ \hline
+        numbersystems/To.vue & 90.24 & 45.45 & 90 & 92.11 \\ \hline
+        shared/Buttonmenu.vue & 66.67 & 100 & 0 & 66.67 \\ \hline
+        shared/Difficulty.vue & 87.5 & 62.5 & 100 & 87.5 \\ \hline
+        shared/ItemSelection.vue & 100 & 100 & 100 & 100 \\ \hline
+        shared/Modal.vue & 100 & 100 & 100 & 100 \\ \hline
+        shared/Trashcan.vue & 100 & 100 & 100 & 100 \\ \hline
+        shared/Tutorial.vue & 100 & 100 & 100 & 100 \\ \hline
+        shared/Undo.vue & 100 & 100 & 100 & 100 \\ \hline
+        trees/Row.vue & 89.04 & 65.71 & 100 & 88.89 \\ \hline
+        trees/Sudoku.vue & 91.12 & 76.09 & 94.12 & 90.26 \\ \hline
+        trees/TreesMixin.vue & 100 & 100 & 100 & 100 \\ \hline
+        words/Add.vue & 98.33 & 100 & 95.24 & 98.28 \\ \hline
+        words/Change.vue & 91.43 & 83.33 & 93.33 & 91.18 \\ \hline
+        words/Remove.vue & 100 & 100 & 100 & 100 \\ \hline
+        words/Swap.vue & 61.22 & 87.5 & 76 & 59.78 \\ \hline
     \end{tabular}
 \end{table}
 
