@@ -61,3 +61,9 @@ docker build . -t bsc-thesis -f deployment/Dockerfile
 ```
 docker run -p 8081:80 bsc-thesis
 ```
+
+### Count words in the thesis report
+
+```
+texcount thesis.tex -inc -merge -total
+```

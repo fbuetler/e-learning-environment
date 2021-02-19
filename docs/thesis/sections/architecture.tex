@@ -79,7 +79,14 @@ The \textbf{tests} contains unit, snapshot and End-to-End tests for the project 
 \label{section:basicFunctionality}
 
 \subsection{Home Screen}
-The home screen is a view and is the first page seens when visiting the learning environment. It has a simple structure: For each available exercise there is a card with an image to illustrate the exercise and its title. The basic ideas for the images are taken from the text book, but most of the time needed some simple photoshopping to make it represent the task reasonably.
+The home screen is a view and is the first page seens when visiting the learning environment (figure \ref{fig:homepage}). It has a simple structure: For each available exercise there is a card with an image to illustrate the exercise and its title. The basic ideas for the images are taken from the text book, but most of the time needed some simple photoshopping to make it represent the task reasonably.
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=1.0 \columnwidth]{figures/homepage.png}
+    \caption{Homepage excerp} 
+    \label{fig:homepage} 
+\end{figure}
 
 \subsection{Game Mixin and Game Interface}
 
@@ -106,29 +113,67 @@ The following presented components are components that are heavily reused. Most 
 \TODO{maybe elaborate on technical details like passing events}
 
 \subsection*{Game}
-The Game component is an essential
-\TODO{image about component tree structure}
+The Game component is the crux of the matter
+\TODO{image about component folder tree structure}
 
 \subsection{Event Bus}
 Sometimes components are not in a direct parent-child relationship and still need to communicate. This can still be achieved by passing properties and emitting events, but evolves quickly into an unclear structure. To tackle this problem one can use an event bus. 
 The event bus is a vue instance that allows to to emit an event in one component and listen for that event on another component. To use the event bus, a component simply needs to import the instance and can emit or listen for event on the usual way. This functionality is necessary between the game buttons and each exercise.
 
 \subsection*{Game Buttons}
-Every exercise needs a \textbf{check exercise} and a \textbf{next exercise} button to first check a given solution to an exercise and let the system check it and second to get to the next exercise.
+Every exercise needs a \textbf{check exercise} and a \textbf{next exercise} button (figure \ref{fig:gameButtons}) to first check a given solution to an exercise and let the system check it and second to get to the next exercise.
 
-\subsection*{Undo Button}
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.6 \columnwidth]{figures/game_buttons.png}
+    \caption{Game Buttons} 
+    \label{fig:gameButtons} 
+\end{figure}
+
+\subsection*{Undo}
 The Undo button simply restores the current exercise initial conditions, so one can retry it again.
 
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.1 \columnwidth]{figures/undo.png}
+    \caption{Undo} 
+    \label{fig:undo} 
+\end{figure}
+
 \subsection*{Trashcan}
-The Trashcan is an area where elements can be dropped to remove them. For example when pupils are asked to remove a letter from a word, they can either move the letter to this area and drop it or first click the element and then the trashcan are to remove it.
+The Trashcan (figure \ref{fig:trashcan}) is an area where elements can be dropped to remove them. For example when pupils are asked to remove a letter from a word, they can either move the letter to this area and drop it or first click the element and then the trashcan are to remove it.
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.1 \columnwidth]{figures/trashcan.png}
+    \caption{Trashcan} 
+    \label{fig:trashcan} 
+\end{figure}
 
 \subsection*{Difficulty Levels}
-Some exercises have multiple difficulty levels. For those exercise the Difficulty component is used to change the level. This component gives the possibility to choose to up to three different difficulty levels indicated by an increasing amount of beavers on the button and a title.
+Some exercises have multiple difficulty levels (figure \ref{fig:difficultyLevels}). For those exercise the Difficulty component is used to change the level. This component gives the possibility to choose to up to three different difficulty levels indicated by an increasing amount of beavers on the button and a title.
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.4 \columnwidth]{figures/difficulty_level.png}
+    \caption{Difficulty levels from easy to hard} 
+    \label{fig:difficultyLevels} 
+\end{figure}
 
 \subsection*{Tutorial}
-To introduce an exercise to the pupils the title of the exercise and a short instruction is not enough. Therefore for each exercise there is a detailed explanation of the background and purpose and a tutorial video. The tutorial video show an example run of first give a wrong solution, restart the exercise and finally give the correct solution.
+To introduce an exercise to the pupils the title of the exercise and a short instruction is not enough. Therefore for each exercise there is a detailed explanation of the background and purpose and a tutorial video (figure \ref{fig:tutorialButton} and figure \ref{fig:tutorialExample}). The tutorial video show an example run of first give a wrong solution, restart the exercise and finally give the correct solution.
 The tutorial video were recorded by a screen capture tool and the mouse movement on how to solve the exercise are done programmatically. The reason for this is that moving the mouse by hand to solve the exercise introduces a jitter to the mouse movement and might be inconsistent. The tutorial on the other hand should show clearly and without any hesitation the way on how to solve the exercise. Since this cannot be done by an average human being, the mouse movement is done programmatically. Each graphical element part of the exercise has an ID and one can give a list of IDs that should be visited in a run. The tutorial video then shows a mouse visiting and interacting with these graphical elements and demonstrates how to solve the exercise. 
 
-\section{Styles}
-\label{section:styles}
-\TODO{styles and images}
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.1 \columnwidth]{figures/tutorial_button.png}
+    \caption{Tutorial Button} 
+    \label{fig:tutorialButton} 
+\end{figure}
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=1.0 \columnwidth]{figures/tutorial_example.png}
+    \caption{Tutorial of the Row of Trees Exercise} 
+    \label{fig:tutorialExample} 
+\end{figure}

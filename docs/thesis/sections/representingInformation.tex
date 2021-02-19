@@ -22,14 +22,16 @@ The receiver assume that this was the word the sender wanted to sent. This of co
 The purpose of the \nameref{section:similarWords} exercises is to learn these operations. Therefore an exercise is dedicated to each opertion: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
 
 \subsection*{Adding a letter}
+\label{subsection:addingLetter}
 
-In the \code{adding a letter} exercise pupils are presented a word, the alphabet from A to Z and spaces between each letter of the word as well as at the beginnig and the end of the word, where a letter can be added. Pupils are supposed to choose a letter from the alphabet and add it to one of the mentioned spaces to form a new valid word.
+In the \nameref{subsection:addingLetter} exercise pupils are presented a word, the alphabet from A to Z and spaces between each letter of the word as well as at the beginnig and the end of the word, where a letter can be added. Pupils are supposed to choose a letter from the alphabet and add it to one of the mentioned spaces to form a new valid word.
 
 \begin{example}
     The word \code{PACE} is given. By adding the letter \code{S} before the first letter, the valid word \code{SPACE} is formed.
 \end{example}
 
 \subsection*{Changing a letter}
+\label{subsection:changingLetter}
 
 In this exercise there is again a word and the alphabet from A to Z shown. Again pupils should select a letter from the alphabet, but this time, instead of adding it to a space, the selected letter should be replace a letter from the word itself to create a new valid word.
 
@@ -38,6 +40,7 @@ In this exercise there is again a word and the alphabet from A to Z shown. Again
 \end{example}
 
 \subsection*{Removing a letter}
+\label{subsection:removingLetters}
 
 In this exercise pupils receive a word and they should select a character from within the word an move it to the trashcan to remove the letter from the word itself to form a new valid word.
 
@@ -46,6 +49,7 @@ In this exercise pupils receive a word and they should select a character from w
 \end{example}
 
 \subsection*{Swapping adjacent letters}
+\label{subsection:swappingLetters}
 
 To learn to recognize typing mistakes in a word pupils are presented a word with swapped adjacent letters and they are supposed to identify those and swap them back to restore to original word. Here are multiple difficulty levels possible, where on the easy level only one pair of adjacent letters is swapped and on harder levels multiple pairs of adjacent letters are swapped.
 
@@ -59,10 +63,10 @@ To learn to recognize typing mistakes in a word pupils are presented a word with
 
 The foundation of these exercises is to have a list of words and for each word a list of similar words. A similar word is a word to which the original word can be transformed to by either adding, changing or removing a letter. Generating a list of words is the easy part. Basically any list of words will do the jobs, but they should be understable for pupils. So the first step is to collect a list of nouns for children provided by a online service \cite{}. 
 
-Not much more difficult, but much more expensive is the computation of similar word. Given the children nouns list and the allowed words list, one can brute force a list of similar word by simply applying each transformation to every children noun and checking whether the transformed word exists in the allowed word lists. The script to generate a list of similar words for each word and each operation is given in listing \ref{lst:similarWords}. To have multiple difficulty levels in the exercise \code{Changing Letters}, similar word with an editing distance of two are generated as well. All other operations only include words with an editing distance of one.
+Not much more difficult, but much more expensive is the computation of similar word. Given the children nouns list and the allowed words list, one can brute force a list of similar word by simply applying each transformation to every children noun and checking whether the transformed word exists in the allowed word lists. The script to generate a list of similar words for each word and each operation is given in listing \ref{lst:similarWords}. To have multiple difficulty levels in the exercise \nameref{subsection:changingLetter}, similar word with an editing distance of two are generated as well. All other operations only include words with an editing distance of one.
 
 %TC:ignore
-\begin{lstlisting}[language=Python,caption={Algorithm to generate a list of similar words},label={lst:similarWords}]
+\begin{lstlisting}[language=Python,caption={Algorithm to generate a list of similar words in Python},label={lst:similarWords}]
 for word in children_words:
   add = list()
   for pos in range(len(word) + 1):
@@ -112,13 +116,13 @@ for word in children_words:
 \begin{example}
   Examples of similar words for adding, changing and removeing a letter from a word
   \begin{itemize}
-    \item \textbf{adding a letter} - arm: arme, arms, darm, farm, warm
-    \item \textbf{changing a letter} - buch: auch, bach, bush, euch, huch, such, tuch
-    \item \textbf{removing a letter} - bauch: auch, bach, buch
+    \item \nameref{subsection:addingLetter} - arm: arme, arms, darm, farm, warm
+    \item \nameref{subsection:changingLetter} - buch: auch, bach, bush, euch, huch, such, tuch
+    \item \nameref{subsection:removingLetters} - bauch: auch, bach, buch
   \end{itemize}
 \end{example}
 
-There is no need to generate a list of similar word for the \code{Swapping letters} exercise, since the letters can be swapped during the exercise creation.
+There is no need to generate a list of similar word for the \nameref{subsection:swappingLetters} exercise, since the letters can be swapped during the exercise creation.
 \TODO{maybe check for editing distances}
 
 Significantly more difficult is to generate a list of allowed words. Three different approaches were taken:
@@ -129,24 +133,52 @@ Significantly more difficult is to generate a list of allowed words. Three diffe
   \item Generating a list from a spell checker
 \end{itemize}
 
-The first approach resulted in having a word list with which exercises could be generated. However, the word list obviously did not cover all possible word pupils could find. Therefore the word list needed to be extended.
+The first approach resulted in having a word list with which exercises could be generated. However, the word list obviously did not cover all possible words pupils could find. Therefore the word list needed to be extended.
 
-Hence the idea to collect Scrabble word came up. This seemed like a good idea until it showed that the online Scrabble dictionary did also not contain all valid words.
+Hence the idea to collect Scrabble words came up. This seemed like a good idea until it showed that the online Scrabble dictionary did also not contain all valid words.
 Collecting words from the Scrabble dictionary resulted in approximately thirty thousand word between two and 8 charachters long.
 
 Finally, the last approach was taken by generating a list of allowed word from a spell checker. However, spell checkers do not have a list of all allowed word, but rather of two files: the dictionary file and the affix file. The dictionary files contains a list of words and applicable rules for each word and the affix file contains a list explaining these rules. Each rule defines a prefix or suffix that can be applied to a word \cite{Hunspell}. 
 \TODO{example of dictionary and affix file}
-Luckily there exists a tool called \code{unmunch} in the hunspell ecosystem that generates a list of words from the dictionary file and the affix file as easy as shown in listing \ref{lst:unmunch} \cite{HunspellGithub}.
+Luckily, there exists a tool called \code{unmunch} in the hunspell ecosystem that generates a list of words from the dictionary file and the affix file as easy as shown in listing \ref{lst:unmunch} \cite{HunspellGithub}.
 In the end a list of about one million allowed words was generated (without any word length limits). However, a drawback is that the wordlist does not contain any names from people, cities or any other instances. 
 
 %TC:ignore
-\begin{lstlisting}[language=Bash,caption={Bash command to unmunch a dictionary file and a affix file to a list of wird},label={lst:unmunch}]
+\begin{lstlisting}[language=Bash,caption={Bash command to unmunch a dictionary file and a affix file to a list of words},label={lst:unmunch}]
 $ unmunch German_de_CH.dic German_de_CH.aff > wordlist.txt
 \end{lstlisting}
 %TC:endignore
 
 \TODO{add pictures}
-The actual implementation of these exercise types is now pretty straigh forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet and hence make use of the \code{ItemSelection.vue} component. The ''adding a letter'' exercise is implemented in the \code{Add.vue} component and shows arrow between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The ''change a letter'' exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet. In the ''remove a letter'' exercise pupils can move a letter to the trashcan to remove it and in the ''swap letters' exercise they can click on the arrows to change the order of the letters. Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
+The actual implementation of these exercise types is now pretty straight forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet and hence make use of the \code{ItemSelection.vue} component. The \nameref{subsection:addingLetter} exercise is implemented in the \code{Add.vue} component (figure \ref{fig:addingLetter}) and shows arrow between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The \nameref{subsection:changingLetter} exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet (figure \ref{fig:changingLetter}). In the \nameref{subsection:removingLetters} exercise pupils can move a letter to the trashcan to remove it (figure \ref{fig:removingLetter}) and in the \nameref{subsection:swappingLetters} exercise they can click on the arrows to change the order of the lettersi(figure \ref{fig:swappingLetters}). Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=1.0 \columnwidth]{figures/words_add.png}
+  \caption{Adding a letter exercise} 
+  \label{fig:addingLetter} 
+\end{figure}
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=1.0 \columnwidth]{figures/words_change.png}
+  \caption{Changing a letter exercise} 
+  \label{fig:changingLetter} 
+\end{figure}
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=0.3 \columnwidth]{figures/words_remove.png}
+  \caption{Removing a letter exercise} 
+  \label{fig:removingLetter} 
+\end{figure}
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=0.2 \columnwidth]{figures/words_swap.png}
+  \caption{Swapping letters exercise} 
+  \label{fig:swappingLetters} 
+\end{figure}
 
 \section{Number Systems}
 \label{section:numberSystems}
@@ -227,9 +259,37 @@ Similar to the previous exercise, a number in its coin representation is given a
 
 \subsection{Implementation}
 
-The conversion exercises from the decimal number system \textbf{to} either the mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component.
-The same goes for the inverse direction (\code{From.vue} component).
-However, adding mayan numbers (\code{Addition.vue}) and reducing the amount of used coins (\code{Swap.vue}) have their own logic. 
+The conversion exercises from the decimal number system \textbf{to} either the mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component (figure \ref{fig:coinsTo}).
+The same goes for the inverse direction (\code{From.vue} component, figure \ref{fig:coinsFrom}).
+However, adding mayan numbers (\code{Addition.vue}, figure \ref{fig:mayanAddition}) and reducing the amount of used coins (\code{Swap.vue}, figure \ref{fig:coinsSwap}) have their own logic. 
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=1.0 \columnwidth]{figures/coins_to.png}
+  \caption{Conversion of a decimal number to its coin representation exercise} 
+  \label{fig:coinsTo} 
+\end{figure}
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=1.0 \columnwidth]{figures/coins_from.png}
+  \caption{Conversion of a decimal number from its coin representation exercise} 
+  \label{fig:coinsFrom} 
+\end{figure}
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=1.0 \columnwidth]{figures/coins_swap.png}
+  \caption{Reducing the amount of decimal coins in a given set of decimal coins exercise} 
+  \label{fig:coinsSwap} 
+\end{figure}
+
+\begin{figure} 
+  \centering
+  \includegraphics[width=1.0 \columnwidth]{figures/mayas_addition.png}
+  \caption{Adding mayan numbers exercise (easy)} 
+  \label{fig:mayanAddition} 
+\end{figure}
 
 The \code{To.vue} component is simple. It shows a a random number between 1 and a number system specific limit:
 
