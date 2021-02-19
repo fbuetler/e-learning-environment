@@ -107,11 +107,17 @@ The End-to-End tests in this project only covers the visibilty of all parts of a
 \section{Continous Integration}
 \label{section:CI}
 
-This project make use of the GitLab Continous Integration (CI). When pushing a commit to the projects GitLab repository, the CI pipeline is run. The CI pipeline is specified in the \code{.gitlab-ci.yml} file in the projects root folder and specifies what jobs need to be done. Usually, these jobs build, test and validate changes made to the source code and allow to easily catch bugs and errors.
+This project make use of the GitLab Continous Integration (CI). When pushing a commit to the projects GitLab repository, the CI pipeline is run (figure \ref{fig:pipeline}). The CI pipeline is specified in the \code{.gitlab-ci.yml} file in the projects root folder and specifies what jobs need to be done. Usually, these jobs build, test and validate changes made to the source code and allow to easily catch bugs and errors.
 The CI pipline of this project consists of two parts:
 
 \begin{itemize}
     \item \textbf{Unit and Snapshot tests} - runs the unit and snapshot tests as described in \nameref{subsection:unitTesting} and \nameref{subsection:snapshotTesting}
     \item \textbf{End-to-End tests} - runs the End-to-End tests in Firefox as described in \nameref{subsection:e2e}
 \end{itemize}
-% gitlab CI
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.6 \columnwidth]{figures/pipeline.png}
+    \caption{Pipeline visualization \cite{CIPipeline}} 
+    \label{fig:pipeline} 
+\end{figure}
