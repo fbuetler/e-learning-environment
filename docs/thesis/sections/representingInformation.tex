@@ -10,8 +10,6 @@ Representing information with symbols is a fundamental concept of Computer Scien
 
 Transmitting information includes representing it in a message, sending it to the destination and the receiver being able to make sense of it even tough the message might contain errors such as a spelling mistake. To achieve this sender and receiver agree to only send messages with a minimal editing distance \cite{AnD} between each of them. 
 
-\subsubsection*{Editing distance}
-
 The editing distance is the amount of operations that need to be done to transform a message in another. Operations are deleting, inserting and changing a letter \TODO{add some TI explanation}. A cost function exists that defines the cost of each operation, and in our case each operation has a cost of 1 (unit cost model). The editing distance is then the minimal cost to transform a message into another one by a sequence of operations. In our case a message is a word.
 
 \begin{example}
@@ -19,9 +17,9 @@ The editing distance is the amount of operations that need to be done to transfo
 \end{example}
 
 If sender and receiver agree to only transmit words with a minimal editing distance of e.g 3, then the receiver can still uniquely determine what word the sender has sent even when at most 1 spelling mistake has been made. The receiver calculates the minimal editing distance between the received word and each of the agreed words and chooses the word with the least editing distance.
-The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a tradeoff. When chosing a bigger minimal distance for a fixed alphabet, the number of words that can be used shrinks. To maintain the same amount of words the size of the lphabet can be increased too, resulting in longer words.
+The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a tradeoff. When chosing a bigger minimal distance for a fixed alphabet, the number of words that can be used shrinks. To maintain the same amount of words the size of the alphabet can be increased too, resulting in longer words.
 
-The purpose of the \code{Similar Words} exercises is to learn these operations. Therefore an exercise is dedicated to each opertion: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
+The purpose of the \nameref{section:similarWords} exercises is to learn these operations. Therefore an exercise is dedicated to each opertion: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
 
 \subsection*{Adding a letter}
 
@@ -186,7 +184,7 @@ To sum this section up, adding mayan numbers is learned. This exercises combines
 
 \subsection*{Representing Numbers with Coins}
 
-The following exercises introduce a new number system and trains an already learned one: the binary number system and the decimal number system. Both number systems are praticed with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (Fig. \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (Fig. \ref{fig:decimal_coins}). 
+The following exercises introduce a new number system and trains an already learned one: the binary number system and the decimal number system. Both number systems are praticed with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (figure \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (figure \ref{fig:decimal_coins}). 
 Overall, the same concepts are praticed for both number systems with the limitation that every binary coin can at most be used once. For both number systems the following exercises are given:
 \begin{itemize}
     \item Conversion of a decimal number to its coin representation
@@ -229,7 +227,7 @@ Similar to the previous exercise, a number in its coin representation is given a
 
 \subsection{Implementation}
 
-The conversion exercises from the decimal number system \textbd{to} either the mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component.
+The conversion exercises from the decimal number system \textbf{to} either the mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component.
 The same goes for the inverse direction (\code{From.vue} component).
 However, adding mayan numbers (\code{Addition.vue}) and reducing the amount of used coins (\code{Swap.vue}) have their own logic. 
 
