@@ -1,12 +1,12 @@
 \chapter{Testing and Continuous Integration}
 \label{chapter:testingAndCI}
 
-Implemented functionality should always be tested. Not only to ensure that is currently does what it is supposed to do, but also to avoid regression. Nothing is worse than introducing a bug by implementing a new feature with noticing it. Therefore in this project we use unit, snapshot and End-to-End test to avoid regression.
+Implemented functionality should always be tested. Not only to ensure that is currently does what it is supposed to do, but also to avoid regression. Nothing is worse than introducing a bug by implementing a new feature with noticing it. Therefore in this project unit, snapshot and end-to-end test are used to avoid regression.
 Moreover, all tests are always run upon each commit to the GitLab repository.
 
 \section{Testing}
 \label{section:testing}
-For unit and snapshot testing Jest is used. Jest is a JavaScript testing framework focusing on simplicity and is maintained by Facebook. It is supposed to require zero configuration and runs tests isolated and therefore can be parallelized \cite{Jest}. For End-to-End testing Nightwatch is used. Nightwatch is a Node.js powered End-to-End testing framework for web applications and websites. It supports testing in Chrome, Firefox and Edge, supports page object to easily abstract the content of a page and allows extending the framework with custom commands \cite{Nightwatch}.
+For unit and snapshot testing Jest is used. Jest is a JavaScript testing framework focusing on simplicity and is maintained by Facebook. It is supposed to require zero configuration and runs tests isolated and therefore can be parallelized \cite{Jest}. For end-to-end testing Nightwatch is used. Nightwatch is a Node.js powered end-to-end testing framework for web applications and websites. It supports testing in Chrome, Firefox and Edge, supports page object to easily abstract the content of a page and allows extending the framework with custom commands \cite{Nightwatch}.
 
 \subsection{Unit Testing}
 \label{subsection:unitTesting}
@@ -50,7 +50,6 @@ The code coverage for the whole project and each component is given in table \re
 A problem that has to be tackled for testing is how to handle determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used, then the actual output may not be the same as the expected output and the test is evaluated as failed. To circumvent this issue, one can mock the function that is used to generate a random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
 \TODO{maybe refer to game mixin}
 
-\TODO{maybe give path to components so it appears sorted}
 \begin{table}
     \label{table:testCoverage}
     \caption{Test coverage of all components}
@@ -97,12 +96,12 @@ Every component in this project is snapshot tested and is therefore save from un
 
 \subsection{End-to-End Testing}
 \label{subsection:e2e}
-End-to-End tests are used to test the entire application flow through an application. The main goal is to test it from a users perspective by simulating a user scenario \cite{EndToEndTests}. 
+end-to-end tests are used to test the entire application flow through an application. The main goal is to test it from a users perspective by simulating a user scenario \cite{EndToEndTests}. 
 \TODO{maybe elaborate a bit more on that}
 
-Nightwatch allows to run End-to-End tests for Chrome, Firefox and Edge to ensure the application works across browser-borders. The End-to-End tests for this project make use of page objects. A page object is an abstraction of a page represented as an object. The goal of a page object is to simplify the End-to-End test by showing the same one can see when one visits the page \cite{Nightwatch}.
+Nightwatch allows to run end-to-end tests for Chrome, Firefox and Edge to ensure the application works across browser-borders. The end-to-end tests for this project make use of page objects. A page object is an abstraction of a page represented as an object. The goal of a page object is to simplify the end-to-end test by showing the same one can see when one visits the page \cite{Nightwatch}.
 
-The End-to-End tests in this project only covers the visibility of all parts of an exercise one needs to see to solve it. The reason behind this is that many exercises are based on non-determinism and since a user cannot influence that the End-to-End tests are not able to do that as well.
+The end-to-end tests in this project only covers the visibility of all parts of an exercise one needs to see to solve it. The reason behind this is that many exercises are based on non-determinism and since a user cannot influence that the end-to-end tests are not able to do that as well.
 
 \section{Continuous Integration}
 \label{section:CI}
@@ -112,7 +111,7 @@ The CI pipeline of this project consists of two parts:
 
 \begin{itemize}
     \item \textbf{Unit and Snapshot tests} - runs the unit and snapshot tests as described in \nameref{subsection:unitTesting} and \nameref{subsection:snapshotTesting}
-    \item \textbf{End-to-End tests} - runs the End-to-End tests in Firefox as described in \nameref{subsection:e2e}
+    \item \textbf{End-to-end tests} - runs the end-to-end tests in Firefox as described in \nameref{subsection:e2e}
 \end{itemize}
 
 \begin{figure} 

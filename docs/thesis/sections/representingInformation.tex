@@ -10,7 +10,7 @@ Representing information with symbols is a fundamental concept of Computer Scien
 
 Transmitting information includes representing it in a message, sending it to the destination and the receiver being able to make sense of it even tough the message might contain errors such as a spelling mistake. To achieve this sender and receiver agree to only send messages with a minimal editing distance \cite{AnD} between each of them. 
 
-The editing distance is the amount of operations that needs to be done to transform a message in another. Operations are deleting, inserting and changing a letter. 
+The editing distance is the amount of operations that need to be done to transform a message in another. Operations are deleting, inserting and changing a letter. 
 \TODO{maybe add some proper definition}
 A cost function exists that defines the cost of each operation, and in our case each operation has a cost of 1 (unit cost model). The editing distance is then the minimal cost to transform a message into another one by a sequence of operations. In our case a message is a word.
 
@@ -19,9 +19,9 @@ A cost function exists that defines the cost of each operation, and in our case 
 \end{example}
 
 If sender and receiver agree to only transmit words with a minimal editing distance of e.g 3, then the receiver can still uniquely determine what word the sender has sent even when at most 1 spelling mistake has been made. The receiver calculates the minimal editing distance between the received word and each of the agreed words and chooses the word with the least editing distance.
-The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a trade off. When choosing a bigger minimal distance for a fixed alphabet, the number of words that can be used shrinks. To maintain the same amount of words the size of the alphabet can be increased too, resulting in longer words.
+The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens, the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a trade off. When choosing a bigger minimal distance for a fixed word length, the number of words that can be used shrinks. To maintain the same amount of words the word length can be increased too.
 
-The purpose of the \nameref{section:similarWords} exercises is to learn these operations. Therefore an exercise is dedicated to each operation: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
+The purpose of the \nameref{section:similarWords} exercises is to learn these operations. Therefore an exercise is dedicated to each operation: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of two operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
 
 \subsection*{Adding a letter}
 \label{subsection:addingLetter}
@@ -63,9 +63,9 @@ To learn to recognize typing mistakes in a word pupils are presented a word with
 
 \subsection*{Word Generation}
 
-The foundation of these exercises is to have a list of words and for each word a list of similar words. A similar word is a word to which the original word can be transformed to by either adding, changing or removing a letter. Generating a list of words is the easy part. Basically any list of words will do the jobs, but they should be understandable for pupils. So the first step is to collect a list of nouns for children provided by a online service \cite{}. 
+The foundation of these exercises is to have a list of words and for each word a list of similar words. A similar word is a word to which the original word can be transformed to by either adding, changing or removing a letter. Generating a list of words is the easy part. Basically any list of words will do the job, but they should be understandable for pupils. So the first step is to collect a list of nouns for children. 
 
-Not much more difficult, but much more expensive is the computation of similar word. Given the children nouns list and the allowed words list, one can brute force a list of similar word by simply applying each transformation to every children noun and checking whether the transformed word exists in the allowed word lists. The script to generate a list of similar words for each word and each operation is given in listing \ref{lst:similarWords}. To have multiple difficulty levels in the exercise \nameref{subsection:changingLetter}, similar word with an editing distance of two are generated as well. All other operations only include words with an editing distance of one.
+Not much more difficult, but much more expensive is the computation of similar words. Given the children nouns list and the allowed words list, one can brute force a list of similar word by simply applying each transformation to every children noun and checking whether the transformed word exists in the allowed word lists. The script to generate a list of similar words for each word and each operation is given in listing \ref{lst:similarWords}. To have multiple difficulty levels in the exercise \nameref{subsection:changingLetter}, similar word with an editing distance of two are generated as well. All other exercises only include words with an editing distance of one.
 
 %TC:ignore
 \begin{lstlisting}[language=Python,caption={Algorithm to generate a list of similar words in Python},label={lst:similarWords}]
@@ -118,9 +118,9 @@ for word in children_words:
 \begin{example}
   Examples of similar words for adding, changing and removing a letter from a word
   \begin{itemize}
-    \item \nameref{subsection:addingLetter} - arm: arme, arms, darm, farm, warm
-    \item \nameref{subsection:changingLetter} - buch: auch, bach, bush, euch, huch, such, tuch
-    \item \nameref{subsection:removingLetters} - bauch: auch, bach, buch
+    \item \nameref{subsection:addingLetter} - \code{ARM}: \code{ARME}, \code{ARMS}, \code{DARM}, \code{FARM}, \code{WARM}
+    \item \nameref{subsection:changingLetter} - \code{BUCH}: \code{AUCH}, \code{BACH}, \code{BUSH}, \code{EUCH}, \code{HUCH}, \code{SUCH}, \code{TUCH}
+    \item \nameref{subsection:removingLetters} - \code{BAUCH}: \code{AUCH}, \code{BACH}, \code{BUCH}
   \end{itemize}
 \end{example}
 
@@ -137,10 +137,10 @@ Significantly more difficult is to generate a list of allowed words. Three diffe
 
 The first approach resulted in having a word list with which exercises could be generated. However, the word list obviously did not cover all possible words pupils could find. Therefore the word list needed to be extended.
 
-Hence the idea to collect Scrabble words came up. This seemed like a good idea until it showed that the online Scrabble dictionary did also not contain all valid words.
+Hence the idea to create a list of words that are allowed in Scrabble came up. This seemed like a good idea until it showed that the online Scrabble dictionary did also not contain all valid words.
 Collecting words from the Scrabble dictionary resulted in approximately thirty thousand word between two and 8 characters long.
 
-Finally, the last approach was taken by generating a list of allowed word from a spell checker. However, spell checkers do not have a list of all allowed word, but rather of two files: the dictionary file and the affix file. The dictionary files contains a list of root words and applicable rules for each root word and the affix file contains a list explaining these rules. Each rule defines an operation that can be applied to a root word. The spell checker evaluates a word as correct if it can construct the word by applying rules to a root word. \cite{Hunspell}.
+Finally, the last approach was taken by generating a list of allowed word from a spell checker. A well known and open-source spell checker is Hunspell. However, Hunspell does not have a list of all allowed words, but rather generates them from two files: the dictionary file and the affix file. The dictionary files contains a list of root words and applicable rules for each root word and the affix file contains a list explaining these rules. Each rule defines an operation that can be applied to a root word. The spell checker evaluates a word as correct if it can construct the word by applying rules to a root word. \cite{Hunspell}.
 
 Luckily, there exists a tool called \code{unmunch} in the Hunspell ecosystem that generates a list of words from the dictionary file and the affix file as easy as shown in listing \ref{lst:unmunch} \cite{HunspellGithub}.
 In the end a list of about one million allowed words was generated (without any word length limits). However, a drawback is that the word list does not contain any names from people, cities or any other instances. 
@@ -151,7 +151,7 @@ $ unmunch German_de_CH.dic German_de_CH.aff > wordlist.txt
 \end{lstlisting}
 %TC:endignore
 
-The actual implementation of these exercise types is now pretty straight forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet and hence make use of the \code{ItemSelection.vue} component. The \nameref{subsection:addingLetter} exercise is implemented in the \code{Add.vue} component (figure \ref{fig:addingLetter}) and shows arrow between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The \nameref{subsection:changingLetter} exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet (figure \ref{fig:changingLetter}). In the \nameref{subsection:removingLetters} exercise pupils can move a letter to the trashcan to remove it (figure \ref{fig:removingLetter}) and in the \nameref{subsection:swappingLetters} exercise they can click on the arrows to change the order of the letters (figure \ref{fig:swappingLetters}). Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
+The actual implementation of these exercise types is now pretty straight forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet. The \nameref{subsection:addingLetter} exercise is implemented in the \code{Add.vue} component (figure \ref{fig:addingLetter}) and shows arrows between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The \nameref{subsection:changingLetter} exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet (figure \ref{fig:changingLetter}). In the \nameref{subsection:removingLetters} exercise pupils can move a letter to the trashcan to remove it (figure \ref{fig:removingLetter}) and in the \nameref{subsection:swappingLetters} exercise they can click on the arrows to change the order of the letters (figure \ref{fig:swappingLetters}). Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
 
 \begin{figure} 
   \centering
@@ -187,7 +187,7 @@ The actual implementation of these exercise types is now pretty straight forward
 \subsection{Exercises}
 \subsection*{Representing Numbers like the Maya}
 
-Today, one is used to the decimal number system (base number 10), with 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The Mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
+Today, people are used to the decimal number system (base number 10), with 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The Mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
 
 \begin{figure} 
     \centering
@@ -216,7 +216,7 @@ To sum this section up, adding Mayan numbers is learned. This exercises combines
 
 \subsection*{Representing Numbers with Coins}
 
-The following exercises introduce a new number system and trains an already learned one: the binary number system and the decimal number system. Both number systems are practiced with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (figure \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (figure \ref{fig:decimal_coins}). 
+The following exercises introduce a new number system and train an already learned one: the binary number system and the decimal number system. Both number systems are practiced with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (figure \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (figure \ref{fig:decimal_coins}). 
 Overall, the same concepts are practiced for both number systems with the limitation that every binary coin can at most be used once. For both number systems the following exercises are given:
 \begin{itemize}
     \item Conversion of a decimal number to its coin representation
@@ -291,7 +291,7 @@ However, adding Mayan numbers (\code{Addition.vue}, figure \ref{fig:mayanAdditio
   \label{fig:mayanAddition} 
 \end{figure}
 
-The \code{To.vue} component is simple. It shows a a random number between 1 and a number system specific limit:
+The \code{To.vue} component is simple. It shows a a random number between one and a number system specific limit:
 
 \begin{itemize}
   \item \textbf{Mayan number system} - limit: 19
@@ -327,8 +327,8 @@ The implementation for the \code{From.vue} component works in a similar fashion.
 \TODO{maybe show these limits}
 The pupils finally need to add the values of these items up.
 
-Both of these components need at some point to sum the values items. It would be convenient to have a map where each item type maps to the amount of selected respectively shown item and a map where each item type maps to its value. However, due to Vue.js constraints this is not possible since maps are not reactive. Reactivity simply means that changes made in to the application data is automatically reflected in the DOM.
-Arrays on the other hand are. Therefore an array is used, having the first element to be the highest item value, down to the last element being the item with the lowest value. This introduces some tight coupling between the array storing the amount of items and the array storing the value of each item. The implementation to sum item is shown in listing \ref{lst:sumItems}.
+Both of these components need at some point to sum the values items. It would be convenient to have a map where each item type maps to the amount of selected respectively shown item and a map where each item type maps to its value. However, due to Vue.js constraints this is not possible since maps are not reactive. Reactivity simply means that changes made to the application data is automatically reflected in the DOM.
+Arrays on the other hand are. Therefore an array is used, having the first element to represent the highest item value, down to the last element representing the item with the lowest value. This introduces some tight coupling between the array storing the amount of items and the array storing the value of each item. The implementation to sum item is shown in listing \ref{lst:sumItems}.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Sum up items},label={lst:sumItems}]
@@ -345,7 +345,7 @@ sumItems(type: numbersystemType, items: number[]): number {
 \end{lstlisting}
 %TC:endignore
 
-The \code{Swap.vue} component reuses some parts of the just mentioned components. It also generates a random amount of each item. The total amount of items is reducible and pupils are asked to represent the same sum over all items but with fewer items. How such a configuration is achieved, is shown in listing \ref{lst:reducableItems}.
+The \code{Swap.vue} component reuses some parts of the just mentioned components. It also generates a random amount of each item. The total amount of items is guaranteed to be reducible and pupils are asked to represent the same sum over all items but with fewer items. How such a configuration is achieved, is shown in listing \ref{lst:reducableItems}.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Generate a reducible item configuration},label={lst:reducableItems}]
