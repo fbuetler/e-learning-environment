@@ -3,28 +3,28 @@
 
 \section{Introduction}
 \label{section:introduction}
-In this chapter the implementation tools and the basic architecture are explained. First the used programming language and framework are introduced, then how the different parts of the learning enviornment work together and finally some frequently used mechanisms are explained.
+In this chapter the implementation tools and the basic architecture are explained. First the used programming language and framework are introduced, then how the different parts of the learning environment work together and finally some frequently used mechanisms are explained.
 
 The source code, tests, this report and all other used scripts and documents can be found on the ETH GitLab at \url{https://gitlab.ethz.ch/flbuetle/bsc-thesis}.
 
 \section{TypeScript}
 \label{section:typescript}
 JavaScript had its publication in 1996, it is a scripting language and is intended to be used in browsers to extend the possibilities of HTML and CSS. It can dynamically manipulate HTML and CSS, validate user data, send and receive data without reloading the page and much more.
-TypeScript extends JavaScript by adding types and can be used anywhere JavaScript runs, because TypeScript code is transformed to JavaScript code by the TypeScript compiler. It provides a way to describe what type a variable has and helps to catch errors before the code is run. Moreover, TypeScript adds among others the concepts of method signatures, type interference, interfaces, enummerations and tuples \cite{Typescript}.
+TypeScript extends JavaScript by adding types and can be used anywhere JavaScript runs, because TypeScript code is transformed to JavaScript code by the TypeScript compiler. It provides a way to describe what type a variable has and helps to catch errors before the code is run. Moreover, TypeScript adds among others the concepts of method signatures, type interference, interfaces, enumerations and tuples \cite{Typescript}.
 
 \section{Vue.js}
 \label{section:vuejs}
-Vue.js is a web framwork not developed by a company, but by Evan You and its community and was first published in 2014. It is an alternative to Angular and React and was supposed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, Javascript and CSS.
+Vue.js is a web framework not developed by a company, but by Evan You and its community and was first published in 2014. It is an alternative to Angular and React and was supposed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, JavaScript and CSS.
 At the point the development of this project started, Vue.js version 3 was already published. However, Vue.js version 2 is used in this project, because the ecosystem has no caught up yet and many libraries only work with version 2 at the moment\cite{Vue}.
 
 \subsection{Components}
-Components are named resuable Vue.js instances and have the advantages that the structure, functionality and style of an element is implemented once and can then easily be used multiple times. Therefore each component has a parent (except from the root component) and possibly multiple child components forming a tree structure \cite{Vue}. 
+Components are named reusable Vue.js instances and have the advantages that the structure, functionality and style of an element is implemented once and can then easily be used multiple times. Therefore each component has a parent (except from the root component) and possibly multiple child components forming a tree structure \cite{Vue}. 
 
 \subsection{Communication between Components}
 Communication between a parent and a child component happens from the parent to the child by properties and from child to parent by events. Properties are custom attributes that pass data from the parent to the child component. Events are emitted by a child component, can carry data and a parent can listen and react upon receiving an event from a child component \cite{Vue}.
 
 \subsection{Best Practices}
-The following list represent the best practice that were followind in this project. To see examples for each best pratice visit the Vue.js style guide  \cite{VueStyleGuide}.
+The following list represent the best practice that were following in this project. To see examples for each best practice visit the Vue.js style guide  \cite{VueStyleGuide}.
 
 \begin{itemize}
     \item Properties should be as detailed as possible and at least have a type.
@@ -39,7 +39,7 @@ The following list represent the best practice that were followind in this proje
     \item Elements with multiple attributes should span multiple lines, with one attribute on each line.
     \item Component templates should only contain simple expressions. Complex expressions should be moved into computed properties or methods.
     \item Element attribute values should be quoted.
-    \item Directive shorthands are always used.
+    \item Directive short hands are always used.
     \item Element attributes should be ordered consistently.
     \item Components should be ordered like \code{<templates>}, \code{<script>} and \code{<style>}.
     \item Element selectors should be avoided with \code{scoped}

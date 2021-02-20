@@ -19,14 +19,14 @@ A cost function exists that defines the cost of each operation, and in our case 
 \end{example}
 
 If sender and receiver agree to only transmit words with a minimal editing distance of e.g 3, then the receiver can still uniquely determine what word the sender has sent even when at most 1 spelling mistake has been made. The receiver calculates the minimal editing distance between the received word and each of the agreed words and chooses the word with the least editing distance.
-The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a tradeoff. When chosing a bigger minimal distance for a fixed alphabet, the number of words that can be used shrinks. To maintain the same amount of words the size of the alphabet can be increased too, resulting in longer words.
+The receiver assume that this was the word the sender wanted to sent. This of course work only if there are not more than 1 error in the word. If this happens the editing distance to another word is closer than to the original word and hence the word is misinterpreted. To counter this, sender and receiver might agree on a bigger minimal distance, but this comes with a trade off. When choosing a bigger minimal distance for a fixed alphabet, the number of words that can be used shrinks. To maintain the same amount of words the size of the alphabet can be increased too, resulting in longer words.
 
-The purpose of the \nameref{section:similarWords} exercises is to learn these operations. Therefore an exercise is dedicated to each opertion: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
+The purpose of the \nameref{section:similarWords} exercises is to learn these operations. Therefore an exercise is dedicated to each operation: adding, changing and removing a letter from a word. Additionally, an exercise about swapping adjacent letters in a word is included. Swapping adjacent letters is not part of the mentioned operations and usually consists of 2 operations: removing and adding or changing twice. However, when typing on a keyboard typing mistakes happen often and most of the time only two adjacent letters are swapped. This exercises is supposed to train the ability to spot these sort of mistakes.
 
 \subsection*{Adding a letter}
 \label{subsection:addingLetter}
 
-In the \nameref{subsection:addingLetter} exercise pupils are presented a word, the alphabet from A to Z and spaces between each letter of the word as well as at the beginnig and the end of the word, where a letter can be added. Pupils are supposed to choose a letter from the alphabet and add it to one of the mentioned spaces to form a new valid word.
+In the \nameref{subsection:addingLetter} exercise pupils are presented a word, the alphabet from A to Z and spaces between each letter of the word as well as at the beginning and the end of the word, where a letter can be added. Pupils are supposed to choose a letter from the alphabet and add it to one of the mentioned spaces to form a new valid word.
 
 \begin{example}
     The word \code{PACE} is given. By adding the letter \code{S} before the first letter, the valid word \code{SPACE} is formed.
@@ -63,7 +63,7 @@ To learn to recognize typing mistakes in a word pupils are presented a word with
 
 \subsection*{Word Generation}
 
-The foundation of these exercises is to have a list of words and for each word a list of similar words. A similar word is a word to which the original word can be transformed to by either adding, changing or removing a letter. Generating a list of words is the easy part. Basically any list of words will do the jobs, but they should be understable for pupils. So the first step is to collect a list of nouns for children provided by a online service \cite{}. 
+The foundation of these exercises is to have a list of words and for each word a list of similar words. A similar word is a word to which the original word can be transformed to by either adding, changing or removing a letter. Generating a list of words is the easy part. Basically any list of words will do the jobs, but they should be understandable for pupils. So the first step is to collect a list of nouns for children provided by a online service \cite{}. 
 
 Not much more difficult, but much more expensive is the computation of similar word. Given the children nouns list and the allowed words list, one can brute force a list of similar word by simply applying each transformation to every children noun and checking whether the transformed word exists in the allowed word lists. The script to generate a list of similar words for each word and each operation is given in listing \ref{lst:similarWords}. To have multiple difficulty levels in the exercise \nameref{subsection:changingLetter}, similar word with an editing distance of two are generated as well. All other operations only include words with an editing distance of one.
 
@@ -116,7 +116,7 @@ for word in children_words:
 %TC:endignore
 
 \begin{example}
-  Examples of similar words for adding, changing and removeing a letter from a word
+  Examples of similar words for adding, changing and removing a letter from a word
   \begin{itemize}
     \item \nameref{subsection:addingLetter} - arm: arme, arms, darm, farm, warm
     \item \nameref{subsection:changingLetter} - buch: auch, bach, bush, euch, huch, such, tuch
@@ -138,12 +138,12 @@ Significantly more difficult is to generate a list of allowed words. Three diffe
 The first approach resulted in having a word list with which exercises could be generated. However, the word list obviously did not cover all possible words pupils could find. Therefore the word list needed to be extended.
 
 Hence the idea to collect Scrabble words came up. This seemed like a good idea until it showed that the online Scrabble dictionary did also not contain all valid words.
-Collecting words from the Scrabble dictionary resulted in approximately thirty thousand word between two and 8 charachters long.
+Collecting words from the Scrabble dictionary resulted in approximately thirty thousand word between two and 8 characters long.
 
 Finally, the last approach was taken by generating a list of allowed word from a spell checker. However, spell checkers do not have a list of all allowed word, but rather of two files: the dictionary file and the affix file. The dictionary files contains a list of root words and applicable rules for each root word and the affix file contains a list explaining these rules. Each rule defines an operation that can be applied to a root word. The spell checker evaluates a word as correct if it can construct the word by applying rules to a root word. \cite{Hunspell}.
 
-Luckily, there exists a tool called \code{unmunch} in the hunspell ecosystem that generates a list of words from the dictionary file and the affix file as easy as shown in listing \ref{lst:unmunch} \cite{HunspellGithub}.
-In the end a list of about one million allowed words was generated (without any word length limits). However, a drawback is that the wordlist does not contain any names from people, cities or any other instances. 
+Luckily, there exists a tool called \code{unmunch} in the Hunspell ecosystem that generates a list of words from the dictionary file and the affix file as easy as shown in listing \ref{lst:unmunch} \cite{HunspellGithub}.
+In the end a list of about one million allowed words was generated (without any word length limits). However, a drawback is that the word list does not contain any names from people, cities or any other instances. 
 
 %TC:ignore
 \begin{lstlisting}[language=Bash,caption={Bash command to unmunch a dictionary file and a affix file to a list of words},label={lst:unmunch}]
@@ -151,7 +151,7 @@ $ unmunch German_de_CH.dic German_de_CH.aff > wordlist.txt
 \end{lstlisting}
 %TC:endignore
 
-The actual implementation of these exercise types is now pretty straight forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet and hence make use of the \code{ItemSelection.vue} component. The \nameref{subsection:addingLetter} exercise is implemented in the \code{Add.vue} component (figure \ref{fig:addingLetter}) and shows arrow between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The \nameref{subsection:changingLetter} exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet (figure \ref{fig:changingLetter}). In the \nameref{subsection:removingLetters} exercise pupils can move a letter to the trashcan to remove it (figure \ref{fig:removingLetter}) and in the \nameref{subsection:swappingLetters} exercise they can click on the arrows to change the order of the lettersi(figure \ref{fig:swappingLetters}). Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
+The actual implementation of these exercise types is now pretty straight forward. Basically, each type has a word displayed, split up by each letter to allow easy user interaction. Two exercise types, namely adding and changing a letter, need an alphabet and hence make use of the \code{ItemSelection.vue} component. The \nameref{subsection:addingLetter} exercise is implemented in the \code{Add.vue} component (figure \ref{fig:addingLetter}) and shows arrow between each letter and at the beginning and end of the word, where pupils can add a new letter selected from the alphabet. The \nameref{subsection:changingLetter} exercise work similarly, but instead of having arrows, pupils can change each letter itself with a new letter selected from the alphabet (figure \ref{fig:changingLetter}). In the \nameref{subsection:removingLetters} exercise pupils can move a letter to the trashcan to remove it (figure \ref{fig:removingLetter}) and in the \nameref{subsection:swappingLetters} exercise they can click on the arrows to change the order of the letters (figure \ref{fig:swappingLetters}). Additionally, this exercise has another difficulty level, where two letter pairs are swapped instead of only one.
 
 \begin{figure} 
   \centering
@@ -187,7 +187,7 @@ The actual implementation of these exercise types is now pretty straight forward
 \subsection{Exercises}
 \subsection*{Representing Numbers like the Maya}
 
-Today, one is used to the decimal number system (base number 10), with 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
+Today, one is used to the decimal number system (base number 10), with 10 symbols. The Maya used a different number system with with a base number of 20 i.e the vigesimal number system. It is believed that the Maya used their ten fingers and ten toes to count adding up to twenty. But instead of having a symbol for each number as in the decimal system, the Maya used three different symbols: zero (a turtle shell, belly side up), one (a dot) and five (a bar) \cite{Maya}. The Mayan representation of the decimal number from 0 to 19 can be found in figure \ref{fig:maya_numerals}.
 
 \begin{figure} 
     \centering
@@ -196,28 +196,28 @@ Today, one is used to the decimal number system (base number 10), with 10 symbol
     \label{fig:maya_numerals} 
 \end{figure}
 
-The following exercises are supposed to familiarize pupils with a new number system, the mayan number system. First converting numbers between the decimal number system and the mayan numbers is trained topped of an exercise about adding two mayan numbers.
+The following exercises are supposed to familiarize pupils with a new number system, the Mayan number system. First converting numbers between the decimal number system and the Mayan numbers is trained topped of an exercise about adding two Mayan numbers.
 
-\subsubsection*{Representing mayan numbers}
+\subsubsection*{Representing Mayan numbers}
 
 A decimal number is presented to the pupils and they need to choose the correct amount of dots and bars representing the decimal number. For the purpose of simplicity, only decimal numbers between 1 and 19 are chosen.
 
 \begin{example}
-    The decimal number \code{17} is writte as three bars and two dots.
+    The decimal number \code{17} is write as three bars and two dots.
 \end{example}
 
-\subsubsection*{Understanding mayan numbers}
+\subsubsection*{Understanding Mayan numbers}
 
-In this exercise the pupils learn to understand mayan numbers. Again only decimal numbers between 1 and 19 are used and the pupils need to understand what mayan number is shown and write down the decimal equivalent.
+In this exercise the pupils learn to understand Mayan numbers. Again only decimal numbers between 1 and 19 are used and the pupils need to understand what Mayan number is shown and write down the decimal equivalent.
 
-\subsubsection*{Adding mayan numbers}
+\subsubsection*{Adding Mayan numbers}
 
-To sum this section up, adding mayan numbers is learned. This exercises combines the previous two, since the pupils need to understand the summands given in the mayan number system, add them and write the sum down in either decimal number system or the mayan number system.
+To sum this section up, adding Mayan numbers is learned. This exercises combines the previous two, since the pupils need to understand the summands given in the Mayan number system, add them and write the sum down in either decimal number system or the Mayan number system.
 
 \subsection*{Representing Numbers with Coins}
 
-The following exercises introduce a new number system and trains an already learned one: the binary number system and the decimal number system. Both number systems are praticed with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (figure \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (figure \ref{fig:decimal_coins}). 
-Overall, the same concepts are praticed for both number systems with the limitation that every binary coin can at most be used once. For both number systems the following exercises are given:
+The following exercises introduce a new number system and trains an already learned one: the binary number system and the decimal number system. Both number systems are practiced with coins with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (figure \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (figure \ref{fig:decimal_coins}). 
+Overall, the same concepts are practiced for both number systems with the limitation that every binary coin can at most be used once. For both number systems the following exercises are given:
 \begin{itemize}
     \item Conversion of a decimal number to its coin representation
     \item Conversion of a number given in its coin representation to a decimal number
@@ -251,7 +251,7 @@ This exercise includes two difficulty levels:
 
 \subsubsection*{Conversion of a number given in its coin representation to a decimal number}
 
-This exercise is straigh forward. A number given in its coin representation, either binary or decimal coins, have to be converted to a decimal number. 
+This exercise is straight forward. A number given in its coin representation, either binary or decimal coins, have to be converted to a decimal number. 
 
 \subsubsection*{Reducing the amount of decimal coins in a given set of decimal coins}
 
@@ -259,9 +259,9 @@ Similar to the previous exercise, a number in its coin representation is given a
 
 \subsection{Implementation}
 
-The conversion exercises from the decimal number system \textbf{to} either the mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component (figure \ref{fig:coinsTo}).
+The conversion exercises from the decimal number system \textbf{to} either the Mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component (figure \ref{fig:coinsTo}).
 The same goes for the inverse direction (\code{From.vue} component, figure \ref{fig:coinsFrom}).
-However, adding mayan numbers (\code{Addition.vue}, figure \ref{fig:mayanAddition}) and reducing the amount of used coins (\code{Swap.vue}, figure \ref{fig:coinsSwap}) have their own logic. 
+However, adding Mayan numbers (\code{Addition.vue}, figure \ref{fig:mayanAddition}) and reducing the amount of used coins (\code{Swap.vue}, figure \ref{fig:coinsSwap}) have their own logic. 
 
 \begin{figure} 
   \centering
@@ -287,7 +287,7 @@ However, adding mayan numbers (\code{Addition.vue}, figure \ref{fig:mayanAdditio
 \begin{figure} 
   \centering
   \includegraphics[width=1.0 \columnwidth]{figures/mayas_addition.png}
-  \caption{Adding mayan numbers exercise (easy)} 
+  \caption{Adding Mayan numbers exercise (easy)} 
   \label{fig:mayanAddition} 
 \end{figure}
 
@@ -300,7 +300,7 @@ The \code{To.vue} component is simple. It shows a a random number between 1 and 
 \end{itemize}
 
 The pupils need to select items (either nuts, sticks or coins) with the correct value and place it so these items sum up to the shown random number.
-Additionally for the the convertion to the decimal coins, there is another difficulty level asking to represent the shown random number with as few decimal coins as possible. To algorithm to calculate the minimal amount of items necessary for a certain sum is given in listing \ref{lst:calcMinimalAmount} 
+Additionally for the conversion to the decimal coins, there is another difficulty level asking to represent the shown random number with as few decimal coins as possible. To algorithm to calculate the minimal amount of items necessary for a certain sum is given in listing \ref{lst:calcMinimalAmount} 
 
 
 %TC:ignore
@@ -327,8 +327,8 @@ The implementation for the \code{From.vue} component works in a similar fashion.
 \TODO{maybe show these limits}
 The pupils finally need to add the values of these items up.
 
-Both of these components need at some point to sum the values items. It would be convenient to have a map where each item type maps to the amount of selected respectively shown item and a map where each item type maps to its value. However, due to Vue.js constraints this is not possible since maps are not reactive. Reactivity simply means that changes made in to the application data is automaticall reflexted in the DOM.
-Arrays on the other hand are. Therefore an array is used, having the first element to be the highest item value, down to the last element being the item with the lowest value. This introduces some thight coupling between the array storing the amount of items and the array storing the value of each item. The implementation to sum item is shown in listing \ref{lst:sumItems}.
+Both of these components need at some point to sum the values items. It would be convenient to have a map where each item type maps to the amount of selected respectively shown item and a map where each item type maps to its value. However, due to Vue.js constraints this is not possible since maps are not reactive. Reactivity simply means that changes made in to the application data is automatically reflected in the DOM.
+Arrays on the other hand are. Therefore an array is used, having the first element to be the highest item value, down to the last element being the item with the lowest value. This introduces some tight coupling between the array storing the amount of items and the array storing the value of each item. The implementation to sum item is shown in listing \ref{lst:sumItems}.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Sum up items},label={lst:sumItems}]
@@ -345,10 +345,10 @@ sumItems(type: numbersystemType, items: number[]): number {
 \end{lstlisting}
 %TC:endignore
 
-The \code{Swap.vue} component reuses some parts of the just mentioned components. It also generates a random amount of each item. The total amount of items is reducable and pupils are asked to represent the same sum over all items but with fewer items. How such a configuration is achieved, is shown in listing \ref{lst:reducableItems}.
+The \code{Swap.vue} component reuses some parts of the just mentioned components. It also generates a random amount of each item. The total amount of items is reducible and pupils are asked to represent the same sum over all items but with fewer items. How such a configuration is achieved, is shown in listing \ref{lst:reducableItems}.
 
 %TC:ignore
-\begin{lstlisting}[language=TypeScript,caption={Generate a reducable item configuration},label={lst:reducableItems}]
+\begin{lstlisting}[language=TypeScript,caption={Generate a reducible item configuration},label={lst:reducableItems}]
 do {
   this.generatedItems = this.generateItems(this.type);
 } while (
@@ -368,5 +368,5 @@ In the \code{Addition.vue} component all previously seen concepts come together.
 
 \begin{itemize}
   \item \textbf{easy} - the pupils have to calculate the sum as a number 
-  \item \textbf{medium} - the puils have to calculate the sum as a representation of items
+  \item \textbf{medium} - the pupils have to calculate the sum as a representation of items
 \end{itemize}
