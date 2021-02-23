@@ -7,7 +7,7 @@ The following exercises are logic-based, combinatorial puzzles. The idea is that
 \label{section:treeRow}
 
 \subsection{Exercises}
-The row of trees is a one dimensional grid i.e a row either of size three or four. In every row there is exactly one tree of every height between one and thress (figure \ref{fig:trees_3}) or four (figure \ref{fig:trees_4}) respectively. At both ends of the row, the amount of visible trees from this end of the row is given. In the following the amount of visible trees from one end is referred to as view.
+The row of trees is a one dimensional grid i.e. a row either of size three or four. In every row there is exactly one tree of every height between one and thress (figure \ref{fig:trees_3}) or four (figure \ref{fig:trees_4}) respectively. At both ends of the row, the amount of visible trees from this end of the row is given. In the following the amount of visible trees from one end is referred to as view.
 Pupils are given an empty row with only the number of trees seen from both ends of the row and need to place a tree of each height such the aforementioned rules are met.
 
 \begin{figure} 
@@ -160,7 +160,7 @@ type sudoku = sudokuField[][];
 
 The generation of an instance of the Tree Sudoku exercise is a bit more complicated, since the additional constraints of a Sudoku have to be considered. The approach taken here is to first generate an empty Tree Sudoku. Then in each round, a random tree is placed at a random position or a random value of visible trees is placed at a random end of a row or column until a solvable configuration is found. 
 
-The most basic operation on a Tree Sudoku is to decide whether it is valid or invalid i.e whether in each row and column every tree height does appear exactly once and whether the views match the placed trees.
+The most basic operation on a Tree Sudoku is to decide whether it is valid or invalid i.e. whether in each row and column every tree height does appear exactly once and whether the views match the placed trees.
 To check the validity the tree heights placed in each row and each column are collected. If some height appear more than once in a row or columns it is evaluated as invalid. Additionally, since the same algorithm to check the validity of an instance during the generation and when a pupils hands its solution in should be used, one has to differentiate the handling of empty field in those scenarios. During the generation of an instance, the instance should not be evaluated as invalid, when there are still empty field. However, it has to be evaluated as invalid upon checking a solution from a pupil. 
 For each row and column the amount of visible trees is calculated for both ends and if these values match the views the instance is evaluated as valid. The algorithm to check the validity can be found in listing \ref{lst:sudokuValidation}.
 
