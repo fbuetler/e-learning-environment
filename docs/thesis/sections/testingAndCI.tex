@@ -14,27 +14,25 @@ Unit tests are used to verify the correctness of individual functions and apply 
 
 There are mainly two different categories of unit tests: black-box and white-box testing.
 
-\subsection*{Back-box and White-box Testing}
-Black-box testing is a testing method, where the tester does not know how a feature is implemented, but knows its specification and creates test based on this knowledge. White-box testing on the other hand is a testing method, where the tester does know the implementation of the feature. Usually, both kind of software testing should be used, but since there are no software tester (testers applying black-box testing) involved in this project, only white-box testing is applied \cite{BlackBoxWhiteBoxTesting}.
+\subsection*{Black-box and White-box Testing}
+Black-box testing is a testing method, where the tester does not know how a function is implemented, but knows its specification and creates test based on this knowledge. White-box testing on the other hand is a testing method, where the tester does know the implementation of the function. Usually, both kind of software testing should be used, but since there are no software tester (testers applying black-box testing) involved in this project, only white-box testing is applied \cite{BlackBoxWhiteBoxTesting}.
 
 \subsection*{Test Plan}
 
-General purpose components are tested in its specialized functionality i.e whether they react correctly on different user inputs. 
-\TODO{maybe elaborate on that?}
-The components representing an exercises are tested for:
+General purpose components are tested on its specialized functionality i.e whether they react correctly on different user inputs. The components representing an exercises are tested on that:
 
 \begin{itemize}
     \item Initial conditions hold
     \item Various exercise specific user inputs are handled correctly
     \item Restarting the exercise works as expected
-    \item Starting next example restores the initial conditions
+    \item Starting next example cleans up everything from previous exercise
     \item Correct answer is accepted
     \item Incorrect answer is rejected
 \end{itemize}
 
 \subsection*{Code Coverage}
-As mentioned before, unit test usually test a feature on the function level. To catch as many possible code paths and corner cases, the same function is tested multiple times with different inputs. 
-A metric to judge the usefulness of a test suite is the code coverage. The code coverage shows how well a test suite covers the functionality. Usually, a coverage report includes:
+As mentioned before, unit test usually test on the function level. To catch as many possible code paths and edge cases, the same function is tested multiple times with different inputs. 
+A metric to judge the usefulness of a test suite is the code coverage. Usually, a coverage report includes:
 
 \begin{itemize}
     \item \textbf{Statement coverage} - The percentage of statements that have been executed 
@@ -45,10 +43,10 @@ A metric to judge the usefulness of a test suite is the code coverage. The code 
 
 High coverage percentage does not imply that it is a good test suite. Some critical paths can still be untested. It is generally accepted that a code coverage of 80\% is a desirable goal. Going above 80\% of code coverage is usually costly and does not provide any valuable benefit \cite{CodeCoverage}.
 
-The code coverage for the whole project and each component is given in table \ref{table:testCoverage}. Most of the components are well tested with a code coverage of above 80\% in most categories. Some percentages indicate bad code coverage. Usually those components with bad code coverage have less than forty lines and therefore not tested thoroughly. 
+The code coverage for the whole project and each component is given in table \ref{table:testCoverage}. Most of the components are well tested with a code coverage of above 80\% in most categories. Some rows in the table \ref{table:testCoverage} indicate bad code coverage. Usually those components with bad code coverage have less than forty lines and therefore not tested thoroughly. 
  
 \subsection*{Non-determinism}
-A problem that has to be tackled for testing is how to handle determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used, then the actual output may not be the same as the expected output and the test is evaluated as failed. To circumvent this issue, one can mock the function that is used to generate a random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
+A problem that has to be tackled for testing is how to handle determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used, then the actual output may not be the same as the expected output and the test is evaluated wrongly as failed. To circumvent this issue, one can mock the function that is used to generate random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
 \TODO{maybe refer to game mixin}
 
 \begin{table}
@@ -91,18 +89,18 @@ A problem that has to be tackled for testing is how to handle determinism. Some 
 
 \subsection{Snapshot Testing}
 \label{subsection:snapshotTesting}
-Snapshot tests ensures correctness of the user interface and that it does not change unexpectedly. More precisely, snapshot tests renders the template of a component to HTML, takes a snapshot and compares the snapshot with the previous saved reference snapshot. These two snapshots are compared and if they do not match, the test fails or succeeds otherwise. If the changes made to the source code were intended to change the UI, the snapshot has to be updated. This requires an initial snapshot that is known to be correct. Hence snapshot should be committed to the repository as well \cite{Jest}.
+Snapshot tests ensure correctness of the user interface and show an alert when it changes unexpectedly. More precisely, snapshot tests renders the template of a component to HTML, takes a snapshot and compares the snapshot with the previous saved reference snapshot. These two snapshots are compared and if they do not match, the test fails, otherwise the test succeeds. If the changes made to the source code were intended to change the UI, the snapshot has to be updated. This requires an initial snapshot that is known to be correct. Hence, snapshots should be committed to the repository as well \cite{Jest}.
 
 Every component in this project is snapshot tested and is therefore save from unintended UI changes.
 
 \subsection{End-to-End Testing}
 \label{subsection:e2e}
-end-to-end tests are used to test the entire application flow through an application. The main goal is to test it from a users perspective by simulating a user scenario \cite{EndToEndTests}. 
+End-to-end tests are used to test the entire application flow. The main goal is to test it from a users perspective by simulating the interactions of a use case \cite{EndToEndTests}. 
 \TODO{maybe elaborate a bit more on that}
 
-Nightwatch allows to run end-to-end tests for Chrome, Firefox and Edge to ensure the application works across browser-borders. The end-to-end tests for this project make use of page objects. A page object is an abstraction of a page represented as an object. The goal of a page object is to simplify the end-to-end test by showing the same one can see when one visits the page \cite{Nightwatch}.
+Nightwatch allows to run end-to-end tests for Chrome, Firefox and Edge to ensure the application works across browser-borders. The end-to-end tests for this project make use of page objects. A page object is an abstraction of a page represented as an object its goal is to simplify the end-to-end test \cite{Nightwatch}.
 
-The end-to-end tests in this project only covers the visibility of all parts of an exercise one needs to see to solve it. The reason behind this is that many exercises are based on non-determinism and since a user cannot influence that the end-to-end tests are not able to do that as well.
+Many exercises are based on non-determinism and since a user cannot influence that, the end-to-end tests are not able to as well. Therefore, the end-to-end tests in this project covers the visibility of all parts of an exercise one needs to see to solve it. 
 
 \section{Continuous Integration}
 \label{section:CI}
@@ -112,7 +110,7 @@ The CI pipeline of this project consists of two parts:
 
 \begin{itemize}
     \item \textbf{Unit and Snapshot tests} - runs the unit and snapshot tests as described in \nameref{subsection:unitTesting} and \nameref{subsection:snapshotTesting}
-    \item \textbf{End-to-end tests} - runs the end-to-end tests in Firefox as described in \nameref{subsection:e2e}
+    \item \textbf{End-to-end tests} - runs the end-to-end tests as described in \nameref{subsection:e2e}
 \end{itemize}
 
 \begin{figure} 
