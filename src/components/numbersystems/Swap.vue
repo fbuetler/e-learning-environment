@@ -71,8 +71,8 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
       this.generatedItems = this.generateItems(this.type);
     } while (
       this.sumItems(this.type, this.generatedItems) >= this.limit(this.type) ||
-      this.sum(this.generatedItems) ===
-        this.sum(
+      this.countItems(this.generatedItems) ===
+        this.countItems(
           this.calcMinimalAmount(
             this.type,
             this.sumItems(this.type, this.generatedItems)
@@ -86,11 +86,11 @@ export default class Swap extends Mixins(GameMixin, NumbersystemsMixin)
     return (
       this.sumItems(this.type, this.selectedItems) ===
         this.sumItems(this.type, this.generatedItems) &&
-      this.sum(this.selectedItems) < this.sum(this.generatedItems)
+      this.countItems(this.selectedItems) < this.countItems(this.generatedItems)
     );
   }
 
-  sum(arr: number[]): number {
+  countItems(arr: number[]): number {
     return arr.reduce((sum, el) => (sum += el));
   }
 
