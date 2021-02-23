@@ -58,7 +58,7 @@
               [2005/09/16 v1.4f.a Modified from Standard LaTeX document
               class book.cls by Khaireel A. Mohamed April 2007
               and by Tobias Langner November 2009 and June 2011]
-
+\LoadClass{article}[figure]
               
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LOAD OWN PACKAGES AND STUFF
@@ -126,6 +126,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{listings}
+\usepackage{graphicx,caption,subcaption}
+\captionsetup{compatibility=false}
 
 \lstdefinelanguage{TypeScript}{
   keywords={break, as, any, switch, case, if, throw, else, var, number, string, get, module, type, instanceof, typeof, public, private, enum, export, finally, for, while, void, null, super, this, new, in, return, true, false, any, extends, static, let, package, implements, interface, function, new, try, yield, const, continue, do, catch},
@@ -850,12 +852,7 @@
 \def\ftype@figure{1}
 \def\ext@figure{lof}
 \def\fnum@figure{\figurename\nobreakspace\thefigure}
-\newenvironment{figure}
-               {\@float{figure}}
-               {\end@float}
-\newenvironment{figure*}
-               {\@dblfloat{figure}}
-               {\end@dblfloat}
+
 \newcounter{table}[chapter]
 \renewcommand \thetable
      {\ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@table}

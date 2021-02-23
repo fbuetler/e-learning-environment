@@ -1,4 +1,4 @@
-\chapter{Learning from Data}
+\chapter{Concept - Learning from Data}
 \label{chapter:learningFromData}
 
 The following exercises are logic-based, combinatorial puzzles. The idea is that pupils need to conclude the solution by a partially completed grid.
@@ -7,8 +7,7 @@ The following exercises are logic-based, combinatorial puzzles. The idea is that
 \label{section:treeRow}
 
 \subsection{Exercises}
-The row of trees is a one dimensional grid i.e. a row either of size three or four. In every row there is exactly one tree of every height between one and thress (figure \ref{fig:trees_3}) or four (figure \ref{fig:trees_4}) respectively. At both ends of the row, the amount of visible trees from this end of the row is given. In the following the amount of visible trees from one end is referred to as view.
-Pupils are given an empty row with only the number of trees seen from both ends of the row and need to place a tree of each height such the aforementioned rules are met.
+The row of trees is a one dimensional grid i.e a row either of size three or four. In every row there is exactly one tree of every height between one and three (figure \ref{fig:trees_3}), respectively four (figure \ref{fig:trees_4}). At both ends of the row, the amount of visible trees from this end of the row is given and they will be referred to as view slots from now on.
 
 \begin{figure} 
     \centering
@@ -25,21 +24,34 @@ Pupils are given an empty row with only the number of trees seen from both ends 
 \end{figure}
 
 \begin{example}
-    For a row of size three, if given the value two for both ends of the row, then one possible solution to the puzzle is shown in figure \ref{fig:tree_row_example}.
+    An example of a Row of Trees with size three is shown in figure \ref{fig:tree_row_example_exercise}
+\end{example}
+
+\begin{figure} 
+    \centering
+    \includegraphics[width=0.8 \columnwidth]{figures/tree_row_example_exercise.png}
+    \caption{Row of tree exercise} 
+    \label{fig:tree_row_example_exercise} 
+\end{figure}
+
+Pupils are given an empty row and two view slots for both ends of the row and they need to place exactly one tree of every height such the row is complete and the aforementioned rules are met.
+
+\begin{example}
+    Consider a row of size three. If both view slots have the value $2$, then one possible solution to the puzzle is shown in figure \ref{fig:tree_row_visible_tree}.
 \end{example}
 
 \begin{figure} 
     \centering
     \includegraphics[width=0.8 \columnwidth]{figures/tree_row_example.png}
     \caption{Visualization of the puzzle solution from the tree row example} 
-    \label{fig:tree_row_example} 
+    \label{fig:tree_row_visible_tree} 
 \end{figure}
 
 \subsection{Implementation}
 
 The \code{Row.vue} component is implemented to work with any row size. However, since only images of trees for a row size of three and four are present, it makes only sense to use it for those row sizes.
 
-All possible exercise instance are given by all permutations of a monotone increasing list of values of the given size starting with one e.g $1, 2, 3$ for size three. Hence the approach taken here is to generate an array with these values, shuffle the array and calculate the the views from both end of the row. listing \ref{lst:rowGeneration} shows this approach and returns the view from the left end and the view from the right end.
+Every number between one and the row size is used as values i.e. for a row size of three, the numbers $1$, $2$ and $3$ are used. Every exercise case is a permutation of these values. Hence the approach is to generate an array with these values, shuffle the array and calculate the view slots for both ends of the row i.e. the array. Listing \ref{lst:rowGeneration} shows this approach and returns view slot values for both ends in form of a tuple.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Algorithm to generate a row of trees exercise instance of \code{this.size}},label={lst:rowGeneration}]
@@ -54,9 +66,11 @@ generate(): [number, number] {
 \end{lstlisting}
 %TC:endignore
 
-Interesting functions used in listing \ref{lst:rowGeneration} are \code{shuffle} and \code{getVisibleTrees}. Apparently, there exists no built-in function in TypeScript, that shuffles an array. Therefore, a own function needs to be implemented. This is not as easy as it seems since, naive approaches may result in different permutations having different probabilities to appear. An implementation that shuffles an array, where all permutations are approximately equal is given in listing \ref{lst:shuffle} \cite{JavaScriptShuffle}.
+Interesting functions used in listing \ref{lst:rowGeneration} are \code{shuffle} and \code{getVisibleTrees}. 
 
-Another crucial part of the implementation of this exercise is the calculation of the amount of trees one sees from one end of the row of trees. An algorithm for calculating this is given in listing \ref{lst:getVisibleTrees}. To calculate the view from the other side, the same function can be used and only the input needs to be reversed as shown in listing \ref{lst:rowGeneration}.
+Apparently, there exists no built-in function in TypeScript, that shuffles an array. Therefore, a own function needs to be implemented. This is not as easy as it seems since, naive approaches may result in different permutations having different probabilities to appear. An implementation that shuffles an array, where all permutations are approximately equal is given in listing \ref{lst:shuffle} \cite{JavaScriptShuffle}.
+
+\code{getVisibleTrees} calculates the amount of trees visible from one end of the row i.e. the arry. An algorithm for calculating this is given in listing \ref{lst:getVisibleTrees}. To calculate the view slot of the other side, the same function can be used and only the array needs to be reversed as shown in listing \ref{lst:rowGeneration}.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Algorithm to shuffle an array},label={lst:shuffle}]
@@ -88,7 +102,7 @@ getVisibleTrees(values: number[]): number {
 \end{lstlisting}
 %TC:endignore
 
-One may have spotted the use of the custom type \code{row}. This custom type is the internal representation of the row and its definition is given in listing \ref{lst:rowType}. A \code{row} is an array of the custom type \code{rowField} and the field \code{value} saves what tree was placed on this field.
+One may have spotted the use of the custom type \code{row}. This custom type is the internal representation of the row and its definition is given in listing \ref{lst:rowType}. A \code{row} is an array of the custom type \code{rowField} and the field \code{value} saves which tree was placed on this field.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Definition of the custom row and rowField type},label={lst:rowType}]
@@ -100,7 +114,7 @@ type row = rowField[];
 \end{lstlisting}
 %TC:endignore
 
-To determine whether a given solution by a pupils is correct or incorrect, the amount of visible trees in the row of placed trees from both end is again calculated and compared to the indicated amount. If both are the same, then the solutions is evaluated as correct (listing \ref{lst:rowGeneration}).
+To determine whether a given solution by a pupils is correct or incorrect, the amount of visible trees from both end is again calculated and compared to the view slots. If both match, then the solution is evaluated as correct (listing \ref{lst:rowGeneration}).
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Correctness check of a row of tree exercise solution},label={lst:rowCorrectness}]
@@ -113,38 +127,34 @@ isCorrect(): boolean {
 \end{lstlisting}
 %TC:endignore
 
-\begin{figure} 
-    \centering
-    \includegraphics[width=0.8 \columnwidth]{figures/tree_row_example_exercise.png}
-    \caption{Row of tree exercise} 
-    \label{fig:tree_row_example_exercise} 
-\end{figure}
-
 \section{Tree Sudoku}
 \label{section:treeSudoku}
 
 \subsection{Exercises}
-Tree Sudoku is similar to the well known traditional Sudoku with the difference that trees of different heights are placed instead of numbers, and for both ends of every row and column the amount of visible trees is given. Again, the amount of visible trees from on end of a row or columns is referred to as a view. Otherwise, the puzzle follows the same rules as the row of trees and is either of size 3x3 or 4x4.
+Tree Sudoku is similar to the well known traditional Sudoku with the difference that trees of different heights are placed instead of numbers, and for both ends of every row and column the amount of visible trees is stated in view slots. The puzzle follows the same rules as the row of trees and is either of size 3x3 or 4x4.
+
+The Tree Sudoku exercise has three different difficulty levels. The difference between the levels is the amount of initially given information for a Tree Sudoku instance:
+
+\begin{itemize}
+    \item \textbf{easy} - no views are given and at least 75\% of the trees are placed
+    \item \textbf{medium} - some views are given and at least 50\% of the trees are placed
+    \item \textbf{hard} - some views are given and only the minimal amount of information to solve the Tree Sudoku instance is given
+\end{itemize}
 
 \begin{example}
-    An example of a 3x3 Tree Sudoku is shown in figure \ref{fig:tree_sudoku_example}
+    An example of a 3x3 Tree Sudoku is shown in figure \ref{fig:tree_sudoku_example_exercise} (level easy)
 \end{example}
 
 \begin{figure} 
     \centering
-    \includegraphics[width=0.4 \columnwidth]{figures/tree_sudoku_example.png}
-    \caption{Example of an unsolved 3x3 Tree Sudoku} 
-    \label{fig:tree_sudoku_example} 
+    \includegraphics[width=0.6 \columnwidth]{figures/tree_sudoku_example_exercise.png}
+    \caption{Tree Sudoku exercise} 
+    \label{fig:tree_sudoku_example_exercise} 
 \end{figure}
 
 \subsection{Implementation}
 
-%TC:ignore
-\begin{lstlisting}[language=TypeScript,caption={},label={lst:}]
-\end{lstlisting}
-%TC:endignore
-
-Again the \code{Sudoku.vue} component is implement in a way such that it works with different sizes. In general, a similar approach for the Tree Sudoku exercise is taken like for the row of trees exercise (\nameref{section:treeRow}). The internal representation is of a tree of height e.g $2$ is $2$ and some custom types are used: \code{sudoku} and \code{sudokuField} (listing \ref{lst:sudokuType}). The major difference between these two exercises is that the Tree Sudoku is two-dimensional. Therefore a two-dimensional array is used for the internal representation of the Tree Sudoku grid. A new field used in the \code{sudokuField} compared to the \code{rowField} is \code{locked}. This field indicates that this Tree Sudoku field is part of the initial generation and when the same Tree Sudoku should be restarted, only not locked fields are erased.
+The \code{Sudoku.vue} component is implement in a way such that it works with different sizes. In general, a similar approach for the Tree Sudoku exercise is taken like for the \nameref{section:treeRow} exercise. Again, some custom types are used: \code{sudoku} and \code{sudokuField} (listing \ref{lst:sudokuType}). The major difference between these two exercises is that the Tree Sudoku is two-dimensional. Therefore a two-dimensional array is used for the internal representation of the Tree Sudoku grid. A new field used in the \code{sudokuField} compared to the \code{rowField} is \code{locked}. This field indicates that this Tree Sudoku field is part of the initial generation and when the same Tree Sudoku should be restarted, only not locked fields are erased.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Definition of the custom sudoku and sudokuField type},label={lst:sudokuType}]
@@ -158,11 +168,11 @@ type sudoku = sudokuField[][];
 \end{lstlisting}
 %TC:endignore
 
-The generation of an instance of the Tree Sudoku exercise is a bit more complicated, since the additional constraints of a Sudoku have to be considered. The approach taken here is to first generate an empty Tree Sudoku. Then in each round, a random tree is placed at a random position or a random value of visible trees is placed at a random end of a row or column until a solvable configuration is found. 
+The generation of an instance of the Tree Sudoku exercise is a bit more complicated, since the additional constraints of a Sudoku have to be considered. The approach taken here is to first generate an empty Tree Sudoku. Then in each round, a random tree is placed in a random field or a random value is placed in a random view slot until a solvable configuration is found. 
 
-The most basic operation on a Tree Sudoku is to decide whether it is valid or invalid i.e. whether in each row and column every tree height does appear exactly once and whether the views match the placed trees.
-To check the validity the tree heights placed in each row and each column are collected. If some height appear more than once in a row or columns it is evaluated as invalid. Additionally, since the same algorithm to check the validity of an instance during the generation and when a pupils hands its solution in should be used, one has to differentiate the handling of empty field in those scenarios. During the generation of an instance, the instance should not be evaluated as invalid, when there are still empty field. However, it has to be evaluated as invalid upon checking a solution from a pupil. 
-For each row and column the amount of visible trees is calculated for both ends and if these values match the views the instance is evaluated as valid. The algorithm to check the validity can be found in listing \ref{lst:sudokuValidation}.
+The most basic operation on a Tree Sudoku is to decide whether it is valid or invalid i.e whether in each row and column every tree height does appear exactly once and whether the views match the placed trees.
+The same implementation is used to validate a Tree Sudoku during the generation and when pupils want to check their solution. Empty fields during the generation are allowed, but they are not in a solution of a pupil. Therefore, the validity check takes an additional argument to distinguish between those two cases: \code{complete}.
+For both ends of each row and column the amount of visible trees is calculated and if these values match view slots the instance is evaluated as valid. The algorithm to check the validity can be found in listing \ref{lst:sudokuValidation}.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Validation algorithm for a Tree Sudoku instance},label={lst:sudokuValidation}]
@@ -221,7 +231,7 @@ isValid(values: sudoku, views: number[][], complete: boolean): boolean {
 \end{lstlisting}
 %TC:endignore
 
-A Tree Sudoku generator needs a Tree Sudoku solver to check whether an instance is actually solvable. Solving a Tree Sudoku means that one needs to place trees in fields such that the Tree Sudoku is still valid. First an empty field has to be found, then tree heights are placed in the empty field until a tree height is found such that the Tree Sudoku is still valid. This procedure is repeated until the Tree Sudoku is completed. This would already conclude a Tree Sudoku solver, but in the end this solver is going to be used to generate a Tree Sudoku. Therefore one needs to know how many solutions are available for a given Tree Sudoku. Hence the solving algorithm shown in listing \ref{lst:sudokuSolver} counts how many solutions exist and returns it.
+A Tree Sudoku generator needs a Tree Sudoku solver to check whether an instance is actually solvable. Solving a Tree Sudoku means that one needs to repeatedly place trees in fields such that the Tree Sudoku remains valid. The Tree Sudoku generator requires to know how many solutions a Tree Sudoku has to use it as a stopping criterion. Hence, the solving algorithm shown in listing \ref{lst:sudokuSolver} additionally counts how many solutions exist and returns it.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Solving algorithm for a Tree Sudoku instance},label={lst:sudokuSolver}]
@@ -250,7 +260,7 @@ solve(values: sudoku, views: number[][]): number {
 \end{lstlisting}
 %TC:endignore
 
-Generating a Tree Sudoku is now straight forward. First a random empty field and a random empty view need to be chosen, then with a probability of 0.5 either the empty field or the empty view is chosen and a random number is put in it. After that, the validity of the Tree Sudoku is checked and if it is valid, the amount of possible solutions for the Tree Sudoku is calculated. If no solution is found, a different number has to be tried. If more than one solutions are found, we start all over again by choosing a random empty field or view. If the Tree Sudoku has exactly one solution, the algorithm stops. An implementation of the here mentioned algorithm can be found in listing \ref{lst:sudokuGenerator}.
+Generating a Tree Sudoku requires to first independently find any empty field and any empty end of a row or column and then to pick with a probability of 0.5 either the empty field or the empty end of a row or column. Next, a random number is put in the picked field. After that, the validity of the Tree Sudoku is checked and if it is valid, the amount of possible solutions for the Tree Sudoku is calculated. If no solution is found, a different number has to be tried. If more than one solutions are found, we start all over again by choosing a random empty field or empty end of a row or column. If the Tree Sudoku has exactly one solution, then the Tree Sudoku is uniquely solvable and the algorithm stops. An implementation of the here mentioned algorithm can be found in listing \ref{lst:sudokuGenerator}.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={Generation algorithm for a Tree Sudoku instance},label={lst:sudokuGenerator}]
@@ -310,21 +320,8 @@ generate(values: sudoku, views: number[][]): [sudoku, number[][]] {
 \end{lstlisting}
 %TC:endignore
 
-Additionally, the Tree Sudoku exercise has three different difficulty levels. The difference between the levels is the amount of initially given information for an Tree Sudoku instance:
-
-\begin{itemize}
-    \item \textbf{easy} - no views are given and at least 75\% of the trees are placed
-    \item \textbf{medium} - some views are given and at least 50\% of the trees are placed
-    \item \textbf{hard} - some views are given and only the minimal amount of information to solve the Tree Sudoku instance is given
-\end{itemize}
-
-To fit these requirements, after generating the Sudoku it is solved field by field until the difficulty level specific coverage percentage is reached.
+To fit the requirements of each difficulty level, the generated Tree Sudoku is solved field by field until the difficulty level specific coverage percentage is reached.
 
 To check whether a solution to Tree Sudoku exercise handed in by a pupils, the algorithm from listing \ref{lst:sudokuValidation} can be reused without allowing empty fields.
 
-\begin{figure} 
-    \centering
-    \includegraphics[width=0.6 \columnwidth]{figures/tree_sudoku_example_exercise.png}
-    \caption{Tree Sudoku exercise} 
-    \label{fig:tree_sudoku_example_exercise} 
-\end{figure}
+The algorithm from listing \ref{lst:sudokuValidation} is reused without allowing empty fields, to validate a handed-in solution.
