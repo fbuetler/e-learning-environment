@@ -76,47 +76,41 @@ The event bus is a Vue.js instance that allows to emit an event in one component
 \label{subsection:gameButtons}
 Every exercise needs a \textit{check exercise} and a \textit{next exercise} button (figure \ref{fig:gameButtons}). The former is used to validate a given solution and the latter to load the next exercise.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{figures/game_buttons.png}
+    \caption{Game buttons}
+    \label{fig:gameButtons} 
+\end{figure}
+
 \subsection*{Undo Button}
 The \textit{undo} button simply restores the current exercise initial conditions, so one can retry it again.
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/game_buttons.png}
-        \subcaption{}
-        \label{fig:gameButtons} 
-    \end{subfigure}
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=0.2\textwidth]{figures/undo.png}
-        \subcaption{}
-        \label{fig:undo} 
-    \end{subfigure}
-    \caption{Game buttons \ref{fig:gameButtons} and undo button \ref{fig:undo}}
+    \includegraphics[width=0.1\columnwidth]{figures/undo.png}
+    \caption{Undo button}
+    \label{fig:undo} 
 \end{figure}
 
 \subsection*{Trashcan Button}
 The \textit{trashcan} button (figure \ref{fig:trashcan}) is an area where elements can be dropped to remove them. For example when pupils are asked to remove a letter from a word, they can either drag the letter to this area and drop it or first click on the letter and then on the \textit{trashcan} button to remove it.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.1\columnwidth]{figures/trashcan.png}
+    \caption{Trashcan button}
+    \label{fig:trashcan} 
+\end{figure}
 
 \subsection*{Difficulty Level Buttons}
 Some exercises have multiple difficulty levels (figure \ref{fig:difficultyLevels}). For those exercise the \textit{difficulty level} buttons are used to change the difficulty level. This component gives the possibility to choose from up to three different difficulty levels indicated by an increasing amount of beavers on the button and a title that is showed on hover.
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=0.35\textwidth]{figures/trashcan.png}
-        \subcaption{}
-        \label{fig:trashcan} 
-    \end{subfigure}
-    \begin{subfigure}[b]{0.5\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/difficulty_level.png}
-        \subcaption{}
-        \label{fig:difficultyLevels} 
-    \end{subfigure}
-    \caption{Trashcan button \ref{fig:trashcan} and difficulty level buttons from easy to hard \ref{fig:difficultyLevels}}
+    \includegraphics[width=0.5\columnwidth]{figures/difficulty_level.png}
+    \caption{Difficulty level buttons from easy to hard}
+    \label{fig:difficultyLevels} 
 \end{figure}
 
 \subsection*{Tutorial Button}
@@ -128,17 +122,13 @@ Each graphical element part of the exercise has an ID and one can give a list of
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.25\textwidth}
-        \centering
-        \includegraphics[width=0.5\textwidth]{figures/tutorial_button.png}
-        \subcaption{}
-        \label{fig:tutorialButton} 
-    \end{subfigure}
-    \begin{subfigure}[b]{0.7\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tutorial_example.png}
-        \subcaption{}
-        \label{fig:tutorialExample} 
-    \end{subfigure}
-    \caption{Tutorial button \ref{fig:tutorialButton} and tutorial of the row of trees exercise \ref{fig:tutorialExample}}
+    \includegraphics[width=0.1\columnwidth]{figures/tutorial_button.png}
+    \caption{Tutorial button}
+    \label{fig:tutorialButton} 
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{figures/tutorial_example.png}
+    \caption{Tutorial of the row of trees exercise}
+    \label{fig:tutorialExample} 
 \end{figure}

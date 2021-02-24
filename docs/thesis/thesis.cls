@@ -1,9 +1,64 @@
+%%
+%% This is file `csthesis.cls', modified from the original `book.cls',
+%% generated with the docstrip utility, by Khaireel A. Mohamed, Apr. 2007.
+%%
+%% This file was further changed by Tobias Langner, June 2011.
+%%
+%% The original source files were:
+%%
+%% classes.dtx  (with options: `book')
+%%
+%% This is a generated file.
+%%
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%%
+%% This file was generated from file(s) of the LaTeX base system.
+%% --------------------------------------------------------------
+%%
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This file has the LPPL maintenance status "maintained".
+%%
+%% This file may only be distributed together with a copy of the LaTeX
+%% base system. You may however distribute the LaTeX base system without
+%% such generated files.
+%%
+%% The list of all files belonging to the LaTeX base distribution is
+%% given in the file `manifest.txt'. See also `legal.txt' for additional
+%% information.
+%%
+%% The list of derived (unpacked) files belonging to the distribution
+%% and covered by LPPL is defined by the unpacking scripts (with
+%% extension .ins) which are part of the distribution.
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{thesis}
 [2005/09/16 v1.4f.a Modified from Standard LaTeX document
   class book.cls by Khaireel A. Mohamed April 2007
   and by Tobias Langner November 2009 and June 2011]
-\LoadClass{article}[figure]
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LOAD OWN PACKAGES AND STUFF
@@ -71,8 +126,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{listings}
-\usepackage{graphicx,caption,subcaption}
-\captionsetup{compatibility=false}
 
 \lstdefinelanguage{TypeScript}{
   keywords={break, as, any, switch, case, if, throw, else, var, number, string, get, module, type, instanceof, typeof, public, private, enum, export, finally, for, while, void, null, super, this, new, in, return, true, false, any, extends, static, let, package, implements, interface, function, new, try, yield, const, continue, do, catch},
@@ -426,37 +479,6 @@
   \hskip 1sp \marginpar{\footnotesize\sffamily\raggedright
     \color{blue}#1\\$\spadesuit$}}
 
-
-
-% \newtheorem{theorem}{Theorem}                   %kai
-% %\newtheorem{definition}[theorem]{Definition}   %kai
-% %\newtheorem{lemma}[theorem]{Lemma}             %kai
-% %\newtheorem{proposition}[theorem]{Proposition} %kai
-% %\newtheorem{example}[theorem]{Example}         %kai
-% %\newtheorem{corollary}[theorem]{Corollary}     %kai
-% %\newtheorem{condition}[theorem]{Condition}     %kai
-% \newtheorem{axiom}[theorem]{Axiom}              %kai
-% \newtheorem{case}[theorem]{Case}                %kai
-% \newtheorem{claim}[theorem]{Claim}              %kai
-% \newtheorem{conclusion}[theorem]{Conclusion}    %kai
-% \newtheorem{conjecture}[theorem]{Conjecture}    %kai
-% \newtheorem{criterion}[theorem]{Criterion}      %kai
-% \newtheorem{exercise}[theorem]{Exercise}        %kai
-% \newtheorem{notation}[theorem]{Notation}        %kai
-% \newtheorem{problem}[theorem]{Problem}          %kai
-% \newtheorem{remark}[theorem]{Remark}            %kai
-% \newtheorem{summary}[theorem]{Summary}          %kai
-%
-% \newenvironment{proof}[1][Proof]{%
-% % \noindent\textbf{#1.} }{\hfill \rule{0.5em}{0.5em}}         %kai
-% \noindent\textbf{#1.} }{\hfill $\Box$}      %tobias
-% \newenvironment{solution}[1][Solution]{%
-%   \textbf{#1.} }{\ \rule{0.5em}{0.5em}}         %kai
-%
-% \@addtoreset {theorem}{chapter}                 %kai
-% \renewcommand \thetheorem                       %kai
-%      {\ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@theorem} %kai
-
 \newcommand*\chaptermark[1]{}
 \setcounter{secnumdepth}{2}
 \newcounter {part}
@@ -797,7 +819,12 @@
 \def\ftype@figure{1}
 \def\ext@figure{lof}
 \def\fnum@figure{\figurename\nobreakspace\thefigure}
-
+\newenvironment{figure}
+{\@float{figure}}
+{\end@float}
+\newenvironment{figure*}
+{\@dblfloat{figure}}
+{\end@dblfloat}
 \newcounter{table}[chapter]
 \renewcommand \thetable
 {\ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@table}
