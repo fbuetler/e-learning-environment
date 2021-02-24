@@ -45,6 +45,7 @@ The home screen is a view and is the first page seen when visiting the learning 
 \subsection{Game Mixin and Game Interface}
 
 \subsection*{Game Mixin}
+\label{subsection:gameMixin}
 All exercises use the \code{GameMixin} containing the functionality on starting and evaluating an exercise. Additionally, a function to generate a random number exists to mock random number generation in tests. More on that in \nameref{section:testing}.
 
 \subsection*{Game Interface}
@@ -65,8 +66,14 @@ interface GameInterface {
 The following presented components are components that are crucial or heavily reused. Most of them are part of the user interaction system since all exercises need some kind of user interaction elements.
 
 \subsection*{Game}
-The Game component is the crux of the matter
-\TODO{explain game component}
+The \textit{game} component is the heart of the learning environment. This component defines the general structure of the exercises like the \nameref{subsection:gameButtons}, \nameref{subsection:tutorial} and show the evaluation result of an exercise (figure \ref{fig:evaluationResult}). Every view has this component and depending on the view, the \textit{game} component shows the corresponding exercise.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{figures/evaluation_result.png}
+    \caption{Evaluation result: correct and incorrect}
+    \label{fig:evaluationResult} 
+\end{figure}
 
 \subsection*{Event Bus}
 Sometimes components are not in a direct parent-child relationship and still need to communicate. This can be achieved by passing properties and emitting events. Downside of this approach is the quick loose of clear structure. To tackle this problem, one can use an event bus. 
@@ -114,6 +121,7 @@ Some exercises have multiple difficulty levels (figure \ref{fig:difficultyLevels
 \end{figure}
 
 \subsection*{Tutorial Button}
+\label{subsection:tutorial}
 To introduce an exercise to the pupils the title of the exercise and a short instruction is not enough. Therefore, for each exercise there is a detailed explanation and a tutorial video (figure \ref{fig:tutorialButton} and figure \ref{fig:tutorialExample}). The tutorial video shows an example run giving first a wrong solution, then restarting the exercise and finally, giving the correct solution.
 
 The tutorial videos were recorded by a screen capture tool and the mouse movement on how to solve the exercise is done programmatically. The main reason for this is that the tutorial video needs to be redone whenever the user interface changes. With this, rerecording the tutorial video is much more convenient. Another reason is that moving the mouse by hand to solve the exercise introduces a jitter to the mouse movement and might be irritating. The tutorial on the other hand should show clearly and without any hesitation the way on how to solve the exercise. Since this cannot be done by an average human being, the mouse movement is done programmatically. 

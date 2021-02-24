@@ -46,8 +46,7 @@ High coverage percentage does not imply that it is a good test suite. Some criti
 The code coverage for the whole project and each component is given in table \ref{table:testCoverage}. Most of the components are well tested with a code coverage of above 80\% in most categories. Some rows in the table \ref{table:testCoverage} indicate bad code coverage. Usually those components with bad code coverage have less than forty lines and therefore not tested thoroughly. 
  
 \subsection*{Non-determinism}
-A problem that has to be tackled for testing is how to handle determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used, then the actual output may not be the same as the expected output and the test is evaluated wrongly as failed. To circumvent this issue, one can mock the function that is used to generate random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. 
-\TODO{maybe refer to game mixin}
+A problem that has to be tackled for testing is how to handle determinism. Some exercises are based on random behaviour to achieve a rich user experience. However, if random behaviour is used, then the actual output may not be the same as the expected output and the test is evaluated wrongly as failed. To circumvent this issue, one can mock the function that is used to generate random numbers. Mock functions allow to overwrite the actual implementation of the function by intercepting calls to this function and return values configured by the test suite \cite{Jest}. This is the reason, there is a function to generate random numbers in \nameref{subsection:gameMixin}, so this function can be mocked during testing.
 
 \begin{table}
     \caption{Test coverage of all components}
@@ -96,7 +95,6 @@ Every component in this project is snapshot tested and is therefore save from un
 \subsection{End-to-End Testing}
 \label{subsection:e2e}
 End-to-end tests are used to test the entire application flow. The main goal is to test it from a users perspective by simulating the interactions of a use case \cite{EndToEndTests}. 
-\TODO{maybe elaborate a bit more on that}
 
 Nightwatch allows to run end-to-end tests for Chrome, Firefox and Edge to ensure the application works across browser-borders. The end-to-end tests for this project make use of page objects. A page object is an abstraction of a page represented as an object its goal is to simplify the end-to-end test \cite{Nightwatch}.
 
