@@ -3,7 +3,7 @@
 
 \section{Introduction}
 \label{section:introduction}
-In this chapter the tools used for implementation and the basic architecture are explained. First the used programming language and framework are introduced, then how the different parts of the learning environment work together and finally some frequently used mechanisms are explained.
+In this chapter the tools used for implementation and the basic architecture are explained. First, the used programming language and framework are introduced, then how the different parts of the learning environment work together and finally some frequently used mechanisms are explained.
 
 \section{TypeScript}
 \label{section:typescript}
@@ -13,8 +13,8 @@ TypeScript extends JavaScript by providing type safety and concepts such as inte
 
 \section{Vue.js}
 \label{section:vuejs}
-Vue.js is a reactive, client-side JavaScript web framework developed by Evan You and its community starting in 2014. It is an alternative to Angular and React and was supposed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, JavaScript and CSS. The reactivity system of Vue.js allows changes made to the application data to be automatically reflected in the browser.
-When the development of this project started in November 2020, Vue.js version 3 was already published. However, Vue.js version 2 is used in this project, because the ecosystem has not caught up yet and many libraries only work with version 2 at the moment \cite{Vue}.
+Vue.js is a reactive, client-side JavaScript web framework developed by Evan You and its community starting in 2014. It is an alternative to Angular and React and was developed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, JavaScript and CSS. The reactivity system of Vue.js allows changes made to the application data to be automatically reflected in the browser.
+When the development of this project started in November 2020, Vue.js version 3 was already published. However, Vue.js version 2 is used in this project, because the ecosystem has not caught up yet and many libraries only work with version 2 \cite{Vue}.
 
 \subsection{Components}
 Components are named reusable Vue.js instances and have the advantages that the structure, functionality and style of an element is implemented once and can then easily be used multiple times. Therefore, each component has a parent (except from the root component) and possibly multiple child components forming a tree structure. 
@@ -33,11 +33,11 @@ The following list represent the best practice that were applied in this project
 \label{section:basicFunctionality}
 
 \subsection{Home Screen}
-The home screen is a view and is the first page seen when visiting the learning environment (figure \ref{fig:homepage}). For each available exercise there is a card with an image to illustrate the exercise and its title. The basic ideas for the images are taken from the text book, but most of the time needed some simple image manipulation to make it represent the task reasonably.
+The home screen is a view and is the first page seen when visiting the learning environment (figure \ref{fig:homepage}). For each available exercise there is a card with an image to illustrate the exercise and its title. The images are inspired by those in the text book, but mostly needed to be manipulated to represent the task reasonably.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9 \columnwidth]{figures/homepage.png}
+    \includegraphics[width=1.0 \columnwidth]{figures/homepage.png}
     \caption{Homepage excerpt} 
     \label{fig:homepage} 
 \end{figure}
@@ -46,10 +46,10 @@ The home screen is a view and is the first page seen when visiting the learning 
 
 \subsection*{Game Mixin}
 \label{subsection:gameMixin}
-All exercises use the \code{GameMixin} containing the functionality on starting and evaluating an exercise. Additionally, a function to generate a random number exists to mock random number generation in tests. More on that in \nameref{section:testing}.
+All exercises use the \code{GameMixin}, which contains the functionality for starting and evaluating an exercise. Additionally, a function to generate a random number exists to mock random number generation in tests. More on that in \nameref{section:testing}.
 
 \subsection*{Game Interface}
-Each exercise implements the \code{GameInterface}. This ensures that specific functionalities, like starting and evaluating the exercise, are implemented and can be used in the \code{GameMixin}.
+Each exercise implements the \code{GameInterface}. This ensures that specific functionalities, like starting and evaluating the exercise, are available and can be used in the \code{GameMixin}.
 
 %TC:ignore
 \begin{lstlisting}[language=TypeScript,caption={GameInterface},label={lst:gameInterface}]
@@ -66,7 +66,7 @@ interface GameInterface {
 The following presented components are components that are crucial or heavily reused. Most of them are part of the user interaction system since all exercises need some kind of user interaction elements.
 
 \subsection*{Game}
-The \textit{game} component is the heart of the learning environment. This component defines the general structure of the exercises like the \nameref{subsection:gameButtons}, \nameref{subsection:tutorial} and show the evaluation result of an exercise (figure \ref{fig:evaluationResult}). Every view has this component and depending on the view, the \textit{game} component shows the corresponding exercise.
+The \textit{game} component is the heart of the learning environment. This component defines the general structure of the exercises like the \nameref{subsection:gameButtons}, \nameref{subsection:tutorial} and shows the evaluation result of an exercise (figure \ref{fig:evaluationResult}). Every view uses this component and depending on the view, the \textit{game} component displays the corresponding exercise.
 
 \begin{figure}[h]
     \centering
@@ -76,12 +76,12 @@ The \textit{game} component is the heart of the learning environment. This compo
 \end{figure}
 
 \subsection*{Event Bus}
-Sometimes components are not in a direct parent-child relationship and still need to communicate. This can be achieved by passing properties and emitting events. Downside of this approach is the quick loose of clear structure. To tackle this problem, one can use an event bus. 
-The event bus is a Vue.js instance that allows to emit an event in one component and listen for that event on another component. To use the event bus, a component simply needs to import the instance and can emit or listen for events on the usual way. In this project, the event bus is used between the \nameref{subsection:gameButtons} and each exercise.
+Sometimes components are not in a direct parent-child relationship and still need to communicate. This can be achieved by passing properties and emitting events. Downside of this approach is the quick loss of a clear structure. To tackle this problem, one can use the event bus. 
+The event bus is a Vue.js instance that allows to emit an event in one component and listen for that event on another component. To use the event bus, a component needs to import such an instance. The component can then emit or listen for events on this instance. In this project, the event bus is used between the \nameref{subsection:gameButtons} and each exercise.
 
 \subsection*{Game Buttons}
 \label{subsection:gameButtons}
-Every exercise needs a \textit{check exercise} and a \textit{next exercise} button (figure \ref{fig:gameButtons}). The former is used to validate a given solution and the latter to load the next exercise.
+Every exercise needs a \textit{check exercise} and a \textit{next exercise} button (figure \ref{fig:gameButtons}). The former is used to validate a given solution, the latter to load the next exercise.
 
 \begin{figure}[h]
     \centering
@@ -91,7 +91,7 @@ Every exercise needs a \textit{check exercise} and a \textit{next exercise} butt
 \end{figure}
 
 \subsection*{Undo Button}
-The \textit{undo} button simply restores the current exercise initial conditions, so one can retry it again.
+The \textit{undo} button simply restores the current exercise's initial conditions so one can retry it.
 
 \begin{figure}[h]
     \centering
@@ -101,7 +101,7 @@ The \textit{undo} button simply restores the current exercise initial conditions
 \end{figure}
 
 \subsection*{Trashcan Button}
-The \textit{trashcan} button (figure \ref{fig:trashcan}) is an area where elements can be dropped to remove them. For example when pupils are asked to remove a letter from a word, they can either drag the letter to this area and drop it or first click on the letter and then on the \textit{trashcan} button to remove it.
+The \textit{trashcan} button (figure \ref{fig:trashcan}) is an area where elements can be dropped to remove them. For example, when pupils are asked to remove a letter from a word, they can either drag the letter to this area and drop it, or first click on the letter and then on the \textit{trashcan} button to remove it.
 
 \begin{figure}[h]
     \centering
@@ -111,7 +111,7 @@ The \textit{trashcan} button (figure \ref{fig:trashcan}) is an area where elemen
 \end{figure}
 
 \subsection*{Difficulty Level Buttons}
-Some exercises have multiple difficulty levels (figure \ref{fig:difficultyLevels}). For those exercise the \textit{difficulty level} buttons are used to change the difficulty level. This component gives the possibility to choose from up to three different difficulty levels indicated by an increasing amount of beavers on the button and a title that is showed on hover.
+Some exercises have multiple difficulty levels (figure \ref{fig:difficultyLevels}). For those exercise the \textit{difficulty level} buttons are used to change the difficulty level. This component gives the possibility to choose from up to three different difficulty levels indicated by an increasing amount of beavers on the button and a title that is shown on hover.
 
 \begin{figure}[h]
     \centering
