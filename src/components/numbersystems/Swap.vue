@@ -1,13 +1,14 @@
 <template>
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
-    <div>Stelle die gleiche Summe mit weniger Elementen dar</div>
+    <div>Stelle die gleiche Summe mit weniger Münzen dar</div>
     <ItemGroup :items="generatedItems" :itemConfig="items(type)" />
     <hr />
     <div>Lösung:</div>
     <ItemDropzone
       :items="selectedItems"
       :itemConfig="items(type)"
+        :itemName="'Münzen'"
       @dropped="addItem()"
     />
     <div

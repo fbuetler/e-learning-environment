@@ -8,7 +8,7 @@ const views: Array<{
 }> = [
   {
     id: 1,
-    title: "Ähnliche Wörter - Buchstabe hinzufügen",
+    title: "Ähnliche Wörter: Buchstaben hinzufügen",
     path: "/words/add",
     img: "words/beaver_add.png",
     view: "WordsAdd",
@@ -16,7 +16,7 @@ const views: Array<{
   },
   {
     id: 2,
-    title: "Ähnliche Wörter - Buchstabe austauschen",
+    title: "Ähnliche Wörter: Buchstaben austauschen",
     path: "/words/change",
     img: "words/beaver_change.png",
     view: "WordsChange",
@@ -24,7 +24,7 @@ const views: Array<{
   },
   {
     id: 3,
-    title: "Ähnliche Wörter - Buchstabe entfernen",
+    title: "Ähnliche Wörter: Buchstaben entfernen",
     path: "/words/remove",
     img: "words/beaver_remove.png",
     view: "WordsRemove",
@@ -32,7 +32,7 @@ const views: Array<{
   },
   {
     id: 4,
-    title: "Ähnliche Wörter - Buchstaben vertauschen",
+    title: "Ähnliche Wörter: Buchstaben vertauschen",
     path: "/words/swap",
     img: "words/beaver_swap.png",
     view: "WordsSwap",
@@ -40,7 +40,7 @@ const views: Array<{
   },
   {
     id: 5,
-    title: "Maya Zahlen darstellen",
+    title: "Maya-Zahlen darstellen",
     path: "/mayas/to",
     img: "numbersystems/mayas/mayas_to.png",
     view: "MayasTo",
@@ -48,7 +48,7 @@ const views: Array<{
   },
   {
     id: 6,
-    title: "Maya Zahlen verstehen",
+    title: "Maya-Zahlen verstehen",
     path: "/mayas/from",
     img: "numbersystems/mayas/mayas_from.png",
     view: "MayasFrom",
@@ -56,7 +56,7 @@ const views: Array<{
   },
   {
     id: 7,
-    title: "Maya Zahlen addieren",
+    title: "Maya-Zahlen addieren",
     path: "/mayas/addition",
     img: "numbersystems/mayas/mayas_addition.png",
     view: "MayasAddition",
@@ -64,7 +64,7 @@ const views: Array<{
   },
   {
     id: 16,
-    title: "Zahlen mit Münzen",
+    title: "Bezahlen mit Münzen",
     path: "/coins/decimal/to",
     img: "numbersystems/decimal/decimal_to.png",
     view: "NormalCoinsTo",
@@ -104,7 +104,7 @@ const views: Array<{
   },
   {
     id: 15,
-    title: "mit Muster entschlüsseln",
+    title: "Mit Muster entschlüsseln",
     path: "/pattern/decryption",
     img: "ciphertexts/ciphertext_pattern_2.png",
     view: "PatternDecryption",
@@ -112,7 +112,7 @@ const views: Array<{
   },
   {
     id: 14,
-    title: "mit Muster verschlüsseln",
+    title: "Mit Muster verschlüsseln",
     path: "/pattern/encryption",
     img: "ciphertexts/ciphertext_pattern.png",
     view: "PatternEncryption",
@@ -120,7 +120,7 @@ const views: Array<{
   },
   {
     id: 13,
-    title: "mit Zeichen entschlüsseln",
+    title: "Mit Zeichen entschlüsseln",
     path: "/symbol/decryption",
     img: "ciphertexts/symbolsToAbc.png",
     view: "SymbolDecryption",
@@ -128,7 +128,7 @@ const views: Array<{
   },
   {
     id: 12,
-    title: "mit Zeichen verschlüsseln",
+    title: "Mit Zeichen verschlüsseln",
     path: "/symbol/encryption",
     img: "ciphertexts/abcToSymbols.png",
     view: "SymbolEncryption",
@@ -144,7 +144,7 @@ const views: Array<{
   },
   {
     id: 9,
-    title: "3x3 Baumsudoku",
+    title: "3x3-Baumsudoku",
     path: "/trees/sudoku/3",
     img: "trees/sudoku_explanation_3.png",
     view: "TreeSudokuOfThree",
@@ -160,7 +160,7 @@ const views: Array<{
   },
   {
     id: 11,
-    title: "4x4 Baumsudoku",
+    title: "4x4-Baumsudoku",
     path: "/trees/sudoku/4",
     img: "trees/sudoku_explanation_4.png",
     view: "TreeSudokuOfFour",

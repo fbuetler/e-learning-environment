@@ -8,15 +8,16 @@
       @difficulty-selected="currentDifficultyLevel = $event"
     />
     <div class="number">
-      Zahle mit
+      Stelle mit
       <b v-if="currentDifficultyLevel === 2">möglichst wenig </b>
       <span v-if="isBinary">binären </span>
-      Münzen die folgende Summe:
+      {{ this.itemName }} die folgende Summe dar:
     </div>
     <div id="number" class="big-text">{{ number }}</div>
     <ItemDropzone
       :items="selectedItems"
       :itemConfig="items(type)"
+      :itemName="itemName"
       @dropped="addItem()"
     />
     <hr />
@@ -130,6 +131,27 @@ export default class To extends Mixins(GameMixin, NumbersystemsMixin)
 
   get isDecimal(): boolean {
     return this.type === numbersystemType.DECIMAL;
+  }
+
+  get isMaya(): boolean {
+    return this.type === numbersystemType.MAYA;
+  }
+
+  get itemName(): string {
+    switch (this.type) {
+      case numbersystemType.BINARY: {
+        return "Münzen";
+      }
+      case numbersystemType.DECIMAL: {
+        return "Münzen";
+      }
+      case numbersystemType.MAYA: {
+        return "Nüsse und Hölzchen";
+      }
+      default: {
+        return "Elemente";
+      }
+    }
   }
 }
 </script>

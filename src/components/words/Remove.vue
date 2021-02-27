@@ -2,7 +2,7 @@
   <div>
     <slot name="animation" :animationSteps="animationSteps" />
     <div>
-      Versuch ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
+      Versuche, ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
     </div>
     <div
       id="word-container"

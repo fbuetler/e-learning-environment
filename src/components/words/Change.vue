@@ -2,7 +2,7 @@
   <div @dragend.prevent="selected = null">
     <slot name="animation" :animationSteps="animationSteps" />
     <div>
-      Versuch ein neues Wort zu bilden, indem du einen Buchstaben änderst.
+      Versuche, ein neues Wort zu bilden, indem du einen Buchstaben änderst.
     </div>
     <div
       id="word-container"

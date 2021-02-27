@@ -9,7 +9,7 @@
         start();
       "
     />
-    <div>Was ist die Summe der Zahlen, die hier zusammen addiert werden?</div>
+    <div>Was ist die Summe der Zahlen, die hier addiert werden?</div>
     <div id="addition" class="flex-item flex-wrap flex-center flex-row">
       <div
         v-for="(summand, index) in summands"
@@ -34,6 +34,7 @@
         v-else
         :items="selectedItems"
         :itemConfig="items(type)"
+        :itemName="'Nüsse und Hölzchen'"
         @dropped="addItem()"
       />
     </div>

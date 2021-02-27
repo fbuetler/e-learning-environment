@@ -10,7 +10,7 @@
       "
     />
     <div>
-      Versuch das Baumsudoku zu lösen.
+      Versuche, das Baumsudoku zu lösen.
     </div>
     <div id="sudoku" class="flex-item flex-center">
       <table>

@@ -2,7 +2,7 @@
   <div @dragend="itemToAdd = null">
     <slot name="animation" :animationSteps="animationSteps" />
     <div>
-      Versuch das Baumreihenrätsel zu lösen.
+      Versuche, das Baumreihenrätsel zu lösen.
     </div>
     <div id="row" class="flex-item flex-center">
       <table>

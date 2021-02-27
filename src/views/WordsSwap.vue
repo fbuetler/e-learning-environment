@@ -2,7 +2,7 @@
   <Game :type="type">
     <h2 slot="title">{{ title }}</h2>
     <p slot="description">
-      Versuche ein sinnvolles Wort zu bilden, indem du zwei Buchstaben
+      Versuche, ein sinnvolles Wort zu bilden, indem du zwei Buchstaben
       vertauschst. Für den Schwierigkeitsgrad "leicht" muss nur ein
       Buchstabenpaar vertauscht werden. Für den Schwierigkeitsgrad
       "mittelschwer" sind zwei Tausche notwendig.

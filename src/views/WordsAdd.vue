@@ -2,7 +2,7 @@
   <Game :type="type">
     <h2 slot="title">{{ title }}</h2>
     <p slot="description">
-      Versuche neue Wörter zu bilden, indem du einen Buchstaben hinzufügst.
+      Versuche, neue Wörter zu bilden, indem du einen Buchstaben hinzufügst.
     </p>
     <video loop controls muted slot="video">
       <source :src="require('@/assets/tutorials/' + video)" />

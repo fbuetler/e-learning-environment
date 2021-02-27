@@ -7,9 +7,7 @@
     @dragend.prevent
     @drop.stop.prevent="$emit('dropped')"
   >
-    <div v-if="nothingSelected">
-      Platziere hier die Elemente
-    </div>
+    <div v-if="nothingSelected">Platziere hier die {{ itemName }}</div>
     <div v-else>
       <slot>
         <div class="flex-item flex-center flex-row">
@@ -39,6 +37,8 @@ export default class ItemDropzone extends Vue {
   items: number[];
   @Prop({ required: true })
   itemConfig: item[];
+  @Prop({ required: true })
+  itemName: string;
 
   get nothingSelected(): boolean {
     return this.items.every((el) => el === 0);

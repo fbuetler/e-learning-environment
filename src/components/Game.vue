@@ -84,10 +84,9 @@ export enum GameType {
 /*
   TODO:
     - reorder buttons: next, check, difficulty, undo, trashcan, tutorial
-    - visual feedback for wrong input e.g in binary coins/to
+    - visual feedback for wrong input e.g in binary coins/to (search for shake func)
     - symbol/encryption does not provide content: what to do?
     - optional: unit tests for each function
-    - optional: multilingual (vue-i18n)
     - optional: add difficulty level to numbersystems/swap: minimal items 
 */
 
