@@ -23,7 +23,7 @@
           :key="element.id"
           :id="'word-char-' + element.id"
           :ref="'word-char-' + element.id"
-          class="word-char card"
+          class="word-char card locked"
         >
           {{ element.char }}
         </div>
@@ -70,6 +70,7 @@
             :id="`rect-around-arrow-${left}-${right}`"
             :ref="`rect-around-arrow-${left}-${right}`"
             :key="`rect-around-arrow-${left}-${right}`"
+            class="clickable"
             fill="transparent"
             @click="swapChar(left, right)"
           />
