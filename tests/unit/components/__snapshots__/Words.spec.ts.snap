@@ -5,7 +5,7 @@ exports[`Add.vue renders correctly 1`] = `
    
   <div>
     
-    Versuch ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
+    Versuche, ein neues Wort zu bilden, indem du einen Buchstaben hinzufügst.
   
   </div>
    
@@ -220,7 +220,7 @@ exports[`Change.vue renders correctly 1`] = `
    
   <div>
     
-    Versuch ein neues Wort zu bilden, indem du einen Buchstaben änderst.
+    Versuche, ein neues Wort zu bilden, indem du einen Buchstaben änderst.
   
   </div>
    
@@ -299,7 +299,7 @@ exports[`Remove.vue renders correctly 1`] = `
    
   <div>
     
-    Versuch ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
+    Versuche, ein neues Wort zu bilden, indem du einen Buchstaben entfernst.
   
   </div>
    
@@ -386,7 +386,7 @@ exports[`Swap.vue renders correctly 1`] = `
    
   <div>
     
-    Versuche ein sinnvolles Wort zu bilden, indem du
+    Versuche, ein sinnvolles Wort zu bilden, indem du
     
     <b>
       einmal
@@ -406,7 +406,7 @@ exports[`Swap.vue renders correctly 1`] = `
       class="flex-item flex-row flex-center"
     >
       <div
-        class="word-char card"
+        class="word-char card locked"
         id="word-char-0"
       >
         
@@ -414,7 +414,7 @@ exports[`Swap.vue renders correctly 1`] = `
       
       </div>
       <div
-        class="word-char card"
+        class="word-char card locked"
         id="word-char-1"
       >
         
@@ -422,7 +422,7 @@ exports[`Swap.vue renders correctly 1`] = `
       
       </div>
       <div
-        class="word-char card"
+        class="word-char card locked"
         id="word-char-2"
       >
         
@@ -430,7 +430,7 @@ exports[`Swap.vue renders correctly 1`] = `
       
       </div>
       <div
-        class="word-char card"
+        class="word-char card locked"
         id="word-char-3"
       >
         
@@ -438,7 +438,7 @@ exports[`Swap.vue renders correctly 1`] = `
       
       </div>
       <div
-        class="word-char card"
+        class="word-char card locked"
         id="word-char-4"
       >
         
@@ -517,18 +517,22 @@ exports[`Swap.vue renders correctly 1`] = `
         />
          
         <rect
+          class="clickable"
           fill="transparent"
           id="rect-around-arrow-0-1"
         />
         <rect
+          class="clickable"
           fill="transparent"
           id="rect-around-arrow-1-2"
         />
         <rect
+          class="clickable"
           fill="transparent"
           id="rect-around-arrow-2-3"
         />
         <rect
+          class="clickable"
           fill="transparent"
           id="rect-around-arrow-3-4"
         />

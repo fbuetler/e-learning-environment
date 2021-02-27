@@ -5,7 +5,7 @@ exports[`Row.vue renders correctly 1`] = `
    
   <div>
     
-    Versuch das Baumreihenrätsel zu lösen.
+    Versuche, das Baumreihenrätsel zu lösen.
   
   </div>
    
@@ -84,7 +84,7 @@ exports[`Sudoku.vue renders correctly 1`] = `
    
   <div>
     
-    Versuch das Baumsudoku zu lösen.
+    Versuche, das Baumsudoku zu lösen.
   
   </div>
    

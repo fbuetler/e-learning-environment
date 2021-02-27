@@ -20,7 +20,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Ähnliche Wörter - Buchstabe hinzufügen
+        Ähnliche Wörter: Buchstaben hinzufügen
       
       </div>
     </a>
@@ -41,7 +41,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Ähnliche Wörter - Buchstabe austauschen
+        Ähnliche Wörter: Buchstaben austauschen
       
       </div>
     </a>
@@ -62,7 +62,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Ähnliche Wörter - Buchstabe entfernen
+        Ähnliche Wörter: Buchstaben entfernen
       
       </div>
     </a>
@@ -83,7 +83,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Ähnliche Wörter - Buchstaben vertauschen
+        Ähnliche Wörter: Buchstaben vertauschen
       
       </div>
     </a>
@@ -104,7 +104,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Maya Zahlen darstellen
+        Maya-Zahlen darstellen
       
       </div>
     </a>
@@ -125,7 +125,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Maya Zahlen verstehen
+        Maya-Zahlen verstehen
       
       </div>
     </a>
@@ -146,7 +146,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Maya Zahlen addieren
+        Maya-Zahlen addieren
       
       </div>
     </a>
@@ -167,7 +167,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        Zahlen mit Münzen
+        Bezahlen mit Münzen
       
       </div>
     </a>
@@ -272,7 +272,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Muster entschlüsseln
+        Mit Muster entschlüsseln
       
       </div>
     </a>
@@ -293,7 +293,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Muster verschlüsseln
+        Mit Muster verschlüsseln
       
       </div>
     </a>
@@ -314,7 +314,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Zeichen entschlüsseln
+        Mit Zeichen entschlüsseln
       
       </div>
     </a>
@@ -335,7 +335,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        mit Zeichen verschlüsseln
+        Mit Zeichen verschlüsseln
       
       </div>
     </a>
@@ -377,7 +377,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        3x3 Baumsudoku
+        3x3-Baumsudoku
       
       </div>
     </a>
@@ -419,7 +419,7 @@ exports[`Home.vue renders correctly 1`] = `
         class="card-container"
       >
         
-        4x4 Baumsudoku
+        4x4-Baumsudoku
       
       </div>
     </a>

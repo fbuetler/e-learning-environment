@@ -125,7 +125,7 @@ exports[`Swap.vue renders correctly 1`] = `
 <div>
    
   <div>
-    Stelle die gleiche Summe mit weniger Elementen dar
+    Stelle die gleiche Summe mit weniger Münzen dar
   </div>
    
   <div
@@ -234,9 +234,7 @@ exports[`Swap.vue renders correctly 1`] = `
     id="dropzone"
   >
     <div>
-      
-    Platziere hier die Elemente
-  
+      Platziere hier die Münzen
     </div>
   </div>
    
@@ -354,13 +352,13 @@ exports[`To.vue renders correctly 1`] = `
     class="number"
   >
     
-    Zahle mit
+    Stelle mit
     
     <!---->
      
     <!---->
     
-    Münzen die folgende Summe:
+    Münzen die folgende Summe dar:
   
   </div>
    
@@ -376,9 +374,7 @@ exports[`To.vue renders correctly 1`] = `
     id="dropzone"
   >
     <div>
-      
-    Platziere hier die Elemente
-  
+      Platziere hier die Münzen
     </div>
   </div>
    

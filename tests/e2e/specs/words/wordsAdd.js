@@ -11,7 +11,7 @@ module.exports = {
 
     game.expect
       .section("@title")
-      .text.to.match(/^Ähnliche Wörter - Buchstabe hinzufügen$/);
+      .text.to.match(/^Ähnliche Wörter: Buchstaben hinzufügen$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;

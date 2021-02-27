@@ -9,7 +9,7 @@ module.exports = {
 
     const game = page.section.app.section.game;
 
-    game.expect.section("@title").text.to.match(/^Zahlen mit Münzen$/);
+    game.expect.section("@title").text.to.match(/^Bezahlen mit Münzen$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;

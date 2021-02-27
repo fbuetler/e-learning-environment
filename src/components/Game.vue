@@ -88,6 +88,7 @@ export enum GameType {
     - symbol/encryption does not provide content: what to do?
     - optional: unit tests for each function
     - optional: add difficulty level to numbersystems/swap: minimal items 
+    - optional: mouse click effect in tutorial videos
 */
 
 @Component({

@@ -9,7 +9,7 @@ module.exports = {
 
     const game = page.section.app.section.game;
 
-    game.expect.section("@title").text.to.match(/^3x3 Baumsudoku$/);
+    game.expect.section("@title").text.to.match(/^3x3-Baumsudoku$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;

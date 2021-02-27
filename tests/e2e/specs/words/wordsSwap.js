@@ -11,7 +11,7 @@ module.exports = {
 
     game.expect
       .section("@title")
-      .text.to.match(/^Ähnliche Wörter - Buchstaben vertauschen$/);
+      .text.to.match(/^Ähnliche Wörter: Buchstaben vertauschen$/);
 
     game.expect.section("@task").to.be.visible;
     const task = game.section.task;
