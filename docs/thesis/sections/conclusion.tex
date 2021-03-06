@@ -1,7 +1,7 @@
 \chapter{Conclusion}
 \label{chapter:conclusion}
 
-The main goal in this bachelor thesis was to implement tasks and riddles based on the textbook “einfach Informatik 3/4” in a computer-based learning environment for pupils in the second cycle. The concepts covered in this thesis are:
+The main goal of this bachelor thesis was to implement tasks and riddles based on the textbook “einfach Informatik 3/4” in a computer-based learning environment for pupils in the second cycle. The concepts covered in this thesis are:
 
 \begin{itemize}
     \item representing information with symbols,
@@ -12,22 +12,19 @@ The main goal in this bachelor thesis was to implement tasks and riddles based o
 \section{Obstacles}
 \label{section:obstacles}
 
-One of the first obstacles, I encountered, was finding an adequate structure for the code. Vue.js is much less opinionated than for example Angular and therefore, many possible ways exist on how to structure an application. On one hand, I can enjoy the freedom that Vue.js gives and most of the time any approach will work on how to structure the code. On the other hand, this may backfire later down the road, when the application is growing and no real structure is defined. One thing I really missed in this project are code reviews by other people to give me feedback about the structure and the logic. Because code reviews by experienced people could pin point me in the right direction and avoid having nightmares later on.
+One of the first obstacles I encountered was finding an adequate structure for the code. Vue.js is much less opinionated than, for example, Angular. Therefore, many possible ways to structure an application exist. On the one hand, I can enjoy the freedom that Vue.js gives. Most of the time, any application structure will work. On the other hand, this may backfire later down the road, when the application grows without any real structure having been defined. One thing I really missed in this project is feedback by other people about the structure and logic of my code. Code reviews by experienced people could point me in the right direction, thereby avoiding nightmares later on.
 
-Another thing that at first glance looked like a straight forward problem and later turned out to be a hard one, was the generation of allowed words in the \nameref{section:similarWords} exercises. As already showed, different approaches were tested until a satisfying result was achieved. The problem here was that the application needs to know all possible words pupils can think of, because having an exercise evaluated as incorrect even though the word exists is just demotivating. In the end, having a list of about one millions allowed words will hopeful cover this.
+Another thing that turned out to be a harder problem than expected, was the generation of allowed words in the \nameref{section:similarWords} exercises. As already showed, different approaches were tested until a satisfying result was achieved. The problem here was that the application needs to know all possible words pupils can think of, as having an exercise evaluated as incorrect, even though the word exists, is just demotivating. In the end, having a list of about one millions allowed words will hopefully cover this.
 
 \section{Limitation}
 \label{section:limitation}
 
-An interesting aspect of this thesis was implementing exercises teaching different concepts. However, since not all exercises of each topic in the textbook “einfach Informatik 3/4” were implemented, I consider this as a major drawback. Some exercises like \nameref{section:similarWords} are preparatory exercises for more advanced exercises like communication with damaged messages. For the next time, I think, it would improve the overall learning experience of pupils if a whole topic is covered and not only a fraction of it.
-
-\TODO{maybe also: own learning environment}
+An interesting aspect of this thesis was implementing exercises teaching different concepts. However, since not all exercises in the textbook “einfach Informatik 3/4” were implemented, I consider this a major drawback. Some exercises, like \nameref{section:similarWords}, are preparatory exercises for more advanced exercises, such as communication with damaged messages. I think it would improve the overall learning experience of pupils if a whole topic is covered, not only a fraction of it.
 
 \section{Future Work}
 \label{section:futureWork}
 
 The future work is directly derived from its limitations.
 
-A big improvement would be to cover the remaining exercises of a concept that were not covered in this learning environment. Especially, those that are built on exercises already implemented in this learning environment.
-
-\TODO{maybe: integrate into existing learning environment}
+A big improvement would be to cover the remaining exercises of a concept that were not covered in this learning environment. Specifically, those that are built on exercises already implemented in this learning environment.
+Another improvement and possible next step would be to integrate the exercises covered in this learning environment into a fully fleshed out learning environment. 

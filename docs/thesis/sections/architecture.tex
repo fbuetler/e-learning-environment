@@ -7,7 +7,7 @@ In this chapter the tools used for implementation and the basic architecture are
 
 \section{TypeScript}
 \label{section:typescript}
-JavaScript had its publication in 1996, it is a dynamically typed scripting language and is intended to be used in browsers to extend the possibilities of HTML and CSS. It can dynamically manipulate HTML and CSS, validate user data, send and receive data without reloading the page and much more. JavaScript used in browsers is run on client-side i.e. the workload is shifted from the provider of the web application to the client computer \cite{Javascript}. 
+JavaScript was published in 1996 and it is a dynamically typed scripting language and is intended to be used in browsers to extend the possibilities of HTML and CSS. It can dynamically manipulate HTML and CSS, validate user data, send and receive data without reloading the page and much more. JavaScript used in browsers is run on client-side i.e. the workload is shifted from the provider of the web application to the client computer \cite{Javascript}. 
 
 TypeScript extends JavaScript by providing type safety and concepts such as interfaces, methods signatures, interfaces, enumerations and tuples. It provides a way to describe what type a variable has and helps to catch errors before the code is run. The type safety is assured during compilation from TypeScript to JavaScript \cite{Typescript}.
 
@@ -66,7 +66,7 @@ interface GameInterface {
 The following presented components are components that are crucial or heavily reused. Most of them are part of the user interaction system since all exercises need some kind of user interaction elements.
 
 \subsection*{Game}
-The \textit{game} component is the heart of the learning environment. This component defines the general structure of the exercises like the \nameref{subsection:gameButtons}, \nameref{subsection:tutorial} and shows the evaluation result of an exercise (figure \ref{fig:evaluationResult}). Every view uses this component and depending on the view, the \textit{game} component displays the corresponding exercise.
+The \textit{game} component is the heart of the learning environment. This component defines the general structure of the exercises like the \nameref{subsection:gameButtons}, \nameref{subsection:tutorial} and shows the evaluation result of an exercise (figure \ref{fig:evaluationResult}). Every view uses the \textit{game} component and it displays the exercise corresponding to the view.
 
 \begin{figure}[h]
     \centering
