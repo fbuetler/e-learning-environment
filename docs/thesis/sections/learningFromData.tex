@@ -171,7 +171,9 @@ type sudoku = sudokuField[][];
 The generation of an instance of the Tree Sudoku exercise is a bit more complicated, since the additional constraints of a Sudoku have to be considered. The approach taken here is to first generate an empty Tree Sudoku. In each round, a random tree is placed in a random field or a random value is placed in a random view slot until a solvable configuration is found. 
 
 The most basic operation on a Tree Sudoku is to decide whether it is valid or invalid. A Tree Sudoku is valid if every tree height appears exactly once in each row and column and the views match the placed trees.
+
 The same implementation is used to validate a Tree Sudoku during exercise generation and when pupils want to check their solution. Empty fields  are allowed during exercise generation, but not in a pupil's solution. Therefore, the validity check takes an additional argument to distinguish between those two cases: \code{complete}.
+
 For both ends of each row and column the amount of visible trees is calculated. If these values match the view slots the instance is evaluated as valid. The algorithm to check the validity can be found in listing \ref{lst:sudokuValidation}.
 
 %TC:ignore

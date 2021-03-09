@@ -88,29 +88,9 @@ for word in children_words:
   for pos in range(len(word)):
     for letter in ALPHABET:
       w = word[:pos] + letter + word[pos + 1 :]
-      if w != word and contains(allowed_words, w) and not w in change:
+      if contains(allowed_words, w) and not w in change:
         change.append(w.upper())
   similar_words["change"][1][word.upper()] = change
-
-  change = list()
-  for left_pos in range(len(word)):
-    for right_pos in range(left_pos + 1, len(word)):
-      for left_letter in ALPHABET:
-        for right_letter in ALPHABET:
-          if word[left_pos] == left_letter or word[right_pos] == right_letter:
-            continue
-          w = (
-            word[:left_pos]
-            + left_letter
-            + word[left_pos + 1 : right_pos]
-            + right_letter
-            + word[right_pos + 1 :]
-          )
-          if w != word and contains(allowed_words, w) and not w in change:
-            change.append(w.upper())
-  if len(change) >= MIN_SIMILAR_WORDS:
-    change.sort()
-    similar_words["change"][2][word.upper()] = change
 \end{lstlisting}
 %TC:endignore
 
@@ -214,6 +194,7 @@ This exercise combines the previous two. The pupils need to understand the summa
 \subsection*{Representing Numbers with Coins}
 
 The following exercises introduce a new number system and train an already learned one: the binary number system and the decimal number system. Both number systems are practiced with coins and with numbers. The binary coins include the following numbers: 1, 2, 4, 8, 16, 32 and 64 (figure \ref{fig:binary_coins}). The decimal coins include 1, 2, 5, 10, 20 and 50 (figure \ref{fig:decimal_coins}). 
+
 Overall, the same concepts are practiced for both number systems with the limitation that every binary coin can at most be used once.
 
 \begin{figure} 
@@ -251,6 +232,7 @@ Similar to the previous exercise, a sum in its coin representation is given and 
 
 The conversion exercises from the decimal number system to either the Mayan, decimal coins or binary coins all share the same logic implemented in the \code{To.vue} component (figure \ref{fig:coinsTo}).
 The same goes for the inverse direction (\code{From.vue} component, figure \ref{fig:coinsFrom}).
+
 However, adding Maya numbers (\code{Addition.vue}, figure \ref{fig:mayanAddition}) and reducing the amount of used coins (\code{Swap.vue}, figure \ref{fig:coinsSwap}) require their own logic and are therefore implemented in their own components.
 
 \begin{figure} 
@@ -290,6 +272,7 @@ The \code{To.vue} component is simple. It shows a a random number between one an
 \end{itemize}
 
 The pupils need to select items (either nuts, sticks or coins) with the correct value and place them such that they sum up to the shown random number.
+
 In addition, there is another difficulty level for the conversion to decimal coins, where the aim is to represent the displayed random number with as few decimal coins as possible. The algorithm to calculate the minimal amount of items necessary for a certain sum is given in listing \ref{lst:calcMinimalAmount} 
 
 

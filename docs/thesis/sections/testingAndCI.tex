@@ -2,6 +2,7 @@
 \label{chapter:testingAndCI}
 
 Implemented functionality should always be tested. Not only to ensure that it does what it is supposed to do, but also to avoid regression. Nothing is worse than introducing a bug by implementing a new feature without noticing it. Therefore, unit, snapshot and end-to-end tests are used to avoid regression in this project.
+
 Moreover, all tests are run on each commit to the GitLab repository.
 
 \section{Testing}
@@ -32,6 +33,7 @@ General purpose components are tested on their respective functionality, i.e whe
 
 \subsection*{Code Coverage}
 As mentioned before, unit tests usually test at the function level. To catch as many possible code paths and edge cases, the same function is tested multiple times with different inputs. 
+
 A metric to judge the usefulness of a test suite is code coverage. Usually, a coverage report includes:
 
 \begin{itemize}
@@ -90,7 +92,7 @@ A problem that has to be tackled for testing is how to handle non-determinism. S
 
 \subsection{Snapshot Testing}
 \label{subsection:snapshotTesting}
-Snapshot tests ensure correctness of the user interface and show an alert when it changes unexpectedly. More precisely, snapshot tests render the template of a component to HTML, take a snapshot and compare the snapshot with the previously saved reference snapshot. These two snapshots are compared. If they don't match, the test fails. Otherwise the test succeeds. If the changes made to the source code were intended to change the UI, the snapshot has to be updated. This requires an initial snapshot that is known to be correct. Hence, snapshots should be committed to the repository as well \cite{Jest}.
+Snapshot tests ensure correctness of the user interface and show an alert when it changes unexpectedly. More precisely, snapshot tests render the template of a component to HTML, take a snapshot and compare the snapshot with the previously saved reference snapshot. If they don't match, the test fails. Otherwise the test succeeds. If the changes made to the source code were intended to change the UI, the snapshot has to be updated. This requires an initial snapshot that is known to be correct. Hence, snapshots should be committed to the repository as well \cite{Jest}.
 
 Every component in this project is snapshot tested and is therefore safe from unintended UI changes.
 
@@ -106,6 +108,7 @@ Many exercises are based on non-determinism, which a user cannot influence. Thus
 \label{section:CI}
 
 This project make use of the GitLab Continuous Integration (CI). When pushing a commit to the project's GitLab repository, the CI pipeline is run (figure \ref{fig:pipeline}). The CI pipeline is specified in the \code{.gitlab-ci.yml} file in the project's root folder, which specifies which jobs need to be executed. Usually, these jobs build, test and validate changes made to the source code and allow to easily catch bugs and errors.
+
 The CI pipeline of this project consists of two parts:
 
 \begin{itemize}

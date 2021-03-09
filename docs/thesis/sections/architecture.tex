@@ -7,13 +7,14 @@ In this chapter the tools used for implementation and the basic architecture are
 
 \section{TypeScript}
 \label{section:typescript}
-JavaScript was published in 1996 and it is a dynamically typed scripting language and is intended to be used in browsers to extend the possibilities of HTML and CSS. It can dynamically manipulate HTML and CSS, validate user data, send and receive data without reloading the page and much more. JavaScript used in browsers is run on client-side i.e. the workload is shifted from the provider of the web application to the client computer \cite{Javascript}. 
+JavaScript is a dynamically typed scripting language and was published in 1996. It is intended to be used in browsers to extend the possibilities of HTML and CSS. It can dynamically manipulate HTML and CSS, validate user data, send and receive data without reloading the page and much more. JavaScript used in browsers is run on client-side i.e. the workload is shifted from the provider of the web application to the client computer \cite{Javascript}. 
 
 TypeScript extends JavaScript by providing type safety and concepts such as interfaces, methods signatures, interfaces, enumerations and tuples. It provides a way to describe what type a variable has and helps to catch errors before the code is run. The type safety is assured during compilation from TypeScript to JavaScript \cite{Typescript}.
 
 \section{Vue.js}
 \label{section:vuejs}
 Vue.js is a reactive, client-side JavaScript web framework developed by Evan You and its community starting in 2014. It is an alternative to Angular and React and was developed to be a lightweight version of Angular. Vue.js is also based on reusable components, each having its own HTML, JavaScript and CSS. The reactivity system of Vue.js allows changes made to the application data to be automatically reflected in the browser.
+
 When the development of this project started in November 2020, Vue.js version 3 was already published. However, Vue.js version 2 is used in this project, because the ecosystem has not caught up yet and many libraries only work with version 2 \cite{Vue}.
 
 \subsection{Components}
@@ -28,6 +29,26 @@ Vue.js supports bi-directional communication between parent and child components
 
 \subsection{Best Practices}
 The following list represent the best practice that were applied in this project. To see examples for each best practice visit the Vue.js style guide  \cite{VueStyleGuide}.
+
+\begin{itemize}
+    \item Properties should be as detailed as possible and at least have a type.
+    \item Always use \code{key} with \code{v-for} to maintain the internal component state.
+    \item Avoid \code{v-if} with \code{v-for}
+    \item Only the top-level \code{App} component and layout components should have global styles. All other components should always have scoped styles i.e. the styles is only used within the component.
+    \item Each component is in its own file.
+    \item Filenames are in PascalCase.
+    \item Components without any content should be self-closing e.g \code{<Component />} instead of \code{<Component><Component/>}.
+    \item Components name casing in templates is PascalCase.
+    \item Properties name casing is camelCase.
+    \item Elements with multiple attributes should span multiple lines, with one attribute on each line.
+    \item Component templates should only contain simple expressions. Complex expressions should be moved into computed properties or methods.
+    \item Element attribute values should be quoted.
+    \item Directive short hands are always used.
+    \item Element attributes should be ordered consistently.
+    \item Components should be ordered like \code{<templates>}, \code{<script>} and \code{<style>}.
+    \item Element selectors should be avoided with \code{scoped}
+    \item Properties and events should be used for parent-child communication.
+\end{itemize}
 
 \section{Basic Functionality}
 \label{section:basicFunctionality}
@@ -124,7 +145,7 @@ Some exercises have multiple difficulty levels (figure \ref{fig:difficultyLevels
 \label{subsection:tutorial}
 To introduce an exercise to the pupils the title of the exercise and a short instruction is not enough. Therefore, for each exercise there is a detailed explanation and a tutorial video (figure \ref{fig:tutorialButton} and figure \ref{fig:tutorialExample}). The tutorial video shows an example run first giving a wrong solution, then restarting the exercise and finally giving the correct solution.
 
-The tutorial videos were recorded using a screen capture tool. The main reason for this is that the tutorial video needs to be redone whenever the user interface changes. With this, rerecording the tutorial video is much more convenient. Moving the mouse by hand introduces a jitter to the mouse movement, which might be irritating. The tutorial, on the other hand, should clearly show how to solve the exercise. Since this cannot be done by an average human being, the mouse movement is done programmatically. 
+The tutorial videos were created programmatically and recorded using a screen capture tool. The main reason for this is that the tutorial video needs to be redone whenever the user interface changes. With this, rerecording the tutorial video is much more convenient. Moving the mouse by hand introduces a jitter to the mouse movement, which might be irritating. The tutorial, on the other hand, should clearly show how to solve the exercise. Since this cannot be done by an average human being, the mouse movement is done programmatically. 
 
 Each graphical element part of the exercise has an ID and one can give a list of IDs that should be visited in a run. The tutorial video then shows a mouse visiting and interacting with these graphical elements, demonstrating how to solve the exercise. 
 
