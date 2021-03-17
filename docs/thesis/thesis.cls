@@ -379,7 +379,7 @@
 
       \vfill
       \begin{center}
-        \textbf{Supervisor:} \\[2pt] \@supervisors
+        \textbf{Supervisors:} \\[2pt] \@supervisors
       \end{center}
 
       \vspace{0.2cm}
