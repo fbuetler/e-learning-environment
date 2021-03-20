@@ -1,14 +1,20 @@
 <template>
-  <div class="cards">
-    <div v-for="item in items" :key="item.id" class="card clickable">
-      <router-link :to="item.path">
-        <div class="card-image flex-item flex-center responsive">
-          <img :src="require('@/assets/' + item.img)" />
-        </div>
-        <div class="card-container">
-          {{ item.title }}
-        </div>
-      </router-link>
+  <div>
+    <div>
+      <h2>EINFACH INFORMATIK 3/4</h2>
+      <h3>Rätsel und Spiele mit symbolischen Informationsdarstellungen</h3>
+    </div>
+    <div class="cards">
+      <div v-for="item in items" :key="item.id" class="card clickable">
+        <router-link :to="item.path">
+          <div class="card-image flex-item flex-center responsive">
+            <img :src="require('@/assets/' + item.img)" />
+          </div>
+          <div class="card-container">
+            {{ item.title }}
+          </div>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
