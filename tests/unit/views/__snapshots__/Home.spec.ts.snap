@@ -1,428 +1,440 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home.vue renders correctly 1`] = `
-<div
-  class="cards"
->
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
-        
-        Ähnliche Wörter: Buchstaben hinzufügen
-      
-      </div>
-    </a>
+<div>
+  <div>
+    <h2>
+      EINFACH INFORMATIK 3/4
+    </h2>
+     
+    <h3>
+      Rätsel und Spiele mit symbolischen Informationsdarstellungen
+    </h3>
   </div>
+   
   <div
-    class="card clickable"
+    class="cards"
   >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Ähnliche Wörter: Buchstaben hinzufügen
         
-        Ähnliche Wörter: Buchstaben austauschen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Ähnliche Wörter: Buchstaben austauschen
         
-        Ähnliche Wörter: Buchstaben entfernen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Ähnliche Wörter: Buchstaben entfernen
         
-        Ähnliche Wörter: Buchstaben vertauschen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Ähnliche Wörter: Buchstaben vertauschen
         
-        Maya-Zahlen darstellen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Maya-Zahlen darstellen
         
-        Maya-Zahlen verstehen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Maya-Zahlen verstehen
         
-        Maya-Zahlen addieren
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Maya-Zahlen addieren
         
-        Bezahlen mit Münzen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Bezahlen mit Münzen
         
-        Münzbeträge ausrechnen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Münzbeträge ausrechnen
         
-        Gleichwertige Münzen tauschen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Gleichwertige Münzen tauschen
         
-        Zahlen mit binären Münzen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Zahlen mit binären Münzen
         
-        Binäre Münzbeträge ausrechnen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Binäre Münzbeträge ausrechnen
         
-        Mit Muster entschlüsseln
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Mit Muster entschlüsseln
         
-        Mit Muster verschlüsseln
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Mit Muster verschlüsseln
         
-        Mit Zeichen entschlüsseln
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Mit Zeichen entschlüsseln
         
-        Mit Zeichen verschlüsseln
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Mit Zeichen verschlüsseln
         
-        Reihe aus 3 Bäumen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Reihe aus 3 Bäumen
         
-        3x3-Baumsudoku
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          3x3-Baumsudoku
         
-        Reihe aus 4 Bäumen
-      
-      </div>
-    </a>
-  </div>
-  <div
-    class="card clickable"
-  >
-    <a>
-      <div
-        class="card-image flex-item flex-center responsive"
-      >
-        <img
-          src=""
-        />
-      </div>
-       
-      <div
-        class="card-container"
-      >
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          Reihe aus 4 Bäumen
         
-        4x4-Baumsudoku
-      
-      </div>
-    </a>
+        </div>
+      </a>
+    </div>
+    <div
+      class="card clickable"
+    >
+      <a>
+        <div
+          class="card-image flex-item flex-center responsive"
+        >
+          <img
+            src=""
+          />
+        </div>
+         
+        <div
+          class="card-container"
+        >
+          
+          4x4-Baumsudoku
+        
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 `;
