@@ -2,10 +2,9 @@
   <Game :type="type">
     <h2 slot="title">{{ title }}</h2>
     <p slot="description">
-      Die Bieber verwenden eine geheimnisvolle Tabelle, um Ziffern und
-      Buchstaben mit ganz neuen Symbolen zu kodieren. Kannst du den Biebern
-      einen Geheimtext übermitteln, so dass sie die Nachricht entschlüsseln und
-      verstehen können?
+      Die Biber verwenden eine geheimnisvolle Tabelle, um Ziffern und Buchstaben
+      mit ganz neuen Symbolen zu kodieren. Kannst du den Bibern einen Geheimtext
+      übermitteln, so dass sie die Nachricht entschlüsseln und verstehen können?
     </p>
     <video loop controls muted slot="video">
       <source :src="require('@/assets/tutorials/' + video)" />

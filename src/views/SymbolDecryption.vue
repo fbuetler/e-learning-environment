@@ -2,7 +2,7 @@
   <Game :type="type">
     <h2 slot="title">{{ title }}</h2>
     <p slot="description">
-      Die Bieber verwenden eine geheimnisvolle Tabelle, um Ziffern und
+      Die Biber verwenden eine geheimnisvolle Tabelle, um Ziffern und
       Buchstaben mit ganz neuen Symbolen zu kodieren. Kannst du den Geheimtext
       lesen?
     </p>
