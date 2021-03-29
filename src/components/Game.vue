@@ -85,9 +85,8 @@ export enum GameType {
   TODO:
     - reorder buttons: next, check, difficulty, undo, trashcan, tutorial
     - visual feedback for wrong input e.g in binary coins/to (search for shake func)
-    - symbol/encryption does not provide content: what to do?
+    - add impressum (with link to simpleicon.com)
     - optional: unit tests for each function
-    - optional: add difficulty level to numbersystems/swap: minimal items 
     - optional: mouse click effect in tutorial videos
 */
 
