@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  node:
+    image: e-learning-environment
+
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "8080:80"
