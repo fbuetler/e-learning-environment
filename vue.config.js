@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "/lernumgebungen/einfach-informatik-3-4",
+  publicPath: "/",
   configureWebpack: {
     devtool: "source-map",
   },
